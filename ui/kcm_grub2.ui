@@ -1,0 +1,875 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>KCMGRUB2</class>
+ <widget class="QWidget" name="KCMGRUB2">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>457</width>
+    <height>456</height>
+   </rect>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_5">
+   <item row="0" column="0">
+    <widget class="KTabWidget" name="ktabwidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string comment="@title:tab">General</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_4">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_default">
+         <property name="title">
+          <string comment="@title:group">Default Entry</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_5">
+          <item row="0" column="0" colspan="2">
+           <layout class="QFormLayout" name="formLayout">
+            <property name="fieldGrowthPolicy">
+             <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+            </property>
+            <item row="0" column="0">
+             <widget class="QRadioButton" name="radioButton_default">
+              <property name="text">
+               <string comment="@option:radio">Default Entry:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="KComboBox" name="kcombobox_default">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QRadioButton" name="radioButton_saved">
+            <property name="text">
+             <string comment="@option:radio">Default Entry Is Defined Using 'grub-set-default' or 'grub-reboot'</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="checkBox_savedefault">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string comment="@option:check">The next booted entry will become default</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox_timeout">
+         <property name="title">
+          <string comment="@title:group">Timeout</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_4">
+          <item row="0" column="0" colspan="2">
+           <layout class="QFormLayout" name="formLayout_2">
+            <item row="0" column="0">
+             <widget class="QCheckBox" name="checkBox_hiddenTimeout">
+              <property name="text">
+               <string comment="@option:check">Hide the menu for:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="KIntSpinBox" name="kintspinbox_hiddenTimeout">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="suffix">
+               <string comment="@label:spinbox seconds (suffix)">s</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Minimum</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="1" column="1">
+           <widget class="QCheckBox" name="checkBox_hiddenTimeoutShowTimer">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string comment="@option:check">Show countdown timer</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QCheckBox" name="checkBox_timeout">
+            <property name="text">
+             <string comment="@option:check">Automatically boot the default entry after showing the menu</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="3" column="1">
+           <widget class="QRadioButton" name="radioButton_timeout0">
+            <property name="enabled">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string comment="@option:radio">Immediately</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>21</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="4" column="1">
+           <layout class="QFormLayout" name="formLayout_3">
+            <property name="fieldGrowthPolicy">
+             <enum>QFormLayout::ExpandingFieldsGrow</enum>
+            </property>
+            <item row="0" column="0">
+             <widget class="QRadioButton" name="radioButton_timeout">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string comment="@option:radio">After:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="KIntSpinBox" name="kintspinbox_timeout">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="suffix">
+               <string comment="@label:spinbox seconds (suffix)">s</string>
+              </property>
+              <property name="minimum">
+               <number>1</number>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>43</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_3">
+      <attribute name="title">
+       <string comment="@title:tab">Appearance</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_resolutions">
+         <property name="title">
+          <string comment="@title:group">Resolutions</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_9">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_gfxmode">
+            <property name="text">
+             <string comment="@label:textbox">GRUB:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="KLineEdit" name="klineedit_gfxmode"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_gfxpayload">
+            <property name="text">
+             <string comment="@label">Linux Kernel:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QRadioButton" name="radioButton_gfxpayloadText">
+            <property name="text">
+             <string comment="@option:radio">Boot in Text Mode</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QRadioButton" name="radioButton_gfxpayloadKeep">
+            <property name="text">
+             <string comment="@option:radio">Keep GRUB's Resolution</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QRadioButton" name="radioButton_gfxpayloadOther">
+              <property name="text">
+               <string comment="@option:radio">Other:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="KLineEdit" name="klineedit_gfxpayload">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox_colors">
+         <property name="title">
+          <string comment="@title:group">Colors</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout">
+          <item row="0" column="0">
+           <widget class="QCheckBox" name="checkBox_normalColor"/>
+          </item>
+          <item row="0" column="1" rowspan="2">
+           <layout class="QFormLayout" name="formLayout_10">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_normalBackground">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string comment="@label:chooser">Normal Background:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="KColorButton" name="kcolorbutton_normalBackground">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_highlightBackground">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string comment="@label:chooser">Highlight Background:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="KColorButton" name="kcolorbutton_highlightBackground">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="0" column="2" rowspan="2">
+           <layout class="QFormLayout" name="formLayout_12">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_normalForeground">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string comment="@label:chooser">Normal Foreground:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="KColorButton" name="kcolorbutton_normalForeground">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_highlightForeground">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+              <property name="text">
+               <string comment="@label:chooser">Highlight Foreground:</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="KColorButton" name="kcolorbutton_highlightForeground">
+              <property name="enabled">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item row="1" column="0">
+           <widget class="QCheckBox" name="checkBox_highlightColor"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QGroupBox" name="groupBox_background">
+         <property name="title">
+          <string comment="@title:group">Background</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_11">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_background">
+            <property name="text">
+             <string comment="@label:textbox">Wallpaper:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="KUrlRequester" name="kurlrequester_background"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_theme">
+            <property name="text">
+             <string comment="@label:textbox">Theme:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KUrlRequester" name="kurlrequester_theme"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <spacer name="verticalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>69</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string comment="@title:tab">Advanced</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_linux">
+         <property name="title">
+          <string comment="@title:group">Linux Kernel Arguments</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_6">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_cmdlineDefault">
+            <property name="text">
+             <string comment="@label:textbox">Normal Entries:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="KLineEdit" name="klineedit_cmdlineDefault"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_cmdline">
+            <property name="text">
+             <string comment="@label:textbox">All Entries:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KLineEdit" name="klineedit_cmdline"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QGroupBox" name="groupBox_terminal">
+         <property name="title">
+          <string comment="@title:group">Terminal</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_7">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_terminal">
+            <property name="text">
+             <string comment="@label:textbox">Terminal:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="KLineEdit" name="klineedit_terminal"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_terminalInput">
+            <property name="text">
+             <string comment="@label:textbox">Input Terminal:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KLineEdit" name="klineedit_terminalInput"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_terminalOutput">
+            <property name="text">
+             <string comment="@label:textbox">Output Terminal:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="KLineEdit" name="klineedit_terminalOutput"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QGroupBox" name="groupBox_other">
+         <property name="title">
+          <string comment="@title:group">Other</string>
+         </property>
+         <layout class="QFormLayout" name="formLayout_8">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_distributor">
+            <property name="text">
+             <string comment="@label:textbox">Distributor:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="KLineEdit" name="klineedit_distributor"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_serial">
+            <property name="text">
+             <string comment="@label:textbox">Serial Command:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="KLineEdit" name="klineedit_serial"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_uuid">
+            <property name="text">
+             <string comment="@option:check">Enable UUIDs:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="checkBox_uuid"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_recovery">
+            <property name="text">
+             <string comment="@option:check">Generate recovery entries:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="checkBox_recovery"/>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_osProber">
+            <property name="text">
+             <string comment="@option:check">Probe for operating systems:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QCheckBox" name="checkBox_osProber"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <spacer name="verticalSpacer_2">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>43</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KIntSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>knuminput.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KUrlRequester</class>
+   <extends>QFrame</extends>
+   <header>kurlrequester.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KColorButton</class>
+   <extends>QPushButton</extends>
+   <header>kcolorbutton.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KTabWidget</class>
+   <extends>QTabWidget</extends>
+   <header>ktabwidget.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>checkBox_hiddenTimeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kintspinbox_hiddenTimeout</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>71</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>190</x>
+     <y>186</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_hiddenTimeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_hiddenTimeoutShowTimer</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>185</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>101</x>
+     <y>214</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_timeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>radioButton_timeout0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>41</x>
+     <y>236</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>79</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_timeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>radioButton_timeout</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>68</x>
+     <y>240</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>94</x>
+     <y>289</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_timeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kintspinbox_timeout</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>81</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>139</x>
+     <y>290</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_default</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcombobox_default</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>79</x>
+     <y>74</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>143</x>
+     <y>74</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_saved</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_savedefault</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>103</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>84</x>
+     <y>126</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_normalColor</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_normalBackground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>145</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_normalColor</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcolorbutton_normalBackground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_normalColor</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_normalForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>367</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_normalColor</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcolorbutton_normalForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>223</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>436</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_highlightColor</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcolorbutton_highlightForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>252</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>436</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_highlightColor</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_highlightForeground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>252</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>367</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_highlightColor</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>kcolorbutton_highlightBackground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>252</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>239</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_highlightColor</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>label_highlightBackground</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>43</x>
+     <y>252</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>137</x>
+     <y>253</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_gfxpayloadOther</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>klineedit_gfxpayload</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>135</x>
+     <y>151</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>212</x>
+     <y>145</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

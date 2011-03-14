@@ -1,0 +1,15 @@
+[Desktop Entry]
+Icon=system-reboot
+Type=Service
+X-KDE-ServiceTypes=KCModule
+Exec=kcmshell4 kcm_grub2
+
+X-KDE-Library=kcm_grub2
+X-KDE-ParentApp=kcontrol
+
+X-KDE-System-Settings-Parent-Category=startup-and-shutdown
+
+Name=GRUB2 Bootloader
+Comment=Customise the GRUB2 bootloader
+X-KDE-Keywords=grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader
+Categories=Qt;KDE;X-KDE-settings-system;

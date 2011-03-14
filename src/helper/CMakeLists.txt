@@ -1,0 +1,5 @@
+kde4_add_executable(kcmgrub2helper helper.cpp)
+target_link_libraries(kcmgrub2helper ${KDE4_KDECORE_LIBS})
+install(TARGETS kcmgrub2helper DESTINATION ${LIBEXEC_INSTALL_DIR})
+kde4_install_auth_helper_files(kcmgrub2helper org.kde.kcontrol.kcmgrub2 root)
+kde4_install_auth_actions(org.kde.kcontrol.kcmgrub2 kcmgrub2.actions)

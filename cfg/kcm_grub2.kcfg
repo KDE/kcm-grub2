@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kcfg xmlns="http://www.kde.org/standards/kcfg/1.0"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.kde.org/standards/kcfg/1.0
+                          http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
+  <kcfgfile name="kcm_grub2rc"/>
+  <group name="Paths">
+    <entry name="menuPaths" type="PathList">
+      <label>A path list of known GRUB menu files.</label>
+      <default>/boot/grub/grub.cfg,/boot/grub/grub.conf</default>
+    </entry>
+    <entry name="configPaths" type="PathList">
+      <label>A path list of known GRUB config files.</label>
+      <default>/etc/default/grub</default>
+    </entry>
+  </group>
+</kcfg>

@@ -1,0 +1,27 @@
+[Domain]
+Name=GRUB2 Bootloader Control Module
+Icon=system-reboot
+
+[org.kde.kcontrol.kcmgrub2.load]
+Name=Load the GRUB2 Bootloader settings
+Description=Administrator authorization is required to load the GRUB2 Bootloader settings
+Policy=yes
+Persistence=session
+
+[org.kde.kcontrol.kcmgrub2.probe]
+Name=Probe a file for GRUB2 naming information
+Description=Administrator authorization is required to probe a file for GRUB2 naming information
+Policy=yes
+Persistence=session
+
+[org.kde.kcontrol.kcmgrub2.save]
+Name=Save the GRUB2 Bootloader settings
+Description=Administrator authorization is required to save the GRUB2 Bootloader settings
+Policy=yes
+Persistence=session
+
+[org.kde.kcontrol.kcmgrub2.update]
+Name=Update the GRUB2 Bootloader menu
+Description=Administrator authorization is required to update the GRUB2 Bootloader menu
+Policy=yes
+Persistence=session

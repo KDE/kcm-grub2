@@ -1,0 +1,27 @@
+v.0.2.5 (13/03/2011)
+--------------------
+*ADDED: Resolution options improved.
+*ADDED: Visual color management.
+*ADDED: File selection dialogs for Wallpaper and Theme.
+*ADDED: Incorporated CPack in the build system.
+*FIXED: Improved detection of GRUB's configuration files (depends on distributions).
+
+v.0.2.0 (10/03/2011)
+--------------------
+*ADDED: A script to extract translatable strings into a translation template.
+*ADDED: Option to choose another GRUB file, in case a file other than the default is used.
+*ADDED: Support for GRUB_DISABLE_LINUX_UUID, GRUB_DISABLE_RECOVERY, GRUB_DISABLE_OS_PROBER.
+*FIXED: More consistent reporting of 'grub-mkconfig' output.
+*FIXED: A bug which always set GRUB_SAVEDEFAULT to an empty string if not explicitly set.
+
+v.0.1.5 (09/03/2011)
+--------------------
+*ADDED: Process and view the output from 'grub-mkconfig' while updating the menu.
+*ADDED: Option whether or not to run 'grub-mkconfig' after saving.
+*ADDED: Detailed information in case 'grub-mkconfig' fails.
+*FIXED: Proper argument quoting for 'grub-mkconfig' (to avoid potential security holes).
+*FIXED: Quote only values that need quoting, not all of them.
+
+v.0.1.0 (07/03/2011)
+--------------------
+*Initial release
