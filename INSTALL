@@ -1,12 +1,21 @@
-Change to the directory where you extracted the source code and run:
+Enter the directory where you extracted the source code and run:
 
-mkdir build
-cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix`
-make
-sudo make install
+$ mkdir build
+$ cd build
+$ cmake .. -DCMAKE_INSTALL_PREFIX=`kde4-config --prefix`
+$ make
+$ sudo make install
 
-You may then find the GRUB2 KCModule under "Startup and Shutdown" in System Settings. (You may have to run "kbuildsycoca4" the first time you install in order to appear in System Settings).
-You may also launch it using "kcmshell4 kcm_grub2".
+You may then find the GRUB2 KCModule under "Startup and Shutdown" in System Settings.
+You may also launch it running:
 
-Requires KDE >= 4.4
+$ kcmshell4 kcm_grub2
+
+In order to appear in System Settings the first time you install the GRUB2 KCModule, you may have to run:
+
+$ kbuildsycoca4
+
+Requires KDE >= 4.4, Qt >= 4.5, GRUB2.
+Minimum requirement is kdebase-runtime. Install kdebase-workspace for System Settings integration.
+
+Note: '$' indicates a shell prompt.
