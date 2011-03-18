@@ -154,7 +154,8 @@ void KCMGRUB2::save()
         QString key = it.key(), value = it.value();
         if ((key.compare("GRUB_BACKGROUND", Qt::CaseInsensitive) == 0) || (key.compare("GRUB_THEME", Qt::CaseInsensitive) == 0)) {
             value = convertToGRUBFileName(value);
-        } else if (!it.value().startsWith('`') || !it.value().endsWith('`')) {
+        }
+        if (!value.startsWith('`') || !value.endsWith('`')) {
             value = KShell::quoteArg(value);
         }
         stream << key << '=' << value << endl;
