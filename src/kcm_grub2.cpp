@@ -30,6 +30,7 @@
 #include <KPluginFactory>
 #include <KProgressDialog>
 #include <KShell>
+#include <KSplashScreen>
 #include <KAuth/Action>
 #include <KAuth/ActionReply>
 #include <KAuth/ActionWatcher>
@@ -48,14 +49,15 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
     setAboutData(about);
 
     setupUi(this);
-    setButtons(Apply);
-    setNeedsAuthorization(true);
+    setupObjects();
+    setupConnections();
 }
 
 void KCMGRUB2::load()
 {
-    readSettings();
+    readDevices();
     readEntries();
+    readSettings();
 
     kcombobox_default->blockSignals(true);
     kcombobox_default->addItems(m_entries);
@@ -124,6 +126,7 @@ void KCMGRUB2::load()
         checkBox_highlightColor->setChecked(false);
     }
     kurlrequester_background->setText(m_settings.value("GRUB_BACKGROUND"));
+    kpushbutton_preview->setEnabled(!m_settings.value("GRUB_BACKGROUND").isEmpty());
     kurlrequester_theme->setText(m_settings.value("GRUB_THEME"));
     kcolorbutton_normalForeground->blockSignals(false);
     kcolorbutton_normalBackground->blockSignals(false);
@@ -147,12 +150,14 @@ void KCMGRUB2::save()
 {
     QString config;
     QTextStream stream(&config, QIODevice::WriteOnly | QIODevice::Text);
-    for (QMap<QString, QString>::const_iterator it = m_settings.constBegin(); it != m_settings.constEnd(); it++) {
-        if (it.value().startsWith('`') && it.value().endsWith('`')) {
-            stream << it.key() << '=' << it.value() << endl;
-            continue;
+    for (QHash<QString, QString>::const_iterator it = m_settings.constBegin(); it != m_settings.constEnd(); it++) {
+        QString key = it.key(), value = it.value();
+        if ((key.compare("GRUB_BACKGROUND", Qt::CaseInsensitive) == 0) || (key.compare("GRUB_THEME", Qt::CaseInsensitive) == 0)) {
+            value = convertToGRUBFileName(value);
+        } else if (!it.value().startsWith('`') || !it.value().endsWith('`')) {
+            value = KShell::quoteArg(value);
         }
-        stream << it.key() << '=' << KShell::quoteArg(it.value()) << endl;
+        stream << key << '=' << value << endl;
     }
     if (!saveFile(Settings::configPaths().at(0), config)) {
         return;
@@ -314,27 +319,6 @@ void KCMGRUB2::on_kcolorbutton_highlightBackground_changed(const QColor &newColo
     m_settings["GRUB_COLOR_HIGHLIGHT"] = kcolorbutton_highlightForeground->color().name() + '/' + newColor.name();
     emit changed(true);
 }
-void KCMGRUB2::on_kurlrequester_background_urlSelected(const KUrl &url)
-{
-    QString fileName = url.toLocalFile();
-    Action probeAction("org.kde.kcontrol.kcmgrub2.probe");
-    probeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    probeAction.addArgument("fileName", fileName);
-
-    ActionReply reply = probeAction.execute();
-    if (reply.failed()) {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to probe GRUB information for <filename>%1</filename>.", fileName), reply.data().value("output").toString());
-        return;
-    }
-
-    QString partition = reply.data().value("output").toString().trimmed();
-    QString mountpoint = KMountPoint::currentMountPoints().findByPath(fileName)->mountPoint();
-    if (mountpoint.compare("/") != 0) {
-        fileName.remove(0, mountpoint.length());
-    }
-    fileName.prepend(partition);
-    kurlrequester_background->setText(fileName);
-}
 void KCMGRUB2::on_kurlrequester_background_textChanged(const QString &text)
 {
     if (!text.isEmpty()) {
@@ -342,28 +326,20 @@ void KCMGRUB2::on_kurlrequester_background_textChanged(const QString &text)
     } else {
         m_settings.remove("GRUB_BACKGROUND");
     }
+    kpushbutton_preview->setEnabled(!text.isEmpty());
     emit changed(true);
 }
-void KCMGRUB2::on_kurlrequester_theme_urlSelected(const KUrl &url)
+void KCMGRUB2::on_kpushbutton_preview_clicked(bool checked)
 {
-    QString fileName = url.toLocalFile();
-    Action probeAction("org.kde.kcontrol.kcmgrub2.probe");
-    probeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    probeAction.addArgument("fileName", fileName);
-
-    ActionReply reply = probeAction.execute();
-    if (reply.failed()) {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to probe GRUB information for <filename>%1</filename>.", fileName), reply.data().value("output").toString());
+    Q_UNUSED(checked)
+    QFile file(kurlrequester_background->url().toLocalFile());
+    if (!file.open(QIODevice::ReadOnly)) {
         return;
     }
 
-    QString partition = reply.data().value("output").toString().trimmed();
-    QString mountpoint = KMountPoint::currentMountPoints().findByPath(fileName)->mountPoint();
-    if (mountpoint.compare("/") != 0) {
-        fileName.remove(0, mountpoint.length());
-    }
-    fileName.prepend(partition);
-    kurlrequester_theme->setText(fileName);
+    KSplashScreen *splash = new KSplashScreen(QPixmap::fromImage(QImage::fromData(file.readAll())));
+    splash->setAttribute(Qt::WA_DeleteOnClose);
+    splash->show();
 }
 void KCMGRUB2::on_kurlrequester_theme_textChanged(const QString &text)
 {
@@ -466,6 +442,44 @@ void KCMGRUB2::on_checkBox_osProber_clicked(bool checked)
     emit changed(true);
 }
 
+void KCMGRUB2::setupObjects()
+{
+    setButtons(Apply);
+    setNeedsAuthorization(true);
+
+    kpushbutton_preview->setIcon(KIcon("image-png"));
+}
+void KCMGRUB2::setupConnections()
+{
+}
+
+QString KCMGRUB2::convertToGRUBFileName(const QString &fileName)
+{
+    QString grubFileName = fileName;
+    QString mountpoint = KMountPoint::currentMountPoints().findByPath(grubFileName)->mountPoint();
+    if (m_devices.contains(mountpoint)) {
+        if (mountpoint.compare("/") != 0) {
+            grubFileName.remove(0, mountpoint.length());
+        }
+        grubFileName.prepend(m_devices.value(mountpoint));
+    }
+    return grubFileName;
+}
+QString KCMGRUB2::convertToLocalFileName(const QString &grubFileName)
+{
+    QString fileName = grubFileName;
+    for (QHash<QString, QString>::const_iterator it = m_devices.constBegin(); it != m_devices.constEnd(); it++) {
+        if (fileName.startsWith(it.value())) {
+            fileName.remove(0, it.value().length());
+            if (it.key().compare("/") != 0) {
+                fileName.prepend(it.key());
+            }
+            break;
+        }
+    }
+    return fileName;
+}
+
 QString KCMGRUB2::readFile(const QString &fileName)
 {
     QFile file(fileName);
@@ -522,6 +536,7 @@ void KCMGRUB2::updateGRUB(const QString &fileName)
         progressDlg->show();
         connect(updateAction.watcher(), SIGNAL(actionPerformed(ActionReply)), progressDlg, SLOT(hide()));
         ActionReply reply = updateAction.execute();
+        delete progressDlg;
         if (reply.succeeded()) {
             KDialog *dialog = new KDialog(this, Qt::Dialog);
             dialog->setCaption(i18nc("@title:window", "Information"));
@@ -533,42 +548,46 @@ void KCMGRUB2::updateGRUB(const QString &fileName)
         } else {
             KMessageBox::detailedError(this, i18nc("@info", "Failed to update the GRUB menu."), reply.data().value("output").toString());
         }
-        delete progressDlg;
     }
 }
 
-bool KCMGRUB2::readSettings()
+bool KCMGRUB2::readDevices()
 {
-    QStringList fileNames = Settings::configPaths();
-    for (int i = 0; i < fileNames.size(); i++) {
-        QString fileContents = readFile(fileNames.at(i));
-        if (!fileContents.isEmpty()) {
-            if (i != 0) {
-                fileNames.prepend(fileNames.at(i));
-                fileNames.removeDuplicates();
-                Settings::setConfigPaths(fileNames);
-                Settings::self()->writeConfig();
+    QStringList mountPoints;
+    foreach(const KMountPoint::Ptr mp, KMountPoint::currentMountPoints()) {
+        if (mp->mountedFrom().startsWith("/dev")) {
+            mountPoints.append(mp->mountPoint());
+        }
+    }
+
+    Action probeAction("org.kde.kcontrol.kcmgrub2.probe");
+    probeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+    probeAction.addArgument("mountPoints", mountPoints);
+
+    if (probeAction.authorize() == Action::Authorized) {
+        KProgressDialog *progressDlg = new KProgressDialog(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names..."));
+        progressDlg->setAllowCancel(false);
+        progressDlg->progressBar()->setMinimum(0);
+        progressDlg->progressBar()->setMaximum(0);
+        progressDlg->show();
+        connect(probeAction.watcher(), SIGNAL(actionPerformed(ActionReply)), progressDlg, SLOT(hide()));
+        ActionReply reply = probeAction.execute();
+        delete progressDlg;
+        if (reply.succeeded()) {
+            QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();
+            if (mountPoints.size() != grubPartitions.size()) {
+                KMessageBox::error(this, i18nc("@info", "Helper returned malformed device list."));
+                return false;
             }
-            parseSettings(fileContents);
-            return true;
+            for (int i = 0; i < mountPoints.size(); i++) {
+                m_devices[mountPoints.at(i)] = grubPartitions.at(i);
+            }
+        } else {
+            KMessageBox::error(this, i18nc("@info", "Failed to get GRUB device names."));
+            return false;
         }
     }
-    while (KMessageBox::questionYesNoList(this, i18nc("@info", "<para>None of the following files were readable.</para><para>Select another file?</para>"), fileNames) == KMessageBox::Yes) {
-        QString newPath = KFileDialog::getOpenFileName();
-        if (newPath.isEmpty()) {
-            break;
-        }
-        fileNames.prepend(newPath);
-        fileNames.removeDuplicates();
-        Settings::setConfigPaths(fileNames);
-        Settings::self()->writeConfig();
-        QString fileContents = readFile(newPath);
-        if (!fileContents.isEmpty()) {
-            parseSettings(fileContents);
-            return true;
-        }
-    }
-    return false;
+    return true;
 }
 bool KCMGRUB2::readEntries()
 {
@@ -603,6 +622,40 @@ bool KCMGRUB2::readEntries()
     }
     return false;
 }
+bool KCMGRUB2::readSettings()
+{
+    QStringList fileNames = Settings::configPaths();
+    for (int i = 0; i < fileNames.size(); i++) {
+        QString fileContents = readFile(fileNames.at(i));
+        if (!fileContents.isEmpty()) {
+            if (i != 0) {
+                fileNames.prepend(fileNames.at(i));
+                fileNames.removeDuplicates();
+                Settings::setConfigPaths(fileNames);
+                Settings::self()->writeConfig();
+            }
+            parseSettings(fileContents);
+            return true;
+        }
+    }
+    while (KMessageBox::questionYesNoList(this, i18nc("@info", "<para>None of the following files were readable.</para><para>Select another file?</para>"), fileNames) == KMessageBox::Yes) {
+        QString newPath = KFileDialog::getOpenFileName();
+        if (newPath.isEmpty()) {
+            break;
+        }
+        fileNames.prepend(newPath);
+        fileNames.removeDuplicates();
+        Settings::setConfigPaths(fileNames);
+        Settings::self()->writeConfig();
+        QString fileContents = readFile(newPath);
+        if (!fileContents.isEmpty()) {
+            parseSettings(fileContents);
+            return true;
+        }
+    }
+    return false;
+}
+
 void KCMGRUB2::parseSettings(const QString &config)
 {
     QString line, settingsConfig = config;
@@ -612,6 +665,12 @@ void KCMGRUB2::parseSettings(const QString &config)
         if (line.startsWith("GRUB_", Qt::CaseInsensitive)) {
             m_settings[line.section('=', 0, 0)] = unquoteWord(line.section('=', 1, QString::SectionIncludeTrailingSep));
         }
+    }
+    if (m_settings.contains("GRUB_BACKGROUND")) {
+        m_settings["GRUB_BACKGROUND"] = convertToLocalFileName(m_settings.value("GRUB_BACKGROUND"));
+    }
+    if (m_settings.contains("GRUB_THEME")) {
+        m_settings["GRUB_THEME"] = convertToLocalFileName(m_settings.value("GRUB_THEME"));
     }
 }
 void KCMGRUB2::parseEntries(const QString &config)

@@ -20,7 +20,6 @@
 
 //Qt
 #include <QFile>
-#include <QProcessEnvironment>
 #include <QTextStream>
 
 //KDE
@@ -48,15 +47,22 @@ ActionReply Helper::load(QVariantMap args)
 ActionReply Helper::probe(QVariantMap args)
 {
     ActionReply reply;
+    QStringList mountPoints = args.value("mountPoints").toStringList(), grubPartitions;
     KProcess grub_probe;
-    grub_probe.setShellCommand(QString("grub-probe -t drive %1").arg(KShell::quoteArg(args.value("fileName").toString()))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
-    grub_probe.setOutputChannelMode(KProcess::MergedChannels);
-
-    if (grub_probe.execute() != 0) {
-        reply = ActionReply::HelperErrorReply;
+    foreach(const QString &mountPoint, mountPoints) {
+        grub_probe.setShellCommand(QString("grub-probe -t drive %1").arg(KShell::quoteArg(mountPoint))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+        grub_probe.setOutputChannelMode(KProcess::MergedChannels);
+        int ret = grub_probe.execute();
+        if (ret != 0) {
+            reply = ActionReply::HelperErrorReply;
+            reply.setErrorCode(ret);
+            reply.setErrorDescription(grub_probe.readAll());
+            return reply;
+        }
+        grubPartitions.append(grub_probe.readAll().trimmed());
     }
 
-    reply.addData("output", grub_probe.readAll());
+    reply.addData("grubPartitions", grubPartitions);
     return reply;
 }
 ActionReply Helper::save(QVariantMap args)

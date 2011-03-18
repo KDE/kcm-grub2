@@ -59,9 +59,8 @@ private Q_SLOTS:
     void on_checkBox_highlightColor_clicked(bool checked);
     void on_kcolorbutton_highlightForeground_changed(const QColor &newColor);
     void on_kcolorbutton_highlightBackground_changed(const QColor &newColor);
-    void on_kurlrequester_background_urlSelected(const KUrl &url);
     void on_kurlrequester_background_textChanged(const QString &text);
-    void on_kurlrequester_theme_urlSelected(const KUrl &url);
+    void on_kpushbutton_preview_clicked(bool checked);
     void on_kurlrequester_theme_textChanged(const QString &text);
 
     void on_klineedit_cmdlineDefault_textEdited(const QString &text);
@@ -75,18 +74,27 @@ private Q_SLOTS:
     void on_checkBox_recovery_clicked(bool checked);
     void on_checkBox_osProber_clicked(bool checked);
 private:
+    void setupObjects();
+    void setupConnections();
+
+    QString convertToGRUBFileName(const QString &fileName);
+    QString convertToLocalFileName(const QString &grubFileName);
+
     QString readFile(const QString &fileName);
     bool saveFile(const QString &fileName, const QString &fileContents);
     void updateGRUB(const QString &fileName);
 
-    bool readSettings();
+    bool readDevices();
     bool readEntries();
+    bool readSettings();
+
     void parseSettings(const QString &config);
     void parseEntries(const QString &config);
     QString unquoteWord(const QString &word);
 
-    QMap<QString, QString> m_settings;
+    QHash<QString, QString> m_settings;
     QStringList m_entries;
+    QHash<QString, QString> m_devices;
 };
 
 #endif

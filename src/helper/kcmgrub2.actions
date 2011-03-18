@@ -9,8 +9,8 @@ Policy=yes
 Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.probe]
-Name=Probe a file for GRUB2 naming information
-Description=Administrator authorization is required to probe a file for GRUB2 naming information
+Name=Probe devices for their GRUB2 names
+Description=Administrator authorization is required to probe devices for their GRUB2 names
 Policy=yes
 Persistence=session
 
