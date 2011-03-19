@@ -49,8 +49,9 @@ ActionReply Helper::probe(QVariantMap args)
     ActionReply reply;
     QStringList mountPoints = args.value("mountPoints").toStringList(), grubPartitions;
     KProcess grub_probe;
-    foreach(const QString &mountPoint, mountPoints) {
-        grub_probe.setShellCommand(QString("grub-probe -t drive %1").arg(KShell::quoteArg(mountPoint))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+    HelperSupport::progressStep(0);
+    for (int i = 0; i < mountPoints.size(); i++) {
+        grub_probe.setShellCommand(QString("grub-probe -t drive %1").arg(KShell::quoteArg(mountPoints.at(i)))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
         grub_probe.setOutputChannelMode(KProcess::MergedChannels);
         int ret = grub_probe.execute();
         if (ret != 0) {
@@ -60,6 +61,7 @@ ActionReply Helper::probe(QVariantMap args)
             return reply;
         }
         grubPartitions.append(grub_probe.readAll().trimmed());
+        HelperSupport::progressStep((i + 1) * 100. / mountPoints.size());
     }
 
     reply.addData("grubPartitions", grubPartitions);

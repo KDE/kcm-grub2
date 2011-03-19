@@ -567,13 +567,11 @@ bool KCMGRUB2::readDevices()
 
     if (probeAction.authorize() == Action::Authorized) {
         KProgressDialog *progressDlg = new KProgressDialog(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names..."));
+        progressDlg->setAttribute(Qt::WA_DeleteOnClose);
         progressDlg->setAllowCancel(false);
-        progressDlg->progressBar()->setMinimum(0);
-        progressDlg->progressBar()->setMaximum(0);
         progressDlg->show();
-        connect(probeAction.watcher(), SIGNAL(actionPerformed(ActionReply)), progressDlg, SLOT(hide()));
+        connect(probeAction.watcher(), SIGNAL(progressStep(int)), progressDlg->progressBar(), SLOT(setValue(int)));
         ActionReply reply = probeAction.execute();
-        delete progressDlg;
         if (reply.succeeded()) {
             QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();
             if (mountPoints.size() != grubPartitions.size()) {
