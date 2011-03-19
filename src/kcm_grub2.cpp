@@ -52,6 +52,11 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
     setupObjects();
     setupConnections();
 }
+KCMGRUB2::~KCMGRUB2()
+{
+    delete splash;
+    splash = 0;
+}
 
 void KCMGRUB2::load()
 {
@@ -338,8 +343,11 @@ void KCMGRUB2::on_kpushbutton_preview_clicked(bool checked)
         return;
     }
 
-    KSplashScreen *splash = new KSplashScreen(QPixmap::fromImage(QImage::fromData(file.readAll())));
-    splash->setAttribute(Qt::WA_DeleteOnClose);
+    if (splash) {
+        delete splash;
+    }
+
+    splash = new KSplashScreen(QPixmap::fromImage(QImage::fromData(file.readAll())));
     splash->show();
 }
 void KCMGRUB2::on_kurlrequester_theme_textChanged(const QString &text)
@@ -448,6 +456,7 @@ void KCMGRUB2::setupObjects()
     setButtons(Apply);
     setNeedsAuthorization(true);
 
+    splash = 0;
     kpushbutton_preview->setIcon(KIcon("image-png"));
 }
 void KCMGRUB2::setupConnections()
@@ -530,22 +539,21 @@ void KCMGRUB2::updateGRUB(const QString &fileName)
     updateAction.addArgument("fileName", fileName);
 
     if (updateAction.authorize() == Action::Authorized) {
-        KProgressDialog *progressDlg = new KProgressDialog(this, i18nc("@title:window", "Updating GRUB"), i18nc("@info:progress", "Updating the GRUB menu..."));
-        progressDlg->setAllowCancel(false);
-        progressDlg->progressBar()->setMinimum(0);
-        progressDlg->progressBar()->setMaximum(0);
-        progressDlg->show();
-        connect(updateAction.watcher(), SIGNAL(actionPerformed(ActionReply)), progressDlg, SLOT(hide()));
+        KProgressDialog progressDlg(this, i18nc("@title:window", "Updating GRUB"), i18nc("@info:progress", "Updating the GRUB menu..."));
+        progressDlg.setAllowCancel(false);
+        progressDlg.progressBar()->setMinimum(0);
+        progressDlg.progressBar()->setMaximum(0);
+        progressDlg.show();
+        connect(updateAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
         ActionReply reply = updateAction.execute();
-        delete progressDlg;
         if (reply.succeeded()) {
-            KDialog *dialog = new KDialog(this, Qt::Dialog);
-            dialog->setCaption(i18nc("@title:window", "Information"));
-            dialog->setButtons(KDialog::Ok | KDialog::Details);
-            dialog->setModal(true);
-            dialog->setDefaultButton(KDialog::Ok);
-            dialog->setEscapeButton(KDialog::Ok);
-            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully updated the GRUB menu."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
+            KDialog dialog(this, Qt::Dialog);
+            dialog.setCaption(i18nc("@title:window", "Information"));
+            dialog.setButtons(KDialog::Ok | KDialog::Details);
+            dialog.setModal(true);
+            dialog.setDefaultButton(KDialog::Ok);
+            dialog.setEscapeButton(KDialog::Ok);
+            KMessageBox::createKMessageBox(&dialog, QMessageBox::Information, i18nc("@info", "Successfully updated the GRUB menu."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
         } else {
             KMessageBox::detailedError(this, i18nc("@info", "Failed to update the GRUB menu."), reply.data().value("output").toString());
         }
@@ -566,11 +574,10 @@ bool KCMGRUB2::readDevices()
     probeAction.addArgument("mountPoints", mountPoints);
 
     if (probeAction.authorize() == Action::Authorized) {
-        KProgressDialog *progressDlg = new KProgressDialog(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names..."));
-        progressDlg->setAttribute(Qt::WA_DeleteOnClose);
-        progressDlg->setAllowCancel(false);
-        progressDlg->show();
-        connect(probeAction.watcher(), SIGNAL(progressStep(int)), progressDlg->progressBar(), SLOT(setValue(int)));
+        KProgressDialog progressDlg(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names..."));
+        progressDlg.setAllowCancel(false);
+        progressDlg.show();
+        connect(probeAction.watcher(), SIGNAL(progressStep(int)), progressDlg.progressBar(), SLOT(setValue(int)));
         ActionReply reply = probeAction.execute();
         if (reply.succeeded()) {
             QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();

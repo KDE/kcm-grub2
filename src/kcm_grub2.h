@@ -20,6 +20,7 @@
 
 //KDE
 #include <KCModule>
+class KSplashScreen;
 
 //Ui
 #include "ui_kcm_grub2.h"
@@ -32,6 +33,7 @@ class KCMGRUB2 : public KCModule, private Ui::KCMGRUB2
 Q_OBJECT
 public:
     KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
+    virtual ~KCMGRUB2();
 
     virtual void load();
     virtual void save();
@@ -92,6 +94,7 @@ private:
     void parseEntries(const QString &config);
     QString unquoteWord(const QString &word);
 
+    KSplashScreen *splash;
     QHash<QString, QString> m_settings;
     QStringList m_entries;
     QHash<QString, QString> m_devices;
