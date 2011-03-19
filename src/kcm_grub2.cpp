@@ -54,8 +54,10 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
 }
 KCMGRUB2::~KCMGRUB2()
 {
-    delete splash;
-    splash = 0;
+    if (splash) {
+        delete splash;
+        splash = 0;
+    }
 }
 
 void KCMGRUB2::load()
@@ -547,13 +549,13 @@ void KCMGRUB2::updateGRUB(const QString &fileName)
         connect(updateAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
         ActionReply reply = updateAction.execute();
         if (reply.succeeded()) {
-            KDialog dialog(this, Qt::Dialog);
-            dialog.setCaption(i18nc("@title:window", "Information"));
-            dialog.setButtons(KDialog::Ok | KDialog::Details);
-            dialog.setModal(true);
-            dialog.setDefaultButton(KDialog::Ok);
-            dialog.setEscapeButton(KDialog::Ok);
-            KMessageBox::createKMessageBox(&dialog, QMessageBox::Information, i18nc("@info", "Successfully updated the GRUB menu."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
+            KDialog *dialog = new KDialog(this, Qt::Dialog);
+            dialog->setCaption(i18nc("@title:window", "Information"));
+            dialog->setButtons(KDialog::Ok | KDialog::Details);
+            dialog->setModal(true);
+            dialog->setDefaultButton(KDialog::Ok);
+            dialog->setEscapeButton(KDialog::Ok);
+            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully updated the GRUB menu."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
         } else {
             KMessageBox::detailedError(this, i18nc("@info", "Failed to update the GRUB menu."), reply.data().value("output").toString());
         }
