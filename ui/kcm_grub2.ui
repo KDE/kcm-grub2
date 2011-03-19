@@ -40,7 +40,7 @@
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="KComboBox" name="kcombobox_default">
+             <widget class="QComboBox" name="comboBox_default">
               <property name="enabled">
                <bool>false</bool>
               </property>
@@ -575,11 +575,6 @@
    <header>klineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>KComboBox</class>
-   <extends>QComboBox</extends>
-   <header>kcombobox.h</header>
-  </customwidget>
-  <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
@@ -669,22 +664,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>radioButton_default</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcombobox_default</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>79</x>
-     <y>74</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>143</x>
-     <y>74</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>radioButton_saved</sender>
    <signal>toggled(bool)</signal>
    <receiver>checkBox_savedefault</receiver>
@@ -695,8 +674,8 @@
      <y>103</y>
     </hint>
     <hint type="destinationlabel">
-     <x>84</x>
-     <y>126</y>
+     <x>284</x>
+     <y>135</y>
     </hint>
    </hints>
   </connection>
@@ -707,12 +686,28 @@
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>135</x>
-     <y>151</y>
+     <x>156</x>
+     <y>158</y>
     </hint>
     <hint type="destinationlabel">
-     <x>212</x>
-     <y>145</y>
+     <x>260</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_default</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>comboBox_default</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>102</x>
+     <y>70</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>165</x>
+     <y>74</y>
     </hint>
    </hints>
   </connection>

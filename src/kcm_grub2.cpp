@@ -66,20 +66,20 @@ void KCMGRUB2::load()
     readEntries();
     readSettings();
 
-    kcombobox_default->blockSignals(true);
-    kcombobox_default->addItems(m_entries);
+    comboBox_default->blockSignals(true);
+    comboBox_default->addItems(m_entries);
     if (m_settings["GRUB_DEFAULT"].compare("saved", Qt::CaseInsensitive) != 0) {
         radioButton_default->setChecked(true);
         if (m_entries.contains(m_settings["GRUB_DEFAULT"])) {
-            kcombobox_default->setCurrentItem(m_settings["GRUB_DEFAULT"]);
+            comboBox_default->setCurrentIndex(comboBox_default->findText(m_settings["GRUB_DEFAULT"]));
         } else {
-            kcombobox_default->setCurrentIndex(m_settings["GRUB_DEFAULT"].toInt());
+            comboBox_default->setCurrentIndex(m_settings["GRUB_DEFAULT"].toInt());
         }
     } else {
         radioButton_saved->setChecked(true);
     }
     checkBox_savedefault->setChecked(m_settings.value("GRUB_SAVEDEFAULT").compare("true", Qt::CaseInsensitive) == 0);
-    kcombobox_default->blockSignals(false);
+    comboBox_default->blockSignals(false);
 
     kintspinbox_hiddenTimeout->blockSignals(true);
     kintspinbox_timeout->blockSignals(true);
@@ -162,9 +162,9 @@ void KCMGRUB2::save()
 void KCMGRUB2::on_radioButton_default_clicked(bool checked)
 {
     Q_UNUSED(checked)
-    on_kcombobox_default_currentIndexChanged(kcombobox_default->currentIndex());
+    on_comboBox_default_currentIndexChanged(comboBox_default->currentIndex());
 }
-void KCMGRUB2::on_kcombobox_default_currentIndexChanged(int index)
+void KCMGRUB2::on_comboBox_default_currentIndexChanged(int index)
 {
     m_settings["GRUB_DEFAULT"] = m_entries.at(index);
     emit changed(true);

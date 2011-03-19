@@ -39,7 +39,7 @@ public:
     virtual void save();
 private Q_SLOTS:
     void on_radioButton_default_clicked(bool checked);
-    void on_kcombobox_default_currentIndexChanged(int index);
+    void on_comboBox_default_currentIndexChanged(int index);
     void on_radioButton_saved_clicked(bool checked);
     void on_checkBox_savedefault_clicked(bool checked);
     void on_checkBox_hiddenTimeout_clicked(bool checked);
