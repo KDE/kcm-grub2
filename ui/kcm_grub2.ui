@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>457</width>
+    <width>488</width>
     <height>456</height>
    </rect>
   </property>
@@ -301,86 +301,52 @@
          </property>
          <layout class="QGridLayout" name="gridLayout">
           <item row="0" column="0">
-           <widget class="QCheckBox" name="checkBox_normalColor"/>
+           <layout class="QFormLayout" name="formLayout_11">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_normalForeground">
+              <property name="text">
+               <string comment="@label:chooser">Normal Foreground (Text):</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QComboBox" name="comboBox_normalForeground"/>
+            </item>
+            <item row="1" column="0">
+             <widget class="QLabel" name="label_highlightForeground">
+              <property name="text">
+               <string comment="@label:chooser">Highlight Foreground (Text):</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QComboBox" name="comboBox_highlightForeground"/>
+            </item>
+           </layout>
           </item>
-          <item row="0" column="1" rowspan="2">
+          <item row="0" column="1">
            <layout class="QFormLayout" name="formLayout_10">
             <item row="0" column="0">
              <widget class="QLabel" name="label_normalBackground">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string comment="@label:chooser">Normal Background:</string>
               </property>
              </widget>
             </item>
             <item row="0" column="1">
-             <widget class="KColorButton" name="kcolorbutton_normalBackground">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-             </widget>
+             <widget class="QComboBox" name="comboBox_normalBackground"/>
             </item>
             <item row="1" column="0">
              <widget class="QLabel" name="label_highlightBackground">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
               <property name="text">
                <string comment="@label:chooser">Highlight Background:</string>
               </property>
              </widget>
             </item>
             <item row="1" column="1">
-             <widget class="KColorButton" name="kcolorbutton_highlightBackground">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-             </widget>
+             <widget class="QComboBox" name="comboBox_highlightBackground"/>
             </item>
            </layout>
-          </item>
-          <item row="0" column="2" rowspan="2">
-           <layout class="QFormLayout" name="formLayout_12">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_normalForeground">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string comment="@label:chooser">Normal Foreground:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="KColorButton" name="kcolorbutton_normalForeground">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_highlightForeground">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string comment="@label:chooser">Highlight Foreground:</string>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="KColorButton" name="kcolorbutton_highlightForeground">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item row="1" column="0">
-           <widget class="QCheckBox" name="checkBox_highlightColor"/>
           </item>
          </layout>
         </widget>
@@ -614,11 +580,6 @@
    <header>kcombobox.h</header>
   </customwidget>
   <customwidget>
-   <class>KColorButton</class>
-   <extends>QPushButton</extends>
-   <header>kcolorbutton.h</header>
-  </customwidget>
-  <customwidget>
    <class>KTabWidget</class>
    <extends>QTabWidget</extends>
    <header>ktabwidget.h</header>
@@ -736,134 +697,6 @@
     <hint type="destinationlabel">
      <x>84</x>
      <y>126</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_normalColor</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_normalBackground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>223</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>145</x>
-     <y>225</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_normalColor</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcolorbutton_normalBackground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>223</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>239</x>
-     <y>225</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_normalColor</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_normalForeground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>223</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>367</x>
-     <y>225</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_normalColor</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcolorbutton_normalForeground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>223</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>436</x>
-     <y>225</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_highlightColor</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcolorbutton_highlightForeground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>252</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>436</x>
-     <y>253</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_highlightColor</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_highlightForeground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>252</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>367</x>
-     <y>253</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_highlightColor</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>kcolorbutton_highlightBackground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>252</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>239</x>
-     <y>253</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>checkBox_highlightColor</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>label_highlightBackground</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>43</x>
-     <y>252</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>137</x>
-     <y>253</y>
     </hint>
    </hints>
   </connection>

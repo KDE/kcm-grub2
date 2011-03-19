@@ -93,10 +93,10 @@ void KCMGRUB2::load()
     kintspinbox_hiddenTimeout->blockSignals(false);
     kintspinbox_timeout->blockSignals(false);
 
-    kcolorbutton_normalForeground->blockSignals(true);
-    kcolorbutton_normalBackground->blockSignals(true);
-    kcolorbutton_highlightForeground->blockSignals(true);
-    kcolorbutton_highlightBackground->blockSignals(true);
+    comboBox_normalForeground->blockSignals(true);
+    comboBox_normalBackground->blockSignals(true);
+    comboBox_highlightForeground->blockSignals(true);
+    comboBox_highlightBackground->blockSignals(true);
     kurlrequester_background->blockSignals(true);
     kurlrequester_theme->blockSignals(true);
     klineedit_gfxmode->setText(m_settings.value("GRUB_GFXMODE"));
@@ -111,34 +111,21 @@ void KCMGRUB2::load()
     radioButton_gfxpayloadText->setChecked(m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("text", Qt::CaseInsensitive) == 0);
     radioButton_gfxpayloadKeep->setChecked(m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("keep", Qt::CaseInsensitive) == 0);
     klineedit_gfxpayload->setText(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
-    QString hexRgbColor("(#([0-9a-fA-F]{3}|[0-9a-fA-F]{6}))");
-    QString decRgbColor("((([01][0-9]{0,2})|(2[0-5]{0,2}))(\\s*,\\s*(([01][0-9]{0,2})|(2[0-5]{0,2}))){2})");
-    QString svgColor("([a-z]{3,})");
-    if (QRegExp(QString("(%1|%2|%3)/(%1|%2|%3)").arg(hexRgbColor, decRgbColor, svgColor)).exactMatch(m_settings.value("GRUB_COLOR_NORMAL"))) {
-        checkBox_normalColor->setChecked(true);
-        QString foreground = m_settings.value("GRUB_COLOR_NORMAL").section('/', 0, 0);
-        QString background = m_settings.value("GRUB_COLOR_NORMAL").section('/', 1);
-        kcolorbutton_normalForeground->setColor(QRegExp(decRgbColor).exactMatch(foreground) ? QColor(foreground.section(',', 0, 0).trimmed().toInt(), foreground.section(',', 1, 1).trimmed().toInt(), foreground.section(',', 2).trimmed().toInt()) : QColor(foreground));
-        kcolorbutton_normalBackground->setColor(QRegExp(decRgbColor).exactMatch(background) ? QColor(background.section(',', 0, 0).trimmed().toInt(), background.section(',', 1, 1).trimmed().toInt(), background.section(',', 2).trimmed().toInt()) : QColor(background));
-    } else {
-        checkBox_normalColor->setChecked(false);
-    }
-    if (QRegExp(QString("(%1|%2|%3)/(%1|%2|%3)").arg(hexRgbColor, decRgbColor, svgColor)).exactMatch(m_settings.value("GRUB_COLOR_HIGHLIGHT"))) {
-        checkBox_highlightColor->setChecked(true);
-        QString foreground = m_settings.value("GRUB_COLOR_HIGHLIGHT").section('/', 0, 0);
-        QString background = m_settings.value("GRUB_COLOR_HIGHLIGHT").section('/', 1);
-        kcolorbutton_highlightForeground->setColor(QRegExp(decRgbColor).exactMatch(foreground) ? QColor(foreground.section(',', 0, 0).trimmed().toInt(), foreground.section(',', 1, 1).trimmed().toInt(), foreground.section(',', 2).trimmed().toInt()) : QColor(foreground));
-        kcolorbutton_highlightBackground->setColor(QRegExp(decRgbColor).exactMatch(background) ? QColor(background.section(',', 0, 0).trimmed().toInt(), background.section(',', 1, 1).trimmed().toInt(), background.section(',', 2).trimmed().toInt()) : QColor(background));
-    } else {
-        checkBox_highlightColor->setChecked(false);
-    }
+    int normalForegroundIndex = comboBox_normalForeground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 0, 0));
+    comboBox_normalForeground->setCurrentIndex(normalForegroundIndex != -1 ? normalForegroundIndex : comboBox_normalForeground->findData("light-gray"));
+    int normalBackgroundIndex = comboBox_normalBackground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 1));
+    comboBox_normalBackground->setCurrentIndex(normalBackgroundIndex != -1 ? normalBackgroundIndex : comboBox_normalBackground->findData("black"));
+    int highlightForegroundIndex = comboBox_highlightForeground->findData(m_settings.value("GRUB_COLOR_HIGHLIGHT").section('/', 0, 0));
+    comboBox_highlightForeground->setCurrentIndex(highlightForegroundIndex != -1 ? highlightForegroundIndex : comboBox_highlightForeground->findData("light-gray"));
+    int highlightBackgroundIndex = comboBox_highlightBackground->findData(m_settings.value("GRUB_COLOR_HIGHLIGHT").section('/', 1));
+    comboBox_highlightBackground->setCurrentIndex(highlightBackgroundIndex != -1 ? highlightBackgroundIndex : comboBox_highlightBackground->findData("black"));
     kurlrequester_background->setText(m_settings.value("GRUB_BACKGROUND"));
     kpushbutton_preview->setEnabled(!m_settings.value("GRUB_BACKGROUND").isEmpty());
     kurlrequester_theme->setText(m_settings.value("GRUB_THEME"));
-    kcolorbutton_normalForeground->blockSignals(false);
-    kcolorbutton_normalBackground->blockSignals(false);
-    kcolorbutton_highlightForeground->blockSignals(false);
-    kcolorbutton_highlightBackground->blockSignals(false);
+    comboBox_normalForeground->blockSignals(false);
+    comboBox_normalBackground->blockSignals(false);
+    comboBox_highlightForeground->blockSignals(false);
+    comboBox_highlightBackground->blockSignals(false);
     kurlrequester_background->blockSignals(false);
     kurlrequester_theme->blockSignals(false);
 
@@ -286,42 +273,48 @@ void KCMGRUB2::on_klineedit_gfxpayload_textEdited(const QString &text)
     }
     emit changed(true);
 }
-void KCMGRUB2::on_checkBox_normalColor_clicked(bool checked)
+void KCMGRUB2::on_comboBox_normalForeground_currentIndexChanged(int index)
 {
-    if (checked) {
-        m_settings["GRUB_COLOR_NORMAL"] = kcolorbutton_normalForeground->color().name() + '/' + kcolorbutton_normalBackground->color().name();
+    QString normalForeground = comboBox_normalForeground->itemData(index).toString();
+    QString normalBackground = comboBox_normalBackground->itemData(comboBox_normalBackground->currentIndex()).toString();
+    if (normalForeground.compare("light-gray") != 0 || normalBackground.compare("black") != 0) {
+        m_settings["GRUB_COLOR_NORMAL"] = normalForeground + '/' + normalBackground;
     } else {
         m_settings.remove("GRUB_COLOR_NORMAL");
     }
     emit changed(true);
 }
-void KCMGRUB2::on_kcolorbutton_normalForeground_changed(const QColor &newColor)
+void KCMGRUB2::on_comboBox_normalBackground_currentIndexChanged(int index)
 {
-    m_settings["GRUB_COLOR_NORMAL"] = newColor.name() + '/' + kcolorbutton_normalBackground->color().name();
+    QString normalForeground = comboBox_normalForeground->itemData(comboBox_normalForeground->currentIndex()).toString();
+    QString normalBackground = comboBox_normalBackground->itemData(index).toString();
+    if (normalForeground.compare("light-gray") != 0 || normalBackground.compare("black") != 0) {
+        m_settings["GRUB_COLOR_NORMAL"] = normalForeground + '/' + normalBackground;
+    } else {
+        m_settings.remove("GRUB_COLOR_NORMAL");
+    }
     emit changed(true);
 }
-void KCMGRUB2::on_kcolorbutton_normalBackground_changed(const QColor &newColor)
+void KCMGRUB2::on_comboBox_highlightForeground_currentIndexChanged(int index)
 {
-    m_settings["GRUB_COLOR_NORMAL"] = kcolorbutton_normalForeground->color().name() + '/' + newColor.name();
-    emit changed(true);
-}
-void KCMGRUB2::on_checkBox_highlightColor_clicked(bool checked)
-{
-    if (checked) {
-        m_settings["GRUB_COLOR_HIGHLIGHT"] = kcolorbutton_highlightForeground->color().name() + '/' + kcolorbutton_highlightBackground->color().name();
+    QString highlightForeground = comboBox_highlightForeground->itemData(index).toString();
+    QString highlightBackground = comboBox_highlightBackground->itemData(comboBox_highlightBackground->currentIndex()).toString();
+    if (highlightForeground.compare("black") != 0 || highlightBackground.compare("light-gray") != 0) {
+        m_settings["GRUB_COLOR_HIGHLIGHT"] = highlightForeground + '/' + highlightBackground;
     } else {
         m_settings.remove("GRUB_COLOR_HIGHLIGHT");
     }
     emit changed(true);
 }
-void KCMGRUB2::on_kcolorbutton_highlightForeground_changed(const QColor &newColor)
+void KCMGRUB2::on_comboBox_highlightBackground_currentIndexChanged(int index)
 {
-    m_settings["GRUB_COLOR_HIGHLIGHT"] = newColor.name() + '/' + kcolorbutton_highlightBackground->color().name();
-    emit changed(true);
-}
-void KCMGRUB2::on_kcolorbutton_highlightBackground_changed(const QColor &newColor)
-{
-    m_settings["GRUB_COLOR_HIGHLIGHT"] = kcolorbutton_highlightForeground->color().name() + '/' + newColor.name();
+    QString highlightForeground = comboBox_highlightForeground->itemData(comboBox_highlightForeground->currentIndex()).toString();
+    QString highlightBackground = comboBox_highlightBackground->itemData(index).toString();
+    if (highlightForeground.compare("black") != 0 || highlightBackground.compare("light-gray") != 0) {
+        m_settings["GRUB_COLOR_HIGHLIGHT"] = highlightForeground + '/' + highlightBackground;
+    } else {
+        m_settings.remove("GRUB_COLOR_HIGHLIGHT");
+    }
     emit changed(true);
 }
 void KCMGRUB2::on_kurlrequester_background_textChanged(const QString &text)
@@ -454,6 +447,59 @@ void KCMGRUB2::setupObjects()
 {
     setButtons(Apply);
     setNeedsAuthorization(true);
+
+    comboBox_normalForeground->blockSignals(true);
+    comboBox_normalBackground->blockSignals(true);
+    comboBox_highlightForeground->blockSignals(true);
+    comboBox_highlightBackground->blockSignals(true);
+    QPixmap black(16, 16), transparent(16, 16);
+    black.fill(Qt::black);
+    transparent.fill(Qt::transparent);
+    comboBox_normalForeground->addItem(QIcon(black), i18nc("@item:inlistbox", "Black"), "black");
+    comboBox_highlightForeground->addItem(QIcon(black), i18nc("@item:inlistbox", "Black"), "black");
+    comboBox_normalBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox", "Transparent"), "black");
+    comboBox_highlightBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox", "Transparent"), "black");
+    QHash<QString, QString> colors;
+    colors.insertMulti("blue", i18nc("@item:inlistbox", "Blue"));
+    colors.insertMulti("blue", "blue");
+    colors.insertMulti("cyan", i18nc("@item:inlistbox", "Cyan"));
+    colors.insertMulti("cyan", "cyan");
+    colors.insertMulti("dark-gray", i18nc("@item:inlistbox", "Dark Gray"));
+    colors.insertMulti("dark-gray", "darkgray");
+    colors.insertMulti("green", i18nc("@item:inlistbox", "Green"));
+    colors.insertMulti("green", "green");
+    colors.insertMulti("light-cyan", i18nc("@item:inlistbox", "Light Cyan"));
+    colors.insertMulti("light-cyan", "lightcyan");
+    colors.insertMulti("light-blue", i18nc("@item:inlistbox", "Light Blue"));
+    colors.insertMulti("light-blue", "lightblue");
+    colors.insertMulti("light-green", i18nc("@item:inlistbox", "Light Green"));
+    colors.insertMulti("light-green", "lightgreen");
+    colors.insertMulti("light-gray", i18nc("@item:inlistbox", "Light Gray"));
+    colors.insertMulti("light-gray", "lightgray");
+    colors.insertMulti("light-magenta", i18nc("@item:inlistbox", "Light Magenta"));
+    colors.insertMulti("light-magenta", "magenta");
+    colors.insertMulti("light-red", i18nc("@item:inlistbox", "Light Red"));
+    colors.insertMulti("light-red", "orangered");
+    colors.insertMulti("magenta", i18nc("@item:inlistbox", "Magenta"));
+    colors.insertMulti("magenta", "darkmagenta");
+    colors.insertMulti("red", i18nc("@item:inlistbox", "Red"));
+    colors.insertMulti("red", "red");
+    colors.insertMulti("white", i18nc("@item:inlistbox", "White"));
+    colors.insertMulti("white", "white");
+    colors.insertMulti("yellow", i18nc("@item:inlistbox", "Yellow"));
+    colors.insertMulti("yellow", "yellow");
+    for (QHash<QString, QString>::const_iterator it = colors.constBegin(); it != colors.constEnd(); it += 2) {
+        QPixmap color(16, 16);
+        color.fill(QColor(colors.values(it.key()).at(0)));
+        comboBox_normalForeground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
+        comboBox_highlightForeground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
+        comboBox_normalBackground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
+        comboBox_highlightBackground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
+    }
+    comboBox_normalForeground->blockSignals(false);
+    comboBox_normalBackground->blockSignals(false);
+    comboBox_highlightForeground->blockSignals(false);
+    comboBox_highlightBackground->blockSignals(false);
 
     splash = 0;
     kpushbutton_preview->setIcon(KIcon("image-png"));

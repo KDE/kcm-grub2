@@ -55,12 +55,10 @@ private Q_SLOTS:
     void on_radioButton_gfxpayloadKeep_clicked(bool checked);
     void on_radioButton_gfxpayloadOther_clicked(bool checked);
     void on_klineedit_gfxpayload_textEdited(const QString &text);
-    void on_checkBox_normalColor_clicked(bool checked);
-    void on_kcolorbutton_normalForeground_changed(const QColor &newColor);
-    void on_kcolorbutton_normalBackground_changed(const QColor &newColor);
-    void on_checkBox_highlightColor_clicked(bool checked);
-    void on_kcolorbutton_highlightForeground_changed(const QColor &newColor);
-    void on_kcolorbutton_highlightBackground_changed(const QColor &newColor);
+    void on_comboBox_normalForeground_currentIndexChanged(int index);
+    void on_comboBox_normalBackground_currentIndexChanged(int index);
+    void on_comboBox_highlightForeground_currentIndexChanged(int index);
+    void on_comboBox_highlightBackground_currentIndexChanged(int index);
     void on_kurlrequester_background_textChanged(const QString &text);
     void on_kpushbutton_preview_clicked(bool checked);
     void on_kurlrequester_theme_textChanged(const QString &text);
