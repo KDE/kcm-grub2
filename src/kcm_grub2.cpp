@@ -159,9 +159,6 @@ void KCMGRUB2::save()
     QTextStream stream(&config, QIODevice::WriteOnly | QIODevice::Text);
     for (QHash<QString, QString>::const_iterator it = m_settings.constBegin(); it != m_settings.constEnd(); it++) {
         QString key = it.key(), value = it.value();
-        if ((key.compare("GRUB_BACKGROUND", Qt::CaseInsensitive) == 0) || (key.compare("GRUB_THEME", Qt::CaseInsensitive) == 0)) {
-            value = convertToGRUBFileName(value);
-        }
         if (!value.startsWith('`') || !value.endsWith('`')) {
             value = KShell::quoteArg(value);
         }
@@ -673,12 +670,6 @@ void KCMGRUB2::parseSettings(const QString &config)
         if (line.startsWith("GRUB_", Qt::CaseInsensitive)) {
             m_settings[line.section('=', 0, 0)] = unquoteWord(line.section('=', 1, QString::SectionIncludeTrailingSep));
         }
-    }
-    if (m_settings.contains("GRUB_BACKGROUND")) {
-        m_settings["GRUB_BACKGROUND"] = convertToLocalFileName(m_settings.value("GRUB_BACKGROUND"));
-    }
-    if (m_settings.contains("GRUB_THEME")) {
-        m_settings["GRUB_THEME"] = convertToLocalFileName(m_settings.value("GRUB_THEME"));
     }
 }
 void KCMGRUB2::parseEntries(const QString &config)
