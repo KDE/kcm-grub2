@@ -488,11 +488,11 @@ void KCMGRUB2::setupConnections()
     connect(ui.radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(updateGrubTimeout()));
     connect(ui.kintspinbox_timeout, SIGNAL(valueChanged(int)), this, SLOT(updateGrubTimeout()));
 
-    connect(ui.klineedit_gfxmode, SIGNAL(textChanged(QString)), this, SLOT(updateGrubGfxmode(QString)));
+    connect(ui.klineedit_gfxmode, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxmode(QString)));
     connect(ui.radioButton_gfxpayloadText, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
     connect(ui.radioButton_gfxpayloadKeep, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
     connect(ui.radioButton_gfxpayloadOther, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
-    connect(ui.klineedit_gfxpayload, SIGNAL(textChanged(QString)), this, SLOT(updateGrubGfxpayloadLinux()));
+    connect(ui.klineedit_gfxpayload, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxpayloadLinux()));
 
     connect(ui.comboBox_normalForeground, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubColorNormal()));
     connect(ui.comboBox_normalBackground, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubColorNormal()));
@@ -503,15 +503,15 @@ void KCMGRUB2::setupConnections()
     connect(ui.kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(previewGrubBackground()));
     connect(ui.kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(updateGrubTheme(QString)));
 
-    connect(ui.klineedit_cmdlineDefault, SIGNAL(textChanged(QString)), this, SLOT(updateGrubCmdlineLinuxDefault(QString)));
-    connect(ui.klineedit_cmdline, SIGNAL(textChanged(QString)), this, SLOT(updateGrubCmdlineLinux(QString)));
+    connect(ui.klineedit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinuxDefault(QString)));
+    connect(ui.klineedit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinux(QString)));
 
-    connect(ui.klineedit_terminal, SIGNAL(textChanged(QString)), this, SLOT(updateGrubTerminal(QString)));
-    connect(ui.klineedit_terminalInput, SIGNAL(textChanged(QString)), this, SLOT(updateGrubTerminalInput(QString)));
-    connect(ui.klineedit_terminalOutput, SIGNAL(textChanged(QString)), this, SLOT(updateGrubTerminalOutput(QString)));
+    connect(ui.klineedit_terminal, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminal(QString)));
+    connect(ui.klineedit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalInput(QString)));
+    connect(ui.klineedit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalOutput(QString)));
 
-    connect(ui.klineedit_distributor, SIGNAL(textChanged(QString)), this, SLOT(updateGrubDistributor(QString)));
-    connect(ui.klineedit_serial, SIGNAL(textChanged(QString)), this, SLOT(updateGrubSerialCommand(QString)));
+    connect(ui.klineedit_distributor, SIGNAL(textEdited(QString)), this, SLOT(updateGrubDistributor(QString)));
+    connect(ui.klineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(updateGrubSerialCommand(QString)));
 
     connect(ui.checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(updateGrubDisableLinuxUUID(bool)));
     connect(ui.checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(updateGrubDisableRecovery(bool)));
