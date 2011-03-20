@@ -67,7 +67,9 @@ void KCMGRUB2::load()
     readSettings();
 
     comboBox_default->blockSignals(true);
-    comboBox_default->addItems(m_entries);
+    foreach(const QString &entry, m_entries) {
+        comboBox_default->addItem(unquoteWord(entry));
+    }
     if (m_settings["GRUB_DEFAULT"].compare("saved", Qt::CaseInsensitive) != 0) {
         radioButton_default->setChecked(true);
         if (m_entries.contains(m_settings["GRUB_DEFAULT"])) {
@@ -744,16 +746,13 @@ void KCMGRUB2::parseEntries(const QString &config)
         stream >> ch;
         entry += ch;
         if (ch == '\'') {
-            while (true) {
+            do {
                 if (stream.atEnd()) {
                     return;
                 }
                 stream >> ch;
                 entry += ch;
-                if (ch == '\'') {
-                    break;
-                }
-            }
+            } while (ch != '\'');
         } else if (ch == '"') {
             while (true) {
                 if (stream.atEnd()) {
@@ -774,12 +773,13 @@ void KCMGRUB2::parseEntries(const QString &config)
                     return;
                 }
                 stream >> ch;
+                if (ch.isSpace()) {
+                    break;
+                }
                 entry += ch;
                 if (ch == '\\') {
                     stream >> ch;
                     entry += ch;
-                } else if (ch.isSpace()) {
-                    break;
                 }
             }
         }
@@ -850,6 +850,8 @@ QString KCMGRUB2::unquoteWord(const QString &word)
                         unquotedWord.append(ch);
                         break;
                     }
+                } else if (ch.isSpace()) {
+                    return unquotedWord;
                 } else {
                     unquotedWord.append(ch);
                 }
