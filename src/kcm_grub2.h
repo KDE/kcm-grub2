@@ -25,10 +25,7 @@ class KSplashScreen;
 //Ui
 #include "ui_kcm_grub2.h"
 
-/**
- * @short Main GUI class.
- */
-class KCMGRUB2 : public KCModule, private Ui::KCMGRUB2
+class KCMGRUB2 : public KCModule
 {
 Q_OBJECT
 public:
@@ -38,41 +35,29 @@ public:
     virtual void load();
     virtual void save();
 private Q_SLOTS:
-    void on_radioButton_default_clicked(bool checked);
-    void on_comboBox_default_currentIndexChanged(int index);
-    void on_radioButton_saved_clicked(bool checked);
-    void on_checkBox_savedefault_clicked(bool checked);
-    void on_checkBox_hiddenTimeout_clicked(bool checked);
-    void on_kintspinbox_hiddenTimeout_valueChanged(int i);
-    void on_checkBox_hiddenTimeoutShowTimer_clicked(bool checked);
-    void on_checkBox_timeout_clicked(bool checked);
-    void on_radioButton_timeout0_clicked(bool checked);
-    void on_radioButton_timeout_clicked(bool checked);
-    void on_kintspinbox_timeout_valueChanged(int i);
-
-    void on_klineedit_gfxmode_textEdited(const QString &text);
-    void on_radioButton_gfxpayloadText_clicked(bool checked);
-    void on_radioButton_gfxpayloadKeep_clicked(bool checked);
-    void on_radioButton_gfxpayloadOther_clicked(bool checked);
-    void on_klineedit_gfxpayload_textEdited(const QString &text);
-    void on_comboBox_normalForeground_currentIndexChanged(int index);
-    void on_comboBox_normalBackground_currentIndexChanged(int index);
-    void on_comboBox_highlightForeground_currentIndexChanged(int index);
-    void on_comboBox_highlightBackground_currentIndexChanged(int index);
-    void on_kurlrequester_background_textChanged(const QString &text);
-    void on_kpushbutton_preview_clicked(bool checked);
-    void on_kurlrequester_theme_textChanged(const QString &text);
-
-    void on_klineedit_cmdlineDefault_textEdited(const QString &text);
-    void on_klineedit_cmdline_textEdited(const QString &text);
-    void on_klineedit_terminal_textEdited(const QString &text);
-    void on_klineedit_terminalInput_textEdited(const QString &text);
-    void on_klineedit_terminalOutput_textEdited(const QString &text);
-    void on_klineedit_distributor_textEdited(const QString &text);
-    void on_klineedit_serial_textEdited(const QString &text);
-    void on_checkBox_uuid_clicked(bool checked);
-    void on_checkBox_recovery_clicked(bool checked);
-    void on_checkBox_osProber_clicked(bool checked);
+    void updateGrubDefault();
+    void updateGrubSavedefault(bool checked);
+    void updateGrubHiddenTimeout();
+    void updateGrubHiddenTimeoutQuiet(bool checked);
+    void updateGrubTimeout();
+    void updateGrubGfxmode(const QString &text);
+    void updateGrubGfxpayloadLinux();
+    void updateGrubColorNormal();
+    void updateGrubColorHighlight();
+    void updateGrubBackground(const QString &text);
+    void previewGrubBackground();
+    void updateGrubTheme(const QString &text);
+    void updateGrubCmdlineLinuxDefault(const QString &text);
+    void updateGrubCmdlineLinux(const QString &text);
+    void updateGrubTerminal(const QString &text);
+    void updateGrubTerminalInput(const QString &text);
+    void updateGrubTerminalOutput(const QString &text);
+    void updateGrubDistributor(const QString &text);
+    void updateGrubSerialCommand(const QString &text);
+    void updateGrubDisableLinuxUUID(bool checked);
+    void updateGrubDisableRecovery(bool checked);
+    void updateGrubDisableOsProber(bool checked);
+    //TODO: GRUB_INIT_TUNE
 private:
     void setupObjects();
     void setupConnections();
@@ -88,14 +73,15 @@ private:
     bool readEntries();
     bool readSettings();
 
+    QString unquoteWord(const QString &word);
     void parseSettings(const QString &config);
     void parseEntries(const QString &config);
-    QString unquoteWord(const QString &word);
 
     KSplashScreen *splash;
     QHash<QString, QString> m_settings;
     QStringList m_entries;
     QHash<QString, QString> m_devices;
+    Ui::KCMGRUB2 ui;
 };
 
 #endif
