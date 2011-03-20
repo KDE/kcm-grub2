@@ -742,16 +742,16 @@ void KCMGRUB2::parseEntries(const QString &config)
             return;
         }
         stream >> ch;
+        entry += ch;
         if (ch == '\'') {
             while (true) {
                 if (stream.atEnd()) {
                     return;
                 }
                 stream >> ch;
+                entry += ch;
                 if (ch == '\'') {
                     break;
-                } else {
-                    entry.append(ch);
                 }
             }
         } else if (ch == '"') {
@@ -760,53 +760,27 @@ void KCMGRUB2::parseEntries(const QString &config)
                     return;
                 }
                 stream >> ch;
+                entry += ch;
                 if (ch == '\\') {
-                    if (stream.atEnd()) {
-                        return;
-                    }
                     stream >> ch;
-                    switch (ch.toAscii()) {
-                        case '$':
-                        case '"':
-                        case '\\':
-                            entry.append(ch);
-                            break;
-                        case '\n':
-                            entry.append(' ');
-                            break;
-                        default:
-                            entry.append('\\').append(ch);
-                            break;
-                    }
+                    entry += ch;
                 } else if (ch == '"') {
                     break;
-                } else {
-                    entry.append(ch);
                 }
             }
         } else {
             while (true) {
-                if (ch == '\\') {
-                    if (stream.atEnd()) {
-                        return;
-                    }
-                    stream >> ch;
-                    switch (ch.toAscii()) {
-                        case '\n':
-                            break;
-                        default:
-                            entry.append(ch);
-                            break;
-                    }
-                } else if (ch.isSpace()) {
-                    break;
-                } else {
-                    entry.append(ch);
-                }
                 if (stream.atEnd()) {
                     return;
                 }
                 stream >> ch;
+                entry += ch;
+                if (ch == '\\') {
+                    stream >> ch;
+                    entry += ch;
+                } else if (ch.isSpace()) {
+                    break;
+                }
             }
         }
         m_entries.append(entry);
