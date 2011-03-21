@@ -86,42 +86,40 @@ void KCMGRUB2::load()
             }
         }
     }
-    ui.checkBox_savedefault->setChecked(m_settings.value("GRUB_SAVEDEFAULT").compare("true", Qt::CaseInsensitive) == 0);
+    ui.checkBox_savedefault->setChecked(m_settings.value("GRUB_SAVEDEFAULT").compare("true") == 0);
     ui.comboBox_default->blockSignals(false);
 
-    //TODO: KIntSpinBox -> QSpinBox
-    ui.kintspinbox_hiddenTimeout->blockSignals(true);
-    ui.kintspinbox_timeout->blockSignals(true);
+    ui.spinBox_hiddenTimeout->blockSignals(true);
+    ui.spinBox_timeout->blockSignals(true);
     int hiddenTimeout = m_settings.value("GRUB_HIDDEN_TIMEOUT").toInt(&ok);
     if (ok && hiddenTimeout >= 0) {
         ui.checkBox_hiddenTimeout->setChecked(hiddenTimeout > 0);
-        ui.kintspinbox_hiddenTimeout->setValue(hiddenTimeout);
+        ui.spinBox_hiddenTimeout->setValue(hiddenTimeout);
     } else {
         kWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
     }
-    ui.checkBox_hiddenTimeoutShowTimer->setChecked(m_settings.value("GRUB_HIDDEN_TIMEOUT_QUIET").compare("true", Qt::CaseInsensitive) != 0);
+    ui.checkBox_hiddenTimeoutShowTimer->setChecked(m_settings.value("GRUB_HIDDEN_TIMEOUT_QUIET").compare("true") != 0);
     int timeout = m_settings.value("GRUB_TIMEOUT").toInt(&ok);
     if (ok && timeout >= -1) {
         ui.checkBox_timeout->setChecked(timeout > -1);
         ui.radioButton_timeout0->setChecked(timeout == 0);
         ui.radioButton_timeout->setChecked(timeout > 0);
-        ui.kintspinbox_timeout->setValue(timeout);
+        ui.spinBox_timeout->setValue(timeout);
     } else {
         kWarning() << "Invalid GRUB_TIMEOUT value";
     }
-    ui.kintspinbox_hiddenTimeout->blockSignals(false);
-    ui.kintspinbox_timeout->blockSignals(false);
+    ui.spinBox_hiddenTimeout->blockSignals(false);
+    ui.spinBox_timeout->blockSignals(false);
 
     //TODO: Validate input
-    //TODO: KLineEdit -> QLineEdit
-    ui.klineedit_gfxmode->setText(m_settings.value("GRUB_GFXMODE"));
-    if (m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("text", Qt::CaseInsensitive) == 0) {
+    ui.lineEdit_gfxmode->setText(m_settings.value("GRUB_GFXMODE"));
+    if (m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("text") == 0) {
         ui.radioButton_gfxpayloadText->setChecked(true);
-    } else if (m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("keep", Qt::CaseInsensitive) == 0) {
+    } else if (m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("keep") == 0) {
         ui.radioButton_gfxpayloadKeep->setChecked(true);
     } else {
         ui.radioButton_gfxpayloadOther->setChecked(true);
-        ui.klineedit_gfxpayload->setText(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
+        ui.lineEdit_gfxpayload->setText(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
     }
 
     ui.comboBox_normalForeground->blockSignals(true);
@@ -156,21 +154,21 @@ void KCMGRUB2::load()
     ui.kurlrequester_theme->blockSignals(false);
 
     //TODO: Suggestions
-    ui.klineedit_cmdlineDefault->setText(m_settings.value("GRUB_CMDLINE_LINUX_DEFAULT"));
-    ui.klineedit_cmdline->setText(m_settings.value("GRUB_CMDLINE_LINUX"));
+    ui.lineEdit_cmdlineDefault->setText(m_settings.value("GRUB_CMDLINE_LINUX_DEFAULT"));
+    ui.lineEdit_cmdline->setText(m_settings.value("GRUB_CMDLINE_LINUX"));
 
     //TODO: Suggestions
-    ui.klineedit_terminal->setText(m_settings.value("GRUB_TERMINAL"));
-    ui.klineedit_terminal->setText(m_settings.value("GRUB_TERMINAL_INPUT"));
-    ui.klineedit_terminal->setText(m_settings.value("GRUB_TERMINAL_OUTPUT"));
+    ui.lineEdit_terminal->setText(m_settings.value("GRUB_TERMINAL"));
+    ui.lineEdit_terminalInput->setText(m_settings.value("GRUB_TERMINAL_INPUT"));
+    ui.lineEdit_terminalOutput->setText(m_settings.value("GRUB_TERMINAL_OUTPUT"));
 
-    ui.klineedit_distributor->setText(m_settings.value("GRUB_DISTRIBUTOR"));
+    ui.lineEdit_distributor->setText(m_settings.value("GRUB_DISTRIBUTOR"));
     //TODO: Suggestions
-    ui.klineedit_serial->setText(m_settings.value("GRUB_SERIAL_COMMAND"));
+    ui.lineEdit_serial->setText(m_settings.value("GRUB_SERIAL_COMMAND"));
 
-    ui.checkBox_uuid->setChecked(m_settings.value("GRUB_DISABLE_LINUX_UUID").compare("true", Qt::CaseInsensitive) != 0);
-    ui.checkBox_recovery->setChecked(m_settings.value("GRUB_DISABLE_RECOVERY").compare("true", Qt::CaseInsensitive) != 0);
-    ui.checkBox_osProber->setChecked(m_settings.value("GRUB_DISABLE_OS_PROBER").compare("true", Qt::CaseInsensitive) != 0);
+    ui.checkBox_uuid->setChecked(m_settings.value("GRUB_DISABLE_LINUX_UUID").compare("true") != 0);
+    ui.checkBox_recovery->setChecked(m_settings.value("GRUB_DISABLE_RECOVERY").compare("true") != 0);
+    ui.checkBox_osProber->setChecked(m_settings.value("GRUB_DISABLE_OS_PROBER").compare("true") != 0);
 }
 void KCMGRUB2::save()
 {
@@ -212,7 +210,7 @@ void KCMGRUB2::updateGrubSavedefault(bool checked)
 void KCMGRUB2::updateGrubHiddenTimeout()
 {
     if (ui.checkBox_hiddenTimeout->isChecked()) {
-        m_settings["GRUB_HIDDEN_TIMEOUT"] = QString::number(ui.kintspinbox_hiddenTimeout->value());
+        m_settings["GRUB_HIDDEN_TIMEOUT"] = QString::number(ui.spinBox_hiddenTimeout->value());
     } else {
         m_settings.remove("GRUB_HIDDEN_TIMEOUT");
     }
@@ -233,7 +231,7 @@ void KCMGRUB2::updateGrubTimeout()
         if (ui.radioButton_timeout0->isChecked()) {
             m_settings["GRUB_TIMEOUT"] = "0";
         } else {
-            m_settings["GRUB_TIMEOUT"] = QString::number(ui.kintspinbox_timeout->value());
+            m_settings["GRUB_TIMEOUT"] = QString::number(ui.spinBox_timeout->value());
         }
     } else {
         m_settings["GRUB_TIMEOUT"] = "-1";
@@ -256,7 +254,7 @@ void KCMGRUB2::updateGrubGfxpayloadLinux()
     } else if (ui.radioButton_gfxpayloadKeep->isChecked()) {
         m_settings["GRUB_GFXPAYLOAD_LINUX"] = "keep";
     } else {
-        QString gfxPayload = ui.klineedit_gfxpayload->text();
+        QString gfxPayload = ui.lineEdit_gfxpayload->text();
         if (!gfxPayload.isEmpty()) {
             m_settings["GRUB_GFXPAYLOAD_LINUX"] = gfxPayload;
         } else {
@@ -318,7 +316,6 @@ void KCMGRUB2::updateGrubTheme(const QString &text)
     } else {
         m_settings.remove("GRUB_THEME");
     }
-    ui.kpushbutton_preview->setEnabled(!text.isEmpty());
     emit changed(true);
 }
 void KCMGRUB2::updateGrubCmdlineLinuxDefault(const QString &text)
@@ -481,18 +478,18 @@ void KCMGRUB2::setupConnections()
     connect(ui.checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(updateGrubSavedefault(bool)));
 
     connect(ui.checkBox_hiddenTimeout, SIGNAL(clicked(bool)), this, SLOT(updateGrubHiddenTimeout()));
-    connect(ui.kintspinbox_hiddenTimeout, SIGNAL(valueChanged(int)), this, SLOT(updateGrubHiddenTimeout()));
+    connect(ui.spinBox_hiddenTimeout, SIGNAL(valueChanged(int)), this, SLOT(updateGrubHiddenTimeout()));
     connect(ui.checkBox_hiddenTimeoutShowTimer, SIGNAL(clicked(bool)), this, SLOT(updateGrubHiddenTimeoutQuiet(bool)));
     connect(ui.checkBox_timeout, SIGNAL(clicked(bool)), this, SLOT(updateGrubTimeout()));
     connect(ui.radioButton_timeout0, SIGNAL(clicked(bool)), this, SLOT(updateGrubTimeout()));
     connect(ui.radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(updateGrubTimeout()));
-    connect(ui.kintspinbox_timeout, SIGNAL(valueChanged(int)), this, SLOT(updateGrubTimeout()));
+    connect(ui.spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(updateGrubTimeout()));
 
-    connect(ui.klineedit_gfxmode, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxmode(QString)));
+    connect(ui.lineEdit_gfxmode, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxmode(QString)));
     connect(ui.radioButton_gfxpayloadText, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
     connect(ui.radioButton_gfxpayloadKeep, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
     connect(ui.radioButton_gfxpayloadOther, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
-    connect(ui.klineedit_gfxpayload, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxpayloadLinux()));
+    connect(ui.lineEdit_gfxpayload, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxpayloadLinux()));
 
     connect(ui.comboBox_normalForeground, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubColorNormal()));
     connect(ui.comboBox_normalBackground, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubColorNormal()));
@@ -503,15 +500,15 @@ void KCMGRUB2::setupConnections()
     connect(ui.kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(previewGrubBackground()));
     connect(ui.kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(updateGrubTheme(QString)));
 
-    connect(ui.klineedit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinuxDefault(QString)));
-    connect(ui.klineedit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinux(QString)));
+    connect(ui.lineEdit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinuxDefault(QString)));
+    connect(ui.lineEdit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinux(QString)));
 
-    connect(ui.klineedit_terminal, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminal(QString)));
-    connect(ui.klineedit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalInput(QString)));
-    connect(ui.klineedit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalOutput(QString)));
+    connect(ui.lineEdit_terminal, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminal(QString)));
+    connect(ui.lineEdit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalInput(QString)));
+    connect(ui.lineEdit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalOutput(QString)));
 
-    connect(ui.klineedit_distributor, SIGNAL(textEdited(QString)), this, SLOT(updateGrubDistributor(QString)));
-    connect(ui.klineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(updateGrubSerialCommand(QString)));
+    connect(ui.lineEdit_distributor, SIGNAL(textEdited(QString)), this, SLOT(updateGrubDistributor(QString)));
+    connect(ui.lineEdit_serial, SIGNAL(textEdited(QString)), this, SLOT(updateGrubSerialCommand(QString)));
 
     connect(ui.checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(updateGrubDisableLinuxUUID(bool)));
     connect(ui.checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(updateGrubDisableRecovery(bool)));
@@ -805,7 +802,7 @@ void KCMGRUB2::parseSettings(const QString &config)
     QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
     while (!stream.atEnd()) {
         line = stream.readLine().trimmed();
-        if (line.startsWith("GRUB_", Qt::CaseInsensitive)) {
+        if (line.startsWith("GRUB_")) {
             m_settings[line.section('=', 0, 0)] = unquoteWord(line.section('=', 1, QString::SectionIncludeTrailingSep));
         }
     }
@@ -826,7 +823,7 @@ void KCMGRUB2::parseEntries(const QString &config)
         }
         QString word;
         stream >> word;
-        if (word.compare("menuentry", Qt::CaseInsensitive) != 0) {
+        if (word.compare("menuentry") != 0) {
             continue;
         }
         stream.skipWhiteSpace();
