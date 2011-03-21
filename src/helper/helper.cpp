@@ -19,10 +19,11 @@
 #include "helper.h"
 
 //Qt
-#include <QFile>
-#include <QTextStream>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 
 //KDE
+#include <KAuth/HelperSupport>
 #include <KLocalizedString>
 #include <KProcess>
 #include <KShell>

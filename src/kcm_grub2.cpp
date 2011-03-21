@@ -18,9 +18,6 @@
 //Own
 #include "kcm_grub2.h"
 
-//Qt
-#include <QFile>
-
 //KDE
 #include <KAboutData>
 #include <KDebug>
@@ -67,7 +64,6 @@ void KCMGRUB2::load()
     readSettings();
 
     bool ok;
-    ui.comboBox_default->blockSignals(true);
     ui.comboBox_default->addItems(m_entries);
     if (m_settings.value("GRUB_DEFAULT").compare("saved") == 0) {
         ui.radioButton_saved->setChecked(true);
@@ -87,7 +83,6 @@ void KCMGRUB2::load()
         }
     }
     ui.checkBox_savedefault->setChecked(m_settings.value("GRUB_SAVEDEFAULT").compare("true") == 0);
-    ui.comboBox_default->blockSignals(false);
 
     ui.spinBox_hiddenTimeout->blockSignals(true);
     ui.spinBox_timeout->blockSignals(true);
@@ -122,10 +117,6 @@ void KCMGRUB2::load()
         ui.lineEdit_gfxpayload->setText(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
     }
 
-    ui.comboBox_normalForeground->blockSignals(true);
-    ui.comboBox_normalBackground->blockSignals(true);
-    ui.comboBox_highlightForeground->blockSignals(true);
-    ui.comboBox_highlightBackground->blockSignals(true);
     if (!m_settings.value("GRUB_COLOR_NORMAL").isEmpty()) {
         int normalForegroundIndex = ui.comboBox_normalForeground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 0, 0));
         int normalBackgroundIndex = ui.comboBox_normalBackground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 1));
@@ -152,10 +143,6 @@ void KCMGRUB2::load()
             ui.comboBox_highlightBackground->setCurrentIndex(highlightBackgroundIndex);
         }
     }
-    ui.comboBox_normalForeground->blockSignals(false);
-    ui.comboBox_normalBackground->blockSignals(false);
-    ui.comboBox_highlightForeground->blockSignals(false);
-    ui.comboBox_highlightBackground->blockSignals(false);
 
     ui.kurlrequester_background->blockSignals(true);
     ui.kurlrequester_theme->blockSignals(true);
@@ -436,10 +423,6 @@ void KCMGRUB2::setupObjects()
     setButtons(Apply);
     setNeedsAuthorization(true);
 
-    ui.comboBox_normalForeground->blockSignals(true);
-    ui.comboBox_normalBackground->blockSignals(true);
-    ui.comboBox_highlightForeground->blockSignals(true);
-    ui.comboBox_highlightBackground->blockSignals(true);
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);
     transparent.fill(Qt::transparent);
@@ -488,10 +471,6 @@ void KCMGRUB2::setupObjects()
     ui.comboBox_normalBackground->setCurrentIndex(ui.comboBox_normalBackground->findData("black"));
     ui.comboBox_highlightForeground->setCurrentIndex(ui.comboBox_highlightForeground->findData("black"));
     ui.comboBox_highlightBackground->setCurrentIndex(ui.comboBox_highlightBackground->findData("light-gray"));
-    ui.comboBox_normalForeground->blockSignals(false);
-    ui.comboBox_normalBackground->blockSignals(false);
-    ui.comboBox_highlightForeground->blockSignals(false);
-    ui.comboBox_highlightBackground->blockSignals(false);
 
     splash = 0;
     ui.kpushbutton_preview->setIcon(KIcon("image-png"));
@@ -499,7 +478,7 @@ void KCMGRUB2::setupObjects()
 void KCMGRUB2::setupConnections()
 {
     connect(ui.radioButton_default, SIGNAL(clicked(bool)), this, SLOT(updateGrubDefault()));
-    connect(ui.comboBox_default, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubDefault()));
+    connect(ui.comboBox_default, SIGNAL(activated(int)), this, SLOT(updateGrubDefault()));
     connect(ui.radioButton_saved, SIGNAL(clicked(bool)), this, SLOT(updateGrubDefault()));
     connect(ui.checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(updateGrubSavedefault(bool)));
 
@@ -517,10 +496,10 @@ void KCMGRUB2::setupConnections()
     connect(ui.radioButton_gfxpayloadOther, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
     connect(ui.lineEdit_gfxpayload, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxpayloadLinux()));
 
-    connect(ui.comboBox_normalForeground, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubColorNormal()));
-    connect(ui.comboBox_normalBackground, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubColorNormal()));
-    connect(ui.comboBox_highlightForeground, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubColorHighlight()));
-    connect(ui.comboBox_highlightBackground, SIGNAL(currentIndexChanged(int)), this, SLOT(updateGrubColorHighlight()));
+    connect(ui.comboBox_normalForeground, SIGNAL(activated(int)), this, SLOT(updateGrubColorNormal()));
+    connect(ui.comboBox_normalBackground, SIGNAL(activated(int)), this, SLOT(updateGrubColorNormal()));
+    connect(ui.comboBox_highlightForeground, SIGNAL(activated(int)), this, SLOT(updateGrubColorHighlight()));
+    connect(ui.comboBox_highlightBackground, SIGNAL(activated(int)), this, SLOT(updateGrubColorHighlight()));
 
     connect(ui.kurlrequester_background, SIGNAL(textChanged(QString)), this, SLOT(updateGrubBackground(QString)));
     connect(ui.kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(previewGrubBackground()));

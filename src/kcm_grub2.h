@@ -78,10 +78,11 @@ private:
     void parseEntries(const QString &config);
 
     KSplashScreen *splash;
+    Ui::KCMGRUB2 ui;
+
     QHash<QString, QString> m_settings;
     QStringList m_entries;
     QHash<QString, QString> m_devices;
-    Ui::KCMGRUB2 ui;
 };
 
 #endif
