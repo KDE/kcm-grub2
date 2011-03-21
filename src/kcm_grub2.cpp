@@ -126,20 +126,32 @@ void KCMGRUB2::load()
     ui.comboBox_normalBackground->blockSignals(true);
     ui.comboBox_highlightForeground->blockSignals(true);
     ui.comboBox_highlightBackground->blockSignals(true);
-    int normalForegroundIndex = ui.comboBox_normalForeground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 0, 0));
-    int normalBackgroundIndex = ui.comboBox_normalBackground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 1));
-    if (normalForegroundIndex == -1 || normalBackgroundIndex == -1) {
-        kWarning() << "Invalid GRUB_COLOR_NORMAL value";
+    if (!m_settings.value("GRUB_COLOR_NORMAL").isEmpty()) {
+        int normalForegroundIndex = ui.comboBox_normalForeground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 0, 0));
+        int normalBackgroundIndex = ui.comboBox_normalBackground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 1));
+        if (normalForegroundIndex == -1 || normalBackgroundIndex == -1) {
+            kWarning() << "Invalid GRUB_COLOR_NORMAL value";
+        }
+        if (normalForegroundIndex != -1) {
+            ui.comboBox_normalForeground->setCurrentIndex(normalForegroundIndex);
+        }
+        if (normalBackgroundIndex != -1) {
+            ui.comboBox_normalBackground->setCurrentIndex(normalBackgroundIndex);
+        }
     }
-    ui.comboBox_normalForeground->setCurrentIndex(normalForegroundIndex);
-    ui.comboBox_normalBackground->setCurrentIndex(normalBackgroundIndex);
-    int highlightForegroundIndex = ui.comboBox_highlightForeground->findData(m_settings.value("GRUB_COLOR_HIGHLIGHT").section('/', 0, 0));
-    int highlightBackgroundIndex = ui.comboBox_highlightBackground->findData(m_settings.value("GRUB_COLOR_HIGHLIGHT").section('/', 1));
-    if (highlightForegroundIndex == -1 || highlightBackgroundIndex == -1) {
-        kWarning() << "Invalid GRUB_COLOR_HIGHLIGHT value";
+    if (!m_settings.value("GRUB_COLOR_HIGHLIGHT").isEmpty()) {
+        int highlightForegroundIndex = ui.comboBox_highlightForeground->findData(m_settings.value("GRUB_COLOR_HIGHLIGHT").section('/', 0, 0));
+        int highlightBackgroundIndex = ui.comboBox_highlightBackground->findData(m_settings.value("GRUB_COLOR_HIGHLIGHT").section('/', 1));
+        if (highlightForegroundIndex == -1 || highlightBackgroundIndex == -1) {
+            kWarning() << "Invalid GRUB_COLOR_HIGHLIGHT value";
+        }
+        if (highlightForegroundIndex != -1) {
+            ui.comboBox_highlightForeground->setCurrentIndex(highlightForegroundIndex);
+        }
+        if (highlightBackgroundIndex != -1) {
+            ui.comboBox_highlightBackground->setCurrentIndex(highlightBackgroundIndex);
+        }
     }
-    ui.comboBox_highlightForeground->setCurrentIndex(highlightForegroundIndex);
-    ui.comboBox_highlightBackground->setCurrentIndex(highlightBackgroundIndex);
     ui.comboBox_normalForeground->blockSignals(false);
     ui.comboBox_normalBackground->blockSignals(false);
     ui.comboBox_highlightForeground->blockSignals(false);
@@ -165,6 +177,7 @@ void KCMGRUB2::load()
     ui.lineEdit_distributor->setText(m_settings.value("GRUB_DISTRIBUTOR"));
     //TODO: Suggestions
     ui.lineEdit_serial->setText(m_settings.value("GRUB_SERIAL_COMMAND"));
+    ui.lineEdit_initTune->setText(m_settings.value("GRUB_INIT_TUNE"));
 
     ui.checkBox_uuid->setChecked(m_settings.value("GRUB_DISABLE_LINUX_UUID").compare("true") != 0);
     ui.checkBox_recovery->setChecked(m_settings.value("GRUB_DISABLE_RECOVERY").compare("true") != 0);
@@ -381,6 +394,15 @@ void KCMGRUB2::updateGrubSerialCommand(const QString &text)
     }
     emit changed(true);
 }
+void KCMGRUB2::updateGrubInitTune(const QString& text)
+{
+    if (!text.isEmpty()) {
+        m_settings["GRUB_INIT_TUNE"] = text;
+    } else {
+        m_settings.remove("GRUB_INIT_TUNE");
+    }
+    emit changed(true);
+}
 void KCMGRUB2::updateGrubDisableLinuxUUID(bool checked)
 {
     if (checked) {
@@ -462,6 +484,10 @@ void KCMGRUB2::setupObjects()
         ui.comboBox_normalBackground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
         ui.comboBox_highlightBackground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
     }
+    ui.comboBox_normalForeground->setCurrentIndex(ui.comboBox_normalForeground->findData("light-gray"));
+    ui.comboBox_normalBackground->setCurrentIndex(ui.comboBox_normalBackground->findData("black"));
+    ui.comboBox_highlightForeground->setCurrentIndex(ui.comboBox_highlightForeground->findData("black"));
+    ui.comboBox_highlightBackground->setCurrentIndex(ui.comboBox_highlightBackground->findData("light-gray"));
     ui.comboBox_normalForeground->blockSignals(false);
     ui.comboBox_normalBackground->blockSignals(false);
     ui.comboBox_highlightForeground->blockSignals(false);
@@ -509,6 +535,7 @@ void KCMGRUB2::setupConnections()
 
     connect(ui.lineEdit_distributor, SIGNAL(textEdited(QString)), this, SLOT(updateGrubDistributor(QString)));
     connect(ui.lineEdit_serial, SIGNAL(textEdited(QString)), this, SLOT(updateGrubSerialCommand(QString)));
+    connect(ui.lineEdit_initTune, SIGNAL(textEdited(QString)), this, SLOT(updateGrubInitTune(QString)));
 
     connect(ui.checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(updateGrubDisableLinuxUUID(bool)));
     connect(ui.checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(updateGrubDisableRecovery(bool)));
@@ -795,9 +822,6 @@ void KCMGRUB2::parseSettings(const QString &config)
 {
     m_settings["GRUB_DEFAULT"] = "0";
     m_settings["GRUB_TIMEOUT"] = "5";
-    m_settings["GRUB_GFXMODE"] = "640x480";
-    m_settings["GRUB_COLOR_NORMAL"] = "light-gray/black";
-    m_settings["GRUB_COLOR_HIGHLIGHT"] = "black/light-gray";
     QString line, settingsConfig = config;
     QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
     while (!stream.atEnd()) {

@@ -54,10 +54,10 @@ private Q_SLOTS:
     void updateGrubTerminalOutput(const QString &text);
     void updateGrubDistributor(const QString &text);
     void updateGrubSerialCommand(const QString &text);
+    void updateGrubInitTune(const QString &text);
     void updateGrubDisableLinuxUUID(bool checked);
     void updateGrubDisableRecovery(bool checked);
     void updateGrubDisableOsProber(bool checked);
-    //TODO: GRUB_INIT_TUNE
 private:
     void setupObjects();
     void setupConnections();
