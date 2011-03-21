@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: http://kde-apps.org/content/show.php/GRUB2+Bootloader"
 "+KCModule?content=139643\n"
-"POT-Creation-Date: 2011-03-13 14:41+0200\n"
+"POT-Creation-Date: 2011-03-21 15:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -80,13 +80,13 @@ msgid "Hide the menu for:"
 msgstr ""
 
 #. i18n: file: ui/kcm_grub2.ui:108
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, kintspinbox_hiddenTimeout)
-#. i18n: file: ui/kcm_grub2.ui:207
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, kintspinbox_timeout)
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_hiddenTimeout)
+#. i18n: file: ui/kcm_grub2.ui:204
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_timeout)
 #. i18n: file: ui/kcm_grub2.ui:108
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, kintspinbox_hiddenTimeout)
-#. i18n: file: ui/kcm_grub2.ui:207
-#. i18n: ectx: property (suffix), widget (KIntSpinBox, kintspinbox_timeout)
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_hiddenTimeout)
+#. i18n: file: ui/kcm_grub2.ui:204
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_timeout)
 #: rc.cpp:30 rc.cpp:45 rc.cpp:30 rc.cpp:45
 msgctxt "@label:spinbox seconds (suffix)"
 msgid "s"
@@ -113,243 +113,257 @@ msgctxt "@option:radio"
 msgid "Immediately"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:197
+#. i18n: file: ui/kcm_grub2.ui:194
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout)
 #: rc.cpp:42 rc.cpp:42
 msgctxt "@option:radio"
 msgid "After:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:236
+#. i18n: file: ui/kcm_grub2.ui:233
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: rc.cpp:48 rc.cpp:48
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:242
+#. i18n: file: ui/kcm_grub2.ui:239
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_resolutions)
 #: rc.cpp:51 rc.cpp:51
 msgctxt "@title:group"
 msgid "Resolutions"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:248
+#. i18n: file: ui/kcm_grub2.ui:245
 #. i18n: ectx: property (text), widget (QLabel, label_gfxmode)
 #: rc.cpp:54 rc.cpp:54
 msgctxt "@label:textbox"
 msgid "GRUB:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:258
+#. i18n: file: ui/kcm_grub2.ui:255
 #. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
 #: rc.cpp:57 rc.cpp:57
 msgctxt "@label"
 msgid "Linux Kernel:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:265
+#. i18n: file: ui/kcm_grub2.ui:262
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_gfxpayloadText)
 #: rc.cpp:60 rc.cpp:60
 msgctxt "@option:radio"
 msgid "Boot in Text Mode"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:272
+#. i18n: file: ui/kcm_grub2.ui:269
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_gfxpayloadKeep)
 #: rc.cpp:63 rc.cpp:63
 msgctxt "@option:radio"
 msgid "Keep GRUB's Resolution"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:281
+#. i18n: file: ui/kcm_grub2.ui:278
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_gfxpayloadOther)
 #: rc.cpp:66 rc.cpp:66
 msgctxt "@option:radio"
 msgid "Other:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:300
+#. i18n: file: ui/kcm_grub2.ui:293
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_colors)
 #: rc.cpp:69 rc.cpp:69
 msgctxt "@title:group"
 msgid "Colors"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:314
-#. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
+#. i18n: file: ui/kcm_grub2.ui:301
+#. i18n: ectx: property (text), widget (QLabel, label_normalForeground)
 #: rc.cpp:72 rc.cpp:72
+msgctxt "@label:chooser"
+msgid "Normal Foreground (Text):"
+msgstr ""
+
+#. i18n: file: ui/kcm_grub2.ui:311
+#. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
+#: rc.cpp:75 rc.cpp:75
+msgctxt "@label:chooser"
+msgid "Highlight Foreground (Text):"
+msgstr ""
+
+#. i18n: file: ui/kcm_grub2.ui:325
+#. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
+#: rc.cpp:78 rc.cpp:78
 msgctxt "@label:chooser"
 msgid "Normal Background:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:331
+#. i18n: file: ui/kcm_grub2.ui:335
 #. i18n: ectx: property (text), widget (QLabel, label_highlightBackground)
-#: rc.cpp:75 rc.cpp:75
+#: rc.cpp:81 rc.cpp:81
 msgctxt "@label:chooser"
 msgid "Highlight Background:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:352
-#. i18n: ectx: property (text), widget (QLabel, label_normalForeground)
-#: rc.cpp:78 rc.cpp:78
-msgctxt "@label:chooser"
-msgid "Normal Foreground:"
-msgstr ""
-
-#. i18n: file: ui/kcm_grub2.ui:369
-#. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
-#: rc.cpp:81 rc.cpp:81
-msgctxt "@label:chooser"
-msgid "Highlight Foreground:"
-msgstr ""
-
-#. i18n: file: ui/kcm_grub2.ui:391
+#. i18n: file: ui/kcm_grub2.ui:350
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_background)
 #: rc.cpp:84 rc.cpp:84
 msgctxt "@title:group"
 msgid "Background"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:397
+#. i18n: file: ui/kcm_grub2.ui:356
 #. i18n: ectx: property (text), widget (QLabel, label_background)
 #: rc.cpp:87 rc.cpp:87
 msgctxt "@label:textbox"
 msgid "Wallpaper:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:407
-#. i18n: ectx: property (text), widget (QLabel, label_theme)
+#. i18n: file: ui/kcm_grub2.ui:366
+#. i18n: ectx: property (text), widget (KPushButton, kpushbutton_preview)
 #: rc.cpp:90 rc.cpp:90
+msgctxt "@action:button"
+msgid "Preview"
+msgstr ""
+
+#. i18n: file: ui/kcm_grub2.ui:373
+#. i18n: ectx: property (text), widget (QLabel, label_theme)
+#: rc.cpp:93 rc.cpp:93
 msgctxt "@label:textbox"
 msgid "Theme:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:434
+#. i18n: file: ui/kcm_grub2.ui:400
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
-#: rc.cpp:93 rc.cpp:93
+#: rc.cpp:96 rc.cpp:96
 msgctxt "@title:tab"
 msgid "Advanced"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:440
+#. i18n: file: ui/kcm_grub2.ui:406
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_linux)
-#: rc.cpp:96 rc.cpp:96
+#: rc.cpp:99 rc.cpp:99
 msgctxt "@title:group"
 msgid "Linux Kernel Arguments"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:446
+#. i18n: file: ui/kcm_grub2.ui:412
 #. i18n: ectx: property (text), widget (QLabel, label_cmdlineDefault)
-#: rc.cpp:99 rc.cpp:99
+#: rc.cpp:102 rc.cpp:102
 msgctxt "@label:textbox"
 msgid "Normal Entries:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:456
+#. i18n: file: ui/kcm_grub2.ui:422
 #. i18n: ectx: property (text), widget (QLabel, label_cmdline)
-#: rc.cpp:102 rc.cpp:102
+#: rc.cpp:105 rc.cpp:105
 msgctxt "@label:textbox"
 msgid "All Entries:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:469
+#. i18n: file: ui/kcm_grub2.ui:435
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_terminal)
-#: rc.cpp:105 rc.cpp:105
+#: rc.cpp:108 rc.cpp:108
 msgctxt "@title:group"
 msgid "Terminal"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:475
+#. i18n: file: ui/kcm_grub2.ui:441
 #. i18n: ectx: property (text), widget (QLabel, label_terminal)
-#: rc.cpp:108 rc.cpp:108
+#: rc.cpp:111 rc.cpp:111
 msgctxt "@label:textbox"
 msgid "Terminal:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:485
+#. i18n: file: ui/kcm_grub2.ui:451
 #. i18n: ectx: property (text), widget (QLabel, label_terminalInput)
-#: rc.cpp:111 rc.cpp:111
+#: rc.cpp:114 rc.cpp:114
 msgctxt "@label:textbox"
 msgid "Input Terminal:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:495
+#. i18n: file: ui/kcm_grub2.ui:461
 #. i18n: ectx: property (text), widget (QLabel, label_terminalOutput)
-#: rc.cpp:114 rc.cpp:114
+#: rc.cpp:117 rc.cpp:117
 msgctxt "@label:textbox"
 msgid "Output Terminal:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:508
+#. i18n: file: ui/kcm_grub2.ui:474
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_other)
-#: rc.cpp:117 rc.cpp:117
+#: rc.cpp:120 rc.cpp:120
 msgctxt "@title:group"
 msgid "Other"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:514
+#. i18n: file: ui/kcm_grub2.ui:480
 #. i18n: ectx: property (text), widget (QLabel, label_distributor)
-#: rc.cpp:120 rc.cpp:120
+#: rc.cpp:123 rc.cpp:123
 msgctxt "@label:textbox"
 msgid "Distributor:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:524
+#. i18n: file: ui/kcm_grub2.ui:490
 #. i18n: ectx: property (text), widget (QLabel, label_serial)
-#: rc.cpp:123 rc.cpp:123
+#: rc.cpp:126 rc.cpp:126
 msgctxt "@label:textbox"
 msgid "Serial Command:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:534
+#. i18n: file: ui/kcm_grub2.ui:500
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: rc.cpp:129 rc.cpp:129
+msgctxt "@label:textbox"
+msgid "Init Tune:"
+msgstr ""
+
+#. i18n: file: ui/kcm_grub2.ui:510
 #. i18n: ectx: property (text), widget (QLabel, label_uuid)
-#: rc.cpp:126 rc.cpp:126
+#: rc.cpp:132 rc.cpp:132
 msgctxt "@option:check"
 msgid "Enable UUIDs:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:544
+#. i18n: file: ui/kcm_grub2.ui:520
 #. i18n: ectx: property (text), widget (QLabel, label_recovery)
-#: rc.cpp:129 rc.cpp:129
+#: rc.cpp:135 rc.cpp:135
 msgctxt "@option:check"
 msgid "Generate recovery entries:"
 msgstr ""
 
-#. i18n: file: ui/kcm_grub2.ui:554
+#. i18n: file: ui/kcm_grub2.ui:530
 #. i18n: ectx: property (text), widget (QLabel, label_osProber)
-#: rc.cpp:132 rc.cpp:132
+#: rc.cpp:138 rc.cpp:138
 msgctxt "@option:check"
 msgid "Probe for operating systems:"
 msgstr ""
 
-#: rc.cpp:133 rc.cpp:133
+#: rc.cpp:139 rc.cpp:139
 msgctxt "NAME OF TRANSLATORS"
 msgid "Your names"
 msgstr ""
 
-#: rc.cpp:134 rc.cpp:134
+#: rc.cpp:140 rc.cpp:140
 msgctxt "EMAIL OF TRANSLATORS"
 msgid "Your emails"
 msgstr ""
 
-#: src/kcm_grub2.cpp:46
+#: src/kcm_grub2.cpp:44
 msgid "KDE GRUB2 Bootloader Control Module"
 msgstr ""
 
-#: src/kcm_grub2.cpp:46
+#: src/kcm_grub2.cpp:44
 msgid "Copyright (C) 2008-2011 Konstantinos Smanis"
 msgstr ""
 
-#: src/kcm_grub2.cpp:47
+#: src/kcm_grub2.cpp:45
 msgid "Κonstantinos Smanis"
 msgstr ""
 
-#: src/kcm_grub2.cpp:47
+#: src/kcm_grub2.cpp:45
 msgid "Main Developer"
 msgstr ""
 
-#: src/kcm_grub2.cpp:160
+#: src/kcm_grub2.cpp:187
 msgctxt "@info"
 msgid ""
 "<para>Your configuration was successfully saved.<nl/>For the changes to take "
@@ -357,47 +371,142 @@ msgid ""
 "para>"
 msgstr ""
 
-#: src/kcm_grub2.cpp:326 src/kcm_grub2.cpp:356
-msgctxt "@info"
-msgid "Failed to probe GRUB information for <filename>%1</filename>."
+#: src/kcm_grub2.cpp:429 src/kcm_grub2.cpp:430
+msgctxt "@item:inlistbox"
+msgid "Black"
 msgstr ""
 
-#: src/kcm_grub2.cpp:506
+#: src/kcm_grub2.cpp:431 src/kcm_grub2.cpp:432
+msgctxt "@item:inlistbox"
+msgid "Transparent"
+msgstr ""
+
+#: src/kcm_grub2.cpp:434
+msgctxt "@item:inlistbox"
+msgid "Blue"
+msgstr ""
+
+#: src/kcm_grub2.cpp:436
+msgctxt "@item:inlistbox"
+msgid "Cyan"
+msgstr ""
+
+#: src/kcm_grub2.cpp:438
+msgctxt "@item:inlistbox"
+msgid "Dark Gray"
+msgstr ""
+
+#: src/kcm_grub2.cpp:440
+msgctxt "@item:inlistbox"
+msgid "Green"
+msgstr ""
+
+#: src/kcm_grub2.cpp:442
+msgctxt "@item:inlistbox"
+msgid "Light Cyan"
+msgstr ""
+
+#: src/kcm_grub2.cpp:444
+msgctxt "@item:inlistbox"
+msgid "Light Blue"
+msgstr ""
+
+#: src/kcm_grub2.cpp:446
+msgctxt "@item:inlistbox"
+msgid "Light Green"
+msgstr ""
+
+#: src/kcm_grub2.cpp:448
+msgctxt "@item:inlistbox"
+msgid "Light Gray"
+msgstr ""
+
+#: src/kcm_grub2.cpp:450
+msgctxt "@item:inlistbox"
+msgid "Light Magenta"
+msgstr ""
+
+#: src/kcm_grub2.cpp:452
+msgctxt "@item:inlistbox"
+msgid "Light Red"
+msgstr ""
+
+#: src/kcm_grub2.cpp:454
+msgctxt "@item:inlistbox"
+msgid "Magenta"
+msgstr ""
+
+#: src/kcm_grub2.cpp:456
+msgctxt "@item:inlistbox"
+msgid "Red"
+msgstr ""
+
+#: src/kcm_grub2.cpp:458
+msgctxt "@item:inlistbox"
+msgid "White"
+msgstr ""
+
+#: src/kcm_grub2.cpp:460
+msgctxt "@item:inlistbox"
+msgid "Yellow"
+msgstr ""
+
+#: src/kcm_grub2.cpp:588
 msgctxt "@info"
 msgid "Error writing <filename>%1</filename>"
 msgstr ""
 
-#: src/kcm_grub2.cpp:506
+#: src/kcm_grub2.cpp:588
 msgctxt "@info"
 msgid "Error code: %1<nl/>Error description: %2"
 msgstr ""
 
-#: src/kcm_grub2.cpp:518
+#: src/kcm_grub2.cpp:600
 msgctxt "@title:window"
 msgid "Updating GRUB"
 msgstr ""
 
-#: src/kcm_grub2.cpp:518
+#: src/kcm_grub2.cpp:600
 msgctxt "@info:progress"
-msgid "Updating the GRUB menu..."
+msgid "Updating the GRUB menu.."
 msgstr ""
 
-#: src/kcm_grub2.cpp:527
+#: src/kcm_grub2.cpp:609
 msgctxt "@title:window"
 msgid "Information"
 msgstr ""
 
-#: src/kcm_grub2.cpp:532
+#: src/kcm_grub2.cpp:614
 msgctxt "@info"
 msgid "Successfully updated the GRUB menu."
 msgstr ""
 
-#: src/kcm_grub2.cpp:534
+#: src/kcm_grub2.cpp:616
 msgctxt "@info"
 msgid "Failed to update the GRUB menu."
 msgstr ""
 
-#: src/kcm_grub2.cpp:556 src/kcm_grub2.cpp:589
+#: src/kcm_grub2.cpp:635
+msgctxt "@title:window"
+msgid "Probing devices"
+msgstr ""
+
+#: src/kcm_grub2.cpp:635
+msgctxt "@info:progress"
+msgid "Probing devices for their GRUB names.."
+msgstr ""
+
+#: src/kcm_grub2.cpp:643
+msgctxt "@info"
+msgid "Helper returned malformed device list."
+msgstr ""
+
+#: src/kcm_grub2.cpp:650
+msgctxt "@info"
+msgid "Failed to get GRUB device names."
+msgstr ""
+
+#: src/kcm_grub2.cpp:672 src/kcm_grub2.cpp:705
 msgctxt "@info"
 msgid ""
 "<para>None of the following files were readable.</para><para>Select another "
