@@ -1,3 +1,11 @@
+v.0.3.0 (21/03/2011)
+--------------------
+*ADDED: Allow previewing a wallpaper (=splash image).
+*ADDED: Support for GRUB_INIT_TUNE.
+*FIXED: Make colors actually work.
+*FIXED: Handle better GRUB device naming.
+*FIXED: Rewrote big part of the code.
+
 v.0.2.5 (13/03/2011)
 --------------------
 *ADDED: Resolution options improved.
