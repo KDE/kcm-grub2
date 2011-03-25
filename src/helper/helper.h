@@ -24,7 +24,7 @@ using namespace KAuth;
 
 class Helper : public QObject
 {
-Q_OBJECT
+    Q_OBJECT
 public Q_SLOTS:
     ActionReply load(QVariantMap args);
     ActionReply probe(QVariantMap args);

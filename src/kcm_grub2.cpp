@@ -751,17 +751,17 @@ QString KCMGRUB2::unquoteWord(const QString &word)
                     }
                     stream >> ch;
                     switch (ch.toAscii()) {
-                        case '$':
-                        case '"':
-                        case '\\':
-                            unquotedWord.append(ch);
-                            break;
-                        case '\n':
-                            unquotedWord.append(' ');
-                            break;
-                        default:
-                            unquotedWord.append('\\').append(ch);
-                            break;
+                    case '$':
+                    case '"':
+                    case '\\':
+                        unquotedWord.append(ch);
+                        break;
+                    case '\n':
+                        unquotedWord.append(' ');
+                        break;
+                    default:
+                        unquotedWord.append('\\').append(ch);
+                        break;
                     }
                 } else if (ch == '"') {
                     return unquotedWord;
@@ -777,11 +777,11 @@ QString KCMGRUB2::unquoteWord(const QString &word)
                     }
                     stream >> ch;
                     switch (ch.toAscii()) {
-                        case '\n':
-                            break;
-                        default:
-                            unquotedWord.append(ch);
-                            break;
+                    case '\n':
+                        break;
+                    default:
+                        unquotedWord.append(ch);
+                        break;
                     }
                 } else if (ch.isSpace()) {
                     return unquotedWord;

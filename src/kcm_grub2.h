@@ -27,7 +27,7 @@ class KSplashScreen;
 
 class KCMGRUB2 : public KCModule
 {
-Q_OBJECT
+    Q_OBJECT
 public:
     KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
     virtual ~KCMGRUB2();
