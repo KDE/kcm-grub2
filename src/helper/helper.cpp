@@ -24,7 +24,6 @@
 
 //KDE
 #include <KAuth/HelperSupport>
-#include <KLocalizedString>
 #include <KProcess>
 #include <KShell>
 
