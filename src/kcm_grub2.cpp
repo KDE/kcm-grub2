@@ -156,10 +156,16 @@ void KCMGRUB2::load()
     ui.lineEdit_cmdlineDefault->setText(m_settings.value("GRUB_CMDLINE_LINUX_DEFAULT"));
     ui.lineEdit_cmdline->setText(m_settings.value("GRUB_CMDLINE_LINUX"));
 
-    //TODO: Suggestions
     ui.lineEdit_terminal->setText(m_settings.value("GRUB_TERMINAL"));
-    ui.lineEdit_terminalInput->setText(m_settings.value("GRUB_TERMINAL_INPUT"));
-    ui.lineEdit_terminalOutput->setText(m_settings.value("GRUB_TERMINAL_OUTPUT"));
+    if (m_settings.value("GRUB_TERMINAL").isEmpty()) {
+        ui.lineEdit_terminalInput->setText(m_settings.value("GRUB_TERMINAL_INPUT"));
+        ui.lineEdit_terminalOutput->setText(m_settings.value("GRUB_TERMINAL_OUTPUT"));
+    } else {
+        ui.lineEdit_terminalInput->setReadOnly(true);
+        ui.lineEdit_terminalOutput->setReadOnly(true);
+        ui.lineEdit_terminalInput->setText(m_settings.value("GRUB_TERMINAL"));
+        ui.lineEdit_terminalOutput->setText(m_settings.value("GRUB_TERMINAL"));
+    }
 
     ui.lineEdit_distributor->setText(m_settings.value("GRUB_DISTRIBUTOR"));
     //TODO: Suggestions
@@ -336,47 +342,6 @@ void KCMGRUB2::updateGrubCmdlineLinux(const QString &text)
     }
     emit changed(true);
 }
-void KCMGRUB2::updateCmdlineSuggestions()
-{
-    if (!sender()->isWidgetType()) {
-        return;
-    }
-
-    QLineEdit *lineEdit = 0;
-    if (ui.kpushbutton_cmdlineDefaultSuggestions->isDown()) {
-        lineEdit = ui.lineEdit_cmdlineDefault;
-    } else if (ui.kpushbutton_cmdlineSuggestions->isDown()) {
-        lineEdit = ui.lineEdit_cmdline;
-    } else {
-        return;
-    }
-
-    foreach(QAction *action, qobject_cast<const QWidget*>(sender())->actions()) {
-        action->setChecked(lineEdit->text().contains(QRegExp(QString("\\b%1\\b").arg(action->data().toString()))));
-    }
-}
-void KCMGRUB2::triggeredCmdlineSuggestion(QAction *action)
-{
-    QLineEdit *lineEdit = 0;
-    void (KCMGRUB2::*updateFunction)(const QString &) = 0;
-    if (ui.kpushbutton_cmdlineDefaultSuggestions->isDown()) {
-        lineEdit = ui.lineEdit_cmdlineDefault;
-        updateFunction = &KCMGRUB2::updateGrubCmdlineLinuxDefault;
-    } else if (ui.kpushbutton_cmdlineSuggestions->isDown()) {
-        lineEdit = ui.lineEdit_cmdline;
-        updateFunction = &KCMGRUB2::updateGrubCmdlineLinux;
-    } else {
-        return;
-    }
-
-    QString lineEditText = lineEdit->text();
-    if (!action->isChecked()) {
-        lineEdit->setText(lineEditText.remove(QRegExp(QString("\\b%1\\b").arg(action->data().toString()))).simplified());
-    } else {
-        lineEdit->setText(lineEditText.isEmpty() ? action->data().toString() : lineEditText + ' ' + action->data().toString());
-    }
-    (this->*updateFunction)(lineEdit->text());
-}
 void KCMGRUB2::updateGrubTerminal(const QString &text)
 {
     if (!text.isEmpty()) {
@@ -384,6 +349,10 @@ void KCMGRUB2::updateGrubTerminal(const QString &text)
     } else {
         m_settings.remove("GRUB_TERMINAL");
     }
+    ui.lineEdit_terminalInput->setReadOnly(!text.isEmpty());
+    ui.lineEdit_terminalOutput->setReadOnly(!text.isEmpty());
+    ui.lineEdit_terminalInput->setText(!text.isEmpty() ? text : m_settings.value("GRUB_TERMINAL_INPUT"));
+    ui.lineEdit_terminalOutput->setText(!text.isEmpty() ? text : m_settings.value("GRUB_TERMINAL_OUTPUT"));
     emit changed(true);
 }
 void KCMGRUB2::updateGrubTerminalInput(const QString &text)
@@ -459,6 +428,66 @@ void KCMGRUB2::updateGrubDisableOsProber(bool checked)
     emit changed(true);
 }
 
+void KCMGRUB2::updateSuggestions()
+{
+    if (!sender()->isWidgetType()) {
+        return;
+    }
+
+    QLineEdit *lineEdit = 0;
+    if (ui.kpushbutton_cmdlineDefaultSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_cmdlineDefault;
+    } else if (ui.kpushbutton_cmdlineSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_cmdline;
+    } else if (ui.kpushbutton_terminalSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_terminal;
+    } else if (ui.kpushbutton_terminalInputSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_terminalInput;
+    } else if (ui.kpushbutton_terminalOutputSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_terminalOutput;
+    } else {
+        return;
+    }
+
+    foreach(QAction *action, qobject_cast<const QWidget*>(sender())->actions()) {
+        if (!action->isCheckable()) {
+            action->setCheckable(true);
+        }
+        action->setChecked(lineEdit->text().contains(QRegExp(QString("\\b%1\\b").arg(action->data().toString()))));
+    }
+}
+void KCMGRUB2::triggeredSuggestion(QAction *action)
+{
+    QLineEdit *lineEdit = 0;
+    void (KCMGRUB2::*updateFunction)(const QString &) = 0;
+    if (ui.kpushbutton_cmdlineDefaultSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_cmdlineDefault;
+        updateFunction = &KCMGRUB2::updateGrubCmdlineLinuxDefault;
+    } else if (ui.kpushbutton_cmdlineSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_cmdline;
+        updateFunction = &KCMGRUB2::updateGrubCmdlineLinux;
+    } else if (ui.kpushbutton_terminalSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_terminal;
+        updateFunction = &KCMGRUB2::updateGrubTerminal;
+    } else if (ui.kpushbutton_terminalInputSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_terminalInput;
+        updateFunction = &KCMGRUB2::updateGrubTerminalInput;
+    } else if (ui.kpushbutton_terminalOutputSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_terminalOutput;
+        updateFunction = &KCMGRUB2::updateGrubTerminalOutput;
+    } else {
+        return;
+    }
+
+    QString lineEditText = lineEdit->text();
+    if (!action->isChecked()) {
+        lineEdit->setText(lineEditText.remove(QRegExp(QString("\\b%1\\b").arg(action->data().toString()))).simplified());
+    } else {
+        lineEdit->setText(lineEditText.isEmpty() ? action->data().toString() : lineEditText + ' ' + action->data().toString());
+    }
+    (this->*updateFunction)(lineEdit->text());
+}
+
 void KCMGRUB2::setupObjects()
 {
     setButtons(Apply);
@@ -516,35 +545,41 @@ void KCMGRUB2::setupObjects()
     splashScreen = 0;
     ui.kpushbutton_preview->setIcon(KIcon("image-png"));
 
-    KMenu *cmdlineSuggestions = new KMenu(this);
-    QAction *quiet = new QAction(i18nc("@action:inmenu", "Quiet Boot"), cmdlineSuggestions);
-    quiet->setData("quiet");
-    quiet->setCheckable(true);
-    cmdlineSuggestions->addAction(quiet);
-    QAction *splash = new QAction(i18nc("@action:inmenu", "Show Splash Screen"), cmdlineSuggestions);
-    splash->setData("splash");
-    splash->setCheckable(true);
-    cmdlineSuggestions->addAction(splash);
-    QAction *acpiOff = new QAction(i18nc("@action:inmenu", "Turn Off ACPI"), cmdlineSuggestions);
-    acpiOff->setData("acpi=off");
-    acpiOff->setCheckable(true);
-    cmdlineSuggestions->addAction(acpiOff);
-    QAction *noApic = new QAction(i18nc("@action:inmenu", "Turn Off APIC"), cmdlineSuggestions);
-    noApic->setData("noapic");
-    noApic->setCheckable(true);
-    cmdlineSuggestions->addAction(noApic);
-    QAction *noLapic = new QAction(i18nc("@action:inmenu", "Turn Off Local APIC"), cmdlineSuggestions);
-    noLapic->setData("nolapic");
-    noLapic->setCheckable(true);
-    cmdlineSuggestions->addAction(noLapic);
-    QAction *single = new QAction(i18nc("@action:inmenu", "Single User Mode"), cmdlineSuggestions);
-    single->setData("single");
-    single->setCheckable(true);
-    cmdlineSuggestions->addAction(single);
     ui.kpushbutton_cmdlineDefaultSuggestions->setIcon(KIcon("tools-wizard"));
-    ui.kpushbutton_cmdlineDefaultSuggestions->setMenu(cmdlineSuggestions);
+    ui.kpushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui.kpushbutton_cmdlineDefaultSuggestions));
+    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData("quiet");
+    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData("splash");
+    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData("acpi=off");
+    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData("noapic");
+    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData("nolapic");
+    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData("single");
     ui.kpushbutton_cmdlineSuggestions->setIcon(KIcon("tools-wizard"));
-    ui.kpushbutton_cmdlineSuggestions->setMenu(cmdlineSuggestions);
+    ui.kpushbutton_cmdlineSuggestions->setMenu(new KMenu(ui.kpushbutton_cmdlineSuggestions));
+    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData("quiet");
+    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData("splash");
+    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData("acpi=off");
+    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData("noapic");
+    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData("nolapic");
+    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData("single");
+    ui.kpushbutton_terminalSuggestions->setIcon(KIcon("tools-wizard"));
+    ui.kpushbutton_terminalSuggestions->setMenu(new KMenu(ui.kpushbutton_terminalSuggestions));
+    ui.kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS & EFI Console"))->setData("console");
+    ui.kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
+    ui.kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Open Firmware Console"))->setData("ofconsole");
+    ui.kpushbutton_terminalInputSuggestions->setIcon(KIcon("tools-wizard"));
+    ui.kpushbutton_terminalInputSuggestions->setMenu(new KMenu(ui.kpushbutton_terminalInputSuggestions));
+    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS & EFI Console"))->setData("console");
+    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
+    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Open Firmware Console"))->setData("ofconsole");
+    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC AT Keyboard (Coreboot)"))->setData("at_keyboard");
+    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "USB Keyboard (HID Boot Protocol)"))->setData("usb_keyboard");
+    ui.kpushbutton_terminalOutputSuggestions->setIcon(KIcon("tools-wizard"));
+    ui.kpushbutton_terminalOutputSuggestions->setMenu(new KMenu(ui.kpushbutton_terminalOutputSuggestions));
+    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS & EFI Console"))->setData("console");
+    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
+    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Open Firmware Console"))->setData("ofconsole");
+    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData("gfxterm");
+    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData("vga_text");
 }
 void KCMGRUB2::setupConnections()
 {
@@ -577,13 +612,21 @@ void KCMGRUB2::setupConnections()
     connect(ui.kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(updateGrubTheme(QString)));
 
     connect(ui.lineEdit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinuxDefault(QString)));
+    connect(ui.kpushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(updateSuggestions()));
+    connect(ui.kpushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(triggeredSuggestion(QAction*)));
     connect(ui.lineEdit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinux(QString)));
-    connect(ui.kpushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(updateCmdlineSuggestions()));
-    connect(ui.kpushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(triggeredCmdlineSuggestion(QAction*)));
+    connect(ui.kpushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(updateSuggestions()));
+    connect(ui.kpushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(triggeredSuggestion(QAction*)));
 
     connect(ui.lineEdit_terminal, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminal(QString)));
+    connect(ui.kpushbutton_terminalSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(updateSuggestions()));
+    connect(ui.kpushbutton_terminalSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(triggeredSuggestion(QAction*)));
     connect(ui.lineEdit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalInput(QString)));
+    connect(ui.kpushbutton_terminalInputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(updateSuggestions()));
+    connect(ui.kpushbutton_terminalInputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(triggeredSuggestion(QAction*)));
     connect(ui.lineEdit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalOutput(QString)));
+    connect(ui.kpushbutton_terminalOutputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(updateSuggestions()));
+    connect(ui.kpushbutton_terminalOutputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(triggeredSuggestion(QAction*)));
 
     connect(ui.lineEdit_distributor, SIGNAL(textEdited(QString)), this, SLOT(updateGrubDistributor(QString)));
     connect(ui.lineEdit_serial, SIGNAL(textEdited(QString)), this, SLOT(updateGrubSerialCommand(QString)));

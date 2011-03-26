@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>488</width>
-    <height>488</height>
+    <height>497</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
@@ -465,7 +465,18 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_terminal"/>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <item>
+             <widget class="QLineEdit" name="lineEdit_terminal"/>
+            </item>
+            <item>
+             <widget class="KPushButton" name="kpushbutton_terminalSuggestions">
+              <property name="text">
+               <string comment="@action:button">Suggestions</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_terminalInput">
@@ -475,7 +486,18 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_terminalInput"/>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <item>
+             <widget class="QLineEdit" name="lineEdit_terminalInput"/>
+            </item>
+            <item>
+             <widget class="KPushButton" name="kpushbutton_terminalInputSuggestions">
+              <property name="text">
+               <string comment="@action:button">Suggestions</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_terminalOutput">
@@ -485,7 +507,18 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="lineEdit_terminalOutput"/>
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QLineEdit" name="lineEdit_terminalOutput"/>
+            </item>
+            <item>
+             <widget class="KPushButton" name="kpushbutton_terminalOutputSuggestions">
+              <property name="text">
+               <string comment="@action:button">Suggestions</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>

@@ -49,8 +49,6 @@ private Q_SLOTS:
     void updateGrubTheme(const QString &text);
     void updateGrubCmdlineLinuxDefault(const QString &text);
     void updateGrubCmdlineLinux(const QString &text);
-    void updateCmdlineSuggestions();
-    void triggeredCmdlineSuggestion(QAction *action);
     void updateGrubTerminal(const QString &text);
     void updateGrubTerminalInput(const QString &text);
     void updateGrubTerminalOutput(const QString &text);
@@ -60,6 +58,9 @@ private Q_SLOTS:
     void updateGrubDisableLinuxUUID(bool checked);
     void updateGrubDisableRecovery(bool checked);
     void updateGrubDisableOsProber(bool checked);
+
+    void updateSuggestions();
+    void triggeredSuggestion(QAction *action);
 private:
     void setupObjects();
     void setupConnections();
