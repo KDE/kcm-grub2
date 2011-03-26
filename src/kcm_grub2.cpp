@@ -22,6 +22,7 @@
 #include <KAboutData>
 #include <KDebug>
 #include <KFileDialog>
+#include <KMenu>
 #include <KMessageBox>
 #include <kmountpoint.h>
 #include <KPluginFactory>
@@ -51,9 +52,9 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
 }
 KCMGRUB2::~KCMGRUB2()
 {
-    if (splash) {
-        delete splash;
-        splash = 0;
+    if (splashScreen) {
+        delete splashScreen;
+        splashScreen = 0;
     }
 }
 
@@ -152,7 +153,6 @@ void KCMGRUB2::load()
     ui.kurlrequester_background->blockSignals(false);
     ui.kurlrequester_theme->blockSignals(false);
 
-    //TODO: Suggestions
     ui.lineEdit_cmdlineDefault->setText(m_settings.value("GRUB_CMDLINE_LINUX_DEFAULT"));
     ui.lineEdit_cmdline->setText(m_settings.value("GRUB_CMDLINE_LINUX"));
 
@@ -302,12 +302,12 @@ void KCMGRUB2::previewGrubBackground()
         return;
     }
 
-    if (splash) {
-        delete splash;
+    if (splashScreen) {
+        delete splashScreen;
     }
 
-    splash = new KSplashScreen(QPixmap::fromImage(QImage::fromData(file.readAll())));
-    splash->show();
+    splashScreen = new KSplashScreen(QPixmap::fromImage(QImage::fromData(file.readAll())));
+    splashScreen->show();
 }
 void KCMGRUB2::updateGrubTheme(const QString &text)
 {
@@ -335,6 +335,47 @@ void KCMGRUB2::updateGrubCmdlineLinux(const QString &text)
         m_settings.remove("GRUB_CMDLINE_LINUX");
     }
     emit changed(true);
+}
+void KCMGRUB2::updateCmdlineSuggestions()
+{
+    if (!sender()->isWidgetType()) {
+        return;
+    }
+
+    QLineEdit *lineEdit = 0;
+    if (ui.kpushbutton_cmdlineDefaultSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_cmdlineDefault;
+    } else if (ui.kpushbutton_cmdlineSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_cmdline;
+    } else {
+        return;
+    }
+
+    foreach(QAction *action, qobject_cast<const QWidget*>(sender())->actions()) {
+        action->setChecked(lineEdit->text().contains(QRegExp(QString("\\b%1\\b").arg(action->data().toString()))));
+    }
+}
+void KCMGRUB2::triggeredCmdlineSuggestion(QAction *action)
+{
+    QLineEdit *lineEdit = 0;
+    void (KCMGRUB2::*updateFunction)(const QString &) = 0;
+    if (ui.kpushbutton_cmdlineDefaultSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_cmdlineDefault;
+        updateFunction = &KCMGRUB2::updateGrubCmdlineLinuxDefault;
+    } else if (ui.kpushbutton_cmdlineSuggestions->isDown()) {
+        lineEdit = ui.lineEdit_cmdline;
+        updateFunction = &KCMGRUB2::updateGrubCmdlineLinux;
+    } else {
+        return;
+    }
+
+    QString lineEditText = lineEdit->text();
+    if (!action->isChecked()) {
+        lineEdit->setText(lineEditText.remove(QRegExp(QString("\\b%1\\b").arg(action->data().toString()))).simplified());
+    } else {
+        lineEdit->setText(lineEditText.isEmpty() ? action->data().toString() : lineEditText + ' ' + action->data().toString());
+    }
+    (this->*updateFunction)(lineEdit->text());
 }
 void KCMGRUB2::updateGrubTerminal(const QString &text)
 {
@@ -472,8 +513,40 @@ void KCMGRUB2::setupObjects()
     ui.comboBox_highlightForeground->setCurrentIndex(ui.comboBox_highlightForeground->findData("black"));
     ui.comboBox_highlightBackground->setCurrentIndex(ui.comboBox_highlightBackground->findData("light-gray"));
 
-    splash = 0;
+    splashScreen = 0;
     ui.kpushbutton_preview->setIcon(KIcon("image-png"));
+
+    KMenu *cmdlineSuggestions = new KMenu(this);
+    QAction *quiet = new QAction(i18nc("@action:inmenu", "Quiet Boot"), cmdlineSuggestions);
+    quiet->setData("quiet");
+    quiet->setCheckable(true);
+    cmdlineSuggestions->addAction(quiet);
+    QAction *splash = new QAction(i18nc("@action:inmenu", "Show Splash Screen"), cmdlineSuggestions);
+    splash->setData("splash");
+    splash->setCheckable(true);
+    cmdlineSuggestions->addAction(splash);
+    QAction *acpiOff = new QAction(i18nc("@action:inmenu", "Turn Off ACPI"), cmdlineSuggestions);
+    acpiOff->setData("acpi=off");
+    acpiOff->setCheckable(true);
+    cmdlineSuggestions->addAction(acpiOff);
+    QAction *noApic = new QAction(i18nc("@action:inmenu", "Turn Off APIC"), cmdlineSuggestions);
+    noApic->setData("noapic");
+    noApic->setCheckable(true);
+    cmdlineSuggestions->addAction(noApic);
+    QAction *noLapic = new QAction(i18nc("@action:inmenu", "Turn Off Local APIC"), cmdlineSuggestions);
+    noLapic->setData("nolapic");
+    noLapic->setCheckable(true);
+    cmdlineSuggestions->addAction(noLapic);
+    QAction *single = new QAction(i18nc("@action:inmenu", "Single User Mode"), cmdlineSuggestions);
+    single->setData("single");
+    single->setCheckable(true);
+    cmdlineSuggestions->addAction(single);
+    ui.kpushbutton_cmdlineDefaultSuggestions->setIcon(KIcon("tools-wizard"));
+    ui.kpushbutton_cmdlineDefaultSuggestions->setMenu(cmdlineSuggestions);
+    ui.kpushbutton_cmdlineSuggestions->setIcon(KIcon("tools-wizard"));
+    ui.kpushbutton_cmdlineSuggestions->setMenu(cmdlineSuggestions);
+    connect(cmdlineSuggestions, SIGNAL(aboutToShow()), this, SLOT(updateCmdlineSuggestions()));
+    connect(cmdlineSuggestions, SIGNAL(triggered(QAction*)), this, SLOT(triggeredCmdlineSuggestion(QAction*)));
 }
 void KCMGRUB2::setupConnections()
 {

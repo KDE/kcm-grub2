@@ -49,6 +49,8 @@ private Q_SLOTS:
     void updateGrubTheme(const QString &text);
     void updateGrubCmdlineLinuxDefault(const QString &text);
     void updateGrubCmdlineLinux(const QString &text);
+    void updateCmdlineSuggestions();
+    void triggeredCmdlineSuggestion(QAction *action);
     void updateGrubTerminal(const QString &text);
     void updateGrubTerminalInput(const QString &text);
     void updateGrubTerminalOutput(const QString &text);
@@ -77,7 +79,7 @@ private:
     void parseSettings(const QString &config);
     void parseEntries(const QString &config);
 
-    KSplashScreen *splash;
+    KSplashScreen *splashScreen;
     Ui::KCMGRUB2 ui;
 
     QHash<QString, QString> m_settings;

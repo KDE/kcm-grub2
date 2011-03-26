@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>488</width>
-    <height>482</height>
+    <height>488</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout_6">
@@ -414,7 +414,18 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_cmdlineDefault"/>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QLineEdit" name="lineEdit_cmdlineDefault"/>
+            </item>
+            <item>
+             <widget class="KPushButton" name="kpushbutton_cmdlineDefaultSuggestions">
+              <property name="text">
+               <string comment="@action:button">Suggestions</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_cmdline">
@@ -424,7 +435,18 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="lineEdit_cmdline"/>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QLineEdit" name="lineEdit_cmdline"/>
+            </item>
+            <item>
+             <widget class="KPushButton" name="kpushbutton_cmdlineSuggestions">
+              <property name="text">
+               <string comment="@action:button">Suggestions</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>
