@@ -545,8 +545,6 @@ void KCMGRUB2::setupObjects()
     ui.kpushbutton_cmdlineDefaultSuggestions->setMenu(cmdlineSuggestions);
     ui.kpushbutton_cmdlineSuggestions->setIcon(KIcon("tools-wizard"));
     ui.kpushbutton_cmdlineSuggestions->setMenu(cmdlineSuggestions);
-    connect(cmdlineSuggestions, SIGNAL(aboutToShow()), this, SLOT(updateCmdlineSuggestions()));
-    connect(cmdlineSuggestions, SIGNAL(triggered(QAction*)), this, SLOT(triggeredCmdlineSuggestion(QAction*)));
 }
 void KCMGRUB2::setupConnections()
 {
@@ -580,6 +578,8 @@ void KCMGRUB2::setupConnections()
 
     connect(ui.lineEdit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinuxDefault(QString)));
     connect(ui.lineEdit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinux(QString)));
+    connect(ui.kpushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(updateCmdlineSuggestions()));
+    connect(ui.kpushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(triggeredCmdlineSuggestion(QAction*)));
 
     connect(ui.lineEdit_terminal, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminal(QString)));
     connect(ui.lineEdit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(updateGrubTerminalInput(QString)));
