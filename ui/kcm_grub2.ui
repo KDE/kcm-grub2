@@ -10,7 +10,7 @@
     <height>497</height>
    </rect>
   </property>
-  <layout class="QGridLayout" name="gridLayout_6">
+  <layout class="QGridLayout" name="gridLayout_5">
    <item row="0" column="0">
     <widget class="KTabWidget" name="ktabwidget">
      <property name="currentIndex">
@@ -232,7 +232,7 @@
       <attribute name="title">
        <string comment="@title:tab">Appearance</string>
       </attribute>
-      <layout class="QGridLayout" name="gridLayout_5">
+      <layout class="QGridLayout" name="gridLayout_3">
        <item row="0" column="0">
         <widget class="QGroupBox" name="groupBox_resolutions">
          <property name="title">
@@ -349,7 +349,7 @@
          <property name="title">
           <string comment="@title:group">Background</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3">
+         <layout class="QFormLayout" name="formLayout_12">
           <item row="0" column="0">
            <widget class="QLabel" name="label_background">
             <property name="text">
@@ -358,14 +358,25 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="KUrlRequester" name="kurlrequester_background"/>
-          </item>
-          <item row="0" column="2">
-           <widget class="KPushButton" name="kpushbutton_preview">
-            <property name="text">
-             <string comment="@action:button">Preview</string>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_7">
+            <item>
+             <widget class="KUrlRequester" name="kurlrequester_background"/>
+            </item>
+            <item>
+             <widget class="KPushButton" name="kpushbutton_preview">
+              <property name="text">
+               <string comment="@action:button">Preview</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="KPushButton" name="kpushbutton_create">
+              <property name="text">
+               <string>Create</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_theme">
@@ -374,7 +385,7 @@
             </property>
            </widget>
           </item>
-          <item row="1" column="1" colspan="2">
+          <item row="1" column="1">
            <widget class="KUrlRequester" name="kurlrequester_theme"/>
           </item>
          </layout>

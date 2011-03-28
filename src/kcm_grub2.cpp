@@ -35,6 +35,10 @@
 using namespace KAuth;
 
 //Project
+#include "config.h"
+#ifdef HAVE_IMAGEMAGICK
+#include "convertDlg.h"
+#endif
 #include "settings.h"
 
 K_PLUGIN_FACTORY(GRUB2Factory, registerPlugin<KCMGRUB2>();)
@@ -168,7 +172,6 @@ void KCMGRUB2::load()
     }
 
     ui.lineEdit_distributor->setText(m_settings.value("GRUB_DISTRIBUTOR"));
-    //TODO: Suggestions
     ui.lineEdit_serial->setText(m_settings.value("GRUB_SERIAL_COMMAND"));
     ui.lineEdit_initTune->setText(m_settings.value("GRUB_INIT_TUNE"));
 
@@ -314,6 +317,14 @@ void KCMGRUB2::previewGrubBackground()
 
     splashScreen = new KSplashScreen(QPixmap::fromImage(QImage::fromData(file.readAll())));
     splashScreen->show();
+}
+void KCMGRUB2::createGrubBackground()
+{
+#ifdef HAVE_IMAGEMAGICK
+    ConvertDialog convertDlg(this);
+    connect(&convertDlg, SIGNAL(splashImageCreated(QString)), ui.kurlrequester_background, SLOT(setText(QString)));
+    convertDlg.exec();
+#endif
 }
 void KCMGRUB2::updateGrubTheme(const QString &text)
 {
@@ -544,6 +555,11 @@ void KCMGRUB2::setupObjects()
 
     splashScreen = 0;
     ui.kpushbutton_preview->setIcon(KIcon("image-png"));
+    ui.kpushbutton_create->setIcon(KIcon("insert-image"));
+#ifndef HAVE_IMAGEMAGICK
+    ui.kpushbutton_create->setEnabled(false);
+    ui.kpushbutton_create->setToolTip(i18nc("@info:tooltip", "ImageMagick was not found."));
+#endif
 
     ui.kpushbutton_cmdlineDefaultSuggestions->setIcon(KIcon("tools-wizard"));
     ui.kpushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui.kpushbutton_cmdlineDefaultSuggestions));
@@ -609,6 +625,7 @@ void KCMGRUB2::setupConnections()
 
     connect(ui.kurlrequester_background, SIGNAL(textChanged(QString)), this, SLOT(updateGrubBackground(QString)));
     connect(ui.kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(previewGrubBackground()));
+    connect(ui.kpushbutton_create, SIGNAL(clicked(bool)), this, SLOT(createGrubBackground()));
     connect(ui.kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(updateGrubTheme(QString)));
 
     connect(ui.lineEdit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(updateGrubCmdlineLinuxDefault(QString)));

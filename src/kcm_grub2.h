@@ -46,6 +46,7 @@ private Q_SLOTS:
     void updateGrubColorHighlight();
     void updateGrubBackground(const QString &text);
     void previewGrubBackground();
+    void createGrubBackground();
     void updateGrubTheme(const QString &text);
     void updateGrubCmdlineLinuxDefault(const QString &text);
     void updateGrubCmdlineLinux(const QString &text);
