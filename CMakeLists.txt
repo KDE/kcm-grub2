@@ -35,10 +35,11 @@ set(CPACK_PACKAGE_CONTACT "Konstantinos Smanis <konstantinos.smanis@gmail.com>")
 set(CPACK_GENERATOR "DEB;RPM")
 
 set(CPACK_DEBIAN_PACKAGE_DEPENDS "kdebase-runtime (>= 4:4.4.0), grub-common")
+set(CPACK_DEBIAN_PACKAGE_SUGGESTS "imagemagick")
 set(CPACK_DEBIAN_PACKAGE_SECTION "KDE")
 set(CPACK_DEBIAN_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 
-set(CPACK_RPM_PACKAGE_REQUIRES "kdebase-runtime >= 4.4.0, grub2")
+set(CPACK_RPM_PACKAGE_REQUIRES "kdebase-runtime >= 4.4.0, grub2, ImageMagick")
 set(CPACK_RPM_PACKAGE_GROUP "System/GUI/KDE")
 set(CPACK_RPM_PACKAGE_ARCHITECTURE ${CMAKE_SYSTEM_PROCESSOR})
 
