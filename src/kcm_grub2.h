@@ -71,7 +71,7 @@ private:
 
     QString readFile(const QString &fileName);
     bool saveFile(const QString &fileName, const QString &fileContents);
-    void updateGRUB(const QString &fileName);
+    bool updateGRUB(const QString &fileName);
 
     bool readDevices();
     bool readEntries();

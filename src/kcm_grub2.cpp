@@ -64,11 +64,11 @@ KCMGRUB2::~KCMGRUB2()
 
 void KCMGRUB2::load()
 {
-    readDevices();
     readEntries();
     readSettings();
 
     bool ok;
+    ui.comboBox_default->clear();
     ui.comboBox_default->addItems(m_entries);
     if (m_settings.value("GRUB_DEFAULT").compare("saved") == 0) {
         ui.radioButton_saved->setChecked(true);
@@ -194,7 +194,9 @@ void KCMGRUB2::save()
         return;
     }
     if (KMessageBox::questionYesNo(this, i18nc("@info", "<para>Your configuration was successfully saved.<nl/>For the changes to take effect your GRUB menu has to be updated.</para><para>Update your GRUB menu?</para>")) == KMessageBox::Yes) {
-        updateGRUB(Settings::menuPaths().at(0));
+        if (updateGRUB(Settings::menuPaths().at(0))) {
+            load();
+        }
     }
 }
 
@@ -723,7 +725,7 @@ bool KCMGRUB2::saveFile(const QString &fileName, const QString &fileContents)
     }
     return true;
 }
-void KCMGRUB2::updateGRUB(const QString &fileName)
+bool KCMGRUB2::updateGRUB(const QString &fileName)
 {
     Action updateAction("org.kde.kcontrol.kcmgrub2.update");
     updateAction.setHelperID("org.kde.kcontrol.kcmgrub2");
@@ -745,10 +747,12 @@ void KCMGRUB2::updateGRUB(const QString &fileName)
             dialog->setDefaultButton(KDialog::Ok);
             dialog->setEscapeButton(KDialog::Ok);
             KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully updated the GRUB menu."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
+            return true;
         } else {
             KMessageBox::detailedError(this, i18nc("@info", "Failed to update the GRUB menu."), reply.data().value("output").toString());
         }
     }
+    return false;
 }
 
 bool KCMGRUB2::readDevices()
@@ -932,8 +936,11 @@ QString KCMGRUB2::unquoteWord(const QString &word)
 }
 void KCMGRUB2::parseSettings(const QString &config)
 {
+    m_settings.clear();
     m_settings["GRUB_DEFAULT"] = "0";
     m_settings["GRUB_TIMEOUT"] = "5";
+    m_settings["GRUB_GFXMODE"] = "640x480";
+
     QString line, settingsConfig = config;
     QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
     while (!stream.atEnd()) {
@@ -945,6 +952,8 @@ void KCMGRUB2::parseSettings(const QString &config)
 }
 void KCMGRUB2::parseEntries(const QString &config)
 {
+    m_entries.clear();
+
     QChar ch;
     QString entry, entriesConfig = config;
     QTextStream stream(&entriesConfig, QIODevice::ReadOnly | QIODevice::Text);
