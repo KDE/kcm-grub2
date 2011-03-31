@@ -16,6 +16,7 @@ In order to appear in System Settings the first time you install the GRUB2 KCMod
 $ kbuildsycoca4
 
 Requires KDE >= 4.4, Qt >= 4.5, GRUB2.
+Suggests ImageMagick for GRUB splash image management.
 Minimum requirement is kdebase-runtime. Install kdebase-workspace for System Settings integration.
 
 Note: '$' indicates a shell prompt.
