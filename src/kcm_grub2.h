@@ -30,7 +30,6 @@ class KCMGRUB2 : public KCModule
     Q_OBJECT
 public:
     KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
-    virtual ~KCMGRUB2();
 
     virtual void load();
     virtual void save();
@@ -81,7 +80,6 @@ private:
     void parseSettings(const QString &config);
     void parseEntries(const QString &config);
 
-    KSplashScreen *splashScreen;
     Ui::KCMGRUB2 ui;
 
     QHash<QString, QString> m_settings;

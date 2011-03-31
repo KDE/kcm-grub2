@@ -18,6 +18,9 @@
 //Own
 #include "kcm_grub2.h"
 
+//Qt
+#include <QDesktopWidget>
+
 //KDE
 #include <KAboutData>
 #include <KDebug>
@@ -53,13 +56,6 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
     ui.setupUi(this);
     setupObjects();
     setupConnections();
-}
-KCMGRUB2::~KCMGRUB2()
-{
-    if (splashScreen) {
-        delete splashScreen;
-        splashScreen = 0;
-    }
 }
 
 void KCMGRUB2::load()
@@ -313,12 +309,12 @@ void KCMGRUB2::previewGrubBackground()
         return;
     }
 
-    if (splashScreen) {
-        delete splashScreen;
-    }
-
-    splashScreen = new KSplashScreen(QPixmap::fromImage(QImage::fromData(file.readAll())));
-    splashScreen->show();
+    QDialog *dialog  = new QDialog(this);
+    QLabel *label = new QLabel(dialog);
+    label->setPixmap(QPixmap::fromImage(QImage::fromData(file.readAll())).scaled(QDesktopWidget().screenGeometry(this).size()));
+    dialog->setAttribute(Qt::WA_DeleteOnClose);
+    dialog->showFullScreen();
+    KMessageBox::information(dialog, i18nc("@info", "Press <shortcut>Escape</shortcut> to exit fullscreen mode."), QString(), "GRUBFullscreenPreview");
 }
 void KCMGRUB2::createGrubBackground()
 {
@@ -555,7 +551,6 @@ void KCMGRUB2::setupObjects()
     ui.comboBox_highlightForeground->setCurrentIndex(ui.comboBox_highlightForeground->findData("black"));
     ui.comboBox_highlightBackground->setCurrentIndex(ui.comboBox_highlightBackground->findData("light-gray"));
 
-    splashScreen = 0;
     ui.kpushbutton_preview->setIcon(KIcon("image-png"));
     ui.kpushbutton_create->setIcon(KIcon("insert-image"));
 #ifndef HAVE_IMAGEMAGICK
