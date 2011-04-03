@@ -1,6 +1,6 @@
 #!/bin/sh
 BASEDIR="."    # root of translatable sources
-PROJECT="kcm_grub2"        # project name
+PROJECT="kcm-grub2"        # project name
 BUGADDR="http://kde-apps.org/content/show.php/GRUB2+Bootloader+KCModule?content=139643"    # MSGID-Bugs
 WDIR=`pwd`              # working dir
 
