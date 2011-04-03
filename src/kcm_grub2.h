@@ -20,7 +20,6 @@
 
 //KDE
 #include <KCModule>
-class KSplashScreen;
 
 //Ui
 #include "ui_kcm_grub2.h"

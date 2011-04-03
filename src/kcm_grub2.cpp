@@ -23,7 +23,6 @@
 
 //KDE
 #include <KAboutData>
-#include <KDebug>
 #include <KFileDialog>
 #include <KMenu>
 #include <KMessageBox>
@@ -31,9 +30,6 @@
 #include <KPluginFactory>
 #include <KProgressDialog>
 #include <KShell>
-#include <KSplashScreen>
-#include <KAuth/Action>
-#include <KAuth/ActionReply>
 #include <KAuth/ActionWatcher>
 using namespace KAuth;
 

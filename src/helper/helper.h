@@ -15,8 +15,8 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#ifndef HELPER_CPP
-#define HELPER_CPP
+#ifndef HELPER_H
+#define HELPER_H
 
 //KDE
 #include <KAuth/ActionReply>
