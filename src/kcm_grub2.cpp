@@ -45,7 +45,7 @@ K_EXPORT_PLUGIN(GRUB2Factory("kcmgrub2"))
 
 KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Factory::componentData(), parent, list)
 {
-    KAboutData *about = new KAboutData("kcmgrub2", 0, ki18n("KDE GRUB2 Bootloader Control Module"), "0.3.5", KLocalizedString(), KAboutData::License_GPL_V3, ki18n("Copyright (C) 2008-2011 Konstantinos Smanis"), KLocalizedString(), QByteArray(), "konstantinos.smanis@gmail.com");
+    KAboutData *about = new KAboutData("kcmgrub2", 0, ki18n("KDE GRUB2 Bootloader Control Module"), KCM_GRUB2_VERSION, KLocalizedString(), KAboutData::License_GPL_V3, ki18n("Copyright (C) 2008-2011 Konstantinos Smanis"), KLocalizedString(), QByteArray(), "konstantinos.smanis@gmail.com");
     about->addAuthor(ki18n("Κonstantinos Smanis"), ki18n("Main Developer"), "konstantinos.smanis@gmail.com");
     setAboutData(about);
 
