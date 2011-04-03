@@ -5,23 +5,23 @@ Icon=system-reboot
 [org.kde.kcontrol.kcmgrub2.load]
 Name=Load the GRUB2 Bootloader settings
 Description=Administrator authorization is required to load the GRUB2 Bootloader settings
-Policy=yes
+Policy=auth_admin
 Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.probe]
 Name=Probe devices for their GRUB2 names
 Description=Administrator authorization is required to probe devices for their GRUB2 names
-Policy=yes
+Policy=auth_admin
 Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.save]
 Name=Save the GRUB2 Bootloader settings
 Description=Administrator authorization is required to save the GRUB2 Bootloader settings
-Policy=yes
+Policy=auth_admin
 Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.update]
 Name=Update the GRUB2 Bootloader menu
 Description=Administrator authorization is required to update the GRUB2 Bootloader menu
-Policy=yes
+Policy=auth_admin
 Persistence=session
