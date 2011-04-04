@@ -14,6 +14,12 @@ Description=Administrator authorization is required to probe devices for their G
 Policy=auth_admin
 Persistence=session
 
+[org.kde.kcontrol.kcmgrub2.probevbe]
+Name=Probe VESA BIOS Extensions
+Description=Administrator authorization is required to probe VESA BIOS Extensions
+Policy=auth_admin
+Persistence=session
+
 [org.kde.kcontrol.kcmgrub2.save]
 Name=Save the GRUB2 Bootloader settings
 Description=Administrator authorization is required to save the GRUB2 Bootloader settings

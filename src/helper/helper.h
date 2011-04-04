@@ -28,6 +28,7 @@ class Helper : public QObject
 public Q_SLOTS:
     ActionReply load(QVariantMap args);
     ActionReply probe(QVariantMap args);
+    ActionReply probevbe(QVariantMap args);
     ActionReply save(QVariantMap args);
     ActionReply update(QVariantMap args);
 };

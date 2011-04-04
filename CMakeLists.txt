@@ -3,7 +3,10 @@ set(KCM_GRUB2_VERSION_MAJOR "0")
 set(KCM_GRUB2_VERSION_MINOR "3")
 set(KCM_GRUB2_VERSION_PATCH "6")
 set(KCM_GRUB2_VERSION "${KCM_GRUB2_VERSION_MAJOR}.${KCM_GRUB2_VERSION_MINOR}.${KCM_GRUB2_VERSION_PATCH}")
+
+set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 find_package(KDE4 REQUIRED)
+
 option(WITH_ImageMagick "Search for ImageMagick package" ON)
 if (WITH_ImageMagick)
     find_package(ImageMagick COMPONENTS Magick++)
@@ -13,6 +16,17 @@ if (ImageMagick_Magick++_FOUND)
 else (ImageMagick_Magick++_FOUND)
     set(HAVE_IMAGEMAGICK 0)
 endif(ImageMagick_Magick++_FOUND)
+
+option(WITH_HD "Search for HD package" ON)
+if (WITH_HD)
+    find_package(HD)
+endif (WITH_HD)
+if (HD_FOUND)
+    set(HAVE_HD 1)
+else (HD_FOUND)
+    set(HAVE_HD 0)
+endif(HD_FOUND)
+
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
 
 add_subdirectory(cfg)

@@ -27,6 +27,13 @@
 #include <KProcess>
 #include <KShell>
 
+//Project
+#include "../config.h"
+#ifdef HAVE_HD
+#undef slots
+#include <hd.h>
+#endif
+
 ActionReply Helper::load(QVariantMap args)
 {
     ActionReply reply;
@@ -65,6 +72,47 @@ ActionReply Helper::probe(QVariantMap args)
     }
 
     reply.addData("grubPartitions", grubPartitions);
+    return reply;
+}
+ActionReply Helper::probevbe(QVariantMap args)
+{
+    Q_UNUSED(args)
+    ActionReply reply;
+#ifdef HAVE_HD
+    QStringList gfxmodes;
+    hd_data_t hd_data;
+    memset(&hd_data, 0, sizeof(hd_data));
+    hd_t *hd = hd_list(&hd_data, hw_framebuffer, 1, NULL);
+    for (hd_res_t *res = hd->res; res; res = res->next) {
+        if (res->any.type == res_framebuffer) {
+            QString width = QString::number(res->framebuffer.width);
+            if (res->framebuffer.width / 1000 == 0) {
+                width.prepend('0');
+            }
+            QString height = QString::number(res->framebuffer.height);
+            if (res->framebuffer.height / 1000 == 0) {
+                height.prepend('0');
+            }
+            QString colorbits = QString::number(res->framebuffer.colorbits);
+            if (res->framebuffer.colorbits / 10 == 0) {
+                colorbits.prepend('0');
+            }
+            gfxmodes << width + 'x' + height + 'x' + colorbits;
+        }
+    }
+    gfxmodes.sort();
+    for (int i = 0; i < gfxmodes.size(); i++) {
+        if (gfxmodes.at(i).startsWith('0')) {
+            gfxmodes[i].remove(0, 1);
+        }
+        gfxmodes[i].replace("x0", "x");
+    }
+    hd_free_hd_list(hd);
+    hd_free_hd_data(&hd_data);
+    reply.addData("gfxmodes", gfxmodes);
+#else
+    reply = ActionReply::HelperErrorReply;
+#endif
     return reply;
 }
 ActionReply Helper::save(QVariantMap args)
