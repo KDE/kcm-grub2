@@ -56,6 +56,7 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
 
 void KCMGRUB2::load()
 {
+    readGfxmodes();
     readEntries();
     readSettings();
 
@@ -103,16 +104,21 @@ void KCMGRUB2::load()
     ui.spinBox_hiddenTimeout->blockSignals(false);
     ui.spinBox_timeout->blockSignals(false);
 
-    //TODO: Validate input
-    ui.lineEdit_gfxmode->setText(m_settings.value("GRUB_GFXMODE"));
+    ui.comboBox_gfxmode->blockSignals(true);
+    ui.comboBox_gfxpayload->blockSignals(true);
+    ui.comboBox_gfxmode->addItems(m_gfxmodes);
+    ui.comboBox_gfxmode->setEditText(m_settings.value("GRUB_GFXMODE"));
+    ui.comboBox_gfxpayload->addItems(m_gfxmodes);
     if (m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("text") == 0) {
         ui.radioButton_gfxpayloadText->setChecked(true);
     } else if (m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("keep") == 0) {
         ui.radioButton_gfxpayloadKeep->setChecked(true);
     } else {
         ui.radioButton_gfxpayloadOther->setChecked(true);
-        ui.lineEdit_gfxpayload->setText(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
+        ui.comboBox_gfxpayload->setEditText(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
     }
+    ui.comboBox_gfxpayload->blockSignals(false);
+    ui.comboBox_gfxmode->blockSignals(false);
 
     if (!m_settings.value("GRUB_COLOR_NORMAL").isEmpty()) {
         int normalForegroundIndex = ui.comboBox_normalForeground->findData(m_settings.value("GRUB_COLOR_NORMAL").section('/', 0, 0));
@@ -257,7 +263,7 @@ void KCMGRUB2::updateGrubGfxpayloadLinux()
     } else if (ui.radioButton_gfxpayloadKeep->isChecked()) {
         m_settings["GRUB_GFXPAYLOAD_LINUX"] = "keep";
     } else {
-        QString gfxPayload = ui.lineEdit_gfxpayload->text();
+        QString gfxPayload = ui.comboBox_gfxpayload->currentText();
         if (!gfxPayload.isEmpty()) {
             m_settings["GRUB_GFXPAYLOAD_LINUX"] = gfxPayload;
         } else {
@@ -605,11 +611,11 @@ void KCMGRUB2::setupConnections()
     connect(ui.radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(updateGrubTimeout()));
     connect(ui.spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(updateGrubTimeout()));
 
-    connect(ui.lineEdit_gfxmode, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxmode(QString)));
+    connect(ui.comboBox_gfxmode, SIGNAL(editTextChanged(QString)), this, SLOT(updateGrubGfxmode(QString)));
     connect(ui.radioButton_gfxpayloadText, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
     connect(ui.radioButton_gfxpayloadKeep, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
     connect(ui.radioButton_gfxpayloadOther, SIGNAL(clicked(bool)), this, SLOT(updateGrubGfxpayloadLinux()));
-    connect(ui.lineEdit_gfxpayload, SIGNAL(textEdited(QString)), this, SLOT(updateGrubGfxpayloadLinux()));
+    connect(ui.comboBox_gfxpayload, SIGNAL(editTextChanged(QString)), this, SLOT(updateGrubGfxpayloadLinux()));
 
     connect(ui.comboBox_normalForeground, SIGNAL(activated(int)), this, SLOT(updateGrubColorNormal()));
     connect(ui.comboBox_normalBackground, SIGNAL(activated(int)), this, SLOT(updateGrubColorNormal()));
@@ -746,6 +752,17 @@ bool KCMGRUB2::updateGRUB(const QString &fileName)
     return false;
 }
 
+bool KCMGRUB2::readGfxmodes()
+{
+    Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
+    probeVbeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+    ActionReply reply = probeVbeAction.execute();
+    if (reply.succeeded()) {
+        m_gfxmodes = reply.data().value("gfxmodes").toStringList();
+        return true;
+    }
+    return false;
+}
 bool KCMGRUB2::readDevices()
 {
     QStringList mountPoints;

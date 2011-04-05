@@ -71,6 +71,7 @@ private:
     bool saveFile(const QString &fileName, const QString &fileContents);
     bool updateGRUB(const QString &fileName);
 
+    bool readGfxmodes();
     bool readDevices();
     bool readEntries();
     bool readSettings();
@@ -81,9 +82,10 @@ private:
 
     Ui::KCMGRUB2 ui;
 
-    QHash<QString, QString> m_settings;
-    QStringList m_entries;
+    QStringList m_gfxmodes;
     QHash<QString, QString> m_devices;
+    QStringList m_entries;
+    QHash<QString, QString> m_settings;
 };
 
 #endif

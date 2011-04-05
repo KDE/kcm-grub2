@@ -247,7 +247,11 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="lineEdit_gfxmode"/>
+           <widget class="QComboBox" name="comboBox_gfxmode">
+            <property name="editable">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_gfxpayload">
@@ -280,7 +284,11 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="lineEdit_gfxpayload"/>
+             <widget class="QComboBox" name="comboBox_gfxpayload">
+              <property name="editable">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
