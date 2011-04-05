@@ -106,8 +106,10 @@ void KCMGRUB2::load()
 
     ui.comboBox_gfxmode->blockSignals(true);
     ui.comboBox_gfxpayload->blockSignals(true);
+    ui.comboBox_gfxmode->clear();
     ui.comboBox_gfxmode->addItems(m_gfxmodes);
     ui.comboBox_gfxmode->setEditText(m_settings.value("GRUB_GFXMODE"));
+    ui.comboBox_gfxpayload->clear();
     ui.comboBox_gfxpayload->addItems(m_gfxmodes);
     if (m_settings.value("GRUB_GFXPAYLOAD_LINUX").compare("text") == 0) {
         ui.radioButton_gfxpayloadText->setChecked(true);
