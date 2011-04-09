@@ -28,6 +28,7 @@
 #include <KMessageBox>
 #include <kmountpoint.h>
 #include <KPluginFactory>
+#include <KProcess>
 #include <KProgressDialog>
 #include <KShell>
 #include <KAuth/ActionWatcher>
@@ -869,6 +870,13 @@ bool KCMGRUB2::readSettings()
 
 QString KCMGRUB2::unquoteWord(const QString &word)
 {
+    KProcess echo(this);
+    echo.setShellCommand(QString("echo -n %1").arg(word));
+    echo.setOutputChannelMode(KProcess::OnlyStdoutChannel);
+    if (echo.execute() == 0) {
+        return QString(echo.readAllStandardOutput());
+    }
+
     QChar ch;
     QString quotedWord = word, unquotedWord;
     QTextStream stream(&quotedWord, QIODevice::ReadOnly | QIODevice::Text);
@@ -956,7 +964,7 @@ void KCMGRUB2::parseSettings(const QString &config)
     while (!stream.atEnd()) {
         line = stream.readLine().trimmed();
         if (line.startsWith("GRUB_")) {
-            m_settings[line.section('=', 0, 0)] = unquoteWord(line.section('=', 1, QString::SectionIncludeTrailingSep));
+            m_settings[line.section('=', 0, 0)] = unquoteWord(line.section('=', 1));
         }
     }
 }
