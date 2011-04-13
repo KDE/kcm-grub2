@@ -11,11 +11,13 @@ X-KDE-System-Settings-Parent-Category=startup-and-shutdown
 
 Name=GRUB2 Bootloader
 Name[lt]=GRUB2 įkrovos tvarkyklė
+Name[nds]=Systeemstarter Grub2
 Name[nl]=Grub2 bootloader
 Name[pt]=Gestor de Arranque GRUB2
 Name[uk]=Завантажувач GRUB2
 Name[x-test]=xxGRUB2 Bootloaderxx
 Comment=Customise the GRUB2 bootloader
+Comment[nds]=Systeemstarter Grub2 topassen
 Comment[nl]=Pas de Grub2 bootloader aan
 Comment[pt]=Personalizar o gestor de arranque GRUB2
 Comment[uk]=Налаштування завантажувача GRUB2
