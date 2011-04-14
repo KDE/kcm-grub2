@@ -179,9 +179,195 @@ void KCMGRUB2::load()
     ui.checkBox_uuid->setChecked(m_settings.value("GRUB_DISABLE_LINUX_UUID").compare("true") != 0);
     ui.checkBox_recovery->setChecked(m_settings.value("GRUB_DISABLE_RECOVERY").compare("true") != 0);
     ui.checkBox_osProber->setChecked(m_settings.value("GRUB_DISABLE_OS_PROBER").compare("true") != 0);
+
+    m_dirtyBits.fill(0);
+    emit changed(false);
 }
 void KCMGRUB2::save()
 {
+    kDebug() << m_dirtyBits;
+    if (m_dirtyBits.testBit(grubDefaultDirty)) {
+        if (ui.radioButton_default->isChecked()) {
+            //TODO: Use m_entries instead?
+            m_settings["GRUB_DEFAULT"] = ui.comboBox_default->currentText();
+        } else if (ui.radioButton_saved->isChecked()) {
+            m_settings["GRUB_DEFAULT"] = "saved";
+        }
+    }
+    if (m_dirtyBits.testBit(grubSavedefaultDirty)) {
+        if (ui.checkBox_savedefault->isChecked()) {
+            m_settings["GRUB_SAVEDEFAULT"] = "true";
+        } else {
+            m_settings.remove("GRUB_SAVEDEFAULT");
+        }
+    }
+    if (m_dirtyBits.testBit(grubHiddenTimeoutDirty)) {
+        if (ui.checkBox_hiddenTimeout->isChecked()) {
+            m_settings["GRUB_HIDDEN_TIMEOUT"] = QString::number(ui.spinBox_hiddenTimeout->value());
+        } else {
+            m_settings.remove("GRUB_HIDDEN_TIMEOUT");
+        }
+    }
+    if (m_dirtyBits.testBit(grubHiddenTimeoutQuietDirty)) {
+        if (ui.checkBox_hiddenTimeoutShowTimer->isChecked()) {
+            m_settings.remove("GRUB_HIDDEN_TIMEOUT_QUIET");
+        } else {
+            m_settings["GRUB_HIDDEN_TIMEOUT_QUIET"] = "true";
+        }
+    }
+    if (m_dirtyBits.testBit(grubTimeoutDirty)) {
+        if (ui.checkBox_timeout->isChecked()) {
+            if (ui.radioButton_timeout0->isChecked()) {
+                m_settings["GRUB_TIMEOUT"] = "0";
+            } else {
+                m_settings["GRUB_TIMEOUT"] = QString::number(ui.spinBox_timeout->value());
+            }
+        } else {
+            m_settings["GRUB_TIMEOUT"] = "-1";
+        }
+    }
+    if (m_dirtyBits.testBit(grubGfxmodeDirty)) {
+        QString gfxmode = ui.comboBox_gfxmode->currentText();
+        if (!gfxmode.isEmpty()) {
+            m_settings["GRUB_GFXMODE"] = gfxmode;
+        } else {
+            m_settings.remove("GRUB_GFXMODE");
+        }
+    }
+    if (m_dirtyBits.testBit(grubGfxpayloadLinuxDirty)) {
+        if (ui.radioButton_gfxpayloadText->isChecked()) {
+            m_settings["GRUB_GFXPAYLOAD_LINUX"] = "text";
+        } else if (ui.radioButton_gfxpayloadKeep->isChecked()) {
+            m_settings["GRUB_GFXPAYLOAD_LINUX"] = "keep";
+        } else {
+            QString gfxPayload = ui.comboBox_gfxpayload->currentText();
+            if (!gfxPayload.isEmpty()) {
+                m_settings["GRUB_GFXPAYLOAD_LINUX"] = gfxPayload;
+            } else {
+                m_settings.remove("GRUB_GFXPAYLOAD_LINUX");
+            }
+        }
+    }
+    if (m_dirtyBits.testBit(grubColorNormalDirty)) {
+        QString normalForeground = ui.comboBox_normalForeground->itemData(ui.comboBox_normalForeground->currentIndex()).toString();
+        QString normalBackground = ui.comboBox_normalBackground->itemData(ui.comboBox_normalBackground->currentIndex()).toString();
+        if (normalForeground.compare("light-gray") != 0 || normalBackground.compare("black") != 0) {
+            m_settings["GRUB_COLOR_NORMAL"] = normalForeground + '/' + normalBackground;
+        } else {
+            m_settings.remove("GRUB_COLOR_NORMAL");
+        }
+    }
+    if (m_dirtyBits.testBit(grubColorHighlightDirty)) {
+        QString highlightForeground = ui.comboBox_highlightForeground->itemData(ui.comboBox_highlightForeground->currentIndex()).toString();
+        QString highlightBackground = ui.comboBox_highlightBackground->itemData(ui.comboBox_highlightBackground->currentIndex()).toString();
+        if (highlightForeground.compare("black") != 0 || highlightBackground.compare("light-gray") != 0) {
+            m_settings["GRUB_COLOR_HIGHLIGHT"] = highlightForeground + '/' + highlightBackground;
+        } else {
+            m_settings.remove("GRUB_COLOR_HIGHLIGHT");
+        }
+    }
+    if (m_dirtyBits.testBit(grubBackgroundDirty)) {
+        QString background = ui.kurlrequester_background->url().toLocalFile();
+        if (!background.isEmpty()) {
+            m_settings["GRUB_BACKGROUND"] = background;
+        } else {
+            m_settings.remove("GRUB_BACKGROUND");
+        }
+    }
+    if (m_dirtyBits.testBit(grubThemeDirty)) {
+        QString theme = ui.kurlrequester_theme->url().toLocalFile();
+        if (!theme.isEmpty()) {
+            m_settings["GRUB_THEME"] = theme;
+        } else {
+            m_settings.remove("GRUB_THEME");
+        }
+    }
+    if (m_dirtyBits.testBit(grubCmdlineLinuxDefaultDirty)) {
+        QString cmdlineLinuxDefault = ui.lineEdit_cmdlineDefault->text();
+        if (!cmdlineLinuxDefault.isEmpty()) {
+            m_settings["GRUB_CMDLINE_LINUX_DEFAULT"] = cmdlineLinuxDefault;
+        } else {
+            m_settings.remove("GRUB_CMDLINE_LINUX_DEFAULT");
+        }
+    }
+    if (m_dirtyBits.testBit(grubCmdlineLinuxDirty)) {
+        QString cmdlineLinux = ui.lineEdit_cmdline->text();
+        if (!cmdlineLinux.isEmpty()) {
+            m_settings["GRUB_CMDLINE_LINUX"] = cmdlineLinux;
+        } else {
+            m_settings.remove("GRUB_CMDLINE_LINUX");
+        }
+    }
+    if (m_dirtyBits.testBit(grubTerminalDirty)) {
+        QString terminal = ui.lineEdit_terminal->text();
+        if (!terminal.isEmpty()) {
+            m_settings["GRUB_TERMINAL"] = terminal;
+        } else {
+            m_settings.remove("GRUB_TERMINAL");
+        }
+    }
+    if (m_dirtyBits.testBit(grubTerminalInputDirty)) {
+        QString terminalInput = ui.lineEdit_terminalInput->text();
+        if (!terminalInput.isEmpty()) {
+            m_settings["GRUB_TERMINAL_INPUT"] = terminalInput;
+        } else {
+            m_settings.remove("GRUB_TERMINAL_INPUT");
+        }
+    }
+    if (m_dirtyBits.testBit(grubTerminalOutputDirty)) {
+        QString terminalOutput = ui.lineEdit_terminalOutput->text();
+        if (!terminalOutput.isEmpty()) {
+            m_settings["GRUB_TERMINAL_OUTPUT"] = terminalOutput;
+        } else {
+            m_settings.remove("GRUB_TERMINAL_OUTPUT");
+        }
+    }
+    if (m_dirtyBits.testBit(grubDistributorDirty)) {
+        QString distributor = ui.lineEdit_distributor->text();
+        if (!distributor.isEmpty()) {
+            m_settings["GRUB_DISTRIBUTOR"] = distributor;
+        } else {
+            m_settings.remove("GRUB_DISTRIBUTOR");
+        }
+    }
+    if (m_dirtyBits.testBit(grubSerialCommandDirty)) {
+        QString serialCommand = ui.lineEdit_serial->text();
+        if (!serialCommand.isEmpty()) {
+            m_settings["GRUB_SERIAL_COMMAND"] = serialCommand;
+        } else {
+            m_settings.remove("GRUB_SERIAL_COMMAND");
+        }
+    }
+    if (m_dirtyBits.testBit(grubInitTuneDirty)) {
+        QString initTune = ui.lineEdit_initTune->text();
+        if (!initTune.isEmpty()) {
+            m_settings["GRUB_INIT_TUNE"] = initTune;
+        } else {
+            m_settings.remove("GRUB_INIT_TUNE");
+        }
+    }
+    if (m_dirtyBits.testBit(grubDisableLinuxUuidDirty)) {
+        if (ui.checkBox_uuid->isChecked()) {
+            m_settings.remove("GRUB_DISABLE_LINUX_UUID");
+        } else {
+            m_settings["GRUB_DISABLE_LINUX_UUID"] = "true";
+        }
+    }
+    if (m_dirtyBits.testBit(grubDisableRecoveryDirty)) {
+        if (ui.checkBox_recovery->isChecked()) {
+            m_settings.remove("GRUB_DISABLE_RECOVERY");
+        } else {
+            m_settings["GRUB_DISABLE_RECOVERY"] = "true";
+        }
+    }
+    if (m_dirtyBits.testBit(grubDisableOsProberDirty)) {
+        if (ui.checkBox_osProber->isChecked()) {
+            m_settings.remove("GRUB_DISABLE_OS_PROBER");
+        } else {
+            m_settings["GRUB_DISABLE_OS_PROBER"] = "true";
+        }
+    }
+
     QString config;
     QTextStream stream(&config, QIODevice::WriteOnly | QIODevice::Text);
     for (QHash<QString, QString>::const_iterator it = m_settings.constBegin(); it != m_settings.constEnd(); it++) {
@@ -203,108 +389,57 @@ void KCMGRUB2::save()
 
 void KCMGRUB2::updateGrubDefault()
 {
-    if (ui.radioButton_default->isChecked()) {
-        m_settings["GRUB_DEFAULT"] = ui.comboBox_default->currentText();
-    } else if (ui.radioButton_saved->isChecked()) {
-        m_settings["GRUB_DEFAULT"] = "saved";
-    }
+    m_dirtyBits.setBit(grubDefaultDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubSavedefault(bool checked)
 {
-    if (checked) {
-        m_settings["GRUB_SAVEDEFAULT"] = "true";
-    } else {
-        m_settings.remove("GRUB_SAVEDEFAULT");
-    }
+    Q_UNUSED(checked)
+    m_dirtyBits.setBit(grubSavedefaultDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubHiddenTimeout()
 {
-    if (ui.checkBox_hiddenTimeout->isChecked()) {
-        m_settings["GRUB_HIDDEN_TIMEOUT"] = QString::number(ui.spinBox_hiddenTimeout->value());
-    } else {
-        m_settings.remove("GRUB_HIDDEN_TIMEOUT");
-    }
+    m_dirtyBits.setBit(grubHiddenTimeoutDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubHiddenTimeoutQuiet(bool checked)
 {
-    if (checked) {
-        m_settings.remove("GRUB_HIDDEN_TIMEOUT_QUIET");
-    } else {
-        m_settings["GRUB_HIDDEN_TIMEOUT_QUIET"] = "true";
-    }
+    Q_UNUSED(checked)
+    m_dirtyBits.setBit(grubHiddenTimeoutQuietDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubTimeout()
 {
-    if (ui.checkBox_timeout->isChecked()) {
-        if (ui.radioButton_timeout0->isChecked()) {
-            m_settings["GRUB_TIMEOUT"] = "0";
-        } else {
-            m_settings["GRUB_TIMEOUT"] = QString::number(ui.spinBox_timeout->value());
-        }
-    } else {
-        m_settings["GRUB_TIMEOUT"] = "-1";
-    }
+    m_dirtyBits.setBit(grubTimeoutDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubGfxmode(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_GFXMODE"] = text;
-    } else {
-        m_settings.remove("GRUB_GFXMODE");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubGfxmodeDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubGfxpayloadLinux()
 {
-    if (ui.radioButton_gfxpayloadText->isChecked()) {
-        m_settings["GRUB_GFXPAYLOAD_LINUX"] = "text";
-    } else if (ui.radioButton_gfxpayloadKeep->isChecked()) {
-        m_settings["GRUB_GFXPAYLOAD_LINUX"] = "keep";
-    } else {
-        QString gfxPayload = ui.comboBox_gfxpayload->currentText();
-        if (!gfxPayload.isEmpty()) {
-            m_settings["GRUB_GFXPAYLOAD_LINUX"] = gfxPayload;
-        } else {
-            m_settings.remove("GRUB_GFXPAYLOAD_LINUX");
-        }
-    }
+    m_dirtyBits.setBit(grubGfxpayloadLinuxDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubColorNormal()
 {
-    QString normalForeground = ui.comboBox_normalForeground->itemData(ui.comboBox_normalForeground->currentIndex()).toString();
-    QString normalBackground = ui.comboBox_normalBackground->itemData(ui.comboBox_normalBackground->currentIndex()).toString();
-    if (normalForeground.compare("light-gray") != 0 || normalBackground.compare("black") != 0) {
-        m_settings["GRUB_COLOR_NORMAL"] = normalForeground + '/' + normalBackground;
-    } else {
-        m_settings.remove("GRUB_COLOR_NORMAL");
-    }
+    m_dirtyBits.setBit(grubColorNormalDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubColorHighlight()
 {
-    QString highlightForeground = ui.comboBox_highlightForeground->itemData(ui.comboBox_highlightForeground->currentIndex()).toString();
-    QString highlightBackground = ui.comboBox_highlightBackground->itemData(ui.comboBox_highlightBackground->currentIndex()).toString();
-    if (highlightForeground.compare("black") != 0 || highlightBackground.compare("light-gray") != 0) {
-        m_settings["GRUB_COLOR_HIGHLIGHT"] = highlightForeground + '/' + highlightBackground;
-    } else {
-        m_settings.remove("GRUB_COLOR_HIGHLIGHT");
-    }
+    m_dirtyBits.setBit(grubColorHighlightDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubBackground(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_BACKGROUND"] = text;
-    } else {
-        m_settings.remove("GRUB_BACKGROUND");
-    }
+    Q_UNUSED(text)
     ui.kpushbutton_preview->setEnabled(!text.isEmpty());
+    m_dirtyBits.setBit(grubBackgroundDirty);
     emit changed(true);
 }
 void KCMGRUB2::previewGrubBackground()
@@ -331,114 +466,78 @@ void KCMGRUB2::createGrubBackground()
 }
 void KCMGRUB2::updateGrubTheme(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_THEME"] = text;
-    } else {
-        m_settings.remove("GRUB_THEME");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubThemeDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubCmdlineLinuxDefault(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_CMDLINE_LINUX_DEFAULT"] = text;
-    } else {
-        m_settings.remove("GRUB_CMDLINE_LINUX_DEFAULT");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubCmdlineLinuxDefaultDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubCmdlineLinux(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_CMDLINE_LINUX"] = text;
-    } else {
-        m_settings.remove("GRUB_CMDLINE_LINUX");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubCmdlineLinuxDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubTerminal(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_TERMINAL"] = text;
-    } else {
-        m_settings.remove("GRUB_TERMINAL");
-    }
+    Q_UNUSED(text)
     ui.lineEdit_terminalInput->setReadOnly(!text.isEmpty());
     ui.lineEdit_terminalOutput->setReadOnly(!text.isEmpty());
     ui.lineEdit_terminalInput->setText(!text.isEmpty() ? text : m_settings.value("GRUB_TERMINAL_INPUT"));
     ui.lineEdit_terminalOutput->setText(!text.isEmpty() ? text : m_settings.value("GRUB_TERMINAL_OUTPUT"));
+    m_dirtyBits.setBit(grubTerminalDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubTerminalInput(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_TERMINAL_INPUT"] = text;
-    } else {
-        m_settings.remove("GRUB_TERMINAL_INPUT");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubTerminalInputDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubTerminalOutput(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_TERMINAL_OUTPUT"] = text;
-    } else {
-        m_settings.remove("GRUB_TERMINAL_OUTPUT");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubTerminalOutputDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubDistributor(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_DISTRIBUTOR"] = text;
-    } else {
-        m_settings.remove("GRUB_DISTRIBUTOR");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubDistributorDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubSerialCommand(const QString &text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_SERIAL_COMMAND"] = text;
-    } else {
-        m_settings.remove("GRUB_SERIAL_COMMAND");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubSerialCommandDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubInitTune(const QString& text)
 {
-    if (!text.isEmpty()) {
-        m_settings["GRUB_INIT_TUNE"] = text;
-    } else {
-        m_settings.remove("GRUB_INIT_TUNE");
-    }
+    Q_UNUSED(text)
+    m_dirtyBits.setBit(grubInitTuneDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubDisableLinuxUUID(bool checked)
 {
-    if (checked) {
-        m_settings.remove("GRUB_DISABLE_LINUX_UUID");
-    } else {
-        m_settings["GRUB_DISABLE_LINUX_UUID"] = "true";
-    }
+    Q_UNUSED(checked)
+    m_dirtyBits.setBit(grubDisableLinuxUuidDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubDisableRecovery(bool checked)
 {
-    if (checked) {
-        m_settings.remove("GRUB_DISABLE_RECOVERY");
-    } else {
-        m_settings["GRUB_DISABLE_RECOVERY"] = "true";
-    }
+    Q_UNUSED(checked)
+    m_dirtyBits.setBit(grubDisableRecoveryDirty);
     emit changed(true);
 }
 void KCMGRUB2::updateGrubDisableOsProber(bool checked)
 {
-    if (checked) {
-        m_settings.remove("GRUB_DISABLE_OS_PROBER");
-    } else {
-        m_settings["GRUB_DISABLE_OS_PROBER"] = "true";
-    }
+    Q_UNUSED(checked)
+    m_dirtyBits.setBit(grubDisableOsProberDirty);
     emit changed(true);
 }
 
@@ -506,6 +605,8 @@ void KCMGRUB2::setupObjects()
 {
     setButtons(Apply);
     setNeedsAuthorization(true);
+
+    m_dirtyBits.resize(grubDisableOsProberDirty + 1);
 
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);

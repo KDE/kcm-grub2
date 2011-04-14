@@ -18,6 +18,9 @@
 #ifndef KCMGRUB2_H
 #define KCMGRUB2_H
 
+//Qt
+#include <QtCore/QBitArray>
+
 //KDE
 #include <KCModule>
 
@@ -82,6 +85,31 @@ private:
 
     Ui::KCMGRUB2 ui;
 
+    enum {
+        grubDefaultDirty,
+        grubSavedefaultDirty,
+        grubHiddenTimeoutDirty,
+        grubHiddenTimeoutQuietDirty,
+        grubTimeoutDirty,
+        grubGfxmodeDirty,
+        grubGfxpayloadLinuxDirty,
+        grubColorNormalDirty,
+        grubColorHighlightDirty,
+        grubBackgroundDirty,
+        grubThemeDirty,
+        grubCmdlineLinuxDefaultDirty,
+        grubCmdlineLinuxDirty,
+        grubTerminalDirty,
+        grubTerminalInputDirty,
+        grubTerminalOutputDirty,
+        grubDistributorDirty,
+        grubSerialCommandDirty,
+        grubInitTuneDirty,
+        grubDisableLinuxUuidDirty,
+        grubDisableRecoveryDirty,
+        grubDisableOsProberDirty
+    };
+    QBitArray m_dirtyBits;
     QStringList m_gfxmodes;
     QHash<QString, QString> m_devices;
     QStringList m_entries;
