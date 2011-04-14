@@ -734,6 +734,7 @@ bool KCMGRUB2::updateGRUB(const QString &fileName)
     if (updateAction.authorize() == Action::Authorized) {
         KProgressDialog progressDlg(this, i18nc("@title:window", "Updating GRUB"), i18nc("@info:progress", "Updating the GRUB menu.."));
         progressDlg.setAllowCancel(false);
+        progressDlg.setModal(true);
         progressDlg.progressBar()->setMinimum(0);
         progressDlg.progressBar()->setMaximum(0);
         progressDlg.show();
