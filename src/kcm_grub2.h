@@ -18,6 +18,9 @@
 #ifndef KCMGRUB2_H
 #define KCMGRUB2_H
 
+//Qt
+#include <QtCore/QBitArray>
+
 //KDE
 #include <KCModule>
 
@@ -33,33 +36,33 @@ public:
     virtual void load();
     virtual void save();
 private Q_SLOTS:
-    void updateGrubDefault();
-    void updateGrubSavedefault(bool checked);
-    void updateGrubHiddenTimeout();
-    void updateGrubHiddenTimeoutQuiet(bool checked);
-    void updateGrubTimeout();
-    void updateGrubGfxmode(const QString &text);
-    void updateGrubGfxpayloadLinux();
-    void updateGrubColorNormal();
-    void updateGrubColorHighlight();
-    void updateGrubBackground(const QString &text);
+    void slotGrubDefaultChanged();
+    void slotGrubSavedefaultChanged();
+    void slotGrubHiddenTimeoutChanged();
+    void slotGrubHiddenTimeoutQuietChanged();
+    void slotGrubTimeoutChanged();
+    void slotGrubGfxmodeChanged();
+    void slotGrubGfxpayloadLinuxChanged();
+    void slotGrubColorNormalChanged();
+    void slotGrubColorHighlightChanged();
+    void slowGrubBackgroundChanged();
     void previewGrubBackground();
     void createGrubBackground();
-    void updateGrubTheme(const QString &text);
-    void updateGrubCmdlineLinuxDefault(const QString &text);
-    void updateGrubCmdlineLinux(const QString &text);
-    void updateGrubTerminal(const QString &text);
-    void updateGrubTerminalInput(const QString &text);
-    void updateGrubTerminalOutput(const QString &text);
-    void updateGrubDistributor(const QString &text);
-    void updateGrubSerialCommand(const QString &text);
-    void updateGrubInitTune(const QString &text);
-    void updateGrubDisableLinuxUUID(bool checked);
-    void updateGrubDisableRecovery(bool checked);
-    void updateGrubDisableOsProber(bool checked);
+    void slotGrubThemeChanged();
+    void slotGrubCmdlineLinuxDefaultChanged();
+    void slotGrubCmdlineLinuxChanged();
+    void slotGrubTerminalChanged();
+    void slotGrubTerminalInputChanged();
+    void slotGrubTerminalOutputChanged();
+    void slotGrubDistributorChanged();
+    void slotGrubSerialCommandChanged();
+    void slotGrubInitTuneChanged();
+    void slotGrubDisableLinuxUuidChanged();
+    void slotGrubDisableRecoveryChanged();
+    void slotGrubDisableOsProberChanged();
 
-    void updateSuggestions();
-    void triggeredSuggestion(QAction *action);
+    void slotUpdateSuggestions();
+    void slotTriggeredSuggestion(QAction *action);
 private:
     void setupObjects();
     void setupConnections();
@@ -76,12 +79,38 @@ private:
     bool readEntries();
     bool readSettings();
 
+    QString quoteWord(const QString &word);
     QString unquoteWord(const QString &word);
     void parseSettings(const QString &config);
     void parseEntries(const QString &config);
 
     Ui::KCMGRUB2 ui;
 
+    enum {
+        grubDefaultDirty,
+        grubSavedefaultDirty,
+        grubHiddenTimeoutDirty,
+        grubHiddenTimeoutQuietDirty,
+        grubTimeoutDirty,
+        grubGfxmodeDirty,
+        grubGfxpayloadLinuxDirty,
+        grubColorNormalDirty,
+        grubColorHighlightDirty,
+        grubBackgroundDirty,
+        grubThemeDirty,
+        grubCmdlineLinuxDefaultDirty,
+        grubCmdlineLinuxDirty,
+        grubTerminalDirty,
+        grubTerminalInputDirty,
+        grubTerminalOutputDirty,
+        grubDistributorDirty,
+        grubSerialCommandDirty,
+        grubInitTuneDirty,
+        grubDisableLinuxUuidDirty,
+        grubDisableRecoveryDirty,
+        grubDisableOsProberDirty
+    };
+    QBitArray m_dirtyBits;
     QStringList m_gfxmodes;
     QHash<QString, QString> m_devices;
     QStringList m_entries;
