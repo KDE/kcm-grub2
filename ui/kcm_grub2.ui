@@ -247,11 +247,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QComboBox" name="comboBox_gfxmode">
-            <property name="editable">
-             <bool>true</bool>
-            </property>
-           </widget>
+           <widget class="QComboBox" name="comboBox_gfxmode"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_gfxpayload">
@@ -261,36 +257,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QRadioButton" name="radioButton_gfxpayloadText">
-            <property name="text">
-             <string comment="@option:radio">Boot in Text Mode</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QRadioButton" name="radioButton_gfxpayloadKeep">
-            <property name="text">
-             <string comment="@option:radio">Keep GRUB's Resolution</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <layout class="QHBoxLayout" name="horizontalLayout">
-            <item>
-             <widget class="QRadioButton" name="radioButton_gfxpayloadOther">
-              <property name="text">
-               <string comment="@option:radio">Other:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QComboBox" name="comboBox_gfxpayload">
-              <property name="editable">
-               <bool>true</bool>
-              </property>
-             </widget>
-            </item>
-           </layout>
+           <widget class="QComboBox" name="comboBox_gfxpayload"/>
           </item>
          </layout>
         </widget>

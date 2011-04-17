@@ -24,6 +24,7 @@
 //KDE
 #include <KAboutData>
 #include <KFileDialog>
+#include <KInputDialog>
 #include <KMenu>
 #include <KMessageBox>
 #include <kmountpoint.h>
@@ -57,7 +58,7 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
 
 void KCMGRUB2::load()
 {
-    readGfxmodes();
+    readResolutions();
     readEntries();
     readSettings();
 
@@ -104,20 +105,19 @@ void KCMGRUB2::load()
         kWarning() << "Invalid GRUB_TIMEOUT value";
     }
 
-    ui.comboBox_gfxmode->clear();
-    ui.comboBox_gfxmode->addItems(m_gfxmodes);
-    ui.comboBox_gfxmode->setEditText(unquoteWord(m_settings.value("GRUB_GFXMODE")));
-    ui.comboBox_gfxpayload->clear();
-    ui.comboBox_gfxpayload->addItems(m_gfxmodes);
-    QString grubGfxpayloadLinux = unquoteWord(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
-    if (grubGfxpayloadLinux.compare("text") == 0) {
-        ui.radioButton_gfxpayloadText->setChecked(true);
-    } else if (grubGfxpayloadLinux.compare("keep") == 0) {
-        ui.radioButton_gfxpayloadKeep->setChecked(true);
-    } else {
-        ui.radioButton_gfxpayloadOther->setChecked(true);
-        ui.comboBox_gfxpayload->setEditText(grubGfxpayloadLinux);
+    QString grubGfxmode = unquoteWord(m_settings.value("GRUB_GFXMODE"));
+    if (!grubGfxmode.isEmpty() && grubGfxmode.compare("640x480") != 0 && !m_resolutions.contains(grubGfxmode)) {
+        m_resolutions.append(grubGfxmode);
     }
+    QString grubGfxpayloadLinux = unquoteWord(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
+    if (!grubGfxpayloadLinux.isEmpty() && grubGfxpayloadLinux.compare("text") != 0 && grubGfxpayloadLinux.compare("keep") != 0 && !m_resolutions.contains(grubGfxpayloadLinux)) {
+        m_resolutions.append(grubGfxpayloadLinux);
+    }
+    m_resolutions.append("640x480");
+    sortResolutions();
+    showResolutions();
+    ui.comboBox_gfxmode->setCurrentIndex(ui.comboBox_gfxmode->findData(grubGfxmode));
+    ui.comboBox_gfxpayload->setCurrentIndex(ui.comboBox_gfxpayload->findData(grubGfxpayloadLinux));
 
     QString grubColorNormal = unquoteWord(m_settings.value("GRUB_COLOR_NORMAL"));
     if (!grubColorNormal.isEmpty()) {
@@ -216,25 +216,19 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubGfxmodeDirty)) {
-        QString gfxmode = ui.comboBox_gfxmode->currentText();
-        if (!gfxmode.isEmpty()) {
-            m_settings["GRUB_GFXMODE"] = quoteWord(gfxmode);
+        if (ui.comboBox_gfxmode->currentIndex() <= 0) {
+            kError() << "Something went terribly wrong!";
         } else {
-            m_settings.remove("GRUB_GFXMODE");
+            m_settings["GRUB_GFXMODE"] = quoteWord(ui.comboBox_gfxmode->itemData(ui.comboBox_gfxmode->currentIndex()).toString());
         }
     }
     if (m_dirtyBits.testBit(grubGfxpayloadLinuxDirty)) {
-        if (ui.radioButton_gfxpayloadText->isChecked()) {
-            m_settings["GRUB_GFXPAYLOAD_LINUX"] = "text";
-        } else if (ui.radioButton_gfxpayloadKeep->isChecked()) {
-            m_settings["GRUB_GFXPAYLOAD_LINUX"] = "keep";
-        } else {
-            QString gfxPayload = ui.comboBox_gfxpayload->currentText();
-            if (!gfxPayload.isEmpty()) {
-                m_settings["GRUB_GFXPAYLOAD_LINUX"] = quoteWord(gfxPayload);
-            } else {
-                m_settings.remove("GRUB_GFXPAYLOAD_LINUX");
-            }
+        if (ui.comboBox_gfxpayload->currentIndex() <= 0) {
+            kError() << "Something went terribly wrong!";
+        } else if (ui.comboBox_gfxpayload->currentIndex() == 1) {
+            m_settings.remove("GRUB_GFXPAYLOAD_LINUX");
+        } else if (ui.comboBox_gfxpayload->currentIndex() > 1) {
+            m_settings["GRUB_GFXPAYLOAD_LINUX"] = quoteWord(ui.comboBox_gfxpayload->itemData(ui.comboBox_gfxpayload->currentIndex()).toString());
         }
     }
     if (m_dirtyBits.testBit(grubColorNormalDirty)) {
@@ -399,11 +393,45 @@ void KCMGRUB2::slotGrubTimeoutChanged()
 }
 void KCMGRUB2::slotGrubGfxmodeChanged()
 {
+    if (ui.comboBox_gfxmode->currentIndex() == 0) {
+        bool ok;
+        QRegExpValidator regExp(QRegExp("\\d{3,4}x\\d{3,4}(x\\d{1,2})?"), this);
+        QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter resolution"), i18nc("@label:textbox", "Please enter a GRUB resolution:"), QString(), &ok, this, &regExp);
+        if (ok) {
+            if (!m_resolutions.contains(resolution)) {
+                QString gfxpayload = ui.comboBox_gfxpayload->itemData(ui.comboBox_gfxpayload->currentIndex()).toString();
+                m_resolutions.append(resolution);
+                sortResolutions();
+                showResolutions();
+                ui.comboBox_gfxpayload->setCurrentIndex(ui.comboBox_gfxpayload->findData(gfxpayload));
+            }
+            ui.comboBox_gfxmode->setCurrentIndex(ui.comboBox_gfxmode->findData(resolution));
+        } else {
+            ui.comboBox_gfxmode->setCurrentIndex(ui.comboBox_gfxmode->findData("640x480"));
+        }
+    }
     m_dirtyBits.setBit(grubGfxmodeDirty);
     emit changed(true);
 }
 void KCMGRUB2::slotGrubGfxpayloadLinuxChanged()
 {
+    if (ui.comboBox_gfxpayload->currentIndex() == 0) {
+        bool ok;
+        QRegExpValidator regExp(QRegExp("\\d{3,4}x\\d{3,4}(x\\d{1,2})?"), this);
+        QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter resolution"), i18nc("@label:textbox", "Please enter a Linux boot resolution:"), QString(), &ok, this, &regExp);
+        if (ok) {
+            if (!m_resolutions.contains(resolution)) {
+                QString gfxmode = ui.comboBox_gfxmode->itemData(ui.comboBox_gfxmode->currentIndex()).toString();
+                m_resolutions.append(resolution);
+                sortResolutions();
+                showResolutions();
+                ui.comboBox_gfxmode->setCurrentIndex(ui.comboBox_gfxmode->findData(gfxmode));
+            }
+            ui.comboBox_gfxpayload->setCurrentIndex(ui.comboBox_gfxpayload->findData(resolution));
+        } else {
+            ui.comboBox_gfxpayload->setCurrentIndex(ui.comboBox_gfxpayload->findData(QString()));
+        }
+    }
     m_dirtyBits.setBit(grubGfxpayloadLinuxDirty);
     emit changed(true);
 }
@@ -685,11 +713,8 @@ void KCMGRUB2::setupConnections()
     connect(ui.radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
     connect(ui.spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubTimeoutChanged()));
 
-    connect(ui.comboBox_gfxmode, SIGNAL(editTextChanged(QString)), this, SLOT(slotGrubGfxmodeChanged()));
-    connect(ui.radioButton_gfxpayloadText, SIGNAL(clicked(bool)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
-    connect(ui.radioButton_gfxpayloadKeep, SIGNAL(clicked(bool)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
-    connect(ui.radioButton_gfxpayloadOther, SIGNAL(clicked(bool)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
-    connect(ui.comboBox_gfxpayload, SIGNAL(editTextChanged(QString)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
+    connect(ui.comboBox_gfxmode, SIGNAL(activated(int)), this, SLOT(slotGrubGfxmodeChanged()));
+    connect(ui.comboBox_gfxpayload, SIGNAL(activated(int)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
 
     connect(ui.comboBox_normalForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
     connect(ui.comboBox_normalBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
@@ -827,13 +852,13 @@ bool KCMGRUB2::updateGRUB(const QString &fileName)
     return false;
 }
 
-bool KCMGRUB2::readGfxmodes()
+bool KCMGRUB2::readResolutions()
 {
     Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
     probeVbeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
     ActionReply reply = probeVbeAction.execute();
     if (reply.succeeded()) {
-        m_gfxmodes = reply.data().value("gfxmodes").toStringList();
+        m_resolutions = reply.data().value("gfxmodes").toStringList();
         return true;
     }
     return false;
@@ -938,6 +963,46 @@ bool KCMGRUB2::readSettings()
         }
     }
     return false;
+}
+
+void KCMGRUB2::sortResolutions()
+{
+    for (int i = 0; i < m_resolutions.size(); i++) {
+        if (m_resolutions.at(i).contains(QRegExp("^\\d{3,4}x\\d{3,4}$"))) {
+            m_resolutions[i] = QString("%1x%2x0").arg(m_resolutions.at(i).section('x', 0, 0).rightJustified(4, '0'), m_resolutions.at(i).section('x', 1).rightJustified(4, '0'));
+        } else if (m_resolutions.at(i).contains(QRegExp("^\\d{3,4}x\\d{3,4}x\\d{1,2}$"))) {
+            m_resolutions[i] = QString("%1x%2x%3").arg(m_resolutions.at(i).section('x', 0, 0).rightJustified(4, '0'), m_resolutions.at(i).section('x', 1, 1).rightJustified(4, '0'), m_resolutions.at(i).section('x', 2).rightJustified(2, '0'));
+        }
+    }
+    m_resolutions.sort();
+    for (int i = 0; i < m_resolutions.size(); i++) {
+        if (!m_resolutions.at(i).contains(QRegExp("^\\d{3,4}x\\d{3,4}x\\d{1,2}$"))) {
+            continue;
+        }
+        if (m_resolutions.at(i).startsWith('0')) {
+            m_resolutions[i].remove(0, 1);
+        }
+        m_resolutions[i].replace("x0", "x");
+        if (m_resolutions.at(i).endsWith('x')) {
+            m_resolutions[i].remove(m_resolutions.at(i).length() - 1, 1);
+        }
+    }
+}
+void KCMGRUB2::showResolutions()
+{
+    ui.comboBox_gfxmode->clear();
+    ui.comboBox_gfxmode->addItem(i18nc("@item:inlistbox", "Custom..."), "custom");
+
+    ui.comboBox_gfxpayload->clear();
+    ui.comboBox_gfxpayload->addItem(i18nc("@item:inlistbox", "Custom..."), "custom");
+    ui.comboBox_gfxpayload->addItem(i18nc("@item:inlistbox", "Unspecified"), QString());
+    ui.comboBox_gfxpayload->addItem(i18nc("@item:inlistbox", "Boot in Text Mode"), "text");
+    ui.comboBox_gfxpayload->addItem(i18nc("@item:inlistbox", "Keep GRUB's Resolution"), "keep");
+
+    foreach(const QString &resolution, m_resolutions) {
+        ui.comboBox_gfxmode->addItem(resolution, resolution);
+        ui.comboBox_gfxpayload->addItem(resolution, resolution);
+    }
 }
 
 QString KCMGRUB2::quoteWord(const QString &word)

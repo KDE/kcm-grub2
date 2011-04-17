@@ -74,10 +74,13 @@ private:
     bool saveFile(const QString &fileName, const QString &fileContents);
     bool updateGRUB(const QString &fileName);
 
-    bool readGfxmodes();
+    bool readResolutions();
     bool readDevices();
     bool readEntries();
     bool readSettings();
+
+    void sortResolutions();
+    void showResolutions();
 
     QString quoteWord(const QString &word);
     QString unquoteWord(const QString &word);
@@ -111,7 +114,7 @@ private:
         grubDisableOsProberDirty
     };
     QBitArray m_dirtyBits;
-    QStringList m_gfxmodes;
+    QStringList m_resolutions;
     QHash<QString, QString> m_devices;
     QStringList m_entries;
     QHash<QString, QString> m_settings;

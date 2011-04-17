@@ -85,15 +85,8 @@ ActionReply Helper::probevbe(QVariantMap args)
     hd_t *hd = hd_list(&hd_data, hw_framebuffer, 1, NULL);
     for (hd_res_t *res = hd->res; res; res = res->next) {
         if (res->any.type == res_framebuffer) {
-            gfxmodes += QString("%1x%2x%3").arg(QString::number(res->framebuffer.width), 4, '0').arg(QString::number(res->framebuffer.height), 4, '0').arg(QString::number(res->framebuffer.colorbits), 2, '0');
+            gfxmodes += QString("%1x%2x%3").arg(QString::number(res->framebuffer.width), QString::number(res->framebuffer.height), QString::number(res->framebuffer.colorbits));
         }
-    }
-    gfxmodes.sort();
-    for (int i = 0; i < gfxmodes.size(); i++) {
-        if (gfxmodes.at(i).startsWith('0')) {
-            gfxmodes[i].remove(0, 1);
-        }
-        gfxmodes[i].replace("x0", "x");
     }
     hd_free_hd_list(hd);
     hd_free_hd_data(&hd_data);
