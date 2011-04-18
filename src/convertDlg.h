@@ -26,6 +26,7 @@ class ConvertDialog : public KDialog
     Q_OBJECT
 public:
     explicit ConvertDialog(QWidget *parent = 0, Qt::WFlags flags = 0);
+    void setResolution(int width, int height);
 protected Q_SLOTS:
     virtual void slotButtonClicked(int button);
 Q_SIGNALS:

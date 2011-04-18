@@ -469,6 +469,8 @@ void KCMGRUB2::createGrubBackground()
 {
 #ifdef HAVE_IMAGEMAGICK
     ConvertDialog convertDlg(this);
+    QString resolution = ui.comboBox_gfxmode->itemData(ui.comboBox_gfxmode->currentIndex()).toString();
+    convertDlg.setResolution(resolution.section('x', 0, 0).toInt(), resolution.section('x', 1, 1).toInt());
     connect(&convertDlg, SIGNAL(splashImageCreated(QString)), ui.kurlrequester_background, SLOT(setText(QString)));
     convertDlg.exec();
 #endif
