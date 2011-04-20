@@ -32,8 +32,3 @@ configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
 add_subdirectory(cfg)
 add_subdirectory(other)
 add_subdirectory(src)
-
-set(CPACK_SOURCE_PACKAGE_FILE_NAME "${CMAKE_PROJECT_NAME}-${KCM_GRUB2_VERSION}")
-set(CPACK_SOURCE_IGNORE_FILES "/\\\\..*$;kdev4$;${CPACK_SOURCE_IGNORE_FILES}")
-set(CPACK_SOURCE_GENERATOR "TGZ")
-include(CPack)
