@@ -660,8 +660,7 @@ void KCMGRUB2::setupObjects()
     ui.kpushbutton_preview->setIcon(KIcon("image-png"));
     ui.kpushbutton_create->setIcon(KIcon("insert-image"));
 #ifndef HAVE_IMAGEMAGICK
-    ui.kpushbutton_create->setEnabled(false);
-    ui.kpushbutton_create->setToolTip(i18nc("@info:tooltip", "ImageMagick was not found."));
+    ui.kpushbutton_create->setVisible(false);
 #endif
 
     ui.kpushbutton_cmdlineDefaultSuggestions->setIcon(KIcon("tools-wizard"));
