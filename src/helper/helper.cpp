@@ -23,13 +23,13 @@
 #include <QtCore/QTextStream>
 
 //KDE
-#include <KAuth/HelperSupport>
 #include <KProcess>
 #include <KShell>
+#include <KAuth/HelperSupport>
 
 //Project
 #include "../config.h"
-#ifdef HAVE_HD
+#if HAVE_HD
 #undef slots
 #include <hd.h>
 #endif
@@ -78,7 +78,7 @@ ActionReply Helper::probevbe(QVariantMap args)
 {
     Q_UNUSED(args)
     ActionReply reply;
-#ifdef HAVE_HD
+#if HAVE_HD
     QStringList gfxmodes;
     hd_data_t hd_data;
     memset(&hd_data, 0, sizeof(hd_data));

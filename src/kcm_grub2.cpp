@@ -19,7 +19,7 @@
 #include "kcm_grub2.h"
 
 //Qt
-#include <QDesktopWidget>
+#include <QtGui/QDesktopWidget>
 
 //KDE
 #include <KAboutData>
@@ -37,7 +37,7 @@ using namespace KAuth;
 
 //Project
 #include "config.h"
-#ifdef HAVE_IMAGEMAGICK
+#if HAVE_IMAGEMAGICK
 #include "convertDlg.h"
 #endif
 #include "settings.h"
@@ -467,7 +467,7 @@ void KCMGRUB2::previewGrubBackground()
 }
 void KCMGRUB2::createGrubBackground()
 {
-#ifdef HAVE_IMAGEMAGICK
+#if HAVE_IMAGEMAGICK
     ConvertDialog convertDlg(this);
     QString resolution = ui.comboBox_gfxmode->itemData(ui.comboBox_gfxmode->currentIndex()).toString();
     convertDlg.setResolution(resolution.section('x', 0, 0).toInt(), resolution.section('x', 1, 1).toInt());
@@ -659,7 +659,7 @@ void KCMGRUB2::setupObjects()
 
     ui.kpushbutton_preview->setIcon(KIcon("image-png"));
     ui.kpushbutton_create->setIcon(KIcon("insert-image"));
-#ifndef HAVE_IMAGEMAGICK
+#if HAVE_IMAGEMAGICK
     ui.kpushbutton_create->setVisible(false);
 #endif
 
