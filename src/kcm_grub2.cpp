@@ -659,9 +659,7 @@ void KCMGRUB2::setupObjects()
 
     ui.kpushbutton_preview->setIcon(KIcon("image-png"));
     ui.kpushbutton_create->setIcon(KIcon("insert-image"));
-#if HAVE_IMAGEMAGICK
-    ui.kpushbutton_create->setVisible(false);
-#endif
+    ui.kpushbutton_create->setVisible(HAVE_IMAGEMAGICK);
 
     ui.kpushbutton_cmdlineDefaultSuggestions->setIcon(KIcon("tools-wizard"));
     ui.kpushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui.kpushbutton_cmdlineDefaultSuggestions));
