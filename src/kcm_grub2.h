@@ -37,6 +37,7 @@ public:
     virtual void save();
 private Q_SLOTS:
     void slotGrubDefaultChanged();
+    void slotRemoveOldEntries();
     void slotGrubSavedefaultChanged();
     void slotGrubHiddenTimeoutChanged();
     void slotGrubHiddenTimeoutQuietChanged();
@@ -117,6 +118,7 @@ private:
     QStringList m_resolutions;
     QHash<QString, QString> m_devices;
     QStringList m_entries;
+    QHash<QString, QString> m_kernels;
     QHash<QString, QString> m_settings;
 };
 

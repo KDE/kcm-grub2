@@ -5,6 +5,9 @@ set(kcm_grub2_INCLUDE_DIRS ${KDE4_INCLUDES})
 if (HAVE_IMAGEMAGICK)
     set(kcm_grub2_INCLUDE_DIRS ${kcm_grub2_INCLUDE_DIRS} ${ImageMagick_INCLUDE_DIRS})
 endif (HAVE_IMAGEMAGICK)
+if (HAVE_QAPT)
+    set(kcm_grub2_INCLUDE_DIRS ${kcm_grub2_INCLUDE_DIRS} ${QAPT_INCLUDE_DIR})
+endif (HAVE_QAPT)
 
 # Set Sources
 set(kcm_grub2_SRCS kcm_grub2.cpp)
@@ -14,12 +17,19 @@ if (HAVE_IMAGEMAGICK)
     set(kcm_grub2_SRCS ${kcm_grub2_SRCS} convertDlg.cpp)
     kde4_add_ui_files(kcm_grub2_SRCS ../ui/convertDlg.ui)
 endif (HAVE_IMAGEMAGICK)
+if (HAVE_QAPT)
+    set(kcm_grub2_SRCS ${kcm_grub2_SRCS} removeDlg.cpp)
+    kde4_add_ui_files(kcm_grub2_SRCS ../ui/removeDlg.ui)
+endif (HAVE_QAPT)
 
 # Set Link Libraries
 set(kcm_grub2_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
 if (HAVE_IMAGEMAGICK)
     set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} ${ImageMagick_LIBRARIES})
 endif (HAVE_IMAGEMAGICK)
+if (HAVE_QAPT)
+    set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} ${QAPT_LIBRARY})
+endif (HAVE_QAPT)
 
 # Build & Link
 include_directories(${kcm_grub2_INCLUDE_DIRS})

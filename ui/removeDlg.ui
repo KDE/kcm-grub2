@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>RemoveDialog</class>
+ <widget class="QWidget" name="RemoveDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>264</width>
+    <height>225</height>
+   </rect>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="KListWidget" name="klistwidget"/>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_headers">
+     <property name="toolTip">
+      <string comment="@info:tooltip">Remove associated kernel header files.</string>
+     </property>
+     <property name="text">
+      <string comment="@option:check">Also remove associated old packages</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>KListWidget</class>
+   <extends>QListWidget</extends>
+   <header>klistwidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

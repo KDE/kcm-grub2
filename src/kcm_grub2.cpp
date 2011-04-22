@@ -40,6 +40,9 @@ using namespace KAuth;
 #if HAVE_IMAGEMAGICK
 #include "convertDlg.h"
 #endif
+#if HAVE_QAPT
+#include "removeDlg.h"
+#endif
 #include "settings.h"
 
 K_PLUGIN_FACTORY(GRUB2Factory, registerPlugin<KCMGRUB2>();)
@@ -371,6 +374,19 @@ void KCMGRUB2::slotGrubDefaultChanged()
     m_dirtyBits.setBit(grubDefaultDirty);
     emit changed(true);
 }
+void KCMGRUB2::slotRemoveOldEntries()
+{
+#if HAVE_QAPT
+    QStringList entries;
+    foreach(const QString &entry, m_entries) {
+        entries.append(unquoteWord(entry));
+    }
+    RemoveDialog removeDlg(entries, m_kernels, this);
+    if (removeDlg.exec()) {
+        load();
+    }
+#endif
+}
 void KCMGRUB2::slotGrubSavedefaultChanged()
 {
     m_dirtyBits.setBit(grubSavedefaultDirty);
@@ -608,6 +624,9 @@ void KCMGRUB2::setupObjects()
 
     m_dirtyBits.resize(grubDisableOsProberDirty + 1);
 
+    ui.kpushbutton_remove->setIcon(KIcon("list-remove"));
+    ui.kpushbutton_remove->setVisible(HAVE_QAPT);
+
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);
     transparent.fill(Qt::transparent);
@@ -701,6 +720,7 @@ void KCMGRUB2::setupConnections()
 {
     connect(ui.radioButton_default, SIGNAL(clicked(bool)), this, SLOT(slotGrubDefaultChanged()));
     connect(ui.comboBox_default, SIGNAL(activated(int)), this, SLOT(slotGrubDefaultChanged()));
+    connect(ui.kpushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
     connect(ui.radioButton_saved, SIGNAL(clicked(bool)), this, SLOT(slotGrubDefaultChanged()));
     connect(ui.checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(slotGrubSavedefaultChanged()));
 
@@ -1111,9 +1131,10 @@ void KCMGRUB2::parseSettings(const QString &config)
 void KCMGRUB2::parseEntries(const QString &config)
 {
     m_entries.clear();
+    m_kernels.clear();
 
     QChar ch;
-    QString entry, entriesConfig = config;
+    QString word, entry, entriesConfig = config;
     QTextStream stream(&entriesConfig, QIODevice::ReadOnly | QIODevice::Text);
     while (!stream.atEnd()) {
         stream >> ch;
@@ -1124,56 +1145,62 @@ void KCMGRUB2::parseEntries(const QString &config)
         if (stream.atEnd()) {
             return;
         }
-        QString word;
         stream >> word;
-        if (word.compare("menuentry") != 0) {
-            continue;
-        }
-        stream.skipWhiteSpace();
-        if (stream.atEnd()) {
-            return;
-        }
-        stream >> ch;
-        entry += ch;
-        if (ch == '\'') {
-            do {
-                if (stream.atEnd()) {
-                    return;
-                }
-                stream >> ch;
-                entry += ch;
-            } while (ch != '\'');
-        } else if (ch == '"') {
-            while (true) {
-                if (stream.atEnd()) {
-                    return;
-                }
-                stream >> ch;
-                entry += ch;
-                if (ch == '\\') {
+        if (word.compare("menuentry") == 0) {
+            stream.skipWhiteSpace();
+            if (stream.atEnd()) {
+                return;
+            }
+            entry.clear();
+            stream >> ch;
+            entry += ch;
+            if (ch == '\'') {
+                do {
+                    if (stream.atEnd()) {
+                        return;
+                    }
                     stream >> ch;
                     entry += ch;
-                } else if (ch == '"') {
-                    break;
-                }
-            }
-        } else {
-            while (true) {
-                if (stream.atEnd()) {
-                    return;
-                }
-                stream >> ch;
-                if (ch.isSpace()) {
-                    break;
-                }
-                entry += ch;
-                if (ch == '\\') {
+                } while (ch != '\'');
+            } else if (ch == '"') {
+                while (true) {
+                    if (stream.atEnd()) {
+                        return;
+                    }
                     stream >> ch;
                     entry += ch;
+                    if (ch == '\\') {
+                        stream >> ch;
+                        entry += ch;
+                    } else if (ch == '"') {
+                        break;
+                    }
+                }
+            } else {
+                while (true) {
+                    if (stream.atEnd()) {
+                        return;
+                    }
+                    stream >> ch;
+                    if (ch.isSpace()) {
+                        break;
+                    }
+                    entry += ch;
+                    if (ch == '\\') {
+                        stream >> ch;
+                        entry += ch;
+                    }
                 }
             }
+            m_entries.append(entry);
+        } else if (word.compare("linux") == 0 && !entry.isEmpty()) {
+            stream.skipWhiteSpace();
+            if (stream.atEnd()) {
+                return;
+            }
+            stream >> word;
+            m_kernels[unquoteWord(entry)] = word;
+            entry.clear();
         }
-        m_entries.append(entry);
-        entry.clear();
     }
 }

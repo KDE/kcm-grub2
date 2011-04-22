@@ -29,6 +29,16 @@ else (HD_FOUND)
     set(HAVE_HD 0)
 endif(HD_FOUND)
 
+option(WITH_QApt "Search for QApt package" ON)
+if (WITH_QApt)
+    find_package(QApt)
+endif (WITH_QApt)
+if (QAPT_FOUND)
+    set(HAVE_QAPT 1)
+else (QAPT_FOUND)
+    set(HAVE_QAPT 0)
+endif(QAPT_FOUND)
+
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
 
 add_subdirectory(cfg)
