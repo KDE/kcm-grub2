@@ -6,7 +6,8 @@ set(KCM_GRUB2_VERSION "${KCM_GRUB2_VERSION_MAJOR}.${KCM_GRUB2_VERSION_MINOR}.${K
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
-find_package(KDE4 REQUIRED)
+find_package(Qt4 4.6.0 REQUIRED)
+find_package(KDE4 4.4.0 REQUIRED)
 include(KDE4Defaults)
 
 option(WITH_ImageMagick "Search for ImageMagick package" ON)
