@@ -42,7 +42,7 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
 
     bool found = false;
     QApt::Package *package;
-    foreach(const QString &entry, entries) {
+    Q_FOREACH(const QString &entry, entries) {
         QString file = kernels.value(entry);
         if (!file.isEmpty() && (package = m_backend->packageForFile(file))) {
             QListWidgetItem *item = new QListWidgetItem(entry, ui.klistwidget);

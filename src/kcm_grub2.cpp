@@ -67,7 +67,7 @@ void KCMGRUB2::load()
 
     bool ok;
     ui.comboBox_default->clear();
-    foreach(const QString &entry, m_entries) {
+    Q_FOREACH(const QString &entry, m_entries) {
         ui.comboBox_default->addItem(unquoteWord(entry), entry);
     }
     QString grubDefault = unquoteWord(m_settings.value("GRUB_DEFAULT"));
@@ -378,7 +378,7 @@ void KCMGRUB2::slotRemoveOldEntries()
 {
 #if HAVE_QAPT
     QStringList entries;
-    foreach(const QString &entry, m_entries) {
+    Q_FOREACH(const QString &entry, m_entries) {
         entries.append(unquoteWord(entry));
     }
     RemoveDialog removeDlg(entries, m_kernels, this);
@@ -578,7 +578,7 @@ void KCMGRUB2::slotUpdateSuggestions()
         return;
     }
 
-    foreach(QAction *action, qobject_cast<const QWidget*>(sender())->actions()) {
+    Q_FOREACH(QAction *action, qobject_cast<const QWidget*>(sender())->actions()) {
         if (!action->isCheckable()) {
             action->setCheckable(true);
         }
@@ -885,7 +885,7 @@ bool KCMGRUB2::readResolutions()
 bool KCMGRUB2::readDevices()
 {
     QStringList mountPoints;
-    foreach(const KMountPoint::Ptr mp, KMountPoint::currentMountPoints()) {
+    Q_FOREACH(const KMountPoint::Ptr mp, KMountPoint::currentMountPoints()) {
         if (mp->mountedFrom().startsWith("/dev")) {
             mountPoints.append(mp->mountPoint());
         }
@@ -1018,7 +1018,7 @@ void KCMGRUB2::showResolutions()
     ui.comboBox_gfxpayload->addItem(i18nc("@item:inlistbox", "Boot in Text Mode"), "text");
     ui.comboBox_gfxpayload->addItem(i18nc("@item:inlistbox", "Keep GRUB's Resolution"), "keep");
 
-    foreach(const QString &resolution, m_resolutions) {
+    Q_FOREACH(const QString &resolution, m_resolutions) {
         ui.comboBox_gfxmode->addItem(resolution, resolution);
         ui.comboBox_gfxpayload->addItem(resolution, resolution);
     }
