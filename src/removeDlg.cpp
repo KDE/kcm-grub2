@@ -78,8 +78,16 @@ void RemoveDialog::slotButtonClicked(int button)
                 }
             }
         }
-        connect(m_backend, SIGNAL(commitProgress(QString, int)), this, SLOT(slotCommitProgress(QString, int)));
-        m_backend->commitChanges();
+        QStringList packages;
+        Q_FOREACH(const QApt::Package *package, m_backend->markedPackages()) {
+            packages.append(package->name());
+        }
+        if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), packages) == KMessageBox::Yes) {
+            connect(m_backend, SIGNAL(commitProgress(QString, int)), this, SLOT(slotCommitProgress(QString, int)));
+            m_backend->commitChanges();
+        } else {
+            m_backend->init();
+        }
         return;
     }
     KDialog::slotButtonClicked(button);
