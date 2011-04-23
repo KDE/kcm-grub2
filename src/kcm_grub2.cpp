@@ -467,7 +467,7 @@ void KCMGRUB2::slowGrubBackgroundChanged()
     m_dirtyBits.setBit(grubBackgroundDirty);
     emit changed(true);
 }
-void KCMGRUB2::previewGrubBackground()
+void KCMGRUB2::slotPreviewGrubBackground()
 {
     QFile file(ui.kurlrequester_background->url().toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
@@ -481,7 +481,7 @@ void KCMGRUB2::previewGrubBackground()
     dialog->showFullScreen();
     KMessageBox::information(dialog, i18nc("@info", "Press <shortcut>Escape</shortcut> to exit fullscreen mode."), QString(), "GRUBFullscreenPreview");
 }
-void KCMGRUB2::createGrubBackground()
+void KCMGRUB2::slotCreateGrubBackground()
 {
 #if HAVE_IMAGEMAGICK
     ConvertDialog convertDlg(this);
@@ -741,8 +741,8 @@ void KCMGRUB2::setupConnections()
     connect(ui.comboBox_highlightBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
 
     connect(ui.kurlrequester_background, SIGNAL(textChanged(QString)), this, SLOT(slowGrubBackgroundChanged()));
-    connect(ui.kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(previewGrubBackground()));
-    connect(ui.kpushbutton_create, SIGNAL(clicked(bool)), this, SLOT(createGrubBackground()));
+    connect(ui.kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(slotPreviewGrubBackground()));
+    connect(ui.kpushbutton_create, SIGNAL(clicked(bool)), this, SLOT(slotCreateGrubBackground()));
     connect(ui.kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(slotGrubThemeChanged()));
 
     connect(ui.lineEdit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxDefaultChanged()));

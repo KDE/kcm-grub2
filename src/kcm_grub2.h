@@ -47,8 +47,8 @@ private Q_SLOTS:
     void slotGrubColorNormalChanged();
     void slotGrubColorHighlightChanged();
     void slowGrubBackgroundChanged();
-    void previewGrubBackground();
-    void createGrubBackground();
+    void slotPreviewGrubBackground();
+    void slotCreateGrubBackground();
     void slotGrubThemeChanged();
     void slotGrubCmdlineLinuxDefaultChanged();
     void slotGrubCmdlineLinuxChanged();
