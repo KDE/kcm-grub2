@@ -10,6 +10,7 @@ X-KDE-ParentApp=kcontrol
 X-KDE-System-Settings-Parent-Category=startup-and-shutdown
 
 Name=GRUB2 Bootloader
+Name[da]=GRUB2 Bootloader
 Name[et]=GRUB2 alglaadur
 Name[hu]=GRUB2 rendszerbetöltő
 Name[lt]=GRUB2 įkrovos tvarkyklė
@@ -20,6 +21,7 @@ Name[pt_BR]=Gerenciador de Inicialização GRUB2
 Name[uk]=Завантажувач GRUB2
 Name[x-test]=xxGRUB2 Bootloaderxx
 Comment=Customise the GRUB2 bootloader
+Comment[da]=Tilpas GRUB2-bootloaderen
 Comment[et]=GRUB2 alglaaduri seadistamine
 Comment[hu]=A GRUB2 rendszerbetöltő testreszabása
 Comment[nds]=Systeemstarter Grub2 topassen

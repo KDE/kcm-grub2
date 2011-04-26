@@ -1,5 +1,6 @@
 [Domain]
 Name=GRUB2 Bootloader Control Module
+Name[da]=Kontrolmodul til GRUB2-bootloaderen
 Name[et]=GRUB2 alglaaduri seadistusmoodul
 Name[hu]=GRUB2 rendszerbetöltő beállítómodul
 Name[lt]=GRUB2 įkrovos tvarkyklės valdymo modulis
@@ -13,6 +14,7 @@ Icon=system-reboot
 
 [org.kde.kcontrol.kcmgrub2.load]
 Name=Load the GRUB2 Bootloader settings
+Name[da]=Indlæs indstillingerne for GRUB2-bootloaderen
 Name[et]=GRUB2 alglaaduri seadistuste laadimine
 Name[hu]=A GRUB2 rendszerbetöltő beállításainak betöltése
 Name[nl]=Laad de instellingen van de Grub2 bootloader
@@ -21,6 +23,7 @@ Name[pt_BR]=Carregar a configuração do gerenciador de inicialização GRUB2
 Name[uk]=Завантаження параметрів завантажувача GRUB2
 Name[x-test]=xxLoad the GRUB2 Bootloader settingsxx
 Description=Administrator authorization is required to load the GRUB2 Bootloader settings
+Description[da]=Administrator-godkendelse kræves for at indlæse indstillingerne for GRUB2-bootloaderen
 Description[et]=GRUB2 alglaaduri seadistuste laadimiseks on vajalik autentimine administraatorina
 Description[hu]=Rendszergazdai jogosultságok szükségesek a GRUB2 rendszerbetöltő menü beállításainak betöltéséhez
 Description[nl]=Autorisatie van systeembeheerder is vereist om instellingen van de Grub2 bootloader te laden
@@ -33,6 +36,7 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.probe]
 Name=Probe devices for their GRUB2 names
+Name[da]=Søg efter enheders GRUB2-navne
 Name[et]=Seadmete kontrollimine GRUB2 nimede osas
 Name[hu]=Eszközök vizsgálata a GRUB2 név meghatározásához
 Name[nds]=Reedschappen ehr Grub2-Naams opdecken
@@ -42,6 +46,7 @@ Name[pt_BR]=Detectar os nomes dos dispositivos no GRUB2
 Name[uk]=Визначення назв пристроїв GRUB2
 Name[x-test]=xxProbe devices for their GRUB2 namesxx
 Description=Administrator authorization is required to probe devices for their GRUB2 names
+Description[da]=Administrator-godkendelse kræves for at søge efter enheders GRUB2-navne
 Description[et]=Seadmete kontrollimiseks GRUB2 nimede osas on vajalik autentimine administraatorina
 Description[hu]=Rendszergazdai jogosultságok szükségesek az eszközök GRUB2 nevének meghatározásához
 Description[nl]=Autorisatie van systeembeheerder is vereist om apparaten af te tasten voor hun Grub2 namen
@@ -54,6 +59,7 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.probevbe]
 Name=Probe VESA BIOS Extensions
+Name[da]=Søg efter VESA BIOS-udvidelser
 Name[et]=VESA BIOS-e laiendite kontrollimine
 Name[hu]=VESA BIOS kiterjesztések vizsgálata
 Name[nl]=Tast VESA BIOS extensies af
@@ -62,6 +68,7 @@ Name[pt_BR]=Testar as extensões da BIOS para o VESA
 Name[uk]=Виявлення розширень BIOS VESA
 Name[x-test]=xxProbe VESA BIOS Extensionsxx
 Description=Administrator authorization is required to probe VESA BIOS Extensions
+Description[da]=Administrator-godkendelse kræves for at søge efter VESA BIOS-udvidelser
 Description[et]=VESA BIOS-e laiendite kontrollimiseks on vajalik autentimine administraatorina
 Description[hu]=Rendszergazdai jogosultságok szükségesek a VESA BIOS kiterjesztések vizsgálatához
 Description[nl]=Autorisatie van systeembeheerder is vereist om VESA BIOS extensies af te tasten
@@ -74,6 +81,7 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.save]
 Name=Save the GRUB2 Bootloader settings
+Name[da]=Gem indstillingerne for GRUB2-bootloader
 Name[et]=GRUB2 alglaaduri seadistuste salvestamine
 Name[hu]=A GRUB2 rendszerbetöltő beállításainak mentése
 Name[nl]=Sla de instellingen van de Grub2 bootloader op
@@ -82,6 +90,7 @@ Name[pt_BR]=Salvar a configuração do gerenciador de inicialização do GRUB2
 Name[uk]=Збереження параметрів завантажувача GRUB2
 Name[x-test]=xxSave the GRUB2 Bootloader settingsxx
 Description=Administrator authorization is required to save the GRUB2 Bootloader settings
+Description[da]=Administrator-godkendelse kræves for at gemme indstillingerne for GRUB2-bootloaderen
 Description[et]=GRUB2 alglaaduri seadistuste salvestamiseks on vajalik autentimine administraatorina
 Description[hu]=Rendszergazdai jogosultságok szükségesek a GRUB2 rendszerbetöltő menü beállításainak mentéséhez
 Description[nl]=Autorisatie van systeembeheerder is vereist om instellingen van de Grub2 bootloader op te slaan
@@ -94,6 +103,7 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.update]
 Name=Update the GRUB2 Bootloader menu
+Name[da]=Opdatér bootloader-menuen for GRUB2
 Name[et]=GRUB2 alglaaduri menüü uuendamine
 Name[hu]=A GRUB2 rendszerbetöltő menü frissítése
 Name[lt]=Atnaujinti GRUB2 įkrovos tvarkyklės meniu
@@ -104,6 +114,7 @@ Name[pt_BR]=Atualizar o menu do gerenciador de inicialização GRUB2
 Name[uk]=Оновлення меню завантажувача GRUB2
 Name[x-test]=xxUpdate the GRUB2 Bootloader menuxx
 Description=Administrator authorization is required to update the GRUB2 Bootloader menu
+Description[da]=Administrator-godkendelse kræves for at opdatere bootloader-menuen for GRUB2
 Description[et]=GRUB2 alglaaduri menüü uuendamiseks on vajalik autentimine administraatorina
 Description[hu]=Rendszergazdai jogosultságok szükségesek a GRUB2 rendszerbetöltő menü frissítéséhez
 Description[nl]=Autorisatie van systeembeheerder is vereist om het menu van Grub2 bootloader bij te werken
