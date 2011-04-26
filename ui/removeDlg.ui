@@ -12,6 +12,13 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
+    <widget class="QLabel" name="label">
+     <property name="text">
+      <string comment="@label:listbox">Select entries to remove:</string>
+     </property>
+    </widget>
+   </item>
+   <item>
     <widget class="KListWidget" name="klistwidget"/>
    </item>
    <item>
