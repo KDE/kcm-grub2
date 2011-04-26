@@ -15,42 +15,36 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#ifndef REMOVEDLG_H
-#define REMOVEDLG_H
+#ifndef QAPTBACKEND_H
+#define QAPTBACKEND_H
 
-//KDE
-class KProgressDialog;
+//Qt
+#include <QtCore/QStringList>
 
-//Project
-#include "config.h"
-#if HAVE_QAPT
-#include "qaptBackend.h"
-#elif HAVE_QPACKAGEKIT
-#include "qPkBackend.h"
-#endif
+//QApt
+#include <libqapt/backend.h>
 
-//Ui
-#include "ui_removeDlg.h"
-
-class RemoveDialog : public KDialog
+class QAptBackend : public QObject
 {
     Q_OBJECT
 public:
-    explicit RemoveDialog(const QStringList &entries, const QHash<QString, QString> &kernels, QWidget *parent = 0, Qt::WFlags flags = 0);
-    virtual ~RemoveDialog();
-protected Q_SLOTS:
-    virtual void slotButtonClicked(int button);
+    explicit QAptBackend(QObject *parent = 0);
+    virtual ~QAptBackend();
+
+    QString ownerPackage(const QString &fileName);
+    void markForRemoval(const QString &packageName);
+    QStringList markedForRemoval() const;
+    bool removePackages();
+    void undoChanges();
+Q_SIGNALS:
+    void finished();
+    void progress(const QString &status, int percentage);
 private Q_SLOTS:
-    void slotItemChanged(QListWidgetItem *item);
-    void slotProgress(const QString &status, int percentage);
+    void slotWorkerEvent(QApt::WorkerEvent event);
+    void slotErrorOccurred(QApt::ErrorCode error, const QVariantMap &details);
 private:
-#if HAVE_QAPT
-    QAptBackend *m_backend;
-#elif HAVE_QPACKAGEKIT
-    QPkBackend *m_backend;
-#endif
-    KProgressDialog *m_progressDlg;
-    Ui::RemoveDialog ui;
+    QApt::Backend *m_backend;
+    QApt::ErrorCode m_error;
 };
 
 #endif

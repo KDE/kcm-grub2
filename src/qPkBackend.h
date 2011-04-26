@@ -15,42 +15,41 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#ifndef REMOVEDLG_H
-#define REMOVEDLG_H
+#ifndef QPKBACKEND_H
+#define QPKBACKEND_H
 
-//KDE
-class KProgressDialog;
+//Qt
+#include <QtCore/QStringList>
 
-//Project
-#include "config.h"
-#if HAVE_QAPT
-#include "qaptBackend.h"
-#elif HAVE_QPACKAGEKIT
-#include "qPkBackend.h"
-#endif
+//QPackageKit
+#include <QPackageKit>
 
-//Ui
-#include "ui_removeDlg.h"
-
-class RemoveDialog : public KDialog
+class QPkBackend : public QObject
 {
     Q_OBJECT
 public:
-    explicit RemoveDialog(const QStringList &entries, const QHash<QString, QString> &kernels, QWidget *parent = 0, Qt::WFlags flags = 0);
-    virtual ~RemoveDialog();
-protected Q_SLOTS:
-    virtual void slotButtonClicked(int button);
+    explicit QPkBackend(QObject *parent = 0);
+    virtual ~QPkBackend();
+
+    QString ownerPackage(const QString &fileName);
+    void markForRemoval(const QString &packageName);
+    QStringList markedForRemoval() const;
+    bool removePackages();
+    void undoChanges();
+Q_SIGNALS:
+    void progress(const QString &status, int percentage);
 private Q_SLOTS:
-    void slotItemChanged(QListWidgetItem *item);
-    void slotProgress(const QString &status, int percentage);
+    void slotFinished(PackageKit::Enum::Exit status, uint runtime);
+    void slotPackage(const QSharedPointer<PackageKit::Package> &package);
+    void slotUpdateProgress();
 private:
-#if HAVE_QAPT
-    QAptBackend *m_backend;
-#elif HAVE_QPACKAGEKIT
-    QPkBackend *m_backend;
-#endif
-    KProgressDialog *m_progressDlg;
-    Ui::RemoveDialog ui;
+    bool packageExists(const QString &packageName);
+
+    PackageKit::Transaction *m_t;
+    PackageKit::Enum::Exit m_status;
+    QSharedPointer<PackageKit::Package> m_package;
+    QStringList m_remove;
+    QList< QSharedPointer<PackageKit::Package> > m_removePtrs;
 };
 
 #endif

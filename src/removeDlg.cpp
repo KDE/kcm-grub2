@@ -25,9 +25,6 @@
 #include <KMessageBox>
 #include <KProgressDialog>
 
-//QApt
-#include <libqapt/backend.h>
-
 RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QString> &kernels, QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
 {
     QWidget *widget = new QWidget(this);
@@ -36,18 +33,30 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Remove Old Entries"));
 
-    m_backend = new QApt::Backend;
-    m_backend->init();
     m_progressDlg = 0;
 
+#if HAVE_QAPT
+    m_backend = new QAptBackend;
+#elif HAVE_QPACKAGEKIT
+    m_backend = new QPkBackend;
+#endif
+
+    KProgressDialog progressDlg(this, i18nc("@title:window", "Finding Old Entries"), i18nc("@info:progress", "Finding Old Entries.."));
+    progressDlg.setAllowCancel(false);
+    progressDlg.setModal(true);
+    progressDlg.show();
     bool found = false;
-    QApt::Package *package;
-    Q_FOREACH(const QString &entry, entries) {
-        QString file = kernels.value(entry);
-        if (!file.isEmpty() && (package = m_backend->packageForFile(file))) {
-            QListWidgetItem *item = new QListWidgetItem(entry, ui.klistwidget);
+    for (int i = 0; i < entries.size(); i++) {
+        progressDlg.progressBar()->setValue(100. / entries.size() * (i + 1));
+        QString file = kernels.value(entries.at(i));
+        if (file.isEmpty()) {
+            continue;
+        }
+        QString packageName = m_backend->ownerPackage(file);
+        if (!packageName.isEmpty()) {
+            QListWidgetItem *item = new QListWidgetItem(entries.at(i), ui.klistwidget);
             item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
-            item->setData(Qt::UserRole, package->name());
+            item->setData(Qt::UserRole, packageName);
             item->setCheckState(Qt::Unchecked);
             ui.klistwidget->addItem(item);
             found = true;
@@ -67,26 +76,24 @@ RemoveDialog::~RemoveDialog()
 void RemoveDialog::slotButtonClicked(int button)
 {
     if (button == KDialog::Ok) {
+        QStringList packageNames;
         for (int i = 0; i < ui.klistwidget->count(); i++) {
             if (ui.klistwidget->item(i)->checkState() == Qt::Checked) {
                 QString packageName = ui.klistwidget->item(i)->data(Qt::UserRole).toString();
-                m_backend->markPackageForRemoval(packageName);
+                m_backend->markForRemoval(packageName);
                 if (ui.checkBox_headers->isChecked()) {
                     packageName.replace("image", "headers");
-                    packageName = packageName.left(packageName.lastIndexOf('-'));
-                    m_backend->markPackageForRemoval(packageName);
+                    m_backend->markForRemoval(packageName);
                 }
             }
         }
-        QStringList packages;
-        Q_FOREACH(const QApt::Package *package, m_backend->markedPackages()) {
-            packages.append(package->name());
-        }
-        if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), packages) == KMessageBox::Yes) {
-            connect(m_backend, SIGNAL(commitProgress(QString, int)), this, SLOT(slotCommitProgress(QString, int)));
-            m_backend->commitChanges();
+        if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval()) == KMessageBox::Yes) {
+            connect(m_backend, SIGNAL(progress(QString, int)), this, SLOT(slotProgress(QString, int)));
+            if (!m_backend->removePackages()) {
+                reject();
+            }
         } else {
-            m_backend->init();
+            m_backend->undoChanges();
         }
         return;
     }
@@ -105,7 +112,7 @@ void RemoveDialog::slotItemChanged(QListWidgetItem *item)
     }
     enableButtonOk(state);
 }
-void RemoveDialog::slotCommitProgress(const QString &status, int percentage)
+void RemoveDialog::slotProgress(const QString &status, int percentage)
 {
     if (percentage == 100) {
         accept();

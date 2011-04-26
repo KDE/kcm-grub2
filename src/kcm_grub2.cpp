@@ -40,7 +40,7 @@ using namespace KAuth;
 #if HAVE_IMAGEMAGICK
 #include "convertDlg.h"
 #endif
-#if HAVE_QAPT
+#if HAVE_QAPT || HAVE_QPACKAGEKIT
 #include "removeDlg.h"
 #endif
 #include "settings.h"
@@ -376,7 +376,7 @@ void KCMGRUB2::slotGrubDefaultChanged()
 }
 void KCMGRUB2::slotRemoveOldEntries()
 {
-#if HAVE_QAPT
+#if HAVE_QAPT || HAVE_QPACKAGEKIT
     QStringList entries;
     Q_FOREACH(const QString &entry, m_entries) {
         entries.append(unquoteWord(entry));
@@ -625,7 +625,7 @@ void KCMGRUB2::setupObjects()
     m_dirtyBits.resize(grubDisableOsProberDirty + 1);
 
     ui.kpushbutton_remove->setIcon(KIcon("list-remove"));
-    ui.kpushbutton_remove->setVisible(HAVE_QAPT);
+    ui.kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
 
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);

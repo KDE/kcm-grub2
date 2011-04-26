@@ -40,6 +40,16 @@ else (QAPT_FOUND)
     set(HAVE_QAPT 0)
 endif(QAPT_FOUND)
 
+option(WITH_QPackageKit "Search for QPackageKit package" ON)
+if (WITH_QPackageKit)
+    find_package(QPackageKit)
+endif (WITH_QPackageKit)
+if (QPACKAGEKIT_FOUND)
+    set(HAVE_QPACKAGEKIT 1)
+else (QPACKAGEKIT_FOUND)
+    set(HAVE_QPACKAGEKIT 0)
+endif(QPACKAGEKIT_FOUND)
+
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
 
 add_subdirectory(cfg)
