@@ -1,5 +1,6 @@
 [Domain]
 Name=GRUB2 Bootloader Control Module
+Name[cs]=Ovládací modul pro GRUB2 Bootloader
 Name[da]=Kontrolmodul til GRUB2-bootloaderen
 Name[et]=GRUB2 alglaaduri seadistusmoodul
 Name[hu]=GRUB2 rendszerbetöltő beállítómodul
