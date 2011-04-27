@@ -30,12 +30,24 @@ ConvertDialog::ConvertDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
     QWidget *widget = new QWidget(this);
     ui.setupUi(widget);
     setMainWidget(widget);
-    //TODO: Query ImageMagick for supported mimetypes
+
+    QString readFilter;
+    QList<Magick::CoderInfo> coderList;
+    coderInfoList(&coderList, Magick::CoderInfo::TrueMatch, Magick::CoderInfo::AnyMatch, Magick::CoderInfo::AnyMatch);
+    for (QList<Magick::CoderInfo>::const_iterator it = coderList.constBegin(); it != coderList.constEnd(); it++) {
+        readFilter.append(QString(" *.%1").arg(QString::fromStdString(it->name()).toLower()));
+    }
+    readFilter.remove(0, 1);
+    readFilter.append('|').append(i18nc("@item:inlistbox", "ImageMagick supported image formats"));
+
+    QString writeFilter = QString("*%1|PNG %5 (%1)\n*%2|TGA %5 (%2)\n*%3 *%4|JPEG %5 (%3 %4)").arg(".png", ".tga", ".jpg", ".jpeg", i18nc("@item:inlistbox", "Image"));
+
     ui.kurlrequester_image->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
     ui.kurlrequester_image->fileDialog()->setOperationMode(KFileDialog::Opening);
+    ui.kurlrequester_image->fileDialog()->setFilter(readFilter);
     ui.kurlrequester_converted->setMode(KFile::File | KFile::LocalOnly);
     ui.kurlrequester_converted->fileDialog()->setOperationMode(KFileDialog::Saving);
-    ui.kurlrequester_converted->fileDialog()->setFilter(QString("*%1|PNG %5 (%1)\n*%2|TGA %5 (%2)\n*%3 *%4|JPEG %5 (%3 %4)").arg(".png", ".tga", ".jpg", ".jpeg", i18nc("@item:inlistbox", "Image")));
+    ui.kurlrequester_converted->fileDialog()->setFilter(writeFilter);
 }
 void ConvertDialog::setResolution(int width, int height)
 {

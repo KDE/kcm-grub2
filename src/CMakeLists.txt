@@ -46,6 +46,11 @@ else (HAVE_QAPT)
     endif (HAVE_QPACKAGEKIT)
 endif (HAVE_QAPT)
 
+# Definitions
+if (HAVE_IMAGEMAGICK)
+    add_definitions(${KDE4_ENABLE_EXCEPTIONS})
+endif (HAVE_IMAGEMAGICK)
+
 # Build & Link
 include_directories(${kcm_grub2_INCLUDE_DIRS})
 kde4_add_plugin(kcm_grub2 ${kcm_grub2_SRCS})
