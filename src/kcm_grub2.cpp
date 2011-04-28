@@ -346,17 +346,39 @@ void KCMGRUB2::save()
         }
     }
 
-    QString config;
-    QTextStream stream(&config, QIODevice::WriteOnly | QIODevice::Text);
+    QString configFileContents;
+    QTextStream stream(&configFileContents, QIODevice::WriteOnly | QIODevice::Text);
     for (QHash<QString, QString>::const_iterator it = m_settings.constBegin(); it != m_settings.constEnd(); it++) {
         stream << it.key() << '=' << it.value() << endl;
     }
-    if (!saveFile(Settings::configPaths().at(0), config)) {
-        return;
-    }
-    if (KMessageBox::questionYesNo(this, i18nc("@info", "<para>Your configuration was successfully saved.<nl/>For the changes to take effect your GRUB menu has to be updated.</para><para>Update your GRUB menu?</para>")) == KMessageBox::Yes) {
-        if (updateGRUB(Settings::menuPaths().at(0), defaultEntry)) {
+
+    Action saveAction("org.kde.kcontrol.kcmgrub2.save");
+    saveAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+    saveAction.addArgument("configFileName", Settings::configPaths().at(0));
+    saveAction.addArgument("configFileContents", configFileContents);
+    saveAction.addArgument("menuFileName", Settings::menuPaths().at(0));
+    saveAction.addArgument("defaultEntry", defaultEntry);
+
+    if (saveAction.authorize() == Action::Authorized) {
+        KProgressDialog progressDlg(this, i18nc("@title:window", "Saving"), i18nc("@info:progress", "Saving GRUB settings.."));
+        progressDlg.setAllowCancel(false);
+        progressDlg.setModal(true);
+        progressDlg.progressBar()->setMinimum(0);
+        progressDlg.progressBar()->setMaximum(0);
+        progressDlg.show();
+        connect(saveAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
+        ActionReply reply = saveAction.execute();
+        if (reply.succeeded()) {
+            KDialog *dialog = new KDialog(this, Qt::Dialog);
+            dialog->setCaption(i18nc("@title:window", "Information"));
+            dialog->setButtons(KDialog::Ok | KDialog::Details);
+            dialog->setModal(true);
+            dialog->setDefaultButton(KDialog::Ok);
+            dialog->setEscapeButton(KDialog::Ok);
+            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
             load();
+        } else {
+            KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), reply.data().value("output").toString());
         }
     }
 }
@@ -803,58 +825,6 @@ QString KCMGRUB2::readFile(const QString &fileName)
         return QString();
     }
     return reply.data().value("fileContents").toString();
-}
-bool KCMGRUB2::saveFile(const QString &fileName, const QString &fileContents)
-{
-    QFile file(fileName);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        stream << fileContents;
-        return true;
-    }
-
-    Action saveAction("org.kde.kcontrol.kcmgrub2.save");
-    saveAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    saveAction.addArgument("fileName", fileName);
-    saveAction.addArgument("fileContents", fileContents);
-
-    ActionReply reply = saveAction.execute();
-    if (reply.failed()) {
-        KMessageBox::detailedError(this, i18nc("@info", "Error writing <filename>%1</filename>", fileName), i18nc("@info", "Error code: %1<nl/>Error description: %2", reply.errorCode(), reply.errorDescription()));
-        return false;
-    }
-    return true;
-}
-bool KCMGRUB2::updateGRUB(const QString &fileName, const QString &defaultEntry)
-{
-    Action updateAction("org.kde.kcontrol.kcmgrub2.update");
-    updateAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    updateAction.addArgument("fileName", fileName);
-    updateAction.addArgument("defaultEntry", defaultEntry);
-
-    if (updateAction.authorize() == Action::Authorized) {
-        KProgressDialog progressDlg(this, i18nc("@title:window", "Updating GRUB"), i18nc("@info:progress", "Updating the GRUB menu.."));
-        progressDlg.setAllowCancel(false);
-        progressDlg.setModal(true);
-        progressDlg.progressBar()->setMinimum(0);
-        progressDlg.progressBar()->setMaximum(0);
-        progressDlg.show();
-        connect(updateAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
-        ActionReply reply = updateAction.execute();
-        if (reply.succeeded()) {
-            KDialog *dialog = new KDialog(this, Qt::Dialog);
-            dialog->setCaption(i18nc("@title:window", "Information"));
-            dialog->setButtons(KDialog::Ok | KDialog::Details);
-            dialog->setModal(true);
-            dialog->setDefaultButton(KDialog::Ok);
-            dialog->setEscapeButton(KDialog::Ok);
-            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully updated the GRUB menu."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
-            return true;
-        } else {
-            KMessageBox::detailedError(this, i18nc("@info", "Failed to update the GRUB menu."), reply.data().value("output").toString());
-        }
-    }
-    return false;
 }
 
 bool KCMGRUB2::readResolutions()

@@ -30,7 +30,6 @@ public Q_SLOTS:
     ActionReply probe(QVariantMap args);
     ActionReply probevbe(QVariantMap args);
     ActionReply save(QVariantMap args);
-    ActionReply update(QVariantMap args);
 };
 
 #endif

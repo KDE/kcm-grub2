@@ -101,27 +101,3 @@ Description[uk]=Для збереження параметрів заванта�
 Description[x-test]=xxAdministrator authorization is required to save the GRUB2 Bootloader settingsxx
 Policy=auth_admin
 Persistence=session
-
-[org.kde.kcontrol.kcmgrub2.update]
-Name=Update the GRUB2 Bootloader menu
-Name[da]=Opdatér bootloader-menuen for GRUB2
-Name[et]=GRUB2 alglaaduri menüü uuendamine
-Name[hu]=A GRUB2 rendszerbetöltő menü frissítése
-Name[lt]=Atnaujinti GRUB2 įkrovos tvarkyklės meniu
-Name[nds]=Grub2-Systeemstartmenü opfrischen
-Name[nl]=Het menu van Grub2 bootloader bijwerken
-Name[pt]=Actualizar o menu do gestor de arranque GRUB2
-Name[pt_BR]=Atualizar o menu do gerenciador de inicialização GRUB2
-Name[uk]=Оновлення меню завантажувача GRUB2
-Name[x-test]=xxUpdate the GRUB2 Bootloader menuxx
-Description=Administrator authorization is required to update the GRUB2 Bootloader menu
-Description[da]=Administrator-godkendelse kræves for at opdatere bootloader-menuen for GRUB2
-Description[et]=GRUB2 alglaaduri menüü uuendamiseks on vajalik autentimine administraatorina
-Description[hu]=Rendszergazdai jogosultságok szükségesek a GRUB2 rendszerbetöltő menü frissítéséhez
-Description[nl]=Autorisatie van systeembeheerder is vereist om het menu van Grub2 bootloader bij te werken
-Description[pt]=É necessária a autorização do administrador para actualizar o menu do gestor de arranque GRUB2
-Description[pt_BR]=É necessária a autorização do administrador para atualizar o menu do gerenciador de inicialização GRUB2
-Description[uk]=Для оновлення меню завантажувача GRUB2 слід набути прав доступу адміністратора
-Description[x-test]=xxAdministrator authorization is required to update the GRUB2 Bootloader menuxx
-Policy=auth_admin
-Persistence=session

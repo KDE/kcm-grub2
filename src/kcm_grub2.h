@@ -67,13 +67,11 @@ private:
     void setupObjects();
     void setupConnections();
 
+    //TODO: Maybe remove?
     QString convertToGRUBFileName(const QString &fileName);
     QString convertToLocalFileName(const QString &grubFileName);
 
     QString readFile(const QString &fileName);
-    bool saveFile(const QString &fileName, const QString &fileContents);
-    bool updateGRUB(const QString &fileName, const QString &defaultEntry);
-
     bool readResolutions();
     bool readDevices();
     bool readEntries();

@@ -99,28 +99,20 @@ ActionReply Helper::probevbe(QVariantMap args)
 ActionReply Helper::save(QVariantMap args)
 {
     ActionReply reply;
-    QString fileName = args.value("fileName").toString();
-    QString fileContents = args.value("fileContents").toString();
-
-    QFile file(fileName);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+    QFile file(args.value("configFileName").toString());
+    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QTextStream stream(&file);
+        stream << args.value("configFileContents").toString();
+        file.close();
+    } else {
+        reply.addData("output", file.errorString());
         reply = ActionReply::HelperErrorReply;
-        reply.setErrorCode(file.error());
-        reply.setErrorDescription(file.errorString()); //Caller gets empty error description. KAuth bug?
         return reply;
     }
 
-    QTextStream stream(&file);
-    stream << fileContents;
-    return reply;
-}
-ActionReply Helper::update(QVariantMap args)
-{
-    ActionReply reply;
     KProcess grub_mkconfig;
-    grub_mkconfig.setShellCommand(QString("grub-mkconfig -o %1").arg(KShell::quoteArg(args.value("fileName").toString()))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+    grub_mkconfig.setShellCommand(QString("grub-mkconfig -o %1").arg(KShell::quoteArg(args.value("menuFileName").toString()))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
     grub_mkconfig.setOutputChannelMode(KProcess::MergedChannels);
-
     if (grub_mkconfig.execute() != 0) {
         reply.addData("output", grub_mkconfig.readAll());
         reply = ActionReply::HelperErrorReply;
@@ -130,7 +122,6 @@ ActionReply Helper::update(QVariantMap args)
     KProcess grub_set_default;
     grub_set_default.setShellCommand(QString("grub-set-default %1").arg(args.value("defaultEntry").toString())); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
     grub_set_default.setOutputChannelMode(KProcess::MergedChannels);
-
     if (grub_set_default.execute() != 0) {
         reply.addData("output", grub_set_default.readAll());
         reply = ActionReply::HelperErrorReply;
