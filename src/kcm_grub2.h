@@ -36,7 +36,6 @@ public:
     virtual void load();
     virtual void save();
 private Q_SLOTS:
-    void slotGrubDefaultChanged();
     void slotRemoveOldEntries();
     void slotGrubSavedefaultChanged();
     void slotGrubHiddenTimeoutChanged();
@@ -93,7 +92,6 @@ private:
     Ui::KCMGRUB2 ui;
 
     enum {
-        grubDefaultDirty,
         grubSavedefaultDirty,
         grubHiddenTimeoutDirty,
         grubHiddenTimeoutQuietDirty,

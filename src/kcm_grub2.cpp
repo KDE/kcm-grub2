@@ -361,11 +361,6 @@ void KCMGRUB2::save()
     }
 }
 
-void KCMGRUB2::slotGrubDefaultChanged()
-{
-    m_dirtyBits.setBit(grubDefaultDirty);
-    emit changed(true);
-}
 void KCMGRUB2::slotRemoveOldEntries()
 {
 #if HAVE_QAPT || HAVE_QPACKAGEKIT
@@ -710,7 +705,7 @@ void KCMGRUB2::setupObjects()
 }
 void KCMGRUB2::setupConnections()
 {
-    connect(ui.comboBox_default, SIGNAL(activated(int)), this, SLOT(slotGrubDefaultChanged()));
+    connect(ui.comboBox_default, SIGNAL(activated(int)), this, SLOT(changed()));
     connect(ui.kpushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
     connect(ui.checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(slotGrubSavedefaultChanged()));
 
