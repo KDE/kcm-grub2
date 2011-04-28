@@ -13,5 +13,9 @@
       <label>A path list of known GRUB config files.</label>
       <default>/etc/default/grub</default>
     </entry>
+    <entry name="envPath" type="Path">
+      <label>The path of known GRUB enviroment file.</label>
+      <default>/boot/grub/grubenv</default>
+    </entry>
   </group>
 </kcfg>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>471</width>
-    <height>488</height>
+    <width>488</width>
+    <height>497</height>
    </rect>
   </property>
   <layout class="QGridLayout" name="gridLayout_5">
@@ -26,67 +26,34 @@
          <property name="title">
           <string comment="@title:group">Default Entry</string>
          </property>
-         <layout class="QFormLayout" name="formLayout_5">
-          <item row="0" column="0" colspan="2">
-           <layout class="QFormLayout" name="formLayout">
-            <item row="0" column="0">
-             <widget class="QRadioButton" name="radioButton_default">
-              <property name="text">
-               <string comment="@option:radio">Default Entry:</string>
+         <layout class="QFormLayout" name="formLayout">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_default">
+            <property name="text">
+             <string comment="@label:listbox">Default Entry:</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <layout class="QHBoxLayout" name="horizontalLayout">
+            <item>
+             <widget class="QComboBox" name="comboBox_default">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContents</enum>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
-             <layout class="QHBoxLayout" name="horizontalLayout">
-              <item>
-               <widget class="QComboBox" name="comboBox_default">
-                <property name="enabled">
-                 <bool>false</bool>
-                </property>
-                <property name="sizeAdjustPolicy">
-                 <enum>QComboBox::AdjustToContents</enum>
-                </property>
-               </widget>
-              </item>
-              <item>
-               <widget class="KPushButton" name="kpushbutton_remove">
-                <property name="text">
-                 <string comment="@action:button">Remove Old Entries</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            <item>
+             <widget class="KPushButton" name="kpushbutton_remove">
+              <property name="text">
+               <string comment="@action:button">Remove Old Entries</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </item>
           <item row="1" column="0" colspan="2">
-           <widget class="QRadioButton" name="radioButton_saved">
-            <property name="text">
-             <string comment="@option:radio">Default Entry Is Defined Using 'grub-set-default' or 'grub-reboot'</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <spacer name="horizontalSpacer">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Minimum</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="2" column="1">
            <widget class="QCheckBox" name="checkBox_savedefault">
-            <property name="enabled">
-             <bool>false</bool>
-            </property>
             <property name="text">
              <string comment="@option:check">The next booted entry will become default</string>
             </property>
@@ -253,7 +220,7 @@
           <item row="0" column="0">
            <widget class="QLabel" name="label_gfxmode">
             <property name="text">
-             <string comment="@label:textbox">GRUB:</string>
+             <string comment="@label:listbox">GRUB:</string>
             </property>
            </widget>
           </item>
@@ -267,7 +234,7 @@
           <item row="1" column="0">
            <widget class="QLabel" name="label_gfxpayload">
             <property name="text">
-             <string comment="@label">Linux Kernel:</string>
+             <string comment="@label:listbox">Linux Kernel:</string>
             </property>
            </widget>
           </item>
@@ -681,38 +648,6 @@
     <hint type="destinationlabel">
      <x>94</x>
      <y>289</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_saved</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>checkBox_savedefault</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>83</x>
-     <y>103</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>284</x>
-     <y>135</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>radioButton_default</sender>
-   <signal>toggled(bool)</signal>
-   <receiver>comboBox_default</receiver>
-   <slot>setEnabled(bool)</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>102</x>
-     <y>70</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>165</x>
-     <y>74</y>
     </hint>
    </hints>
   </connection>

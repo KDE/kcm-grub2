@@ -73,12 +73,13 @@ private:
 
     QString readFile(const QString &fileName);
     bool saveFile(const QString &fileName, const QString &fileContents);
-    bool updateGRUB(const QString &fileName);
+    bool updateGRUB(const QString &fileName, const QString &defaultEntry);
 
     bool readResolutions();
     bool readDevices();
     bool readEntries();
     bool readSettings();
+    bool readEnv();
 
     void sortResolutions();
     void showResolutions();
@@ -87,6 +88,7 @@ private:
     QString unquoteWord(const QString &word);
     void parseSettings(const QString &config);
     void parseEntries(const QString &config);
+    void parseEnv(const QString &config);
 
     Ui::KCMGRUB2 ui;
 
@@ -112,7 +114,8 @@ private:
         grubInitTuneDirty,
         grubDisableLinuxUuidDirty,
         grubDisableRecoveryDirty,
-        grubDisableOsProberDirty
+        grubDisableOsProberDirty,
+        lastDirtyBit
     };
     QBitArray m_dirtyBits;
     QStringList m_resolutions;
@@ -120,6 +123,7 @@ private:
     QStringList m_entries;
     QHash<QString, QString> m_kernels;
     QHash<QString, QString> m_settings;
+    QHash<QString, QString> m_env;
 };
 
 #endif

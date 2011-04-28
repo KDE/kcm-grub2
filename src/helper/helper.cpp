@@ -122,7 +122,19 @@ ActionReply Helper::update(QVariantMap args)
     grub_mkconfig.setOutputChannelMode(KProcess::MergedChannels);
 
     if (grub_mkconfig.execute() != 0) {
+        reply.addData("output", grub_mkconfig.readAll());
         reply = ActionReply::HelperErrorReply;
+        return reply;
+    }
+
+    KProcess grub_set_default;
+    grub_set_default.setShellCommand(QString("grub-set-default %1").arg(args.value("defaultEntry").toString())); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+    grub_set_default.setOutputChannelMode(KProcess::MergedChannels);
+
+    if (grub_set_default.execute() != 0) {
+        reply.addData("output", grub_set_default.readAll());
+        reply = ActionReply::HelperErrorReply;
+        return reply;
     }
 
     reply.addData("output", grub_mkconfig.readAll());

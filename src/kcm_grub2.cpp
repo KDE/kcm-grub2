@@ -65,27 +65,24 @@ void KCMGRUB2::load()
     readEntries();
     readSettings();
 
+    if (unquoteWord(m_settings.value("GRUB_DEFAULT")).compare("saved") == 0) {
+        m_settings["GRUB_DEFAULT"] = (readEnv() && !m_env.value("saved_entry").isEmpty() ? m_env.value("saved_entry") : "0");
+    }
+
     bool ok;
     ui.comboBox_default->clear();
     Q_FOREACH(const QString &entry, m_entries) {
         ui.comboBox_default->addItem(unquoteWord(entry), entry);
     }
-    QString grubDefault = unquoteWord(m_settings.value("GRUB_DEFAULT"));
-    if (grubDefault.compare("saved") == 0) {
-        ui.radioButton_saved->setChecked(true);
+    int entryIndex = ui.comboBox_default->findText(m_settings.value("GRUB_DEFAULT"));
+    if (entryIndex != -1) {
+        ui.comboBox_default->setCurrentIndex(entryIndex);
     } else {
-        int entryIndex = ui.comboBox_default->findData(m_settings.value("GRUB_DEFAULT"));
-        if (entryIndex != -1) {
-            ui.radioButton_default->setChecked(true);
+        entryIndex = unquoteWord(m_settings.value("GRUB_DEFAULT")).toInt(&ok);
+        if (ok && entryIndex >= 0 && entryIndex < m_entries.size()) {
             ui.comboBox_default->setCurrentIndex(entryIndex);
         } else {
-            entryIndex = grubDefault.toInt(&ok);
-            if (ok && entryIndex >= 0 && entryIndex < m_entries.size()) {
-                ui.radioButton_default->setChecked(true);
-                ui.comboBox_default->setCurrentIndex(entryIndex);
-            } else {
-                kWarning() << "Invalid GRUB_DEFAULT value";
-            }
+            kWarning() << "Invalid GRUB_DEFAULT value";
         }
     }
     ui.checkBox_savedefault->setChecked(unquoteWord(m_settings.value("GRUB_SAVEDEFAULT")).compare("true") == 0);
@@ -179,13 +176,8 @@ void KCMGRUB2::load()
 }
 void KCMGRUB2::save()
 {
-    if (m_dirtyBits.testBit(grubDefaultDirty)) {
-        if (ui.radioButton_default->isChecked()) {
-            m_settings["GRUB_DEFAULT"] = m_entries.at(ui.comboBox_default->currentIndex());
-        } else if (ui.radioButton_saved->isChecked()) {
-            m_settings["GRUB_DEFAULT"] = "saved";
-        }
-    }
+    QString defaultEntry = m_entries.at(ui.comboBox_default->currentIndex());
+    m_settings["GRUB_DEFAULT"] = "saved";
     if (m_dirtyBits.testBit(grubSavedefaultDirty)) {
         if (ui.checkBox_savedefault->isChecked()) {
             m_settings["GRUB_SAVEDEFAULT"] = "true";
@@ -363,7 +355,7 @@ void KCMGRUB2::save()
         return;
     }
     if (KMessageBox::questionYesNo(this, i18nc("@info", "<para>Your configuration was successfully saved.<nl/>For the changes to take effect your GRUB menu has to be updated.</para><para>Update your GRUB menu?</para>")) == KMessageBox::Yes) {
-        if (updateGRUB(Settings::menuPaths().at(0))) {
+        if (updateGRUB(Settings::menuPaths().at(0), defaultEntry)) {
             load();
         }
     }
@@ -622,7 +614,7 @@ void KCMGRUB2::setupObjects()
     setButtons(Apply);
     setNeedsAuthorization(true);
 
-    m_dirtyBits.resize(grubDisableOsProberDirty + 1);
+    m_dirtyBits.resize(lastDirtyBit);
 
     ui.kpushbutton_remove->setIcon(KIcon("list-remove"));
     ui.kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
@@ -718,10 +710,8 @@ void KCMGRUB2::setupObjects()
 }
 void KCMGRUB2::setupConnections()
 {
-    connect(ui.radioButton_default, SIGNAL(clicked(bool)), this, SLOT(slotGrubDefaultChanged()));
     connect(ui.comboBox_default, SIGNAL(activated(int)), this, SLOT(slotGrubDefaultChanged()));
     connect(ui.kpushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
-    connect(ui.radioButton_saved, SIGNAL(clicked(bool)), this, SLOT(slotGrubDefaultChanged()));
     connect(ui.checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(slotGrubSavedefaultChanged()));
 
     connect(ui.checkBox_hiddenTimeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutChanged()));
@@ -840,11 +830,12 @@ bool KCMGRUB2::saveFile(const QString &fileName, const QString &fileContents)
     }
     return true;
 }
-bool KCMGRUB2::updateGRUB(const QString &fileName)
+bool KCMGRUB2::updateGRUB(const QString &fileName, const QString &defaultEntry)
 {
     Action updateAction("org.kde.kcontrol.kcmgrub2.update");
     updateAction.setHelperID("org.kde.kcontrol.kcmgrub2");
     updateAction.addArgument("fileName", fileName);
+    updateAction.addArgument("defaultEntry", defaultEntry);
 
     if (updateAction.authorize() == Action::Authorized) {
         KProgressDialog progressDlg(this, i18nc("@title:window", "Updating GRUB"), i18nc("@info:progress", "Updating the GRUB menu.."));
@@ -982,6 +973,15 @@ bool KCMGRUB2::readSettings()
         }
     }
     return false;
+}
+bool KCMGRUB2::readEnv()
+{
+    QString fileContents = readFile(Settings::envPath());
+    if (fileContents.isEmpty()) {
+        return false;
+    }
+    parseEnv(fileContents);
+    return true;
 }
 
 void KCMGRUB2::sortResolutions()
@@ -1202,5 +1202,19 @@ void KCMGRUB2::parseEntries(const QString &config)
             m_kernels[unquoteWord(entry)] = word;
             entry.clear();
         }
+    }
+}
+void KCMGRUB2::parseEnv(const QString &config)
+{
+    m_env.clear();
+
+    QString line, settingsConfig = config;
+    QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
+    while (!stream.atEnd()) {
+        line = stream.readLine().trimmed();
+        if (line.startsWith('#')) {
+            continue;
+        }
+        m_env[line.section('=', 0, 0)] = line.section('=', 1);
     }
 }
