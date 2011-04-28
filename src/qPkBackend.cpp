@@ -143,6 +143,7 @@ static QString statusToString(PackageKit::Enum::Status status)
 
 QPkBackend::QPkBackend(QObject *parent): QObject(parent)
 {
+    m_t = 0;
 }
 QPkBackend::~QPkBackend()
 {
@@ -173,19 +174,15 @@ QStringList QPkBackend::markedForRemoval() const
 {
     return m_remove;
 }
-bool QPkBackend::removePackages()
+void QPkBackend::removePackages()
 {
     m_t = new PackageKit::Transaction(QString(), this);
     if (m_t->error() != PackageKit::Client::NoError) {
-        return false;
+        return;
     }
-    QEventLoop loop;
-    connect(m_t, SIGNAL(finished(PackageKit::Enum::Exit, uint)), &loop, SLOT(quit()));
-    connect(m_t, SIGNAL(finished(PackageKit::Enum::Exit, uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit, uint)));
     connect(m_t, SIGNAL(changed()), this, SLOT(slotUpdateProgress()));
+    connect(m_t, SIGNAL(finished(PackageKit::Enum::Exit, uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit, uint)));
     m_t->removePackages(m_removePtrs, false, true);
-    loop.exec();
-    return m_status == PackageKit::Enum::ExitSuccess;
 }
 void QPkBackend::undoChanges()
 {
@@ -197,6 +194,9 @@ void QPkBackend::slotFinished(PackageKit::Enum::Exit status, uint runtime)
 {
     Q_UNUSED(runtime)
     m_status = status;
+    if (m_t && m_t->role() == PackageKit::Enum::RoleRemovePackages) {
+        emit finished(m_status == PackageKit::Enum::ExitSuccess);
+    }
 }
 void QPkBackend::slotPackage(const QSharedPointer<PackageKit::Package> &package)
 {

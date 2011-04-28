@@ -43,6 +43,7 @@ protected Q_SLOTS:
 private Q_SLOTS:
     void slotItemChanged(QListWidgetItem *item);
     void slotProgress(const QString &status, int percentage);
+    void slotFinished(bool success);
 private:
 #if HAVE_QAPT
     QAptBackend *m_backend;

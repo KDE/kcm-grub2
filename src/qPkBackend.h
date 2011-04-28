@@ -34,9 +34,10 @@ public:
     QString ownerPackage(const QString &fileName);
     void markForRemoval(const QString &packageName);
     QStringList markedForRemoval() const;
-    bool removePackages();
+    void removePackages();
     void undoChanges();
 Q_SIGNALS:
+    void finished(bool success);
     void progress(const QString &status, int percentage);
 private Q_SLOTS:
     void slotFinished(PackageKit::Enum::Exit status, uint runtime);

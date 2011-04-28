@@ -57,16 +57,12 @@ QStringList QAptBackend::markedForRemoval() const
     }
     return marked;
 }
-bool QAptBackend::removePackages()
+void QAptBackend::removePackages()
 {
-    QEventLoop loop;
-    connect(this, SIGNAL(finished()), &loop, SLOT(quit()));
     connect(m_backend, SIGNAL(commitProgress(QString, int)), this, SIGNAL(progress(QString, int)));
     connect(m_backend, SIGNAL(workerEvent(QApt::WorkerEvent)), this, SLOT(slotWorkerEvent(QApt::WorkerEvent)));
     connect(m_backend, SIGNAL(errorOccurred(QApt::ErrorCode, QVariantMap)), this, SLOT(slotErrorOccurred(QApt::ErrorCode, QVariantMap)));
     m_backend->commitChanges();
-    loop.exec();
-    return m_error == QApt::UnknownError;
 }
 void QAptBackend::undoChanges()
 {
@@ -76,7 +72,7 @@ void QAptBackend::undoChanges()
 void QAptBackend::slotWorkerEvent(QApt::WorkerEvent event)
 {
     if (event == QApt::CommitChangesFinished) {
-        emit finished();
+        emit finished(m_error == QApt::UnknownError);
     }
 }
 void QAptBackend::slotErrorOccurred(QApt::ErrorCode error, const QVariantMap &details)

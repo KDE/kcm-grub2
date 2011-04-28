@@ -89,9 +89,8 @@ void RemoveDialog::slotButtonClicked(int button)
         }
         if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval()) == KMessageBox::Yes) {
             connect(m_backend, SIGNAL(progress(QString, int)), this, SLOT(slotProgress(QString, int)));
-            if (!m_backend->removePackages()) {
-                reject();
-            }
+            connect(m_backend, SIGNAL(finished(bool)), this, SLOT(slotFinished(bool)));
+            m_backend->removePackages();
         } else {
             m_backend->undoChanges();
         }
@@ -114,9 +113,6 @@ void RemoveDialog::slotItemChanged(QListWidgetItem *item)
 }
 void RemoveDialog::slotProgress(const QString &status, int percentage)
 {
-    if (percentage == 100) {
-        accept();
-    }
     if (!m_progressDlg) {
         m_progressDlg = new KProgressDialog(this, i18nc("@title:window", "Removing Old Entries"));
         m_progressDlg->setAllowCancel(false);
@@ -125,4 +121,13 @@ void RemoveDialog::slotProgress(const QString &status, int percentage)
     }
     m_progressDlg->setLabelText(status);
     m_progressDlg->progressBar()->setValue(percentage);
+}
+void RemoveDialog::slotFinished(bool success)
+{
+    if (success) {
+        accept();
+    } else {
+        KMessageBox::error(this, i18nc("@info", "Package removal failed."));
+        reject();
+    }
 }
