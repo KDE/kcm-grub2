@@ -67,7 +67,7 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
         QTimer::singleShot(0, this, SLOT(reject()));
     }
     ui.klistwidget->setMinimumSize(ui.klistwidget->sizeHintForColumn(0) + ui.klistwidget->sizeHintForRow(0), ui.klistwidget->sizeHintForRow(0) * ui.klistwidget->count());
-    connect(ui.klistwidget, SIGNAL(itemChanged(QListWidgetItem *)), this, SLOT(slotItemChanged(QListWidgetItem *)));
+    connect(ui.klistwidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(slotItemChanged(QListWidgetItem*)));
 }
 RemoveDialog::~RemoveDialog()
 {
@@ -88,7 +88,7 @@ void RemoveDialog::slotButtonClicked(int button)
             }
         }
         if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval()) == KMessageBox::Yes) {
-            connect(m_backend, SIGNAL(progress(QString, int)), this, SLOT(slotProgress(QString, int)));
+            connect(m_backend, SIGNAL(progress(QString,int)), this, SLOT(slotProgress(QString,int)));
             connect(m_backend, SIGNAL(finished(bool)), this, SLOT(slotFinished(bool)));
             m_backend->removePackages();
         } else {

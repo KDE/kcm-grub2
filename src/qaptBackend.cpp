@@ -59,9 +59,9 @@ QStringList QAptBackend::markedForRemoval() const
 }
 void QAptBackend::removePackages()
 {
-    connect(m_backend, SIGNAL(commitProgress(QString, int)), this, SIGNAL(progress(QString, int)));
+    connect(m_backend, SIGNAL(commitProgress(QString,int)), this, SIGNAL(progress(QString,int)));
     connect(m_backend, SIGNAL(workerEvent(QApt::WorkerEvent)), this, SLOT(slotWorkerEvent(QApt::WorkerEvent)));
-    connect(m_backend, SIGNAL(errorOccurred(QApt::ErrorCode, QVariantMap)), this, SLOT(slotErrorOccurred(QApt::ErrorCode, QVariantMap)));
+    connect(m_backend, SIGNAL(errorOccurred(QApt::ErrorCode,QVariantMap)), this, SLOT(slotErrorOccurred(QApt::ErrorCode,QVariantMap)));
     m_backend->commitChanges();
 }
 void QAptBackend::undoChanges()

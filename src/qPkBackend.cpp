@@ -156,8 +156,8 @@ QString QPkBackend::ownerPackage(const QString &fileName)
         return QString();
     }
     QEventLoop loop;
-    connect(&t, SIGNAL(finished(PackageKit::Enum::Exit, uint)), &loop, SLOT(quit()));
-    connect(&t, SIGNAL(finished(PackageKit::Enum::Exit, uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit, uint)));
+    connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), &loop, SLOT(quit()));
+    connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit,uint)));
     connect(&t, SIGNAL(package(QSharedPointer<PackageKit::Package>)), this, SLOT(slotPackage(QSharedPointer<PackageKit::Package>)));
     t.searchFiles(fileName);
     loop.exec();
@@ -181,7 +181,7 @@ void QPkBackend::removePackages()
         return;
     }
     connect(m_t, SIGNAL(changed()), this, SLOT(slotUpdateProgress()));
-    connect(m_t, SIGNAL(finished(PackageKit::Enum::Exit, uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit, uint)));
+    connect(m_t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit,uint)));
     m_t->removePackages(m_removePtrs, false, true);
 }
 void QPkBackend::undoChanges()
@@ -214,8 +214,8 @@ bool QPkBackend::packageExists(const QString &packageName)
         return false;
     }
     QEventLoop loop;
-    connect(&t, SIGNAL(finished(PackageKit::Enum::Exit, uint)), &loop, SLOT(quit()));
-    connect(&t, SIGNAL(finished(PackageKit::Enum::Exit, uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit, uint)));
+    connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), &loop, SLOT(quit()));
+    connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit,uint)));
     connect(&t, SIGNAL(package(QSharedPointer<PackageKit::Package>)), this, SLOT(slotPackage(QSharedPointer<PackageKit::Package>)));
     t.resolve(packageName);
     loop.exec();
