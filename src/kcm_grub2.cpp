@@ -826,7 +826,6 @@ QString KCMGRUB2::readFile(const QString &fileName)
     }
     return reply.data().value("fileContents").toString();
 }
-
 bool KCMGRUB2::readResolutions()
 {
     Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
@@ -1077,22 +1076,7 @@ QString KCMGRUB2::unquoteWord(const QString &word)
     }
     return QString();
 }
-void KCMGRUB2::parseSettings(const QString &config)
-{
-    m_settings.clear();
-    m_settings["GRUB_DEFAULT"] = "0";
-    m_settings["GRUB_TIMEOUT"] = "5";
-    m_settings["GRUB_GFXMODE"] = "640x480";
 
-    QString line, settingsConfig = config;
-    QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
-    while (!stream.atEnd()) {
-        line = stream.readLine().trimmed();
-        if (line.startsWith("GRUB_")) {
-            m_settings[line.section('=', 0, 0)] = line.section('=', 1);
-        }
-    }
-}
 void KCMGRUB2::parseEntries(const QString &config)
 {
     m_entries.clear();
@@ -1166,6 +1150,22 @@ void KCMGRUB2::parseEntries(const QString &config)
             stream >> word;
             m_kernels[unquoteWord(entry)] = word;
             entry.clear();
+        }
+    }
+}
+void KCMGRUB2::parseSettings(const QString &config)
+{
+    m_settings.clear();
+    m_settings["GRUB_DEFAULT"] = "0";
+    m_settings["GRUB_TIMEOUT"] = "5";
+    m_settings["GRUB_GFXMODE"] = "640x480";
+
+    QString line, settingsConfig = config;
+    QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
+    while (!stream.atEnd()) {
+        line = stream.readLine().trimmed();
+        if (line.startsWith("GRUB_")) {
+            m_settings[line.section('=', 0, 0)] = line.section('=', 1);
         }
     }
 }

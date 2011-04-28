@@ -83,8 +83,9 @@ private:
 
     QString quoteWord(const QString &word);
     QString unquoteWord(const QString &word);
-    void parseSettings(const QString &config);
+
     void parseEntries(const QString &config);
+    void parseSettings(const QString &config);
     void parseEnv(const QString &config);
 
     Ui::KCMGRUB2 ui;
