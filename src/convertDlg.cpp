@@ -34,7 +34,9 @@ ConvertDialog::ConvertDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
     QString readFilter;
     QList<Magick::CoderInfo> coderList;
     coderInfoList(&coderList, Magick::CoderInfo::TrueMatch, Magick::CoderInfo::AnyMatch, Magick::CoderInfo::AnyMatch);
-    for (QList<Magick::CoderInfo>::const_iterator it = coderList.constBegin(); it != coderList.constEnd(); it++) {
+    QList<Magick::CoderInfo>::const_iterator it = coderList.constBegin();
+    QList<Magick::CoderInfo>::const_iterator end = coderList.constEnd();
+    for (; it != end; ++it) {
         readFilter.append(QString(" *.%1").arg(QString::fromStdString(it->name()).toLower()));
     }
     readFilter.remove(0, 1);

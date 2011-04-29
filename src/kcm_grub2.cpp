@@ -348,7 +348,9 @@ void KCMGRUB2::save()
 
     QString configFileContents;
     QTextStream stream(&configFileContents, QIODevice::WriteOnly | QIODevice::Text);
-    for (QHash<QString, QString>::const_iterator it = m_settings.constBegin(); it != m_settings.constEnd(); it++) {
+    QHash<QString, QString>::const_iterator it = m_settings.constBegin();
+    QHash<QString, QString>::const_iterator end = m_settings.constEnd();
+    for (; it != end; ++it) {
         stream << it.key() << '=' << it.value() << endl;
     }
 
@@ -672,7 +674,9 @@ void KCMGRUB2::setupObjects()
     colors.insertMulti("white", "white");
     colors.insertMulti("yellow", i18nc("@item:inlistbox", "Yellow"));
     colors.insertMulti("yellow", "yellow");
-    for (QHash<QString, QString>::const_iterator it = colors.constBegin(); it != colors.constEnd(); it += 2) {
+    QHash<QString, QString>::const_iterator it = colors.constBegin();
+    QHash<QString, QString>::const_iterator end = colors.constEnd();
+    for (; it != end; it += 2) {
         QPixmap color(16, 16);
         color.fill(QColor(colors.values(it.key()).at(0)));
         ui.comboBox_normalForeground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
@@ -793,7 +797,9 @@ QString KCMGRUB2::convertToGRUBFileName(const QString &fileName)
 QString KCMGRUB2::convertToLocalFileName(const QString &grubFileName)
 {
     QString fileName = grubFileName;
-    for (QHash<QString, QString>::const_iterator it = m_devices.constBegin(); it != m_devices.constEnd(); it++) {
+    QHash<QString, QString>::const_iterator it = m_devices.constBegin();
+    QHash<QString, QString>::const_iterator end = m_devices.constEnd();
+    for (; it != end; ++it) {
         if (fileName.startsWith(it.value())) {
             fileName.remove(0, it.value().length());
             if (it.key().compare("/") != 0) {
