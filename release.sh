@@ -3,7 +3,7 @@ set -u
 
 WD=$(pwd)
 APP=kcm-grub2
-VERSION="0.3.6"
+VERSION="0.4.5"
 MODULE=playground
 SUBMODULE=sysadmin
 THRESHOLD=80
@@ -13,8 +13,8 @@ echo
 echo "== Fetching ${APP} source... =="
 git clone kde:${APP}
 rm -rf ${WD}/${APP}/.git
-rm ${WD}/${APP}/.gitignore
 rm ${WD}/${APP}/Messages.sh
+rm ${WD}/${APP}/release.sh
 
 echo
 echo "== Patching ${APP} CMakeLists.txt... =="
