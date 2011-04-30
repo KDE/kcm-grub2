@@ -2,6 +2,7 @@
 Name=GRUB2 Bootloader Control Module
 Name[cs]=Ovládací modul pro GRUB2 Bootloader
 Name[da]=Kontrolmodul til GRUB2-bootloaderen
+Name[de]=GRUB2-Kontrollmodul
 Name[et]=GRUB2 alglaaduri seadistusmoodul
 Name[hu]=GRUB2 rendszerbetöltő beállítómodul
 Name[lt]=GRUB2 įkrovos tvarkyklės valdymo modulis
@@ -83,6 +84,7 @@ Persistence=session
 [org.kde.kcontrol.kcmgrub2.save]
 Name=Save the GRUB2 Bootloader settings
 Name[da]=Gem indstillingerne for GRUB2-bootloader
+Name[de]=GRUB2-Einstellungen speichern
 Name[et]=GRUB2 alglaaduri seadistuste salvestamine
 Name[hu]=A GRUB2 rendszerbetöltő beállításainak mentése
 Name[nl]=Sla de instellingen van de Grub2 bootloader op
