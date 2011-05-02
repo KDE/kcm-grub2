@@ -111,13 +111,14 @@ ActionReply Helper::save(QVariantMap args)
     }
 
     if (args.contains("memtest")) {
-        QFile::Permissions permissions = QFile::permissions("/etc/grub.d/20_memtest86+");
+        QString memtestFileName = args.value("memtestFileName").toString();
+        QFile::Permissions permissions = QFile::permissions(memtestFileName);
         if (args.value("memtest").toBool()) {
             permissions |= (QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         } else {
             permissions &= ~(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         }
-        QFile::setPermissions("/etc/grub.d/20_memtest86+", permissions);
+        QFile::setPermissions(memtestFileName, permissions);
     }
 
     KProcess grub_mkconfig;

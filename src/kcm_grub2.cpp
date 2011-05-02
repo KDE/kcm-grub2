@@ -106,7 +106,12 @@ void KCMGRUB2::load()
     }
 
     ui.checkBox_recovery->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_RECOVERY")).compare("true") != 0);
-    ui.checkBox_memtest->setChecked(QFile::permissions("/etc/grub.d/20_memtest86+") & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
+    if (QFile::exists(Settings::memtestPath())) {
+        ui.checkBox_memtest->setVisible(true);
+        ui.checkBox_memtest->setChecked(QFile::permissions(Settings::memtestPath()) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
+    } else {
+        ui.checkBox_memtest->setVisible(false);
+    }
     ui.checkBox_osProber->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_OS_PROBER")).compare("true") != 0);
 
     QString grubGfxmode = unquoteWord(m_settings.value("GRUB_GFXMODE"));
@@ -356,11 +361,12 @@ void KCMGRUB2::save()
 
     Action saveAction("org.kde.kcontrol.kcmgrub2.save");
     saveAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    saveAction.addArgument("configFileName", Settings::configPaths().at(0));
+    saveAction.addArgument("configFileName", Settings::configPath());
     saveAction.addArgument("configFileContents", configFileContents);
-    saveAction.addArgument("menuFileName", Settings::menuPaths().at(0));
+    saveAction.addArgument("menuFileName", Settings::menuPath());
     saveAction.addArgument("defaultEntry", m_entries.at(ui.comboBox_default->currentIndex()));
     if (m_dirtyBits.testBit(memtestDirty)) {
+        saveAction.addArgument("memtestFileName", Settings::memtestPath());
         saveAction.addArgument("memtest", ui.checkBox_memtest->isChecked());
     }
 
@@ -646,8 +652,6 @@ void KCMGRUB2::setupObjects()
     ui.kpushbutton_remove->setIcon(KIcon("list-remove"));
     ui.kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
 
-    ui.checkBox_memtest->setVisible(QFile::exists("/etc/grub.d/20_memtest86+"));
-
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);
     transparent.fill(Qt::transparent);
@@ -891,69 +895,21 @@ bool KCMGRUB2::readDevices()
 }
 bool KCMGRUB2::readEntries()
 {
-    QStringList fileNames = Settings::menuPaths();
-    for (int i = 0; i < fileNames.size(); i++) {
-        QString fileContents = readFile(fileNames.at(i));
-        if (!fileContents.isEmpty()) {
-            if (i != 0) {
-                fileNames.prepend(fileNames.at(i));
-                fileNames.removeDuplicates();
-                Settings::setMenuPaths(fileNames);
-                Settings::self()->writeConfig();
-            }
-            parseEntries(fileContents);
-            return true;
-        }
+    QString fileContents = readFile(Settings::menuPath());
+    if (fileContents.isEmpty()) {
+        return false;
     }
-    while (KMessageBox::questionYesNoList(this, i18nc("@info", "<para>None of the following files were readable.</para><para>Select another file?</para>"), fileNames) == KMessageBox::Yes) {
-        QString newPath = KFileDialog::getOpenFileName();
-        if (newPath.isEmpty()) {
-            break;
-        }
-        fileNames.prepend(newPath);
-        fileNames.removeDuplicates();
-        Settings::setMenuPaths(fileNames);
-        Settings::self()->writeConfig();
-        QString fileContents = readFile(newPath);
-        if (!fileContents.isEmpty()) {
-            parseEntries(fileContents);
-            return true;
-        }
-    }
-    return false;
+    parseEntries(fileContents);
+    return true;
 }
 bool KCMGRUB2::readSettings()
 {
-    QStringList fileNames = Settings::configPaths();
-    for (int i = 0; i < fileNames.size(); i++) {
-        QString fileContents = readFile(fileNames.at(i));
-        if (!fileContents.isEmpty()) {
-            if (i != 0) {
-                fileNames.prepend(fileNames.at(i));
-                fileNames.removeDuplicates();
-                Settings::setConfigPaths(fileNames);
-                Settings::self()->writeConfig();
-            }
-            parseSettings(fileContents);
-            return true;
-        }
+    QString fileContents = readFile(Settings::configPath());
+    if (fileContents.isEmpty()) {
+        return false;
     }
-    while (KMessageBox::questionYesNoList(this, i18nc("@info", "<para>None of the following files were readable.</para><para>Select another file?</para>"), fileNames) == KMessageBox::Yes) {
-        QString newPath = KFileDialog::getOpenFileName();
-        if (newPath.isEmpty()) {
-            break;
-        }
-        fileNames.prepend(newPath);
-        fileNames.removeDuplicates();
-        Settings::setConfigPaths(fileNames);
-        Settings::self()->writeConfig();
-        QString fileContents = readFile(newPath);
-        if (!fileContents.isEmpty()) {
-            parseSettings(fileContents);
-            return true;
-        }
-    }
-    return false;
+    parseSettings(fileContents);
+    return true;
 }
 bool KCMGRUB2::readEnv()
 {

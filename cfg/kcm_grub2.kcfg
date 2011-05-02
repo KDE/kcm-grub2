@@ -5,17 +5,21 @@
                           http://www.kde.org/standards/kcfg/1.0/kcfg.xsd" >
   <kcfgfile name="kcm_grub2rc"/>
   <group name="Paths">
-    <entry name="menuPaths" type="PathList">
-      <label>A path list of known GRUB menu files.</label>
-      <default>/boot/grub/grub.cfg,/boot/grub/grub.conf</default>
+    <entry name="menuPath" type="Path">
+      <label>Path of the GRUB menu file.</label>
+      <default>/boot/grub/grub.cfg</default>
     </entry>
-    <entry name="configPaths" type="PathList">
-      <label>A path list of known GRUB config files.</label>
+    <entry name="configPath" type="Path">
+      <label>Path of the GRUB configuration file.</label>
       <default>/etc/default/grub</default>
     </entry>
     <entry name="envPath" type="Path">
-      <label>The path of known GRUB environment file.</label>
+      <label>Path of the GRUB environment file.</label>
       <default>/boot/grub/grubenv</default>
+    </entry>
+    <entry name="memtestPath" type="Path">
+      <label>Path of the GRUB memtest script.</label>
+      <default>/etc/grub.d/20_memtest86+</default>
     </entry>
   </group>
 </kcfg>
