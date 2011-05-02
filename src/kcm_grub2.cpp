@@ -852,11 +852,13 @@ bool KCMGRUB2::readResolutions()
     Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
     probeVbeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
     ActionReply reply = probeVbeAction.execute();
-    if (reply.succeeded()) {
-        m_resolutions = reply.data().value("gfxmodes").toStringList();
-        return true;
+    if (reply.failed()) {
+        return false;
     }
-    return false;
+
+    m_resolutions.clear();
+    m_resolutions = reply.data().value("gfxmodes").toStringList();
+    return !m_resolutions.isEmpty();
 }
 bool KCMGRUB2::readDevices()
 {
@@ -870,28 +872,31 @@ bool KCMGRUB2::readDevices()
     Action probeAction("org.kde.kcontrol.kcmgrub2.probe");
     probeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
     probeAction.addArgument("mountPoints", mountPoints);
-
-    if (probeAction.authorize() == Action::Authorized) {
-        KProgressDialog progressDlg(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names.."));
-        progressDlg.setAllowCancel(false);
-        progressDlg.show();
-        connect(probeAction.watcher(), SIGNAL(progressStep(int)), progressDlg.progressBar(), SLOT(setValue(int)));
-        ActionReply reply = probeAction.execute();
-        if (reply.succeeded()) {
-            QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();
-            if (mountPoints.size() != grubPartitions.size()) {
-                KMessageBox::error(this, i18nc("@info", "Helper returned malformed device list."));
-                return false;
-            }
-            for (int i = 0; i < mountPoints.size(); i++) {
-                m_devices[mountPoints.at(i)] = grubPartitions.at(i);
-            }
-        } else {
-            KMessageBox::error(this, i18nc("@info", "Failed to get GRUB device names."));
-            return false;
-        }
+    if (probeAction.authorize() != Action::Authorized) {
+        return false;
     }
-    return true;
+
+    KProgressDialog progressDlg(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names.."));
+    progressDlg.setAllowCancel(false);
+    progressDlg.setModal(true);
+    progressDlg.show();
+    connect(probeAction.watcher(), SIGNAL(progressStep(int)), progressDlg.progressBar(), SLOT(setValue(int)));
+    ActionReply reply = probeAction.execute();
+    if (reply.failed()) {
+        KMessageBox::error(this, i18nc("@info", "Failed to get GRUB device names."));
+        return false;
+    }
+    QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();
+    if (mountPoints.size() != grubPartitions.size()) {
+        KMessageBox::error(this, i18nc("@info", "Helper returned malformed device list."));
+        return false;
+    }
+
+    m_devices.clear();
+    for (int i = 0; i < mountPoints.size(); i++) {
+        m_devices[mountPoints.at(i)] = grubPartitions.at(i);
+    }
+    return !m_devices.isEmpty();
 }
 bool KCMGRUB2::readEntries()
 {
@@ -899,8 +904,11 @@ bool KCMGRUB2::readEntries()
     if (fileContents.isEmpty()) {
         return false;
     }
+
+    m_entries.clear();
+    m_kernels.clear();
     parseEntries(fileContents);
-    return true;
+    return !m_entries.isEmpty();
 }
 bool KCMGRUB2::readSettings()
 {
@@ -908,8 +916,13 @@ bool KCMGRUB2::readSettings()
     if (fileContents.isEmpty()) {
         return false;
     }
+
+    m_settings.clear();
+    m_settings["GRUB_DEFAULT"] = "0";
+    m_settings["GRUB_TIMEOUT"] = "5";
+    m_settings["GRUB_GFXMODE"] = "640x480";
     parseSettings(fileContents);
-    return true;
+    return !m_settings.isEmpty();
 }
 bool KCMGRUB2::readEnv()
 {
@@ -917,8 +930,10 @@ bool KCMGRUB2::readEnv()
     if (fileContents.isEmpty()) {
         return false;
     }
+
+    m_env.clear();
     parseEnv(fileContents);
-    return true;
+    return !m_env.isEmpty();
 }
 
 void KCMGRUB2::sortResolutions()
@@ -1052,9 +1067,6 @@ QString KCMGRUB2::unquoteWord(const QString &word)
 
 void KCMGRUB2::parseEntries(const QString &config)
 {
-    m_entries.clear();
-    m_kernels.clear();
-
     QChar ch;
     QString word, entry, entriesConfig = config;
     QTextStream stream(&entriesConfig, QIODevice::ReadOnly | QIODevice::Text);
@@ -1128,11 +1140,6 @@ void KCMGRUB2::parseEntries(const QString &config)
 }
 void KCMGRUB2::parseSettings(const QString &config)
 {
-    m_settings.clear();
-    m_settings["GRUB_DEFAULT"] = "0";
-    m_settings["GRUB_TIMEOUT"] = "5";
-    m_settings["GRUB_GFXMODE"] = "640x480";
-
     QString line, settingsConfig = config;
     QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
     while (!stream.atEnd()) {
@@ -1144,8 +1151,6 @@ void KCMGRUB2::parseSettings(const QString &config)
 }
 void KCMGRUB2::parseEnv(const QString &config)
 {
-    m_env.clear();
-
     QString line, settingsConfig = config;
     QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
     while (!stream.atEnd()) {
