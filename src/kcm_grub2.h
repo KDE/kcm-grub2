@@ -41,6 +41,9 @@ private Q_SLOTS:
     void slotGrubHiddenTimeoutChanged();
     void slotGrubHiddenTimeoutQuietChanged();
     void slotGrubTimeoutChanged();
+    void slotGrubDisableRecoveryChanged();
+    void slotMemtestChanged();
+    void slotGrubDisableOsProberChanged();
     void slotGrubGfxmodeChanged();
     void slotGrubGfxpayloadLinuxChanged();
     void slotGrubColorNormalChanged();
@@ -58,8 +61,6 @@ private Q_SLOTS:
     void slotGrubSerialCommandChanged();
     void slotGrubInitTuneChanged();
     void slotGrubDisableLinuxUuidChanged();
-    void slotGrubDisableRecoveryChanged();
-    void slotGrubDisableOsProberChanged();
 
     void slotUpdateSuggestions();
     void slotTriggeredSuggestion(QAction *action);
@@ -95,6 +96,9 @@ private:
         grubHiddenTimeoutDirty,
         grubHiddenTimeoutQuietDirty,
         grubTimeoutDirty,
+        grubDisableRecoveryDirty,
+        memtestDirty,
+        grubDisableOsProberDirty,
         grubGfxmodeDirty,
         grubGfxpayloadLinuxDirty,
         grubColorNormalDirty,
@@ -110,8 +114,6 @@ private:
         grubSerialCommandDirty,
         grubInitTuneDirty,
         grubDisableLinuxUuidDirty,
-        grubDisableRecoveryDirty,
-        grubDisableOsProberDirty,
         lastDirtyBit
     };
     QBitArray m_dirtyBits;

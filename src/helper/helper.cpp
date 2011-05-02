@@ -110,6 +110,16 @@ ActionReply Helper::save(QVariantMap args)
         return reply;
     }
 
+    if (args.contains("memtest")) {
+        QFile::Permissions permissions = QFile::permissions("/etc/grub.d/20_memtest86+");
+        if (args.value("memtest").toBool()) {
+            permissions |= (QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
+        } else {
+            permissions &= ~(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
+        }
+        QFile::setPermissions("/etc/grub.d/20_memtest86+", permissions);
+    }
+
     KProcess grub_mkconfig;
     grub_mkconfig.setShellCommand(QString("grub-mkconfig -o %1").arg(KShell::quoteArg(args.value("menuFileName").toString()))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
     grub_mkconfig.setOutputChannelMode(KProcess::MergedChannels);

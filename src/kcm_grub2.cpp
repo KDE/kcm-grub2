@@ -105,6 +105,10 @@ void KCMGRUB2::load()
         kWarning() << "Invalid GRUB_TIMEOUT value";
     }
 
+    ui.checkBox_recovery->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_RECOVERY")).compare("true") != 0);
+    ui.checkBox_memtest->setChecked(QFile::permissions("/etc/grub.d/20_memtest86+") & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
+    ui.checkBox_osProber->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_OS_PROBER")).compare("true") != 0);
+
     QString grubGfxmode = unquoteWord(m_settings.value("GRUB_GFXMODE"));
     if (!grubGfxmode.isEmpty() && grubGfxmode.compare("640x480") != 0 && !m_resolutions.contains(grubGfxmode)) {
         m_resolutions.append(grubGfxmode);
@@ -166,17 +170,13 @@ void KCMGRUB2::load()
     ui.lineEdit_distributor->setText(unquoteWord(m_settings.value("GRUB_DISTRIBUTOR")));
     ui.lineEdit_serial->setText(unquoteWord(m_settings.value("GRUB_SERIAL_COMMAND")));
     ui.lineEdit_initTune->setText(unquoteWord(m_settings.value("GRUB_INIT_TUNE")));
-
     ui.checkBox_uuid->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_LINUX_UUID")).compare("true") != 0);
-    ui.checkBox_recovery->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_RECOVERY")).compare("true") != 0);
-    ui.checkBox_osProber->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_OS_PROBER")).compare("true") != 0);
 
     m_dirtyBits.fill(0);
     emit changed(false);
 }
 void KCMGRUB2::save()
 {
-    QString defaultEntry = m_entries.at(ui.comboBox_default->currentIndex());
     m_settings["GRUB_DEFAULT"] = "saved";
     if (m_dirtyBits.testBit(grubSavedefaultDirty)) {
         if (ui.checkBox_savedefault->isChecked()) {
@@ -208,6 +208,20 @@ void KCMGRUB2::save()
             }
         } else {
             m_settings["GRUB_TIMEOUT"] = "-1";
+        }
+    }
+    if (m_dirtyBits.testBit(grubDisableRecoveryDirty)) {
+        if (ui.checkBox_recovery->isChecked()) {
+            m_settings.remove("GRUB_DISABLE_RECOVERY");
+        } else {
+            m_settings["GRUB_DISABLE_RECOVERY"] = "true";
+        }
+    }
+    if (m_dirtyBits.testBit(grubDisableOsProberDirty)) {
+        if (ui.checkBox_osProber->isChecked()) {
+            m_settings.remove("GRUB_DISABLE_OS_PROBER");
+        } else {
+            m_settings["GRUB_DISABLE_OS_PROBER"] = "true";
         }
     }
     if (m_dirtyBits.testBit(grubGfxmodeDirty)) {
@@ -331,20 +345,6 @@ void KCMGRUB2::save()
             m_settings["GRUB_DISABLE_LINUX_UUID"] = "true";
         }
     }
-    if (m_dirtyBits.testBit(grubDisableRecoveryDirty)) {
-        if (ui.checkBox_recovery->isChecked()) {
-            m_settings.remove("GRUB_DISABLE_RECOVERY");
-        } else {
-            m_settings["GRUB_DISABLE_RECOVERY"] = "true";
-        }
-    }
-    if (m_dirtyBits.testBit(grubDisableOsProberDirty)) {
-        if (ui.checkBox_osProber->isChecked()) {
-            m_settings.remove("GRUB_DISABLE_OS_PROBER");
-        } else {
-            m_settings["GRUB_DISABLE_OS_PROBER"] = "true";
-        }
-    }
 
     QString configFileContents;
     QTextStream stream(&configFileContents, QIODevice::WriteOnly | QIODevice::Text);
@@ -359,7 +359,10 @@ void KCMGRUB2::save()
     saveAction.addArgument("configFileName", Settings::configPaths().at(0));
     saveAction.addArgument("configFileContents", configFileContents);
     saveAction.addArgument("menuFileName", Settings::menuPaths().at(0));
-    saveAction.addArgument("defaultEntry", defaultEntry);
+    saveAction.addArgument("defaultEntry", m_entries.at(ui.comboBox_default->currentIndex()));
+    if (m_dirtyBits.testBit(memtestDirty)) {
+        saveAction.addArgument("memtest", ui.checkBox_memtest->isChecked());
+    }
 
     if (saveAction.authorize() == Action::Authorized) {
         KProgressDialog progressDlg(this, i18nc("@title:window", "Saving"), i18nc("@info:progress", "Saving GRUB settings.."));
@@ -416,6 +419,21 @@ void KCMGRUB2::slotGrubHiddenTimeoutQuietChanged()
 void KCMGRUB2::slotGrubTimeoutChanged()
 {
     m_dirtyBits.setBit(grubTimeoutDirty);
+    emit changed(true);
+}
+void KCMGRUB2::slotGrubDisableRecoveryChanged()
+{
+    m_dirtyBits.setBit(grubDisableRecoveryDirty);
+    emit changed(true);
+}
+void KCMGRUB2::slotMemtestChanged()
+{
+    m_dirtyBits.setBit(memtestDirty);
+    emit changed(true);
+}
+void KCMGRUB2::slotGrubDisableOsProberChanged()
+{
+    m_dirtyBits.setBit(grubDisableOsProberDirty);
     emit changed(true);
 }
 void KCMGRUB2::slotGrubGfxmodeChanged()
@@ -557,16 +575,6 @@ void KCMGRUB2::slotGrubDisableLinuxUuidChanged()
     m_dirtyBits.setBit(grubDisableLinuxUuidDirty);
     emit changed(true);
 }
-void KCMGRUB2::slotGrubDisableRecoveryChanged()
-{
-    m_dirtyBits.setBit(grubDisableRecoveryDirty);
-    emit changed(true);
-}
-void KCMGRUB2::slotGrubDisableOsProberChanged()
-{
-    m_dirtyBits.setBit(grubDisableOsProberDirty);
-    emit changed(true);
-}
 
 void KCMGRUB2::slotUpdateSuggestions()
 {
@@ -637,6 +645,8 @@ void KCMGRUB2::setupObjects()
 
     ui.kpushbutton_remove->setIcon(KIcon("list-remove"));
     ui.kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
+
+    ui.checkBox_memtest->setVisible(QFile::exists("/etc/grub.d/20_memtest86+"));
 
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);
@@ -743,6 +753,10 @@ void KCMGRUB2::setupConnections()
     connect(ui.radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
     connect(ui.spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubTimeoutChanged()));
 
+    connect(ui.checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableRecoveryChanged()));
+    connect(ui.checkBox_memtest, SIGNAL(clicked(bool)), this, SLOT(slotMemtestChanged()));
+    connect(ui.checkBox_osProber, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableOsProberChanged()));
+
     connect(ui.comboBox_gfxmode, SIGNAL(activated(int)), this, SLOT(slotGrubGfxmodeChanged()));
     connect(ui.comboBox_gfxpayload, SIGNAL(activated(int)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
 
@@ -776,10 +790,7 @@ void KCMGRUB2::setupConnections()
     connect(ui.lineEdit_distributor, SIGNAL(textEdited(QString)), this, SLOT(slotGrubDistributorChanged()));
     connect(ui.lineEdit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
     connect(ui.lineEdit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
-
     connect(ui.checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableLinuxUuidChanged()));
-    connect(ui.checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableRecoveryChanged()));
-    connect(ui.checkBox_osProber, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableOsProberChanged()));
 }
 
 QString KCMGRUB2::convertToGRUBFileName(const QString &fileName)
