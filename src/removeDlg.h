@@ -45,11 +45,14 @@ private Q_SLOTS:
     void slotProgress(const QString &status, int percentage);
     void slotFinished(bool success);
 private:
+    void detectCurrentKernelImage();
+
 #if HAVE_QAPT
     QAptBackend *m_backend;
 #elif HAVE_QPACKAGEKIT
     QPkBackend *m_backend;
 #endif
+    QString m_currentKernelImage;
     KProgressDialog *m_progressDlg;
     Ui::RemoveDialog ui;
 };

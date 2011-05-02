@@ -57,17 +57,20 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
             QListWidgetItem *item = new QListWidgetItem(entries.at(i), ui.klistwidget);
             item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
             item->setData(Qt::UserRole, packageName);
+            item->setData(Qt::UserRole + 1, file);
             item->setCheckState(Qt::Unchecked);
             ui.klistwidget->addItem(item);
             found = true;
         }
     }
-    if (!found) {
+    if (found) {
+        ui.klistwidget->setMinimumSize(ui.klistwidget->sizeHintForColumn(0) + ui.klistwidget->sizeHintForRow(0), ui.klistwidget->sizeHintForRow(0) * ui.klistwidget->count());
+        connect(ui.klistwidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(slotItemChanged(QListWidgetItem*)));
+        detectCurrentKernelImage();
+    } else {
         KMessageBox::sorry(this, i18nc("@info", "No removable entries were found."));
         QTimer::singleShot(0, this, SLOT(reject()));
     }
-    ui.klistwidget->setMinimumSize(ui.klistwidget->sizeHintForColumn(0) + ui.klistwidget->sizeHintForRow(0), ui.klistwidget->sizeHintForRow(0) * ui.klistwidget->count());
-    connect(ui.klistwidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(slotItemChanged(QListWidgetItem*)));
 }
 RemoveDialog::~RemoveDialog()
 {
@@ -101,6 +104,7 @@ void RemoveDialog::slotButtonClicked(int button)
 void RemoveDialog::slotItemChanged(QListWidgetItem *item)
 {
     bool state = false;
+    ui.klistwidget->blockSignals(true);
     for (int i = 0; i < ui.klistwidget->count(); i++) {
         if (ui.klistwidget->item(i)->data(Qt::UserRole) == item->data(Qt::UserRole)) {
             ui.klistwidget->item(i)->setCheckState(item->checkState());
@@ -109,7 +113,13 @@ void RemoveDialog::slotItemChanged(QListWidgetItem *item)
             state = true;
         }
     }
+    ui.klistwidget->blockSignals(false);
     enableButtonOk(state);
+    if (item->checkState() == Qt::Checked && item->data(Qt::UserRole + 1).toString().compare(m_currentKernelImage) == 0) {
+        if (KMessageBox::warningYesNo(this, i18nc("@info", "This is your current kernel!<br/>Are you sure you want to remove it?")) == KMessageBox::No) {
+            item->setCheckState(Qt::Unchecked);
+        }
+    }
 }
 void RemoveDialog::slotProgress(const QString &status, int percentage)
 {
@@ -129,5 +139,20 @@ void RemoveDialog::slotFinished(bool success)
     } else {
         KMessageBox::error(this, i18nc("@info", "Package removal failed."));
         reject();
+    }
+}
+void RemoveDialog::detectCurrentKernelImage()
+{
+    QFile file("/proc/cmdline");
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        return;
+    }
+
+    QTextStream stream(&file);
+    Q_FOREACH(const QString &argument, stream.readAll().split(QRegExp("\\s+"))) {
+        if (argument.startsWith("BOOT_IMAGE")) {
+            m_currentKernelImage = argument.section('=', 1);
+            return;
+        }
     }
 }
