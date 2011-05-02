@@ -840,9 +840,9 @@ QString KCMGRUB2::readFile(const QString &fileName)
 
     ActionReply reply = loadAction.execute();
     if (reply.failed()) {
-        kDebug() << "Error reading:" << fileName;
-        kDebug() << "Error code:" << reply.errorCode();
-        kDebug() << "Error description:" << reply.errorDescription();
+        kError() << "Error reading:" << fileName;
+        kError() << "Error code:" << reply.errorCode();
+        kError() << "Error description:" << reply.errorDescription();
         return QString();
     }
     return reply.data().value("fileContents").toString();
