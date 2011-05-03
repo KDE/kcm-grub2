@@ -373,27 +373,29 @@ void KCMGRUB2::save()
     saveAction.setParentWidget(this);
 #endif
 
-    if (saveAction.authorize() == Action::Authorized) {
-        KProgressDialog progressDlg(this, i18nc("@title:window", "Saving"), i18nc("@info:progress", "Saving GRUB settings.."));
-        progressDlg.setAllowCancel(false);
-        progressDlg.setModal(true);
-        progressDlg.progressBar()->setMinimum(0);
-        progressDlg.progressBar()->setMaximum(0);
-        progressDlg.show();
-        connect(saveAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
-        ActionReply reply = saveAction.execute();
-        if (reply.succeeded()) {
-            KDialog *dialog = new KDialog(this, Qt::Dialog);
-            dialog->setCaption(i18nc("@title:window", "Information"));
-            dialog->setButtons(KDialog::Ok | KDialog::Details);
-            dialog->setModal(true);
-            dialog->setDefaultButton(KDialog::Ok);
-            dialog->setEscapeButton(KDialog::Ok);
-            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
-            load();
-        } else {
-            KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), reply.data().value("output").toString());
-        }
+    if (saveAction.authorize() != Action::Authorized) {
+        return;
+    }
+
+    KProgressDialog progressDlg(this, i18nc("@title:window", "Saving"), i18nc("@info:progress", "Saving GRUB settings.."));
+    progressDlg.setAllowCancel(false);
+    progressDlg.setModal(true);
+    progressDlg.progressBar()->setMinimum(0);
+    progressDlg.progressBar()->setMaximum(0);
+    progressDlg.show();
+    connect(saveAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
+    ActionReply reply = saveAction.execute();
+    if (reply.succeeded()) {
+        KDialog *dialog = new KDialog(this, Qt::Dialog);
+        dialog->setCaption(i18nc("@title:window", "Information"));
+        dialog->setButtons(KDialog::Ok | KDialog::Details);
+        dialog->setModal(true);
+        dialog->setDefaultButton(KDialog::Ok);
+        dialog->setEscapeButton(KDialog::Ok);
+        KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
+        load();
+    } else {
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), reply.data().value("output").toString());
     }
 }
 
