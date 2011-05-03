@@ -369,6 +369,9 @@ void KCMGRUB2::save()
         saveAction.addArgument("memtestFileName", Settings::memtestPath());
         saveAction.addArgument("memtest", ui.checkBox_memtest->isChecked());
     }
+#if KDE_IS_VERSION(4,6,0)
+    saveAction.setParentWidget(this);
+#endif
 
     if (saveAction.authorize() == Action::Authorized) {
         KProgressDialog progressDlg(this, i18nc("@title:window", "Saving"), i18nc("@info:progress", "Saving GRUB settings.."));
@@ -837,6 +840,9 @@ QString KCMGRUB2::readFile(const QString &fileName)
     Action loadAction("org.kde.kcontrol.kcmgrub2.load");
     loadAction.setHelperID("org.kde.kcontrol.kcmgrub2");
     loadAction.addArgument("fileName", fileName);
+#if KDE_IS_VERSION(4,6,0)
+    loadAction.setParentWidget(this);
+#endif
 
     ActionReply reply = loadAction.execute();
     if (reply.failed()) {
@@ -851,6 +857,9 @@ bool KCMGRUB2::readResolutions()
 {
     Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
     probeVbeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+#if KDE_IS_VERSION(4,6,0)
+    probeVbeAction.setParentWidget(this);
+#endif
     ActionReply reply = probeVbeAction.execute();
     if (reply.failed()) {
         return false;
@@ -872,6 +881,9 @@ bool KCMGRUB2::readDevices()
     Action probeAction("org.kde.kcontrol.kcmgrub2.probe");
     probeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
     probeAction.addArgument("mountPoints", mountPoints);
+#if KDE_IS_VERSION(4,6,0)
+    probeAction.setParentWidget(this);
+#endif
     if (probeAction.authorize() != Action::Authorized) {
         return false;
     }
