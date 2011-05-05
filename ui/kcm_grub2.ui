@@ -730,5 +730,86 @@
   </customwidget>
  </customwidgets>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>checkBox_hiddenTimeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>checkBox_hiddenTimeoutShowTimer</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>82</x>
+     <y>166</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>89</x>
+     <y>200</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_hiddenTimeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_hiddenTimeout</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>129</x>
+     <y>165</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>188</x>
+     <y>163</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_timeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>radioButton_timeout0</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>48</x>
+     <y>216</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>86</x>
+     <y>243</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_timeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>radioButton_timeout</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>33</x>
+     <y>221</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>97</x>
+     <y>267</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_timeout</sender>
+   <signal>toggled(bool)</signal>
+   <receiver>spinBox_timeout</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>110</x>
+     <y>276</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>158</x>
+     <y>276</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>
