@@ -120,10 +120,9 @@ ActionReply Helper::probe(QVariantMap args)
 ActionReply Helper::probevbe(QVariantMap args)
 {
     Q_UNUSED(args)
-#if !HAVE_HD
-    return ActionReply::HelperErrorReply;
-#endif
+    ActionReply reply;
 
+#if HAVE_HD
     QStringList gfxmodes;
     hd_data_t hd_data;
     memset(&hd_data, 0, sizeof(hd_data));
@@ -135,9 +134,11 @@ ActionReply Helper::probevbe(QVariantMap args)
     }
     hd_free_hd_list(hd);
     hd_free_hd_data(&hd_data);
-
-    ActionReply reply;
     reply.addData("gfxmodes", gfxmodes);
+#else
+    reply = ActionReply::HelperErrorReply;
+#endif
+
     return reply;
 }
 ActionReply Helper::save(QVariantMap args)
