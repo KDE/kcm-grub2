@@ -63,6 +63,23 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
     setupConnections();
 }
 
+void KCMGRUB2::defaults()
+{
+    Action defaultsAction("org.kde.kcontrol.kcmgrub2.defaults");
+    defaultsAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+    defaultsAction.addArgument("configFileName", Settings::configPath());
+#if KDE_IS_VERSION(4,6,0)
+    defaultsAction.setParentWidget(this);
+#endif
+    ActionReply reply = defaultsAction.execute();
+    if (reply.succeeded()) {
+        load();
+        save();
+        KMessageBox::information(this, i18nc("@info", "Successfully restored the default values."));
+    } else {
+        KMessageBox::error(this, i18nc("@info", "Failed to restore the default values."));
+    }
+}
 void KCMGRUB2::load()
 {
     bool ok = readEntries() && readSettings() && (HAVE_HD ? readResolutions() : true);
@@ -751,7 +768,7 @@ void KCMGRUB2::slotTriggeredSuggestion(QAction *action)
 
 void KCMGRUB2::setupObjects()
 {
-    setButtons(Apply);
+    setButtons(Default | Apply);
     setNeedsAuthorization(true);
     ui.stackedWidget->hide();
 

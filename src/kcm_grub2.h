@@ -33,6 +33,7 @@ class KCMGRUB2 : public KCModule
 public:
     KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
 
+    virtual void defaults();
     virtual void load();
     virtual void save();
 private Q_SLOTS:

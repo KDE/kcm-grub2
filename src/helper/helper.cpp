@@ -35,6 +35,12 @@
 #include <hd.h>
 #endif
 
+ActionReply Helper::defaults(QVariantMap args)
+{
+    ActionReply reply;
+    QString configFileName = args.value("configFileName").toString();
+    return ((QFile::exists(configFileName + ".original") && QFile::remove(configFileName) && QFile::copy(configFileName + ".original", configFileName)) ? reply : ActionReply::HelperErrorReply);
+}
 ActionReply Helper::install(QVariantMap args)
 {
     ActionReply reply;
@@ -136,7 +142,9 @@ ActionReply Helper::probevbe(QVariantMap args)
 ActionReply Helper::save(QVariantMap args)
 {
     ActionReply reply;
-    QFile file(args.value("configFileName").toString());
+    QString configFileName = args.value("configFileName").toString();
+    QFile::copy(configFileName, configFileName + ".original");
+    QFile file(configFileName);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream stream(&file);
         stream << args.value("configFileContents").toString();
