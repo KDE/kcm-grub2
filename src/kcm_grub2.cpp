@@ -34,9 +34,13 @@
 #include <KShell>
 #include <KAuth/ActionWatcher>
 using namespace KAuth;
+#include <Solid/Device>
+#include <Solid/StorageAccess>
+#include <Solid/StorageVolume>
 
 //Project
 #include "config.h"
+#include "ui_choiceDlg.h"
 #if HAVE_IMAGEMAGICK
 #include "convertDlg.h"
 #endif
@@ -61,15 +65,59 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
 
 void KCMGRUB2::load()
 {
-    readResolutions();
-    readEntries();
-    readSettings();
+    bool ok = readEntries() && readSettings() && (HAVE_HD ? readResolutions() : true);
+    if (!ok) {
+        ui.stackedWidget->hide();
+        KDialog dialog(this);
+        QWidget widget(&dialog);
+        Ui::ChoiceDialog choiceDlg;
+        choiceDlg.setupUi(&widget);
+        dialog.setMainWidget(&widget);
+        if (dialog.exec() == KDialog::Accepted) {
+            if (choiceDlg.radioButton_recover->isChecked()) {
+                Q_FOREACH(Solid::Device device, Solid::Device::listFromType(Solid::DeviceInterface::StorageAccess)) {
+                    if (!device.is<Solid::StorageAccess>() || !device.is<Solid::StorageVolume>()) {
+                        continue;
+                    }
+                    Solid::StorageAccess *partition = device.as<Solid::StorageAccess>();
+                    if (!partition) {
+                        continue;
+                    }
+                    const Solid::StorageVolume *volume = device.as<Solid::StorageVolume>();
+                    if (!volume || volume->usage() != Solid::StorageVolume::FileSystem) {
+                        continue;
+                    }
 
+                    QString uuidDir = "/dev/disk/by-uuid/", uuid = volume->uuid(), name;
+                    name = (QFile::exists((name = uuidDir + uuid)) || QFile::exists((name = uuidDir + uuid.toLower())) || QFile::exists((name = uuidDir + uuid.toUpper())) ? QFile::symLinkTarget(name) : QString());
+                    QTreeWidgetItem *item = new QTreeWidgetItem(ui.treeWidget_recover, QStringList(QString()) << name << partition->filePath() << volume->label() << volume->fsType() << i18n("%1 GiB", QString::number(volume->size() / 1073741824)));
+                    item->setIcon(1, KIcon(device.icon()));
+                    item->setTextAlignment(5, Qt::AlignRight | Qt::AlignVCenter);
+                    ui.treeWidget_recover->addTopLevelItem(item);
+                    QRadioButton *radio = new QRadioButton(ui.treeWidget_recover);
+                    connect(radio, SIGNAL(clicked(bool)), this, SLOT(changed()));
+                    ui.treeWidget_recover->setItemWidget(item, 0, radio);
+                }
+                ui.stackedWidget->setCurrentIndex(2);
+            } else {
+                ui.kurlrequester_menu->setPath(Settings::menuPath());
+                ui.kurlrequester_config->setPath(Settings::configPath());
+                ui.kurlrequester_env->setPath(Settings::envPath());
+                ui.kurlrequester_memtest->setPath(Settings::memtestPath());
+                ui.stackedWidget->setCurrentIndex(1);
+            }
+            ui.stackedWidget->show();
+            emit changed(false);
+        }
+        return;
+    }
+
+    ui.stackedWidget->setCurrentIndex(0);
+    ui.stackedWidget->show();
     if (unquoteWord(m_settings.value("GRUB_DEFAULT")).compare("saved") == 0) {
         m_settings["GRUB_DEFAULT"] = (readEnv() && !m_env.value("saved_entry").isEmpty() ? m_env.value("saved_entry") : "0");
     }
 
-    bool ok;
     ui.comboBox_default->clear();
     Q_FOREACH(const QString &entry, m_entries) {
         ui.comboBox_default->addItem(unquoteWord(entry), entry);
@@ -182,6 +230,60 @@ void KCMGRUB2::load()
 }
 void KCMGRUB2::save()
 {
+    if (ui.stackedWidget->currentIndex() == 1) {
+        Settings::setMenuPath(ui.kurlrequester_menu->url().toLocalFile());
+        Settings::setConfigPath(ui.kurlrequester_config->url().toLocalFile());
+        Settings::setEnvPath(ui.kurlrequester_env->url().toLocalFile());
+        Settings::setMemtestPath(ui.kurlrequester_memtest->url().toLocalFile());
+        Settings::self()->writeConfig();
+        load();
+        return;
+    } else if (ui.stackedWidget->currentIndex() == 2) {
+        Action installAction("org.kde.kcontrol.kcmgrub2.install");
+        installAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+        for (int i = 0; i < ui.treeWidget_recover->topLevelItemCount(); i++) {
+            QRadioButton *radio = qobject_cast<QRadioButton *>(ui.treeWidget_recover->itemWidget(ui.treeWidget_recover->topLevelItem(i), 0));
+            if (radio && radio->isChecked()) {
+                installAction.addArgument("partition", ui.treeWidget_recover->topLevelItem(i)->text(1));
+                installAction.addArgument("mountPoint", ui.treeWidget_recover->topLevelItem(i)->text(2));
+                break;
+            }
+        }
+        if (installAction.arguments().value("partition").toString().isEmpty()) {
+            KMessageBox::sorry(this, i18nc("@info", "Sorry, you have to select a partition with a proper name!"));
+            return;
+        }
+#if KDE_IS_VERSION(4,6,0)
+        installAction.setParentWidget(this);
+#endif
+
+        if (installAction.authorize() != Action::Authorized) {
+            return;
+        }
+
+        KProgressDialog progressDlg(this, i18nc("@title:window", "Installing"), i18nc("@info:progress", "Installing GRUB.."));
+        progressDlg.setAllowCancel(false);
+        progressDlg.setModal(true);
+        progressDlg.progressBar()->setMinimum(0);
+        progressDlg.progressBar()->setMaximum(0);
+        progressDlg.show();
+        connect(installAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
+        ActionReply reply = installAction.execute();
+        if (reply.succeeded()) {
+            KDialog *dialog = new KDialog(this, Qt::Dialog);
+            dialog->setCaption(i18nc("@title:window", "Information"));
+            dialog->setButtons(KDialog::Ok | KDialog::Details);
+            dialog->setModal(true);
+            dialog->setDefaultButton(KDialog::Ok);
+            dialog->setEscapeButton(KDialog::Ok);
+            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
+            ui.stackedWidget->hide();
+        } else {
+            KMessageBox::detailedError(this, i18nc("@info", "Failed to install GRUB."), reply.data().value("output").toString());
+        }
+        return;
+    }
+
     m_settings["GRUB_DEFAULT"] = "saved";
     if (m_dirtyBits.testBit(grubSavedefaultDirty)) {
         if (ui.checkBox_savedefault->isChecked()) {
@@ -651,6 +753,7 @@ void KCMGRUB2::setupObjects()
 {
     setButtons(Apply);
     setNeedsAuthorization(true);
+    ui.stackedWidget->hide();
 
     m_dirtyBits.resize(lastDirtyBit);
 
@@ -747,6 +850,10 @@ void KCMGRUB2::setupObjects()
     ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Open Firmware Console"))->setData("ofconsole");
     ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData("gfxterm");
     ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData("vga_text");
+
+    ui.treeWidget_recover->headerItem()->setText(0, QString());
+    ui.treeWidget_recover->header()->setResizeMode(QHeaderView::Stretch);
+    ui.treeWidget_recover->header()->setResizeMode(0, QHeaderView::ResizeToContents);
 }
 void KCMGRUB2::setupConnections()
 {
@@ -800,6 +907,11 @@ void KCMGRUB2::setupConnections()
     connect(ui.lineEdit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
     connect(ui.lineEdit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
     connect(ui.checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableLinuxUuidChanged()));
+
+    connect(ui.kurlrequester_menu, SIGNAL(textChanged(QString)), this, SLOT(changed()));
+    connect(ui.kurlrequester_config, SIGNAL(textChanged(QString)), this, SLOT(changed()));
+    connect(ui.kurlrequester_env, SIGNAL(textChanged(QString)), this, SLOT(changed()));
+    connect(ui.kurlrequester_memtest, SIGNAL(textChanged(QString)), this, SLOT(changed()));
 }
 
 QString KCMGRUB2::convertToGRUBFileName(const QString &fileName)
@@ -855,21 +967,42 @@ QString KCMGRUB2::readFile(const QString &fileName)
     }
     return reply.data().value("fileContents").toString();
 }
-bool KCMGRUB2::readResolutions()
+bool KCMGRUB2::readEntries()
 {
-    Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
-    probeVbeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-#if KDE_IS_VERSION(4,6,0)
-    probeVbeAction.setParentWidget(this);
-#endif
-    ActionReply reply = probeVbeAction.execute();
-    if (reply.failed()) {
+    QString fileContents = readFile(Settings::menuPath());
+    if (fileContents.isEmpty()) {
         return false;
     }
 
-    m_resolutions.clear();
-    m_resolutions = reply.data().value("gfxmodes").toStringList();
-    return !m_resolutions.isEmpty();
+    m_entries.clear();
+    m_kernels.clear();
+    parseEntries(fileContents);
+    return !m_entries.isEmpty();
+}
+bool KCMGRUB2::readSettings()
+{
+    QString fileContents = readFile(Settings::configPath());
+    if (fileContents.isEmpty()) {
+        return false;
+    }
+
+    m_settings.clear();
+    m_settings["GRUB_DEFAULT"] = "0";
+    m_settings["GRUB_TIMEOUT"] = "5";
+    m_settings["GRUB_GFXMODE"] = "640x480";
+    parseSettings(fileContents);
+    return !m_settings.isEmpty();
+}
+bool KCMGRUB2::readEnv()
+{
+    QString fileContents = readFile(Settings::envPath());
+    if (fileContents.isEmpty()) {
+        return false;
+    }
+
+    m_env.clear();
+    parseEnv(fileContents);
+    return !m_env.isEmpty();
 }
 bool KCMGRUB2::readDevices()
 {
@@ -912,42 +1045,21 @@ bool KCMGRUB2::readDevices()
     }
     return !m_devices.isEmpty();
 }
-bool KCMGRUB2::readEntries()
+bool KCMGRUB2::readResolutions()
 {
-    QString fileContents = readFile(Settings::menuPath());
-    if (fileContents.isEmpty()) {
+    Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
+    probeVbeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+#if KDE_IS_VERSION(4,6,0)
+    probeVbeAction.setParentWidget(this);
+#endif
+    ActionReply reply = probeVbeAction.execute();
+    if (reply.failed()) {
         return false;
     }
 
-    m_entries.clear();
-    m_kernels.clear();
-    parseEntries(fileContents);
-    return !m_entries.isEmpty();
-}
-bool KCMGRUB2::readSettings()
-{
-    QString fileContents = readFile(Settings::configPath());
-    if (fileContents.isEmpty()) {
-        return false;
-    }
-
-    m_settings.clear();
-    m_settings["GRUB_DEFAULT"] = "0";
-    m_settings["GRUB_TIMEOUT"] = "5";
-    m_settings["GRUB_GFXMODE"] = "640x480";
-    parseSettings(fileContents);
-    return !m_settings.isEmpty();
-}
-bool KCMGRUB2::readEnv()
-{
-    QString fileContents = readFile(Settings::envPath());
-    if (fileContents.isEmpty()) {
-        return false;
-    }
-
-    m_env.clear();
-    parseEnv(fileContents);
-    return !m_env.isEmpty();
+    m_resolutions.clear();
+    m_resolutions = reply.data().value("gfxmodes").toStringList();
+    return !m_resolutions.isEmpty();
 }
 
 void KCMGRUB2::sortResolutions()

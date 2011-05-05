@@ -15,7 +15,7 @@ endif (HAVE_QAPT)
 
 # Set Sources
 set(kcm_grub2_SRCS kcm_grub2.cpp)
-kde4_add_ui_files(kcm_grub2_SRCS ../ui/kcm_grub2.ui)
+kde4_add_ui_files(kcm_grub2_SRCS ../ui/kcm_grub2.ui ../ui/choiceDlg.ui)
 kde4_add_kcfg_files(kcm_grub2_SRCS ../cfg/settings.kcfgc)
 if (HAVE_IMAGEMAGICK)
     set(kcm_grub2_SRCS ${kcm_grub2_SRCS} convertDlg.cpp)
@@ -34,7 +34,7 @@ else (HAVE_QAPT)
 endif (HAVE_QAPT)
 
 # Set Link Libraries
-set(kcm_grub2_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS})
+set(kcm_grub2_LINK_LIBS ${KDE4_KDEUI_LIBS} ${KDE4_KIO_LIBS} ${KDE4_SOLID_LIBS})
 if (HAVE_IMAGEMAGICK)
     set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} ${ImageMagick_LIBRARIES})
 endif (HAVE_IMAGEMAGICK)

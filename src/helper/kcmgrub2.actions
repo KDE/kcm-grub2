@@ -15,6 +15,12 @@ Name[uk]=Модуль керування завантажувачем GRUB2
 Name[x-test]=xxGRUB2 Bootloader Control Modulexx
 Icon=system-reboot
 
+[org.kde.kcontrol.kcmgrub2.install]
+Name=Install the GRUB2 Bootloader
+Description=Administrator authorization is required to install the GRUB2 Bootloader
+Policy=auth_admin
+Persistence=session
+
 [org.kde.kcontrol.kcmgrub2.load]
 Name=Load the GRUB2 Bootloader settings
 Name[da]=Indlæs indstillingerne for GRUB2-bootloaderen

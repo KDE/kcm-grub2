@@ -73,11 +73,11 @@ private:
     QString convertToLocalFileName(const QString &grubFileName);
 
     QString readFile(const QString &fileName);
-    bool readResolutions();
-    bool readDevices();
     bool readEntries();
     bool readSettings();
     bool readEnv();
+    bool readDevices();
+    bool readResolutions();
 
     void sortResolutions();
     void showResolutions();
@@ -117,12 +117,13 @@ private:
         lastDirtyBit
     };
     QBitArray m_dirtyBits;
-    QStringList m_resolutions;
-    QHash<QString, QString> m_devices;
+
     QStringList m_entries;
     QHash<QString, QString> m_kernels;
     QHash<QString, QString> m_settings;
     QHash<QString, QString> m_env;
+    QHash<QString, QString> m_devices;
+    QStringList m_resolutions;
 };
 
 #endif

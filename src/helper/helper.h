@@ -26,6 +26,7 @@ class Helper : public QObject
 {
     Q_OBJECT
 public Q_SLOTS:
+    ActionReply install(QVariantMap args);
     ActionReply load(QVariantMap args);
     ActionReply probe(QVariantMap args);
     ActionReply probevbe(QVariantMap args);

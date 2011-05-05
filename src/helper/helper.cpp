@@ -19,6 +19,7 @@
 #include "helper.h"
 
 //Qt
+#include <QtCore/QDir>
 #include <QtCore/QFile>
 #include <QtCore/QTextStream>
 
@@ -34,6 +35,42 @@
 #include <hd.h>
 #endif
 
+ActionReply Helper::install(QVariantMap args)
+{
+    ActionReply reply;
+    QString partition = args.value("partition").toString();
+    QString mountPoint = args.value("mountPoint").toString();
+
+    if (mountPoint.isEmpty()) {
+        if (QDir::temp().mkdir("kcm-grub2")) {
+            mountPoint = QDir::tempPath() + "/kcm-grub2";
+
+            KProcess mount;
+            mount.setShellCommand(QString("mount %1 %2").arg(partition, mountPoint)); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+            mount.setOutputChannelMode(KProcess::MergedChannels);
+            if (mount.execute() != 0) {
+                reply.addData("output", mount.readAll());
+                reply = ActionReply::HelperErrorReply;
+                return reply;
+            }
+        } else {
+            reply = ActionReply::HelperErrorReply;
+            return reply;
+        }
+    }
+
+    KProcess grub_install;
+    grub_install.setShellCommand(QString("grub-install --root-directory=%1 %2").arg(mountPoint, partition.remove(QRegExp("\\d+")))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+    grub_install.setOutputChannelMode(KProcess::MergedChannels);
+    if (grub_install.execute() != 0) {
+        reply.addData("output", grub_install.readAll());
+        reply = ActionReply::HelperErrorReply;
+        return reply;
+    }
+
+    reply.addData("output", grub_install.readAll());
+    return reply;
+}
 ActionReply Helper::load(QVariantMap args)
 {
     ActionReply reply;
