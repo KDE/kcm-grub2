@@ -24,6 +24,7 @@
 #include <QtCore/QTextStream>
 
 //KDE
+#include <KLocalizedString>
 #include <KProcess>
 #include <KShell>
 #include <KAuth/HelperSupport>
@@ -37,9 +38,9 @@
 
 ActionReply Helper::defaults(QVariantMap args)
 {
-    ActionReply reply;
     QString configFileName = args.value("configFileName").toString();
-    return ((QFile::exists(configFileName + ".original") && QFile::remove(configFileName) && QFile::copy(configFileName + ".original", configFileName)) ? reply : ActionReply::HelperErrorReply);
+    QString originalConfigFileName = configFileName + ".original";
+    return (QFile::exists(originalConfigFileName) && QFile::remove(configFileName) && QFile::copy(originalConfigFileName, configFileName) ? ActionReply::SuccessReply : ActionReply::HelperErrorReply);
 }
 ActionReply Helper::install(QVariantMap args)
 {
@@ -48,29 +49,29 @@ ActionReply Helper::install(QVariantMap args)
     QString mountPoint = args.value("mountPoint").toString();
 
     if (mountPoint.isEmpty()) {
-        if (QDir::temp().mkdir("kcm-grub2")) {
-            mountPoint = QDir::tempPath() + "/kcm-grub2";
-
+        for (int i = 0; QDir(mountPoint = QString("%1/kcm-grub2-%2").arg(QDir::tempPath(), QString::number(i))).exists(); i++);
+        if (QDir().mkpath(mountPoint)) {
             KProcess mount;
-            mount.setShellCommand(QString("mount %1 %2").arg(partition, mountPoint)); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+            mount.setShellCommand(QString("mount %1 %2").arg(KShell::quoteArg(partition), KShell::quoteArg(mountPoint)));
             mount.setOutputChannelMode(KProcess::MergedChannels);
             if (mount.execute() != 0) {
-                reply.addData("output", mount.readAll());
                 reply = ActionReply::HelperErrorReply;
+                reply.addData("output", mount.readAll());
                 return reply;
             }
         } else {
             reply = ActionReply::HelperErrorReply;
+            reply.addData("output", i18nc("@info", "Failed to create temporary mount point."));
             return reply;
         }
     }
 
     KProcess grub_install;
-    grub_install.setShellCommand(QString("grub-install --root-directory=%1 %2").arg(mountPoint, partition.remove(QRegExp("\\d+")))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+    grub_install.setShellCommand(QString("grub-install --root-directory=%1 %2").arg(KShell::quoteArg(mountPoint), KShell::quoteArg(partition.remove(QRegExp("\\d+")))));
     grub_install.setOutputChannelMode(KProcess::MergedChannels);
     if (grub_install.execute() != 0) {
-        reply.addData("output", grub_install.readAll());
         reply = ActionReply::HelperErrorReply;
+        reply.addData("output", grub_install.readAll());
         return reply;
     }
 
@@ -85,8 +86,7 @@ ActionReply Helper::load(QVariantMap args)
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         reply = ActionReply::HelperErrorReply;
-        reply.setErrorCode(file.error());
-        reply.setErrorDescription(file.errorString()); //Caller gets empty error description. KAuth bug?
+        reply.addData("output", file.errorString());
         return reply;
     }
 
@@ -97,17 +97,17 @@ ActionReply Helper::load(QVariantMap args)
 ActionReply Helper::probe(QVariantMap args)
 {
     ActionReply reply;
-    QStringList mountPoints = args.value("mountPoints").toStringList(), grubPartitions;
+    QStringList mountPoints = args.value("mountPoints").toStringList();
+
     KProcess grub_probe;
+    QStringList grubPartitions;
     HelperSupport::progressStep(0);
     for (int i = 0; i < mountPoints.size(); i++) {
-        grub_probe.setShellCommand(QString("grub-probe -t drive %1").arg(KShell::quoteArg(mountPoints.at(i)))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+        grub_probe.setShellCommand(QString("grub-probe -t drive %1").arg(KShell::quoteArg(mountPoints.at(i))));
         grub_probe.setOutputChannelMode(KProcess::MergedChannels);
-        int ret = grub_probe.execute();
-        if (ret != 0) {
+        if (grub_probe.execute() != 0) {
             reply = ActionReply::HelperErrorReply;
-            reply.setErrorCode(ret);
-            reply.setErrorDescription(grub_probe.readAll());
+            reply.addData("output", grub_probe.readAll());
             return reply;
         }
         grubPartitions.append(grub_probe.readAll().trimmed());
@@ -120,8 +120,10 @@ ActionReply Helper::probe(QVariantMap args)
 ActionReply Helper::probevbe(QVariantMap args)
 {
     Q_UNUSED(args)
-    ActionReply reply;
-#if HAVE_HD
+#if !HAVE_HD
+    return ActionReply::HelperErrorReply;
+#endif
+
     QStringList gfxmodes;
     hd_data_t hd_data;
     memset(&hd_data, 0, sizeof(hd_data));
@@ -133,32 +135,37 @@ ActionReply Helper::probevbe(QVariantMap args)
     }
     hd_free_hd_list(hd);
     hd_free_hd_data(&hd_data);
+
+    ActionReply reply;
     reply.addData("gfxmodes", gfxmodes);
-#else
-    reply = ActionReply::HelperErrorReply;
-#endif
     return reply;
 }
 ActionReply Helper::save(QVariantMap args)
 {
     ActionReply reply;
     QString configFileName = args.value("configFileName").toString();
+    QString configFileContents = args.value("configFileContents").toString();
+    QString menuFileName = args.value("menuFileName").toString();
+    QString defaultEntry = args.value("defaultEntry").toString();
+    QString memtestFileName = args.value("memtestFileName").toString();
+    bool memtest = args.value("memtest").toBool();
+
     QFile::copy(configFileName, configFileName + ".original");
+
     QFile file(configFileName);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream stream(&file);
-        stream << args.value("configFileContents").toString();
+        stream << configFileContents;
         file.close();
     } else {
-        reply.addData("output", file.errorString());
         reply = ActionReply::HelperErrorReply;
+        reply.addData("output", file.errorString());
         return reply;
     }
 
     if (args.contains("memtest")) {
-        QString memtestFileName = args.value("memtestFileName").toString();
         QFile::Permissions permissions = QFile::permissions(memtestFileName);
-        if (args.value("memtest").toBool()) {
+        if (memtest) {
             permissions |= (QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         } else {
             permissions &= ~(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
@@ -167,20 +174,20 @@ ActionReply Helper::save(QVariantMap args)
     }
 
     KProcess grub_mkconfig;
-    grub_mkconfig.setShellCommand(QString("grub-mkconfig -o %1").arg(KShell::quoteArg(args.value("menuFileName").toString()))); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+    grub_mkconfig.setShellCommand(QString("grub-mkconfig -o %1").arg(KShell::quoteArg(menuFileName)));
     grub_mkconfig.setOutputChannelMode(KProcess::MergedChannels);
     if (grub_mkconfig.execute() != 0) {
-        reply.addData("output", grub_mkconfig.readAll());
         reply = ActionReply::HelperErrorReply;
+        reply.addData("output", grub_mkconfig.readAll());
         return reply;
     }
 
     KProcess grub_set_default;
-    grub_set_default.setShellCommand(QString("grub-set-default %1").arg(args.value("defaultEntry").toString())); // Run through a shell. For some reason $PATH is empty for the helper. KAuth bug?
+    grub_set_default.setShellCommand(QString("grub-set-default %1").arg(defaultEntry));
     grub_set_default.setOutputChannelMode(KProcess::MergedChannels);
     if (grub_set_default.execute() != 0) {
-        reply.addData("output", grub_set_default.readAll());
         reply = ActionReply::HelperErrorReply;
+        reply.addData("output", grub_set_default.readAll());
         return reply;
     }
 

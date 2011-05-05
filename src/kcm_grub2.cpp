@@ -71,6 +71,7 @@ void KCMGRUB2::defaults()
 #if KDE_IS_VERSION(4,6,0)
     defaultsAction.setParentWidget(this);
 #endif
+
     ActionReply reply = defaultsAction.execute();
     if (reply.succeeded()) {
         load();
@@ -285,6 +286,7 @@ void KCMGRUB2::save()
         progressDlg.progressBar()->setMaximum(0);
         progressDlg.show();
         connect(installAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
+
         ActionReply reply = installAction.execute();
         if (reply.succeeded()) {
             KDialog *dialog = new KDialog(this, Qt::Dialog);
@@ -503,6 +505,7 @@ void KCMGRUB2::save()
     progressDlg.progressBar()->setMaximum(0);
     progressDlg.show();
     connect(saveAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
+
     ActionReply reply = saveAction.execute();
     if (reply.succeeded()) {
         KDialog *dialog = new KDialog(this, Qt::Dialog);
@@ -978,8 +981,7 @@ QString KCMGRUB2::readFile(const QString &fileName)
     ActionReply reply = loadAction.execute();
     if (reply.failed()) {
         kError() << "Error reading:" << fileName;
-        kError() << "Error code:" << reply.errorCode();
-        kError() << "Error description:" << reply.errorDescription();
+        kError() << "Error description:" << reply.data().value("output").toString();
         return QString();
     }
     return reply.data().value("fileContents").toString();
@@ -1045,6 +1047,7 @@ bool KCMGRUB2::readDevices()
     progressDlg.setModal(true);
     progressDlg.show();
     connect(probeAction.watcher(), SIGNAL(progressStep(int)), progressDlg.progressBar(), SLOT(setValue(int)));
+
     ActionReply reply = probeAction.execute();
     if (reply.failed()) {
         KMessageBox::error(this, i18nc("@info", "Failed to get GRUB device names."));
@@ -1069,6 +1072,7 @@ bool KCMGRUB2::readResolutions()
 #if KDE_IS_VERSION(4,6,0)
     probeVbeAction.setParentWidget(this);
 #endif
+
     ActionReply reply = probeVbeAction.execute();
     if (reply.failed()) {
         return false;
