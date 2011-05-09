@@ -10,9 +10,15 @@ Smoothly integrated in KDE System Settings, it is the central place for managing
 * Manage linux kernel arguments
 * Save and update the configuration files of GRUB2
 
+Extra features include:
+
+* Recover GRUB2
+* Remove old entries
+* Create and preview GRUB2 splash images
+
+Related Blog: http://ksmanis.wordpress.com/category/grub2-kcmodule/
 SourceForge Page: https://sourceforge.net/projects/kcm-grub2/
-KDE-Apps.org Page: http://kde-apps.org/content/show.php/GRUB2+Bootloader+KCModule?content=139643
-Screenshots Page: https://sourceforge.net/apps/gallery/kcm-grub2/
+KDE-Apps.org Page: http://kde-apps.org/content/show.php?content=139643
 
 For installation instructions see the INSTALL file.
 
