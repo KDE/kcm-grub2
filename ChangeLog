@@ -1,3 +1,13 @@
+v.0.5.0 (09/05/2011)
+--------------------
+*ADDED: Recover GRUB2 (from a Live CD).
+*ADDED: Option to toggle generation of memtest entries.
+*ADDED: Manually find missing configuration files which are needed.
+*ADDED: Restore default settings.
+*FIXED: Warn the user when trying to uninstall the current kernel.
+
+*I18N: Added 9 new translations: Danish, German, Estonian, Hungarian, Dutch, Portuguese, Portuguese (Brazil), Swedish, Ukrainian.
+
 v.0.4.5 (29/04/2011)
 --------------------
 *ADDED: Remove old entries (using QApt or QPackageKit).
