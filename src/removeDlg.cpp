@@ -19,6 +19,8 @@
 #include "removeDlg.h"
 
 //Qt
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 #include <QtCore/QTimer>
 
 //KDE
