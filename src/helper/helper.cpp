@@ -24,7 +24,7 @@
 #include <QtCore/QTextStream>
 
 //KDE
-#include <KLocalizedString>
+#include <KDebug>
 #include <KProcess>
 #include <KShell>
 #include <KAuth/HelperSupport>
@@ -60,9 +60,8 @@ ActionReply Helper::install(QVariantMap args)
                 return reply;
             }
         } else {
-            reply = ActionReply::HelperErrorReply;
-            reply.addData("output", i18nc("@info", "Failed to create temporary mount point."));
-            return reply;
+            kError() << "Failed to create temporary mount point.";
+            return ActionReply::HelperErrorReply;
         }
     }
 
