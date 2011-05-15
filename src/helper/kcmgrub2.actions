@@ -19,6 +19,7 @@ Icon=system-reboot
 
 [org.kde.kcontrol.kcmgrub2.defaults]
 Name=Restore the default GRUB2 Bootloader settings
+Name[da]=Genskab indstillingerne for GRUB2-bootloaderen
 Name[es]=Restaura la configuración predeterminada de GRUB2
 Name[hu]=A GRUB2 rendszerbetöltő alapértelmezett beállításainak visszaállítása
 Name[lt]=Atstatyti numatytus GRUB2 įkrovos tvarkyklės nustatymus
@@ -30,6 +31,7 @@ Name[uk]=Відновлення типових параметрів завант
 Name[x-test]=xxRestore the default GRUB2 Bootloader settingsxx
 Name[zh_TW]=回覆預設的 GRUB2 開機載入器設定
 Description=Administrator authorization is required to restore the default GRUB2 Bootloader settings
+Description[da]=Administrator-godkendelse kræves for at genskabe standardindstillingerne for GRUB2-bootloaderen
 Description[es]=Se requieren privilegios de administración para restaurar la configuración predeterminada de GRUB2
 Description[hu]=Rendszergazdai jogosultságok szükségesek a GRUB2 rendszerbetöltő menü alapértelmezett beállításainak visszaállításához
 Description[nl]=Autorisatie van systeembeheerder is vereist om standaard instellingen van de GRUB2 bootloader te herstellen
@@ -44,6 +46,7 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.install]
 Name=Install the GRUB2 Bootloader
+Name[da]=Installér GRUB2-bootloaderen
 Name[es]=Instalar el cargador de arranque GRUB2
 Name[hu]=A GRUB2 rendszerbetöltő telepítése
 Name[lt]=Įdiegti GRUB2 įkrovos tvarkyklę
@@ -55,6 +58,7 @@ Name[uk]=Встановлення завантажувача GRUB2
 Name[x-test]=xxInstall the GRUB2 Bootloaderxx
 Name[zh_TW]=安裝 GRUB2 開機載入器
 Description=Administrator authorization is required to install the GRUB2 Bootloader
+Description[da]=Administrator-godkendelse kræves for at installere GRUB2-bootloaderen
 Description[es]=Se requieren privilegios de administración para instalar GRUB2
 Description[hu]=Rendszergazdai jogosultságok szükségesek a GRUB2 rendszerbetöltő menü telepítéséhez
 Description[nl]=Autorisatie van systeembeheerder is vereist om instellingen van de GRUB2 bootloader te installeren
