@@ -10,6 +10,7 @@ X-KDE-ParentApp=kcontrol
 X-KDE-System-Settings-Parent-Category=startup-and-shutdown
 
 Name=GRUB2 Bootloader
+Name[bs]=GRUB2 pokretač sistemar
 Name[da]=GRUB2 Bootloader
 Name[de]=GRUB2-Bootloader
 Name[es]=Cargador de arranque GRUB2
@@ -25,6 +26,7 @@ Name[uk]=Завантажувач GRUB2
 Name[x-test]=xxGRUB2 Bootloaderxx
 Name[zh_TW]=GRUB2 開機載入器
 Comment=Customise the GRUB2 bootloader
+Comment[bs]=Podesi GRUB2 pokretač sistema
 Comment[da]=Tilpas GRUB2-bootloaderen
 Comment[de]=GRUB2-Bootloader einrichten
 Comment[es]=Personaliza el cargador de arranque GRUB2
