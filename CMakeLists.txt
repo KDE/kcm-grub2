@@ -10,6 +10,8 @@ find_package(Qt4 4.6.0 REQUIRED)
 find_package(KDE4 4.4.0 REQUIRED)
 include(KDE4Defaults)
 
+add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+
 macro_optional_find_package(ImageMagick COMPONENTS Magick++ MagickCore)
 macro_log_feature(ImageMagick_FOUND "ImageMagick" "Create splash images compatible with GRUB2" "http://www.imagemagick.org/" FALSE "" "")
 macro_bool_to_01(ImageMagick_FOUND HAVE_IMAGEMAGICK)
