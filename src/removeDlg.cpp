@@ -43,7 +43,7 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
     m_backend = new QPkBackend;
 #endif
 
-    KProgressDialog progressDlg(this, i18nc("@title:window", "Finding Old Entries"), i18nc("@info:progress", "Finding Old Entries.."));
+    KProgressDialog progressDlg(this, i18nc("@title:window", "Finding Old Entries"), i18nc("@info:progress", "Finding Old Entries..."));
     progressDlg.setAllowCancel(false);
     progressDlg.setModal(true);
     progressDlg.show();

@@ -281,7 +281,7 @@ void KCMGRUB2::save()
             return;
         }
 
-        KProgressDialog progressDlg(this, i18nc("@title:window", "Installing"), i18nc("@info:progress", "Installing GRUB.."));
+        KProgressDialog progressDlg(this, i18nc("@title:window", "Installing"), i18nc("@info:progress", "Installing GRUB..."));
         progressDlg.setAllowCancel(false);
         progressDlg.setModal(true);
         progressDlg.progressBar()->setMinimum(0);
@@ -505,7 +505,7 @@ void KCMGRUB2::save()
         return;
     }
 
-    KProgressDialog progressDlg(this, i18nc("@title:window", "Saving"), i18nc("@info:progress", "Saving GRUB settings.."));
+    KProgressDialog progressDlg(this, i18nc("@title:window", "Saving"), i18nc("@info:progress", "Saving GRUB settings..."));
     progressDlg.setAllowCancel(false);
     progressDlg.setModal(true);
     progressDlg.progressBar()->setMinimum(0);
@@ -1049,7 +1049,7 @@ bool KCMGRUB2::readDevices()
         return false;
     }
 
-    KProgressDialog progressDlg(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names.."));
+    KProgressDialog progressDlg(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names..."));
     progressDlg.setAllowCancel(false);
     progressDlg.setModal(true);
     progressDlg.show();
