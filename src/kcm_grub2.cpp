@@ -110,7 +110,7 @@ void KCMGRUB2::load()
 
                     QString uuidDir = "/dev/disk/by-uuid/", uuid = volume->uuid(), name;
                     name = (QFile::exists((name = uuidDir + uuid)) || QFile::exists((name = uuidDir + uuid.toLower())) || QFile::exists((name = uuidDir + uuid.toUpper())) ? QFile::symLinkTarget(name) : QString());
-                    QTreeWidgetItem *item = new QTreeWidgetItem(ui.treeWidget_recover, QStringList(QString()) << name << partition->filePath() << volume->label() << volume->fsType() << i18n("%1 GiB", QString::number(volume->size() / 1073741824)));
+                    QTreeWidgetItem *item = new QTreeWidgetItem(ui.treeWidget_recover, QStringList(QString()) << name << partition->filePath() << volume->label() << volume->fsType() << KGlobal::locale()->formatByteSize(volume->size()));
                     item->setIcon(1, KIcon(device.icon()));
                     item->setTextAlignment(5, Qt::AlignRight | Qt::AlignVCenter);
                     ui.treeWidget_recover->addTopLevelItem(item);
