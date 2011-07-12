@@ -163,7 +163,8 @@ void KCMGRUB2::load()
         kWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
     }
     ui.checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value("GRUB_HIDDEN_TIMEOUT_QUIET")).compare("true") != 0);
-    int grubTimeout = unquoteWord(m_settings.value("GRUB_TIMEOUT")).toInt(&ok);
+    ok = m_settings.value("GRUB_TIMEOUT").isEmpty();
+    int grubTimeout = (m_settings.value("GRUB_TIMEOUT").isEmpty() ? 5 : unquoteWord(m_settings.value("GRUB_TIMEOUT")).toInt(&ok));
     if (ok && grubTimeout >= -1) {
         ui.checkBox_timeout->setChecked(grubTimeout > -1);
         ui.radioButton_timeout0->setChecked(grubTimeout == 0);
@@ -182,7 +183,7 @@ void KCMGRUB2::load()
     }
     ui.checkBox_osProber->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_OS_PROBER")).compare("true") != 0);
 
-    QString grubGfxmode = unquoteWord(m_settings.value("GRUB_GFXMODE"));
+    QString grubGfxmode = (m_settings.value("GRUB_GFXMODE").isEmpty() ? "640x480" : unquoteWord(m_settings.value("GRUB_GFXMODE")));
     if (!grubGfxmode.isEmpty() && grubGfxmode.compare("640x480") != 0 && !m_resolutions.contains(grubGfxmode)) {
         m_resolutions.append(grubGfxmode);
     }
@@ -1013,9 +1014,6 @@ bool KCMGRUB2::readSettings()
     }
 
     m_settings.clear();
-    m_settings["GRUB_DEFAULT"] = "0";
-    m_settings["GRUB_TIMEOUT"] = "5";
-    m_settings["GRUB_GFXMODE"] = "640x480";
     parseSettings(fileContents);
     return !m_settings.isEmpty();
 }
