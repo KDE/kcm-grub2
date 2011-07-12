@@ -1009,13 +1009,10 @@ bool KCMGRUB2::readEntries()
 bool KCMGRUB2::readSettings()
 {
     QString fileContents = readFile(Settings::configPath());
-    if (fileContents.isEmpty()) {
-        return false;
-    }
 
     m_settings.clear();
     parseSettings(fileContents);
-    return !m_settings.isEmpty();
+    return true;
 }
 bool KCMGRUB2::readEnv()
 {
