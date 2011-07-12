@@ -183,15 +183,15 @@ void KCMGRUB2::load()
     }
     ui.checkBox_osProber->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_OS_PROBER")).compare("true") != 0);
 
+    m_resolutions.append("640x480");
     QString grubGfxmode = (m_settings.value("GRUB_GFXMODE").isEmpty() ? "640x480" : unquoteWord(m_settings.value("GRUB_GFXMODE")));
-    if (!grubGfxmode.isEmpty() && grubGfxmode.compare("640x480") != 0 && !m_resolutions.contains(grubGfxmode)) {
+    if (!grubGfxmode.isEmpty() && !m_resolutions.contains(grubGfxmode)) {
         m_resolutions.append(grubGfxmode);
     }
     QString grubGfxpayloadLinux = unquoteWord(m_settings.value("GRUB_GFXPAYLOAD_LINUX"));
     if (!grubGfxpayloadLinux.isEmpty() && grubGfxpayloadLinux.compare("text") != 0 && grubGfxpayloadLinux.compare("keep") != 0 && !m_resolutions.contains(grubGfxpayloadLinux)) {
         m_resolutions.append(grubGfxpayloadLinux);
     }
-    m_resolutions.append("640x480");
     sortResolutions();
     showResolutions();
     ui.comboBox_gfxmode->setCurrentIndex(ui.comboBox_gfxmode->findData(grubGfxmode));
