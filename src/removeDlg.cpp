@@ -62,26 +62,27 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
         found = true;
         QString packageName = package.takeFirst();
         QString packageVersion = package.takeFirst();
-        QList<QTreeWidgetItem *> list = ui.treeWidget->findItems(packageVersion, Qt::MatchEndsWith);
-        if (list.isEmpty()) {
-            QTreeWidgetItem *branchItem = new QTreeWidgetItem(ui.treeWidget, QStringList(i18nc("@item:inlistbox", "Kernel %1", packageVersion)));
-            branchItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
-            branchItem->setData(0, Qt::UserRole, packageName);
-            branchItem->setCheckState(0, Qt::Checked);
-            ui.treeWidget->addTopLevelItem(branchItem);
-            branchItem->addChild(new QTreeWidgetItem(QStringList(entries.at(i))));
-        } else {
-            list.at(0)->addChild(new QTreeWidgetItem(QStringList(entries.at(i))));
+        QTreeWidgetItem *item = 0;
+        for (int j = 0; j < ui.treeWidget->topLevelItemCount(); j++) {
+            if (ui.treeWidget->topLevelItem(j)->data(0, Qt::UserRole).toString() == packageName && ui.treeWidget->topLevelItem(j)->data(0, Qt::UserRole + 1).toString() == packageVersion) {
+                item = ui.treeWidget->topLevelItem(j);
+                break;
+            }
         }
+        if (!item) {
+            item = new QTreeWidgetItem(ui.treeWidget, QStringList(i18nc("@item:inlistbox", "Kernel %1 (%2)", packageVersion, packageName)));
+            item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
+            item->setData(0, Qt::UserRole, packageName);
+            item->setData(0, Qt::UserRole + 1, packageVersion);
+            item->setCheckState(0, Qt::Checked);
+            ui.treeWidget->addTopLevelItem(item);
+        }
+        item->addChild(new QTreeWidgetItem(QStringList(entries.at(i))));
     }
     if (found) {
-        int c = 0;
-        for (int i = 0; i < ui.treeWidget->topLevelItemCount(); i++) {
-            c += 1 + ui.treeWidget->topLevelItem(i)->childCount();
-        }
         ui.treeWidget->expandAll();
         ui.treeWidget->resizeColumnToContents(0);
-        ui.treeWidget->setMinimumSize(ui.treeWidget->columnWidth(0) + ui.treeWidget->sizeHintForRow(0), ui.treeWidget->sizeHintForRow(0) * c);
+        ui.treeWidget->setMinimumWidth(ui.treeWidget->columnWidth(0) + ui.treeWidget->sizeHintForRow(0));
         connect(ui.treeWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(slotItemChanged()));
         enableButtonOk(true);
     } else {
