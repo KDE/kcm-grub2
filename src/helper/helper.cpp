@@ -40,6 +40,7 @@
 Helper::Helper()
 {
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+    setPath();
 }
 
 ActionReply Helper::defaults(QVariantMap args)
@@ -201,6 +202,15 @@ ActionReply Helper::save(QVariantMap args)
 
     reply.addData("output", grub_mkconfig.readAll());
     return reply;
+}
+
+void Helper::setPath()
+{
+    KProcess echo;
+    echo.setShellCommand("echo $PATH");
+    echo.setOutputChannelMode(KProcess::OnlyStdoutChannel);
+    echo.execute();
+    setenv("PATH", echo.readAllStandardOutput().trimmed().constData(), false);
 }
 
 KDE4_AUTH_HELPER_MAIN("org.kde.kcontrol.kcmgrub2", Helper)

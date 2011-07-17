@@ -34,6 +34,8 @@ public Q_SLOTS:
     ActionReply probe(QVariantMap args);
     ActionReply probevbe(QVariantMap args);
     ActionReply save(QVariantMap args);
+private:
+    void setPath();
 };
 
 #endif
