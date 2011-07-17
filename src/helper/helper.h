@@ -25,6 +25,8 @@ using namespace KAuth;
 class Helper : public QObject
 {
     Q_OBJECT
+public:
+    Helper();
 public Q_SLOTS:
     ActionReply defaults(QVariantMap args);
     ActionReply install(QVariantMap args);

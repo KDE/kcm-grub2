@@ -1135,7 +1135,7 @@ QString KCMGRUB2::unquoteWord(const QString &word)
     echo.setShellCommand(QString("echo -n %1").arg(word));
     echo.setOutputChannelMode(KProcess::OnlyStdoutChannel);
     if (echo.execute() == 0) {
-        return QString(echo.readAllStandardOutput());
+        return QString::fromUtf8(echo.readAllStandardOutput());
     }
 
     QChar ch;

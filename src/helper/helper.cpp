@@ -21,6 +21,7 @@
 //Qt
 #include <QtCore/QDir>
 #include <QtCore/QFile>
+#include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 
 //KDE
@@ -35,6 +36,11 @@
 #undef slots
 #include <hd.h>
 #endif
+
+Helper::Helper()
+{
+    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
+}
 
 ActionReply Helper::defaults(QVariantMap args)
 {
@@ -90,6 +96,7 @@ ActionReply Helper::load(QVariantMap args)
     }
 
     QTextStream stream(&file);
+    stream.setCodec("UTF-8");
     reply.addData("fileContents", stream.readAll());
     return reply;
 }
@@ -155,6 +162,7 @@ ActionReply Helper::save(QVariantMap args)
     QFile file(configFileName);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream stream(&file);
+        stream.setCodec("UTF-8");
         stream << configFileContents;
         file.close();
     } else {
