@@ -41,7 +41,7 @@ public:
 protected Q_SLOTS:
     virtual void slotButtonClicked(int button);
 private Q_SLOTS:
-    void slotItemChanged(QListWidgetItem *item);
+    void slotItemChanged();
     void slotProgress(const QString &status, int percentage);
     void slotFinished(bool success);
 private:

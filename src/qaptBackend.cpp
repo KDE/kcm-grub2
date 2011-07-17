@@ -32,10 +32,10 @@ QAptBackend::~QAptBackend()
     delete m_backend;
 }
 
-QString QAptBackend::ownerPackage(const QString &fileName)
+QStringList QAptBackend::ownerPackage(const QString &fileName)
 {
     QApt::Package *package;
-    return (package = m_backend->packageForFile(fileName)) ? package->name() : QString();
+    return (package = m_backend->packageForFile(fileName)) ? QStringList() << package->name() << package->version() : QStringList();
 }
 void QAptBackend::markForRemoval(const QString &packageName)
 {

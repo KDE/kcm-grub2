@@ -43,6 +43,7 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
     m_backend = new QPkBackend;
 #endif
 
+    detectCurrentKernelImage();
     KProgressDialog progressDlg(this, i18nc("@title:window", "Finding Old Entries"), i18nc("@info:progress", "Finding Old Entries..."));
     progressDlg.setAllowCancel(false);
     progressDlg.setModal(true);
@@ -51,24 +52,38 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
     for (int i = 0; i < entries.size(); i++) {
         progressDlg.progressBar()->setValue(100. / entries.size() * (i + 1));
         QString file = kernels.value(entries.at(i));
-        if (file.isEmpty()) {
+        if (file.isEmpty() || file == m_currentKernelImage) {
             continue;
         }
-        QString packageName = m_backend->ownerPackage(file);
-        if (!packageName.isEmpty()) {
-            QListWidgetItem *item = new QListWidgetItem(entries.at(i), ui.klistwidget);
-            item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
-            item->setData(Qt::UserRole, packageName);
-            item->setData(Qt::UserRole + 1, file);
-            item->setCheckState(Qt::Unchecked);
-            ui.klistwidget->addItem(item);
-            found = true;
+        QStringList package = m_backend->ownerPackage(file);
+        if (package.size() < 2) {
+            continue;
+        }
+        found = true;
+        QString packageName = package.takeFirst();
+        QString packageVersion = package.takeFirst();
+        QList<QTreeWidgetItem *> list = ui.treeWidget->findItems(packageVersion, Qt::MatchEndsWith);
+        if (list.isEmpty()) {
+            QTreeWidgetItem *branchItem = new QTreeWidgetItem(ui.treeWidget, QStringList(i18nc("@item:inlistbox", "Kernel %1", packageVersion)));
+            branchItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
+            branchItem->setData(0, Qt::UserRole, packageName);
+            branchItem->setCheckState(0, Qt::Checked);
+            ui.treeWidget->addTopLevelItem(branchItem);
+            branchItem->addChild(new QTreeWidgetItem(QStringList(entries.at(i))));
+        } else {
+            list.at(0)->addChild(new QTreeWidgetItem(QStringList(entries.at(i))));
         }
     }
     if (found) {
-        ui.klistwidget->setMinimumSize(ui.klistwidget->sizeHintForColumn(0) + ui.klistwidget->sizeHintForRow(0), ui.klistwidget->sizeHintForRow(0) * ui.klistwidget->count());
-        connect(ui.klistwidget, SIGNAL(itemChanged(QListWidgetItem*)), this, SLOT(slotItemChanged(QListWidgetItem*)));
-        detectCurrentKernelImage();
+        int c = 0;
+        for (int i = 0; i < ui.treeWidget->topLevelItemCount(); i++) {
+            c += 1 + ui.treeWidget->topLevelItem(i)->childCount();
+        }
+        ui.treeWidget->expandAll();
+        ui.treeWidget->resizeColumnToContents(0);
+        ui.treeWidget->setMinimumSize(ui.treeWidget->columnWidth(0) + ui.treeWidget->sizeHintForRow(0), ui.treeWidget->sizeHintForRow(0) * c);
+        connect(ui.treeWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(slotItemChanged()));
+        enableButtonOk(true);
     } else {
         KMessageBox::sorry(this, i18nc("@info", "No removable entries were found."));
         QTimer::singleShot(0, this, SLOT(reject()));
@@ -81,10 +96,9 @@ RemoveDialog::~RemoveDialog()
 void RemoveDialog::slotButtonClicked(int button)
 {
     if (button == KDialog::Ok) {
-        QStringList packageNames;
-        for (int i = 0; i < ui.klistwidget->count(); i++) {
-            if (ui.klistwidget->item(i)->checkState() == Qt::Checked) {
-                QString packageName = ui.klistwidget->item(i)->data(Qt::UserRole).toString();
+        for (int i = 0; i < ui.treeWidget->topLevelItemCount(); i++) {
+            if (ui.treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
+                QString packageName = ui.treeWidget->topLevelItem(i)->data(0, Qt::UserRole).toString();
                 m_backend->markForRemoval(packageName);
                 if (ui.checkBox_headers->isChecked()) {
                     packageName.replace("image", "headers");
@@ -103,25 +117,15 @@ void RemoveDialog::slotButtonClicked(int button)
     }
     KDialog::slotButtonClicked(button);
 }
-void RemoveDialog::slotItemChanged(QListWidgetItem *item)
+void RemoveDialog::slotItemChanged()
 {
-    bool state = false;
-    ui.klistwidget->blockSignals(true);
-    for (int i = 0; i < ui.klistwidget->count(); i++) {
-        if (ui.klistwidget->item(i)->data(Qt::UserRole) == item->data(Qt::UserRole)) {
-            ui.klistwidget->item(i)->setCheckState(item->checkState());
-        }
-        if (ui.klistwidget->item(i)->checkState() == Qt::Checked) {
-            state = true;
+    for (int i = 0; i < ui.treeWidget->topLevelItemCount(); i++) {
+        if (ui.treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
+            enableButtonOk(true);
+            return;
         }
     }
-    ui.klistwidget->blockSignals(false);
-    enableButtonOk(state);
-    if (item->checkState() == Qt::Checked && item->data(Qt::UserRole + 1).toString().compare(m_currentKernelImage) == 0) {
-        if (KMessageBox::warningYesNo(this, i18nc("@info", "This is your current kernel!<br/>Are you sure you want to remove it?")) == KMessageBox::No) {
-            item->setCheckState(Qt::Unchecked);
-        }
-    }
+    enableButtonOk(false);
 }
 void RemoveDialog::slotProgress(const QString &status, int percentage)
 {

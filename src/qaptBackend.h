@@ -31,7 +31,7 @@ public:
     explicit QAptBackend(QObject *parent = 0);
     virtual ~QAptBackend();
 
-    QString ownerPackage(const QString &fileName);
+    QStringList ownerPackage(const QString &fileName);
     void markForRemoval(const QString &packageName);
     QStringList markedForRemoval() const;
     void removePackages();

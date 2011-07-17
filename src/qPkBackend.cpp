@@ -149,11 +149,11 @@ QPkBackend::~QPkBackend()
 {
 }
 
-QString QPkBackend::ownerPackage(const QString &fileName)
+QStringList QPkBackend::ownerPackage(const QString &fileName)
 {
     PackageKit::Transaction t(QString(), this);
     if (t.error() != PackageKit::Client::NoError) {
-        return QString();
+        return QStringList();
     }
     QEventLoop loop;
     connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), &loop, SLOT(quit()));
@@ -161,7 +161,7 @@ QString QPkBackend::ownerPackage(const QString &fileName)
     connect(&t, SIGNAL(package(QSharedPointer<PackageKit::Package>)), this, SLOT(slotPackage(QSharedPointer<PackageKit::Package>)));
     t.searchFiles(fileName);
     loop.exec();
-    return m_status == PackageKit::Enum::ExitSuccess && !m_package.isNull() ? m_package->name() : QString();
+    return m_status == PackageKit::Enum::ExitSuccess && !m_package.isNull() ? QStringList() << m_package->name() << m_package->version() : QStringList();
 }
 void QPkBackend::markForRemoval(const QString &packageName)
 {
