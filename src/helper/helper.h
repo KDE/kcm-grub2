@@ -35,6 +35,7 @@ public Q_SLOTS:
     ActionReply probevbe(QVariantMap args);
     ActionReply save(QVariantMap args);
 private:
+    QString findExe(const QStringList &list);
     void setPath();
 };
 
