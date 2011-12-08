@@ -54,6 +54,7 @@ Comment[zh_CN]=定制 GRUB2 启动加载器
 Comment[zh_TW]=設定 GRUB2 開機載入器
 X-KDE-Keywords=grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader
 X-KDE-Keywords[nl]=grub,boot,menu,items,standaard,timeout,wachtwoord,kleur,splash,afbeelding,bootloader
+X-KDE-Keywords[pt]=grub,arranque,menu,itens,predefinido,tempo-limite,senha,cor,ecrã inicial,imagem,gestor de arranque
 X-KDE-Keywords[pt_BR]=grub,inicialização,menu,entradas,padrão,tempo de espera,senha,boot,cor,splash,imagem,carregador de inicialização
 X-KDE-Keywords[sv]=grub,start,meny,alternativ,förval,tidsgräns,lösenord,färg,startskärm,bild,startprogram
 X-KDE-Keywords[uk]=grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,завантаження,меню,записи,типовий,час очікування,тайм-аут,пароль,паролі,колір,кольори,вітання,вікно,зображення,завантажувач
