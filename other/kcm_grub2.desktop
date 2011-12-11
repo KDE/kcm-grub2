@@ -59,4 +59,5 @@ X-KDE-Keywords[pt_BR]=grub,inicialização,menu,entradas,padrão,tempo de espera
 X-KDE-Keywords[sv]=grub,start,meny,alternativ,förval,tidsgräns,lösenord,färg,startskärm,bild,startprogram
 X-KDE-Keywords[uk]=grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,завантаження,меню,записи,типовий,час очікування,тайм-аут,пароль,паролі,колір,кольори,вітання,вікно,зображення,завантажувач
 X-KDE-Keywords[x-test]=xxgrub,boot,menu,entries,default,timeout,password,color,splash,image,bootloaderxx
+X-KDE-Keywords[zh_TW]=grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader
 Categories=Qt;KDE;X-KDE-settings-system;
