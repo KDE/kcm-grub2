@@ -55,17 +55,9 @@ ActionReply Helper::defaults(QVariantMap args)
 ActionReply Helper::install(QVariantMap args)
 {
     ActionReply reply;
+    QString installExePath = args.value("installExePath").toString();
     QString partition = args.value("partition").toString();
     QString mountPoint = args.value("mountPoint").toString();
-
-    QStringList grub_installExes;
-    grub_installExes << "grub-install" << "grub2-install";
-    QString grub_installExe = findExe(grub_installExes);
-    if (grub_installExe.isEmpty()) {
-        reply = ActionReply::HelperErrorReply;
-        reply.addData("output", i18nc("@info", "Could not locate <command>%1</command> executable.", grub_installExes.first()));
-        return reply;
-    }
 
     if (mountPoint.isEmpty()) {
         for (int i = 0; QDir(mountPoint = QString("%1/kcm-grub2-%2").arg(QDir::tempPath(), QString::number(i))).exists(); i++);
@@ -86,7 +78,7 @@ ActionReply Helper::install(QVariantMap args)
     }
 
     KProcess grub_install;
-    grub_install.setShellCommand(QString("%1 --root-directory=%2 %3").arg(grub_installExe, KShell::quoteArg(mountPoint), KShell::quoteArg(partition.remove(QRegExp("\\d+")))));
+    grub_install.setShellCommand(QString("%1 --root-directory=%2 %3").arg(installExePath, KShell::quoteArg(mountPoint), KShell::quoteArg(partition.remove(QRegExp("\\d+")))));
     grub_install.setOutputChannelMode(KProcess::MergedChannels);
     if (grub_install.execute() != 0) {
         reply = ActionReply::HelperErrorReply;
@@ -117,22 +109,14 @@ ActionReply Helper::load(QVariantMap args)
 ActionReply Helper::probe(QVariantMap args)
 {
     ActionReply reply;
+    QString probeExePath = args.value("probeExePath").toString();
     QStringList mountPoints = args.value("mountPoints").toStringList();
-
-    QStringList grub_probeExes;
-    grub_probeExes << "grub-probe" << "grub2-probe";
-    QString grub_probeExe = findExe(grub_probeExes);
-    if (grub_probeExe.isEmpty()) {
-        reply = ActionReply::HelperErrorReply;
-        reply.addData("output", i18nc("@info", "Could not locate <command>%1</command> executable.", grub_probeExes.first()));
-        return reply;
-    }
 
     KProcess grub_probe;
     QStringList grubPartitions;
     HelperSupport::progressStep(0);
     for (int i = 0; i < mountPoints.size(); i++) {
-        grub_probe.setShellCommand(QString("%1 -t drive %2").arg(grub_probeExe, KShell::quoteArg(mountPoints.at(i))));
+        grub_probe.setShellCommand(QString("%1 -t drive %2").arg(probeExePath, KShell::quoteArg(mountPoints.at(i))));
         grub_probe.setOutputChannelMode(KProcess::MergedChannels);
         if (grub_probe.execute() != 0) {
             reply = ActionReply::HelperErrorReply;
@@ -173,29 +157,14 @@ ActionReply Helper::probevbe(QVariantMap args)
 ActionReply Helper::save(QVariantMap args)
 {
     ActionReply reply;
+    QString mkconfigExePath = args.value("mkconfigExePath").toString();
+    QString set_defaultExePath = args.value("set_defaultExePath").toString();
     QString configFileName = args.value("configFileName").toString();
     QString configFileContents = args.value("configFileContents").toString();
     QString menuFileName = args.value("menuFileName").toString();
     QString defaultEntry = args.value("defaultEntry").toString();
     QString memtestFileName = args.value("memtestFileName").toString();
     bool memtest = args.value("memtest").toBool();
-
-    QStringList grub_mkconfigExes;
-    grub_mkconfigExes << "grub-mkconfig" << "grub2-mkconfig";
-    QString grub_mkconfigExe = findExe(grub_mkconfigExes);
-    if (grub_mkconfigExe.isEmpty()) {
-        reply = ActionReply::HelperErrorReply;
-        reply.addData("output", i18nc("@info", "Could not locate <command>%1</command> executable.", grub_mkconfigExes.first()));
-        return reply;
-    }
-    QStringList grub_set_defaultExes;
-    grub_set_defaultExes << "grub-set-default" << "grub2-set-default";
-    QString grub_set_defaultExe = findExe(grub_set_defaultExes);
-    if (grub_set_defaultExe.isEmpty()) {
-        reply = ActionReply::HelperErrorReply;
-        reply.addData("output", i18nc("@info", "Could not locate <command>%1</command> executable.", grub_set_defaultExes.first()));
-        return reply;
-    }
 
     QFile::copy(configFileName, configFileName + ".original");
 
@@ -222,7 +191,7 @@ ActionReply Helper::save(QVariantMap args)
     }
 
     KProcess grub_mkconfig;
-    grub_mkconfig.setShellCommand(QString("%1 -o %2").arg(grub_mkconfigExe, KShell::quoteArg(menuFileName)));
+    grub_mkconfig.setShellCommand(QString("%1 -o %2").arg(mkconfigExePath, KShell::quoteArg(menuFileName)));
     grub_mkconfig.setOutputChannelMode(KProcess::MergedChannels);
     if (grub_mkconfig.execute() != 0) {
         reply = ActionReply::HelperErrorReply;
@@ -231,7 +200,7 @@ ActionReply Helper::save(QVariantMap args)
     }
 
     KProcess grub_set_default;
-    grub_set_default.setShellCommand(QString("%1 %2").arg(grub_set_defaultExe, defaultEntry));
+    grub_set_default.setShellCommand(QString("%1 %2").arg(set_defaultExePath, defaultEntry));
     grub_set_default.setOutputChannelMode(KProcess::MergedChannels);
     if (grub_set_default.execute() != 0) {
         reply = ActionReply::HelperErrorReply;
@@ -243,18 +212,6 @@ ActionReply Helper::save(QVariantMap args)
     return reply;
 }
 
-QString Helper::findExe(const QStringList &list)
-{
-    QString exe;
-    for (int i = 0; exe.isEmpty() && i < list.size(); i++) {
-        kDebug() << "Searching for" << list.at(i) << "executable";
-        exe = KStandardDirs::findExe(list.at(i));
-    }
-    if (!exe.isEmpty()) {
-        kDebug() << "Executable located at:" << exe;
-    }
-    return exe;
-}
 void Helper::setPath()
 {
     KProcess echo;

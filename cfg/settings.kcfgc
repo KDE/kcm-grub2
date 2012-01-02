@@ -1,4 +1,0 @@
-File=kcm_grub2.kcfg
-ClassName=Settings
-Singleton=true
-Mutators=true

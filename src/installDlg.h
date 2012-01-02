@@ -15,27 +15,25 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-#ifndef HELPER_H
-#define HELPER_H
+#ifndef INSTALLDLG_H
+#define INSTALLDLG_H
 
 //KDE
-#include <KAuth/ActionReply>
-using namespace KAuth;
+class KProgressDialog;
 
-class Helper : public QObject
+//Ui
+#include "ui_installDlg.h"
+
+class InstallDialog : public KDialog
 {
     Q_OBJECT
 public:
-    Helper();
-public Q_SLOTS:
-    ActionReply defaults(QVariantMap args);
-    ActionReply install(QVariantMap args);
-    ActionReply load(QVariantMap args);
-    ActionReply probe(QVariantMap args);
-    ActionReply probevbe(QVariantMap args);
-    ActionReply save(QVariantMap args);
+    explicit InstallDialog(const QString installExePath, QWidget *parent = 0, Qt::WFlags flags = 0);
+protected Q_SLOTS:
+    virtual void slotButtonClicked(int button);
 private:
-    void setPath();
+    QString m_installExePath;
+    Ui::InstallDialog ui;
 };
 
 #endif

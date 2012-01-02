@@ -31,6 +31,5 @@ macro_bool_to_01(QPACKAGEKIT_FOUND HAVE_QPACKAGEKIT)
 macro_display_feature_log()
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
 
-add_subdirectory(cfg)
 add_subdirectory(other)
 add_subdirectory(src)
