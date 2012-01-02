@@ -697,7 +697,7 @@ void KCMGRUB2::setupObjects()
     m_dirtyBits.resize(lastDirtyBit);
 
     ui.kpushbutton_reload->setIcon(KIcon("view-refresh"));
-    ui.kpushbutton_install->setIcon(KIcon("computer"));
+    ui.kpushbutton_install->setIcon(KIcon("system-software-update"));
     ui.kpushbutton_remove->setIcon(KIcon("list-remove"));
     ui.kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
 
