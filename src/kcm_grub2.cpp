@@ -24,7 +24,6 @@
 //KDE
 #include <KAboutData>
 #include <KDebug>
-#include <KFileDialog>
 #include <KInputDialog>
 #include <KMenu>
 #include <KMessageBox>

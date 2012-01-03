@@ -20,16 +20,14 @@
 
 //Qt
 #include <QtCore/QDir>
-#include <QtCore/QFile>
 #include <QtCore/QTextCodec>
 #include <QtCore/QTextStream>
 
 //KDE
-#include <KDebug>
+#include <KGlobal>
 #include <KLocale>
 #include <KProcess>
 #include <KShell>
-#include <KStandardDirs>
 #include <KAuth/HelperSupport>
 
 //Project
