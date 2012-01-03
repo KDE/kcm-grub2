@@ -101,31 +101,35 @@ void KCMGRUB2::load()
 
     bool ok;
     ui.comboBox_default->clear();
-    Q_FOREACH(const QString &entry, m_entries) {
-        ui.comboBox_default->addItem(unquoteWord(entry), entry);
-    }
-    int entryIndex = ui.comboBox_default->findText(m_settings.value("GRUB_DEFAULT"));
-    if (entryIndex != -1) {
-        ui.comboBox_default->setCurrentIndex(entryIndex);
-    } else {
-        entryIndex = unquoteWord(m_settings.value("GRUB_DEFAULT")).toInt(&ok);
-        if (ok && entryIndex >= 0 && entryIndex < m_entries.size()) {
+    if (m_entries.size() > 0) {
+        Q_FOREACH(const QString &entry, m_entries) {
+            ui.comboBox_default->addItem(unquoteWord(entry), entry);
+        }
+        int entryIndex = ui.comboBox_default->findText(m_settings.value("GRUB_DEFAULT"));
+        if (entryIndex != -1) {
             ui.comboBox_default->setCurrentIndex(entryIndex);
         } else {
-            kWarning() << "Invalid GRUB_DEFAULT value";
+            entryIndex = unquoteWord(m_settings.value("GRUB_DEFAULT")).toInt(&ok);
+            if (ok && entryIndex >= 0 && entryIndex < m_entries.size()) {
+                ui.comboBox_default->setCurrentIndex(entryIndex);
+            } else {
+                kWarning() << "Invalid GRUB_DEFAULT value";
+            }
         }
     }
+    ui.kpushbutton_remove->setEnabled(m_entries.size() > 0);
     ui.checkBox_savedefault->setChecked(unquoteWord(m_settings.value("GRUB_SAVEDEFAULT")).compare("true") == 0);
 
-    int grubHiddenTimeout = unquoteWord(m_settings.value("GRUB_HIDDEN_TIMEOUT")).toInt(&ok);
-    if (ok && grubHiddenTimeout >= 0) {
-        ui.checkBox_hiddenTimeout->setChecked(grubHiddenTimeout > 0);
-        ui.spinBox_hiddenTimeout->setValue(grubHiddenTimeout);
-    } else {
-        kWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
+    if (!m_settings.value("GRUB_HIDDEN_TIMEOUT").isEmpty()) {
+        int grubHiddenTimeout = unquoteWord(m_settings.value("GRUB_HIDDEN_TIMEOUT")).toInt(&ok);
+        if (ok && grubHiddenTimeout >= 0) {
+            ui.checkBox_hiddenTimeout->setChecked(grubHiddenTimeout > 0);
+            ui.spinBox_hiddenTimeout->setValue(grubHiddenTimeout);
+        } else {
+            kWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
+        }
     }
     ui.checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value("GRUB_HIDDEN_TIMEOUT_QUIET")).compare("true") != 0);
-    ok = m_settings.value("GRUB_TIMEOUT").isEmpty();
     int grubTimeout = (m_settings.value("GRUB_TIMEOUT").isEmpty() ? 5 : unquoteWord(m_settings.value("GRUB_TIMEOUT")).toInt(&ok));
     if (ok && grubTimeout >= -1) {
         ui.checkBox_timeout->setChecked(grubTimeout > -1);
@@ -213,7 +217,9 @@ void KCMGRUB2::load()
 }
 void KCMGRUB2::save()
 {
-    m_settings["GRUB_DEFAULT"] = "saved";
+    if (m_entries.size() > 0) {
+        m_settings["GRUB_DEFAULT"] = "saved";
+    }
     if (m_dirtyBits.testBit(grubSavedefaultDirty)) {
         if (ui.checkBox_savedefault->isChecked()) {
             m_settings["GRUB_SAVEDEFAULT"] = "true";
@@ -398,7 +404,7 @@ void KCMGRUB2::save()
     saveAction.addArgument("configFileName", configPath);
     saveAction.addArgument("configFileContents", configFileContents);
     saveAction.addArgument("menuFileName", menuPath);
-    saveAction.addArgument("defaultEntry", m_entries.at(ui.comboBox_default->currentIndex()));
+    saveAction.addArgument("defaultEntry", m_entries.size() > 0 ? m_entries.at(ui.comboBox_default->currentIndex()) : m_settings.value("GRUB_DEFAULT"));
     if (m_dirtyBits.testBit(memtestDirty)) {
         saveAction.addArgument("memtestFileName", memtestPath);
         saveAction.addArgument("memtest", ui.checkBox_memtest->isChecked());
