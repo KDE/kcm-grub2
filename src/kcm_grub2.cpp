@@ -395,6 +395,7 @@ void KCMGRUB2::save()
 
     Action saveAction("org.kde.kcontrol.kcmgrub2.save");
     saveAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+    saveAction.addArgument("PATH", qgetenv("PATH"));
     saveAction.addArgument("mkconfigExePath", mkconfigExePath);
     saveAction.addArgument("set_defaultExePath", set_defaultExePath);
     saveAction.addArgument("configFileName", configPath);
