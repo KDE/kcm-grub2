@@ -155,6 +155,7 @@ QStringList QPkBackend::ownerPackage(const QString &fileName)
     if (t.error() != PackageKit::Client::NoError) {
         return QStringList();
     }
+    m_package.clear();
     QEventLoop loop;
     connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), &loop, SLOT(quit()));
     connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit,uint)));
@@ -213,6 +214,7 @@ bool QPkBackend::packageExists(const QString &packageName)
     if (t.error() != PackageKit::Client::NoError) {
         return false;
     }
+    m_package.clear();
     QEventLoop loop;
     connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), &loop, SLOT(quit()));
     connect(&t, SIGNAL(finished(PackageKit::Enum::Exit,uint)), this, SLOT(slotFinished(PackageKit::Enum::Exit,uint)));

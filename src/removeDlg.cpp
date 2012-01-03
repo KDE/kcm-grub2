@@ -71,7 +71,7 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
             }
         }
         if (!item) {
-            item = new QTreeWidgetItem(ui.treeWidget, QStringList(i18nc("@item:inlistbox", "Kernel %1 (%2)", packageVersion, packageName)));
+            item = new QTreeWidgetItem(ui.treeWidget, QStringList(i18nc("@item:inlistbox", "Kernel %1", packageVersion)));
             item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
             item->setData(0, Qt::UserRole, packageName);
             item->setData(0, Qt::UserRole + 1, packageVersion);
