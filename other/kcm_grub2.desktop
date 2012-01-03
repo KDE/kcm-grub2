@@ -56,6 +56,7 @@ X-KDE-Keywords=grub,boot,menu,entries,default,timeout,password,color,splash,imag
 X-KDE-Keywords[da]=grub,boot,menu,indgange,standard,timeout,tidsudløb,adgangskode,farve,splash,billed,bootloader
 X-KDE-Keywords[es]=grub,arranque,menú,entradas,predeterminado,cuenta atrás,contraseña,color,splash,imagen,cargador de arranque
 X-KDE-Keywords[et]=grub,alglaadimine,buutimine,kirjed,vaikimisi,aegumine,parool,värv,tiitelkuva,pilt,alglaadur
+X-KDE-Keywords[hu]=grub,betöltés,menü,bejegyzések,alapértelmezett,időtúllépés,jelszó,szín,indítóképernyő,kép,rendszerbetöltő
 X-KDE-Keywords[nl]=grub,boot,menu,items,standaard,timeout,wachtwoord,kleur,splash,afbeelding,bootloader
 X-KDE-Keywords[pt]=grub,arranque,menu,itens,predefinido,tempo-limite,senha,cor,ecrã inicial,imagem,gestor de arranque
 X-KDE-Keywords[pt_BR]=grub,inicialização,menu,entradas,padrão,tempo de espera,senha,boot,cor,splash,imagem,carregador de inicialização
