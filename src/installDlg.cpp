@@ -40,6 +40,9 @@ InstallDialog::InstallDialog(const QString installExePath, QWidget *parent, Qt::
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Install/Recover Bootloader"));
     setWindowIcon(KIcon("system-software-update"));
+    if (parent) {
+        setInitialSize(parent->size());
+    }
 
     ui.treeWidget_recover->headerItem()->setText(0, QString());
     ui.treeWidget_recover->header()->setResizeMode(QHeaderView::Stretch);
