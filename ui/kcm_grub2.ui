@@ -21,7 +21,7 @@
        <item row="0" column="0">
         <widget class="QLabel" name="label_info">
          <property name="text">
-          <string comment="@label">No valid GRUB2/BURG installation could be detected!</string>
+          <string comment="@label:">No valid GRUB2/BURG installation could be detected!</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
