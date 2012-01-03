@@ -80,8 +80,8 @@ private:
     void readEntries();
     void readSettings();
     void readEnv();
-    bool readDevices();
-    bool readResolutions();
+    void readDevices();
+    void readResolutions();
 
     void sortResolutions();
     void showResolutions();

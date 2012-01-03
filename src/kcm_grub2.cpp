@@ -970,7 +970,7 @@ void KCMGRUB2::readEnv()
     m_env.clear();
     parseEnv(fileContents);
 }
-bool KCMGRUB2::readDevices()
+void KCMGRUB2::readDevices()
 {
     QStringList mountPoints;
     Q_FOREACH(const KMountPoint::Ptr mp, KMountPoint::currentMountPoints()) {
@@ -987,7 +987,7 @@ bool KCMGRUB2::readDevices()
     probeAction.setParentWidget(this);
 #endif
     if (probeAction.authorize() != Action::Authorized) {
-        return false;
+        return;
     }
 
     KProgressDialog progressDlg(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names..."));
@@ -999,21 +999,20 @@ bool KCMGRUB2::readDevices()
     ActionReply reply = probeAction.execute();
     if (reply.failed()) {
         KMessageBox::error(this, i18nc("@info", "Failed to get GRUB device names."));
-        return false;
+        return;
     }
     QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();
     if (mountPoints.size() != grubPartitions.size()) {
         KMessageBox::error(this, i18nc("@info", "Helper returned malformed device list."));
-        return false;
+        return;
     }
 
     m_devices.clear();
     for (int i = 0; i < mountPoints.size(); i++) {
         m_devices[mountPoints.at(i)] = grubPartitions.at(i);
     }
-    return !m_devices.isEmpty();
 }
-bool KCMGRUB2::readResolutions()
+void KCMGRUB2::readResolutions()
 {
     Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
     probeVbeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
@@ -1023,12 +1022,11 @@ bool KCMGRUB2::readResolutions()
 
     ActionReply reply = probeVbeAction.execute();
     if (reply.failed()) {
-        return false;
+        return;
     }
 
     m_resolutions.clear();
     m_resolutions = reply.data().value("gfxmodes").toStringList();
-    return !m_resolutions.isEmpty();
 }
 
 void KCMGRUB2::sortResolutions()
