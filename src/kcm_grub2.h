@@ -45,6 +45,7 @@ private Q_SLOTS:
     void slotGrubDisableRecoveryChanged();
     void slotMemtestChanged();
     void slotGrubDisableOsProberChanged();
+    void slotInstallBootloader();
     void slotGrubGfxmodeChanged();
     void slotGrubGfxpayloadLinuxChanged();
     void slotGrubColorNormalChanged();
@@ -69,14 +70,16 @@ private:
     void setupObjects();
     void setupConnections();
 
+    bool check();
+
     //TODO: Maybe remove?
     QString convertToGRUBFileName(const QString &fileName);
     QString convertToLocalFileName(const QString &grubFileName);
 
     QString readFile(const QString &fileName);
-    bool readEntries();
-    bool readSettings();
-    bool readEnv();
+    void readEntries();
+    void readSettings();
+    void readEnv();
     bool readDevices();
     bool readResolutions();
 
@@ -118,6 +121,15 @@ private:
         lastDirtyBit
     };
     QBitArray m_dirtyBits;
+
+    QString installExePath;
+    QString mkconfigExePath;
+    QString probeExePath;
+    QString set_defaultExePath;
+    QString menuPath;
+    QString configPath;
+    QString envPath;
+    QString memtestPath;
 
     QStringList m_entries;
     QHash<QString, QString> m_kernels;
