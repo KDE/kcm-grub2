@@ -34,6 +34,7 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
     setMainWidget(widget);
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Remove Old Entries"));
+    setWindowIcon(KIcon("list-remove"));
 
     m_progressDlg = 0;
 
