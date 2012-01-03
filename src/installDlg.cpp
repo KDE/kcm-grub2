@@ -44,11 +44,11 @@ InstallDialog::InstallDialog(const QString installExePath, QWidget *parent, Qt::
         setInitialSize(parent->size());
     }
 
+    m_installExePath = installExePath;
+
     ui.treeWidget_recover->headerItem()->setText(0, QString());
     ui.treeWidget_recover->header()->setResizeMode(QHeaderView::Stretch);
     ui.treeWidget_recover->header()->setResizeMode(0, QHeaderView::ResizeToContents);
-
-    m_installExePath = installExePath;
     Q_FOREACH(Solid::Device device, Solid::Device::listFromType(Solid::DeviceInterface::StorageAccess)) {
         if (!device.is<Solid::StorageAccess>() || !device.is<Solid::StorageVolume>()) {
             continue;

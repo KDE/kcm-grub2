@@ -60,6 +60,9 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
     ui.setupUi(this);
     setupObjects();
     setupConnections();
+    if (check()) {
+        ui.stackedWidget->setCurrentIndex(1);
+    }
 }
 
 void KCMGRUB2::defaults()
@@ -82,14 +85,9 @@ void KCMGRUB2::defaults()
 }
 void KCMGRUB2::load()
 {
-    ui.stackedWidget->setCurrentIndex(0);
-    ui.label_info->setText(i18nc("@label:progress", "Checking for a valid GRUB2/BURG installation..."));
-    if (!check()) {
-        ui.label_info->setText(i18nc("@label", "No valid GRUB2/BURG installation could be detected!"));
+    if (ui.stackedWidget->currentIndex() == 0) {
         return;
     }
-
-    ui.stackedWidget->setCurrentIndex(1);
 
     readEntries();
     readSettings();
