@@ -445,10 +445,11 @@ void KCMGRUB2::slotRemoveOldEntries()
     Q_FOREACH(const QString &entry, m_entries) {
         entries.append(unquoteWord(entry));
     }
-    RemoveDialog removeDlg(entries, m_kernels, this);
-    if (removeDlg.exec()) {
+    QPointer<RemoveDialog> removeDlg = new RemoveDialog(entries, m_kernels, this);
+    if (removeDlg->exec()) {
         load();
     }
+    delete removeDlg;
 #endif
 }
 void KCMGRUB2::slotGrubSavedefaultChanged()
@@ -569,11 +570,12 @@ void KCMGRUB2::slotPreviewGrubBackground()
 void KCMGRUB2::slotCreateGrubBackground()
 {
 #if HAVE_IMAGEMAGICK
-    ConvertDialog convertDlg(this);
+    QPointer<ConvertDialog> convertDlg = new ConvertDialog(this);
     QString resolution = ui.kcombobox_gfxmode->itemData(ui.kcombobox_gfxmode->currentIndex()).toString();
-    convertDlg.setResolution(resolution.section('x', 0, 0).toInt(), resolution.section('x', 1, 1).toInt());
-    connect(&convertDlg, SIGNAL(splashImageCreated(QString)), ui.kurlrequester_background, SLOT(setText(QString)));
-    convertDlg.exec();
+    convertDlg->setResolution(resolution.section('x', 0, 0).toInt(), resolution.section('x', 1, 1).toInt());
+    connect(convertDlg, SIGNAL(splashImageCreated(QString)), ui.kurlrequester_background, SLOT(setText(QString)));
+    convertDlg->exec();
+    delete convertDlg;
 #endif
 }
 void KCMGRUB2::slotGrubThemeChanged()
