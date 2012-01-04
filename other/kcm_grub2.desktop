@@ -53,6 +53,7 @@ Comment[x-test]=xxCustomise the GRUB2 bootloaderxx
 Comment[zh_CN]=定制 GRUB2 启动加载器
 Comment[zh_TW]=設定 GRUB2 開機載入器
 X-KDE-Keywords=grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader
+X-KDE-Keywords[ca]=grub,arrencada,menú,entrades,omissió,temps d'expiració,contrasenya,color,benvinguda,imatge,carregador d'arrencada
 X-KDE-Keywords[da]=grub,boot,menu,indgange,standard,timeout,tidsudløb,adgangskode,farve,splash,billed,bootloader
 X-KDE-Keywords[es]=grub,arranque,menú,entradas,predeterminado,cuenta atrás,contraseña,color,splash,imagen,cargador de arranque
 X-KDE-Keywords[et]=grub,alglaadimine,buutimine,kirjed,vaikimisi,aegumine,parool,värv,tiitelkuva,pilt,alglaadur
