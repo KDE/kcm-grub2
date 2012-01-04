@@ -158,7 +158,7 @@ void RemoveDialog::detectCurrentKernelImage()
 
     QTextStream stream(&file);
     Q_FOREACH(const QString &argument, stream.readAll().split(QRegExp("\\s+"))) {
-        if (argument.startsWith("BOOT_IMAGE")) {
+        if (argument.startsWith(QLatin1String("BOOT_IMAGE"))) {
             m_currentKernelImage = argument.section('=', 1);
             return;
         }

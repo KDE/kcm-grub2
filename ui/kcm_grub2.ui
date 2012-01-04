@@ -39,7 +39,7 @@
          </property>
          <widget class="QWidget" name="tab">
           <attribute name="title">
-           <string comment="@title:tab">General</string>
+           <string comment="@title:tab Refers to settings.">General</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_5">
            <item row="1" column="0">
@@ -230,7 +230,7 @@
               <item row="0" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
-                 <widget class="QComboBox" name="comboBox_default">
+                 <widget class="KComboBox" name="kcombobox_default">
                   <property name="sizeAdjustPolicy">
                    <enum>QComboBox::AdjustToContents</enum>
                   </property>
@@ -276,7 +276,7 @@
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QComboBox" name="comboBox_gfxmode">
+               <widget class="KComboBox" name="kcombobox_gfxmode">
                 <property name="sizeAdjustPolicy">
                  <enum>QComboBox::AdjustToContents</enum>
                 </property>
@@ -290,7 +290,7 @@
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QComboBox" name="comboBox_gfxpayload">
+               <widget class="KComboBox" name="kcombobox_gfxpayload">
                 <property name="sizeAdjustPolicy">
                  <enum>QComboBox::AdjustToContents</enum>
                 </property>
@@ -315,7 +315,7 @@
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QComboBox" name="comboBox_normalForeground"/>
+                 <widget class="KComboBox" name="kcombobox_normalForeground"/>
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_highlightForeground">
@@ -325,7 +325,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QComboBox" name="comboBox_highlightForeground"/>
+                 <widget class="KComboBox" name="kcombobox_highlightForeground"/>
                 </item>
                </layout>
               </item>
@@ -339,7 +339,7 @@
                  </widget>
                 </item>
                 <item row="0" column="1">
-                 <widget class="QComboBox" name="comboBox_normalBackground"/>
+                 <widget class="KComboBox" name="kcombobox_normalBackground"/>
                 </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="label_highlightBackground">
@@ -349,7 +349,7 @@
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QComboBox" name="comboBox_highlightBackground"/>
+                 <widget class="KComboBox" name="kcombobox_highlightBackground"/>
                 </item>
                </layout>
               </item>
@@ -359,7 +359,7 @@
            <item row="2" column="0">
             <widget class="QGroupBox" name="groupBox_background">
              <property name="title">
-              <string comment="@title:group">Background</string>
+              <string comment="@title:group Refers to the image shown behind the boot menu.">Background</string>
              </property>
              <layout class="QFormLayout" name="formLayout_12">
               <item row="0" column="0">
@@ -420,7 +420,7 @@
          </widget>
          <widget class="QWidget" name="tab_2">
           <attribute name="title">
-           <string comment="@title:tab">Advanced</string>
+           <string comment="@title:tab Refers to settings.">Advanced</string>
           </attribute>
           <layout class="QGridLayout" name="gridLayout_2">
            <item row="0" column="0">
@@ -439,7 +439,7 @@
               <item row="0" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_cmdlineDefault"/>
+                 <widget class="KLineEdit" name="klineedit_cmdlineDefault"/>
                 </item>
                 <item>
                  <widget class="KPushButton" name="kpushbutton_cmdlineDefaultSuggestions">
@@ -460,7 +460,7 @@
               <item row="1" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_cmdline"/>
+                 <widget class="KLineEdit" name="klineedit_cmdline"/>
                 </item>
                 <item>
                  <widget class="KPushButton" name="kpushbutton_cmdlineSuggestions">
@@ -477,20 +477,20 @@
            <item row="1" column="0">
             <widget class="QGroupBox" name="groupBox_terminal">
              <property name="title">
-              <string comment="@title:group">Terminal</string>
+              <string comment="@title:group Noun.">Terminal</string>
              </property>
              <layout class="QFormLayout" name="formLayout_7">
               <item row="0" column="0">
                <widget class="QLabel" name="label_terminal">
                 <property name="text">
-                 <string comment="@label:textbox">Terminal:</string>
+                 <string comment="@label:textbox Noun.">Terminal:</string>
                 </property>
                </widget>
               </item>
               <item row="0" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout_4">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_terminal"/>
+                 <widget class="KLineEdit" name="klineedit_terminal"/>
                 </item>
                 <item>
                  <widget class="KPushButton" name="kpushbutton_terminalSuggestions">
@@ -511,7 +511,7 @@
               <item row="1" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout_5">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_terminalInput"/>
+                 <widget class="KLineEdit" name="klineedit_terminalInput"/>
                 </item>
                 <item>
                  <widget class="KPushButton" name="kpushbutton_terminalInputSuggestions">
@@ -532,7 +532,7 @@
               <item row="2" column="1">
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_terminalOutput"/>
+                 <widget class="KLineEdit" name="klineedit_terminalOutput"/>
                 </item>
                 <item>
                  <widget class="KPushButton" name="kpushbutton_terminalOutputSuggestions">
@@ -549,7 +549,7 @@
            <item row="2" column="0">
             <widget class="QGroupBox" name="groupBox_other">
              <property name="title">
-              <string comment="@title:group">Other</string>
+              <string comment="@title:group Refers to settings.">Other</string>
              </property>
              <layout class="QFormLayout" name="formLayout_5">
               <item row="0" column="0">
@@ -560,7 +560,7 @@
                </widget>
               </item>
               <item row="0" column="1">
-               <widget class="QLineEdit" name="lineEdit_distributor"/>
+               <widget class="KLineEdit" name="klineedit_distributor"/>
               </item>
               <item row="1" column="0">
                <widget class="QLabel" name="label_serial">
@@ -570,7 +570,7 @@
                </widget>
               </item>
               <item row="1" column="1">
-               <widget class="QLineEdit" name="lineEdit_serial"/>
+               <widget class="KLineEdit" name="klineedit_serial"/>
               </item>
               <item row="2" column="0">
                <widget class="QLabel" name="label_initTune">
@@ -580,7 +580,7 @@
                </widget>
               </item>
               <item row="2" column="1">
-               <widget class="QLineEdit" name="lineEdit_initTune"/>
+               <widget class="KLineEdit" name="klineedit_initTune"/>
               </item>
               <item row="3" column="0">
                <widget class="QLabel" name="label_uuid">
@@ -642,6 +642,16 @@
   </layout>
  </widget>
  <customwidgets>
+  <customwidget>
+   <class>KComboBox</class>
+   <extends>QComboBox</extends>
+   <header>kcombobox.h</header>
+  </customwidget>
+  <customwidget>
+   <class>KLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>klineedit.h</header>
+  </customwidget>
   <customwidget>
    <class>KPushButton</class>
    <extends>QPushButton</extends>

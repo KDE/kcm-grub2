@@ -31,7 +31,7 @@ class KCMGRUB2 : public KCModule
 {
     Q_OBJECT
 public:
-    KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
+    explicit KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
 
     virtual void defaults();
     virtual void load();

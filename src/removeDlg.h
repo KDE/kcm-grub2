@@ -22,7 +22,7 @@
 class KProgressDialog;
 
 //Project
-#include "config.h"
+#include <config.h>
 #if HAVE_QAPT
 #include "qaptBackend.h"
 #elif HAVE_QPACKAGEKIT

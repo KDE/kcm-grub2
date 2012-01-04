@@ -49,11 +49,11 @@ InstallDialog::InstallDialog(const QString installExePath, QWidget *parent, Qt::
     ui.treeWidget_recover->headerItem()->setText(0, QString());
     ui.treeWidget_recover->header()->setResizeMode(QHeaderView::Stretch);
     ui.treeWidget_recover->header()->setResizeMode(0, QHeaderView::ResizeToContents);
-    Q_FOREACH(Solid::Device device, Solid::Device::listFromType(Solid::DeviceInterface::StorageAccess)) {
+    Q_FOREACH(const Solid::Device &device, Solid::Device::listFromType(Solid::DeviceInterface::StorageAccess)) {
         if (!device.is<Solid::StorageAccess>() || !device.is<Solid::StorageVolume>()) {
             continue;
         }
-        Solid::StorageAccess *partition = device.as<Solid::StorageAccess>();
+        const Solid::StorageAccess *partition = device.as<Solid::StorageAccess>();
         if (!partition) {
             continue;
         }
@@ -116,7 +116,7 @@ void InstallDialog::slotButtonClicked(int button)
             dialog->setModal(true);
             dialog->setDefaultButton(KDialog::Ok);
             dialog->setEscapeButton(KDialog::Ok);
-            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString());
+            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString()); // krazy:exclude=qclasses
         } else {
             QString output = reply.data().value("output").toString();
             if (output.isEmpty()) {
