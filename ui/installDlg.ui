@@ -50,7 +50,7 @@
      </column>
      <column>
       <property name="text">
-       <string>Mountpoint</string>
+       <string comment="@title:column">Mountpoint</string>
       </property>
      </column>
      <column>

@@ -498,7 +498,7 @@ void KCMGRUB2::slotGrubGfxmodeChanged()
     if (ui.comboBox_gfxmode->currentIndex() == 0) {
         bool ok;
         QRegExpValidator regExp(QRegExp("\\d{3,4}x\\d{3,4}(x\\d{1,2})?"), this);
-        QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter resolution"), i18nc("@label:textbox", "Please enter a GRUB resolution:"), QString(), &ok, this, &regExp);
+        QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter screen resolution"), i18nc("@label:textbox", "Please enter a GRUB resolution:"), QString(), &ok, this, &regExp);
         if (ok) {
             if (!m_resolutions.contains(resolution)) {
                 QString gfxpayload = ui.comboBox_gfxpayload->itemData(ui.comboBox_gfxpayload->currentIndex()).toString();
@@ -520,7 +520,7 @@ void KCMGRUB2::slotGrubGfxpayloadLinuxChanged()
     if (ui.comboBox_gfxpayload->currentIndex() == 0) {
         bool ok;
         QRegExpValidator regExp(QRegExp("\\d{3,4}x\\d{3,4}(x\\d{1,2})?"), this);
-        QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter resolution"), i18nc("@label:textbox", "Please enter a Linux boot resolution:"), QString(), &ok, this, &regExp);
+        QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter screen resolution"), i18nc("@label:textbox", "Please enter a Linux boot resolution:"), QString(), &ok, this, &regExp);
         if (ok) {
             if (!m_resolutions.contains(resolution)) {
                 QString gfxmode = ui.comboBox_gfxmode->itemData(ui.comboBox_gfxmode->currentIndex()).toString();
