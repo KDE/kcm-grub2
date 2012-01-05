@@ -1,5 +1,5 @@
 ﻿/*******************************************************************************
- * Copyright (C) 2008-2011 Konstantinos Smanis <konstantinos.smanis@gmail.com> *
+ * Copyright (C) 2008-2012 Konstantinos Smanis <konstantinos.smanis@gmail.com> *
  *                                                                             *
  * This program is free software: you can redistribute it and/or modify it     *
  * under the terms of the GNU General Public License as published by the Free  *
@@ -51,7 +51,7 @@ K_EXPORT_PLUGIN(GRUB2Factory("kcmgrub2"))
 
 KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Factory::componentData(), parent, list)
 {
-    KAboutData *about = new KAboutData("kcmgrub2", "kcm-grub2", ki18nc("@title", "KDE GRUB2 Bootloader Control Module"), KCM_GRUB2_VERSION, ki18nc("@title", "A KCModule for configuring the GRUB2 bootloader."), KAboutData::License_GPL_V3, ki18nc("@info:credit", "Copyright (C) 2008-2011 Konstantinos Smanis"), KLocalizedString(), "http://kde-apps.org/content/show.php?content=139643");
+    KAboutData *about = new KAboutData("kcmgrub2", "kcm-grub2", ki18nc("@title", "KDE GRUB2 Bootloader Control Module"), KCM_GRUB2_VERSION, ki18nc("@title", "A KCModule for configuring the GRUB2 bootloader."), KAboutData::License_GPL_V3, ki18nc("@info:credit", "Copyright (C) 2008-2012 Konstantinos Smanis"), KLocalizedString(), "http://kde-apps.org/content/show.php?content=139643");
     about->addAuthor(ki18nc("@info:credit", "Κonstantinos Smanis"), ki18nc("@info:credit", "Main Developer"), "konstantinos.smanis@gmail.com", "http://ksmanis.wordpress.com/");
     setAboutData(about);
 
