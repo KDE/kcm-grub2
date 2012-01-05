@@ -4,7 +4,7 @@ set -u
 WD=$(pwd)
 APP=kcm-grub2
 VERSION="0.5.0"
-MODULE=playground
+MODULE=extragear
 SUBMODULE=sysadmin
 THRESHOLD=80
 
