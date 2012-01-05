@@ -1,4 +1,4 @@
-This is a KCModule for configuring the GRUB2 bootloader.
+A KDE Control Module for configuring the GRUB2 bootloader.
 
 Smoothly integrated in KDE System Settings, it is the central place for managing your GRUB2 configuration. Supports many GRUB2 configuration options, most notably:
 
@@ -16,10 +16,9 @@ Extra features include:
 * Remove old entries
 * Create and preview GRUB2 splash images
 
-Related Blog: http://ksmanis.wordpress.com/category/grub2-kcmodule/
+Related Blog: http://ksmanis.wordpress.com/category/grub2-editor/
 SourceForge Page: https://sourceforge.net/projects/kcm-grub2/
 KDE-Apps.org Page: http://kde-apps.org/content/show.php?content=139643
+KDE Extragear Page: https://projects.kde.org/projects/extragear/sysadmin/kcm-grub2
 
 For installation instructions see the INSTALL file.
-
-If you have any features in mind that you would like to see, please let me know.
