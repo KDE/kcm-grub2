@@ -156,6 +156,7 @@ void KCMGRUB2::load()
     if (!grubGfxpayloadLinux.isEmpty() && grubGfxpayloadLinux.compare("text") != 0 && grubGfxpayloadLinux.compare("keep") != 0 && !m_resolutions.contains(grubGfxpayloadLinux)) {
         m_resolutions.append(grubGfxpayloadLinux);
     }
+    m_resolutions.removeDuplicates();
     sortResolutions();
     showResolutions();
     ui.kcombobox_gfxmode->setCurrentIndex(ui.kcombobox_gfxmode->findData(grubGfxmode));
