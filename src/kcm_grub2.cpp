@@ -701,7 +701,6 @@ void KCMGRUB2::setupObjects()
 
     m_dirtyBits.resize(lastDirtyBit);
 
-    ui.kpushbutton_reload->setIcon(KIcon("view-refresh"));
     ui.kpushbutton_install->setIcon(KIcon("system-software-update"));
     ui.kpushbutton_remove->setIcon(KIcon("list-remove"));
     ui.kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
@@ -817,9 +816,6 @@ void KCMGRUB2::setupConnections()
     connect(ui.checkBox_memtest, SIGNAL(clicked(bool)), this, SLOT(slotMemtestChanged()));
     connect(ui.checkBox_osProber, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableOsProberChanged()));
 
-    connect(ui.kpushbutton_reload, SIGNAL(clicked(bool)), this, SLOT(load()));
-    connect(ui.kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
-
     connect(ui.kcombobox_gfxmode, SIGNAL(activated(int)), this, SLOT(slotGrubGfxmodeChanged()));
     connect(ui.kcombobox_gfxpayload, SIGNAL(activated(int)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
 
@@ -854,6 +850,8 @@ void KCMGRUB2::setupConnections()
     connect(ui.klineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
     connect(ui.klineedit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
     connect(ui.checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableLinuxUuidChanged()));
+
+    connect(ui.kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
 }
 
 bool KCMGRUB2::check()
