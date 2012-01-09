@@ -1,3 +1,13 @@
+v.0.5.5 (/01/2012)
+--------------------
+*ADDED: Experimental BURG support (only commands shared with GRUB2).
+*ADDED: Option to disable Plymouth (Advanced -> Linux Kernel Arguments).
+*FIXED: Fedora/openSUSE: the GRUB installation is now properly detected.
+*FIXED: Encoding issue (UTF-8 encoding is now supported).
+*FIXED: A QPackageKit backend bug where previous results were returned.
+
+*I18N: Translations included: Catalan, Czech, Danish, German, Greek, Spanish, Estonian, French, Irish [Gaelic], Hungarian, Lithuanian, Dutch, Panjabi/Punjabi, Polish, Portuguese, Brazilian Portuguese, Russian, Swedish, Ukrainian, Traditional Chinese.
+
 v.0.5.0 (09/05/2011)
 --------------------
 *ADDED: Recover GRUB2 (from a Live CD).
