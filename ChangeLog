@@ -1,4 +1,4 @@
-v.0.5.5 (/01/2012)
+v.0.5.5 (09/01/2012)
 --------------------
 *ADDED: Experimental BURG support (only commands shared with GRUB2).
 *ADDED: Option to disable Plymouth (Advanced -> Linux Kernel Arguments).
