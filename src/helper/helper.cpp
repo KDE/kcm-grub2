@@ -40,6 +40,7 @@
 Helper::Helper()
 {
     KGlobal::locale()->insertCatalog("kcm-grub2");
+    //TODO: system encoding should be sent from the core application
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 }
 
@@ -99,7 +100,6 @@ ActionReply Helper::load(QVariantMap args)
     }
 
     QTextStream stream(&file);
-    stream.setCodec("UTF-8");
     reply.addData("fileContents", stream.readAll());
     return reply;
 }
@@ -169,7 +169,6 @@ ActionReply Helper::save(QVariantMap args)
     QFile file(configFileName);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         QTextStream stream(&file);
-        stream.setCodec("UTF-8");
         stream << configFileContents;
         file.close();
     } else {
