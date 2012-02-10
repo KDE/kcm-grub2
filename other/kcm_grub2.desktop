@@ -40,6 +40,7 @@ Comment=Customize the GRUB2 bootloader
 Comment[ca]=Personalitza el gestor d'arrencada Grub2
 Comment[cs]=Upravit zavaděč GRUB2
 Comment[da]=Tilpas GRUB2-bootloaderen
+Comment[de]=GRUB2-Bootloader einrichten
 Comment[el]=Προσαρμογή του προγράμματος εκκίνησης GRUB2
 Comment[es]=Personalizar el cargador de arranque de GRUB2
 Comment[et]=GRUB2 alglaaduri kohandamine
