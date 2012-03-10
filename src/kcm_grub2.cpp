@@ -855,12 +855,29 @@ void KCMGRUB2::setupConnections()
     connect(ui.kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
 }
 
+QString KCMGRUB2::findExe(const QString &exeName)
+{
+    QString exePath = KStandardDirs::findExe(exeName);
+    if (!exePath.isEmpty()) {
+        return exePath;
+    }
+    KProcess whereis;
+    whereis << "whereis" << "-b" << exeName;
+    whereis.setOutputChannelMode(KProcess::OnlyStdoutChannel);
+    if (whereis.execute() == 0) {
+        QString output = whereis.readAllStandardOutput();
+        if (output.startsWith(exeName + ':')) {
+            return output.mid(exeName.length() + 1).trimmed();
+        }
+    }
+    return QString();
+}
 bool KCMGRUB2::check()
 {
-    installExePath = KStandardDirs::findExe("grub-install");
-    mkconfigExePath = KStandardDirs::findExe("grub-mkconfig");
-    probeExePath = KStandardDirs::findExe("grub-probe");
-    set_defaultExePath = KStandardDirs::findExe("grub-set-default");
+    installExePath = findExe("grub-install");
+    mkconfigExePath = findExe("grub-mkconfig");
+    probeExePath = findExe("grub-probe");
+    set_defaultExePath = findExe("grub-set-default");
     if (!installExePath.isEmpty() && !mkconfigExePath.isEmpty() && !probeExePath.isEmpty() && !set_defaultExePath.isEmpty()) {
         kDebug() << "GRUB2 installation detected!";
         menuPath = "/boot/grub/grub.cfg";
@@ -869,10 +886,10 @@ bool KCMGRUB2::check()
         memtestPath = "/etc/grub.d/20_memtest86+";
         return true;
     }
-    installExePath = KStandardDirs::findExe("grub2-install");
-    mkconfigExePath = KStandardDirs::findExe("grub2-mkconfig");
-    probeExePath = KStandardDirs::findExe("grub2-probe");
-    set_defaultExePath = KStandardDirs::findExe("grub2-set-default");
+    installExePath = findExe("grub2-install");
+    mkconfigExePath = findExe("grub2-mkconfig");
+    probeExePath = findExe("grub2-probe");
+    set_defaultExePath = findExe("grub2-set-default");
     if (!installExePath.isEmpty() && !mkconfigExePath.isEmpty() && !probeExePath.isEmpty() && !set_defaultExePath.isEmpty()) {
         kDebug() << "GRUB2 (RPM) installation detected!";
         menuPath = "/boot/grub2/grub.cfg";
@@ -881,10 +898,10 @@ bool KCMGRUB2::check()
         memtestPath = "/etc/grub.d/20_memtest86+";
         return true;
     }
-    installExePath = KStandardDirs::findExe("burg-install");
-    mkconfigExePath = KStandardDirs::findExe("burg-mkconfig");
-    probeExePath = KStandardDirs::findExe("burg-probe");
-    set_defaultExePath = KStandardDirs::findExe("burg-set-default");
+    installExePath = findExe("burg-install");
+    mkconfigExePath = findExe("burg-mkconfig");
+    probeExePath = findExe("burg-probe");
+    set_defaultExePath = findExe("burg-set-default");
     if (!installExePath.isEmpty() && !mkconfigExePath.isEmpty() && !probeExePath.isEmpty() && !set_defaultExePath.isEmpty()) {
         kDebug() << "BURG installation detected!";
         menuPath = "/boot/burg/burg.cfg";

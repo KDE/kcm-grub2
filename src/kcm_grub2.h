@@ -70,6 +70,7 @@ private:
     void setupObjects();
     void setupConnections();
 
+    QString findExe(const QString &exeName);
     bool check();
 
     //TODO: Maybe remove?
