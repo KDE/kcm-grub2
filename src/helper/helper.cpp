@@ -89,6 +89,7 @@ ActionReply Helper::install(QVariantMap args)
     QString installExePath = args.value("installExePath").toString();
     QString partition = args.value("partition").toString();
     QString mountPoint = args.value("mountPoint").toString();
+    bool mbrInstall = args.value("mbrInstall").toBool();
 
     if (mountPoint.isEmpty()) {
         for (int i = 0; QDir(mountPoint = QString("%1/kcm-grub2-%2").arg(QDir::tempPath(), QString::number(i))).exists(); i++);
@@ -118,7 +119,7 @@ ActionReply Helper::install(QVariantMap args)
     }
 
     KProcess grub_install;
-    grub_install.setShellCommand(QString("%1 --root-directory=%2 %3").arg(installExePath, KShell::quoteArg(mountPoint), KShell::quoteArg(partition.remove(QRegExp("\\d+")))));
+    grub_install.setShellCommand(QString("%1 --root-directory=%2 %3").arg(installExePath, KShell::quoteArg(mountPoint), KShell::quoteArg(mbrInstall ? partition.remove(QRegExp("\\d+")) : partition)));
     grub_install.setOutputChannelMode(KProcess::MergedChannels);
     if (grub_install.execute() != 0) {
         reply = ActionReply::HelperErrorReply;

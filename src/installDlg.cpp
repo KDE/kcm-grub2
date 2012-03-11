@@ -85,6 +85,7 @@ void InstallDialog::slotButtonClicked(int button)
                 installAction.addArgument("installExePath", m_installExePath);
                 installAction.addArgument("partition", ui.treeWidget_recover->topLevelItem(i)->text(1));
                 installAction.addArgument("mountPoint", ui.treeWidget_recover->topLevelItem(i)->text(2));
+                installAction.addArgument("mbrInstall", !ui.checkBox_partition->isChecked());
                 break;
             }
         }
