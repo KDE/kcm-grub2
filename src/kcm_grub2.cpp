@@ -81,7 +81,7 @@ void KCMGRUB2::defaults()
         save();
         KMessageBox::information(this, i18nc("@info", "Successfully restored the default values."));
     } else {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), reply.data().value("output").toString());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
     }
 }
 void KCMGRUB2::load()
@@ -438,7 +438,7 @@ void KCMGRUB2::save()
         KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString()); // krazy:exclude=qclasses
         load();
     } else {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), reply.data().value("output").toString());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
     }
 }
 
@@ -964,7 +964,7 @@ QString KCMGRUB2::readFile(const QString &fileName)
     ActionReply reply = loadAction.execute();
     if (reply.failed()) {
         kError() << "Error reading:" << fileName;
-        kError() << "Error description:" << reply.data().value("output").toString();
+        kError() << "Error description:" << (KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
         return QString();
     }
     return reply.data().value("fileContents").toString();
@@ -1019,7 +1019,7 @@ void KCMGRUB2::readDevices()
 
     ActionReply reply = probeAction.execute();
     if (reply.failed()) {
-        KMessageBox::error(this, i18nc("@info", "Failed to get GRUB device names."));
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to get GRUB device names."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
         return;
     }
     QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();
