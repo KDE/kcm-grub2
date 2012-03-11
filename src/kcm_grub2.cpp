@@ -493,8 +493,9 @@ void KCMGRUB2::slotGrubDisableOsProberChanged()
 }
 void KCMGRUB2::slotInstallBootloader()
 {
-    InstallDialog installDlg(installExePath, this);
-    installDlg.exec();
+    QPointer<InstallDialog> installDlg = new InstallDialog(installExePath, this);
+    installDlg->exec();
+    delete installDlg;
 }
 void KCMGRUB2::slotGrubGfxmodeChanged()
 {
