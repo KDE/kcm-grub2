@@ -119,7 +119,11 @@ ActionReply Helper::install(QVariantMap args)
     }
 
     KProcess grub_install;
-    grub_install.setShellCommand(QString("%1 --root-directory=%2 %3").arg(installExePath, KShell::quoteArg(mountPoint), KShell::quoteArg(mbrInstall ? partition.remove(QRegExp("\\d+")) : "--force " + partition)));
+    if (mbrInstall) {
+        grub_install.setShellCommand(QString("%1 --root-directory=%2 %3").arg(installExePath, KShell::quoteArg(mountPoint), KShell::quoteArg(partition.remove(QRegExp("\\d+")))));
+    } else {
+        grub_install.setShellCommand(QString("%1 --root-directory=%2 --force %3").arg(installExePath, KShell::quoteArg(mountPoint), KShell::quoteArg(partition)));
+    }
     grub_install.setOutputChannelMode(KProcess::MergedChannels);
     if (grub_install.execute() != 0) {
         reply = ActionReply::HelperErrorReply;
