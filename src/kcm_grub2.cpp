@@ -81,7 +81,7 @@ void KCMGRUB2::defaults()
         save();
         KMessageBox::information(this, i18nc("@info", "Successfully restored the default values."));
     } else {
-        KMessageBox::error(this, i18nc("@info", "Failed to restore the default values."));
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), reply.data().value("output").toString());
     }
 }
 void KCMGRUB2::load()

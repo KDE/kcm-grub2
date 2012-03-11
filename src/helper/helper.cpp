@@ -46,9 +46,26 @@ Helper::Helper()
 
 ActionReply Helper::defaults(QVariantMap args)
 {
+    ActionReply reply;
     QString configFileName = args.value("configFileName").toString();
     QString originalConfigFileName = configFileName + ".original";
-    return (QFile::exists(originalConfigFileName) && QFile::remove(configFileName) && QFile::copy(originalConfigFileName, configFileName) ? ActionReply::SuccessReply : ActionReply::HelperErrorReply);
+
+    if (!QFile::exists(originalConfigFileName)) {
+        reply = ActionReply::HelperErrorReply;
+        reply.addData("output", i18nc("@info", "Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName));
+        return reply;
+    }
+    if (!QFile::remove(configFileName)) {
+        reply = ActionReply::HelperErrorReply;
+        reply.addData("output", i18nc("@info", "Cannot remove current configuration file <filename>%1</filename>.", configFileName));
+        return reply;
+    }
+    if (!QFile::copy(originalConfigFileName, configFileName)) {
+        reply = ActionReply::HelperErrorReply;
+        reply.addData("output", i18nc("@info", "Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName));
+        return reply;
+    }
+    return reply;
 }
 ActionReply Helper::install(QVariantMap args)
 {
