@@ -119,7 +119,7 @@ void InstallDialog::slotButtonClicked(int button)
             dialog->setEscapeButton(KDialog::Ok);
             KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString()); // krazy:exclude=qclasses
         } else {
-            KMessageBox::detailedError(this, i18nc("@info", "Failed to install GRUB."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
+            KMessageBox::detailedError(this, i18nc("@info", "Failed to install GRUB."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
         }
     }
     KDialog::slotButtonClicked(button);

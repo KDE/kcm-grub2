@@ -81,7 +81,7 @@ void KCMGRUB2::defaults()
         save();
         KMessageBox::information(this, i18nc("@info", "Successfully restored the default values."));
     } else {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
     }
 }
 void KCMGRUB2::load()
@@ -406,7 +406,7 @@ void KCMGRUB2::save()
     saveAction.addArgument("configFileName", configPath);
     saveAction.addArgument("configFileContents", configFileContents);
     saveAction.addArgument("menuFileName", menuPath);
-    saveAction.addArgument("defaultEntry", m_entries.size() > 0 ? m_entries.at(ui.kcombobox_default->currentIndex()) : m_settings.value("GRUB_DEFAULT"));
+    saveAction.addArgument("defaultEntry", m_entries.size() > 0 ? ui.kcombobox_default->currentText() : m_settings.value("GRUB_DEFAULT"));
     if (m_dirtyBits.testBit(memtestDirty)) {
         saveAction.addArgument("memtestFileName", memtestPath);
         saveAction.addArgument("memtest", ui.checkBox_memtest->isChecked());
@@ -438,7 +438,7 @@ void KCMGRUB2::save()
         KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString()); // krazy:exclude=qclasses
         load();
     } else {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
     }
 }
 
@@ -964,7 +964,7 @@ QString KCMGRUB2::readFile(const QString &fileName)
     ActionReply reply = loadAction.execute();
     if (reply.failed()) {
         kError() << "Error reading:" << fileName;
-        kError() << "Error description:" << (KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
+        kError() << "Error description:" << (KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
         return QString();
     }
     return reply.data().value("fileContents").toString();
@@ -1019,7 +1019,7 @@ void KCMGRUB2::readDevices()
 
     ActionReply reply = probeAction.execute();
     if (reply.failed()) {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to get GRUB device names."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("output").toString());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to get GRUB device names."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
         return;
     }
     QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();

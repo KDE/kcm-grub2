@@ -24,6 +24,7 @@
 #include <QtCore/QTextStream>
 
 //KDE
+#include <KDebug>
 #include <kdeversion.h>
 #include <KGlobal>
 #include <KLocale>
@@ -45,6 +46,50 @@ Helper::Helper()
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 }
 
+ActionReply Helper::executeCommand(const QStringList &command)
+{
+    ActionReply reply;
+    reply.addData("command", command);
+
+    KProcess process;
+    process.setProgram(command);
+    process.setOutputChannelMode(KProcess::MergedChannels);
+
+    kDebug() << "Executing" << command.join(" ");
+    int exitCode = process.execute();
+    reply.addData("exitCode", exitCode);
+    QString output = QString::fromUtf8(process.readAll());
+    reply.addData("output", output);
+
+    if (exitCode == 0) {
+        return reply;
+    }
+
+    QString errorMessage;
+    switch (exitCode) {
+    case -2:
+        errorMessage = i18nc("@info", "The process could not be started.");
+        break;
+    case -1:
+        errorMessage = i18nc("@info", "The process crashed.");
+        break;
+    default:
+        errorMessage = output;
+        break;
+    }
+    QString errorDescription = i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", command.join(" "), QString::number(exitCode), errorMessage);
+
+    reply = ActionReply::HelperErrorReply;
+    reply.setErrorCode(exitCode);
+    reply.addData("errorMessage", errorMessage);
+#if KDE_IS_VERSION(4,7,0)
+    reply.setErrorDescription(errorDescription);
+#else
+    reply.addData("errorDescription", errorDescription);
+#endif
+    return reply;
+}
+
 ActionReply Helper::defaults(QVariantMap args)
 {
     ActionReply reply;
@@ -53,31 +98,31 @@ ActionReply Helper::defaults(QVariantMap args)
 
     if (!QFile::exists(originalConfigFileName)) {
         reply = ActionReply::HelperErrorReply;
-        QString errorMessage = i18nc("@info", "Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName);
+        QString errorDescription = i18nc("@info", "Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName);
 #if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(errorMessage);
+        reply.setErrorDescription(errorDescription);
 #else
-        reply.addData("output", errorMessage);
+        reply.addData("errorDescription", errorDescription);
 #endif
         return reply;
     }
     if (!QFile::remove(configFileName)) {
         reply = ActionReply::HelperErrorReply;
-        QString errorMessage = i18nc("@info", "Cannot remove current configuration file <filename>%1</filename>.", configFileName);
+        QString errorDescription = i18nc("@info", "Cannot remove current configuration file <filename>%1</filename>.", configFileName);
 #if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(errorMessage);
+        reply.setErrorDescription(errorDescription);
 #else
-        reply.addData("output", errorMessage);
+        reply.addData("errorDescription", errorDescription);
 #endif
         return reply;
     }
     if (!QFile::copy(originalConfigFileName, configFileName)) {
         reply = ActionReply::HelperErrorReply;
-        QString errorMessage = i18nc("@info", "Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName);
+        QString errorDescription = i18nc("@info", "Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName);
 #if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(errorMessage);
+        reply.setErrorDescription(errorDescription);
 #else
-        reply.addData("output", errorMessage);
+        reply.addData("errorDescription", errorDescription);
 #endif
         return reply;
     }
@@ -93,50 +138,30 @@ ActionReply Helper::install(QVariantMap args)
 
     if (mountPoint.isEmpty()) {
         for (int i = 0; QDir(mountPoint = QString("%1/kcm-grub2-%2").arg(QDir::tempPath(), QString::number(i))).exists(); i++);
-        if (QDir().mkpath(mountPoint)) {
-            KProcess mount;
-            mount.setShellCommand(QString("mount %1 %2").arg(KShell::quoteArg(partition), KShell::quoteArg(mountPoint)));
-            mount.setOutputChannelMode(KProcess::MergedChannels);
-            if (mount.execute() != 0) {
-                reply = ActionReply::HelperErrorReply;
-#if KDE_IS_VERSION(4,7,0)
-                reply.setErrorDescription(mount.readAll());
-#else
-                reply.addData("output", mount.readAll());
-#endif
-                return reply;
-            }
-        } else {
+        if (!QDir().mkpath(mountPoint)) {
             reply = ActionReply::HelperErrorReply;
-            QString errorMessage = i18nc("@info", "Failed to create temporary mount point.");
+            QString errorDescription = i18nc("@info", "Failed to create temporary mount point.");
 #if KDE_IS_VERSION(4,7,0)
-            reply.setErrorDescription(errorMessage);
+            reply.setErrorDescription(errorDescription);
 #else
-            reply.addData("output", errorMessage);
+            reply.addData("errorDescription", errorDescription);
 #endif
             return reply;
         }
+        ActionReply mountReply = executeCommand(QStringList() << "mount" << partition << mountPoint);
+        if (mountReply.failed()) {
+            return mountReply;
+        }
     }
 
-    KProcess grub_install;
+    QStringList grub_installCommand;
+    grub_installCommand << installExePath << "--root-directory" << mountPoint;
     if (mbrInstall) {
-        grub_install.setShellCommand(QString("%1 --root-directory=%2 %3").arg(installExePath, KShell::quoteArg(mountPoint), KShell::quoteArg(partition.remove(QRegExp("\\d+")))));
+        grub_installCommand << partition.remove(QRegExp("\\d+"));
     } else {
-        grub_install.setShellCommand(QString("%1 --root-directory=%2 --force %3").arg(installExePath, KShell::quoteArg(mountPoint), KShell::quoteArg(partition)));
+        grub_installCommand << "--force" << partition;
     }
-    grub_install.setOutputChannelMode(KProcess::MergedChannels);
-    if (grub_install.execute() != 0) {
-        reply = ActionReply::HelperErrorReply;
-#if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(grub_install.readAll());
-#else
-        reply.addData("output", grub_install.readAll());
-#endif
-        return reply;
-    }
-
-    reply.addData("output", grub_install.readAll());
-    return reply;
+    return executeCommand(grub_installCommand);
 }
 ActionReply Helper::load(QVariantMap args)
 {
@@ -149,7 +174,7 @@ ActionReply Helper::load(QVariantMap args)
 #if KDE_IS_VERSION(4,7,0)
         reply.setErrorDescription(file.errorString());
 #else
-        reply.addData("output", file.errorString());
+        reply.addData("errorDescription", file.errorString());
 #endif
         return reply;
     }
@@ -164,22 +189,14 @@ ActionReply Helper::probe(QVariantMap args)
     QString probeExePath = args.value("probeExePath").toString();
     QStringList mountPoints = args.value("mountPoints").toStringList();
 
-    KProcess grub_probe;
     QStringList grubPartitions;
     HelperSupport::progressStep(0);
     for (int i = 0; i < mountPoints.size(); i++) {
-        grub_probe.setShellCommand(QString("%1 -t drive %2").arg(probeExePath, KShell::quoteArg(mountPoints.at(i))));
-        grub_probe.setOutputChannelMode(KProcess::MergedChannels);
-        if (grub_probe.execute() != 0) {
-            reply = ActionReply::HelperErrorReply;
-#if KDE_IS_VERSION(4,7,0)
-            reply.setErrorDescription(grub_probe.readAll());
-#else
-            reply.addData("output", grub_probe.readAll());
-#endif
-            return reply;
+        ActionReply grub_probeReply = executeCommand(QStringList() << probeExePath << "-t" << "drive" << mountPoints.at(i));
+        if (grub_probeReply.failed()) {
+            return grub_probeReply;
         }
-        grubPartitions.append(grub_probe.readAll().trimmed());
+        grubPartitions.append(grub_probeReply.data().value("output").toString().trimmed());
         HelperSupport::progressStep((i + 1) * 100. / mountPoints.size());
     }
 
@@ -226,19 +243,18 @@ ActionReply Helper::save(QVariantMap args)
     QFile::copy(configFileName, configFileName + ".original");
 
     QFile file(configFileName);
-    if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        stream << configFileContents;
-        file.close();
-    } else {
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         reply = ActionReply::HelperErrorReply;
 #if KDE_IS_VERSION(4,7,0)
         reply.setErrorDescription(file.errorString());
 #else
-        reply.addData("output", file.errorString());
+        reply.addData("errorDescription", file.errorString());
 #endif
         return reply;
     }
+    QTextStream stream(&file);
+    stream << configFileContents;
+    file.close();
 
     if (args.contains("memtest")) {
         QFile::Permissions permissions = QFile::permissions(memtestFileName);
@@ -250,34 +266,17 @@ ActionReply Helper::save(QVariantMap args)
         QFile::setPermissions(memtestFileName, permissions);
     }
 
-    KProcess grub_mkconfig;
-    grub_mkconfig.setShellCommand(QString("%1 -o %2").arg(mkconfigExePath, KShell::quoteArg(menuFileName)));
-    grub_mkconfig.setOutputChannelMode(KProcess::MergedChannels);
-    if (grub_mkconfig.execute() != 0) {
-        reply = ActionReply::HelperErrorReply;
-#if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(grub_mkconfig.readAll());
-#else
-        reply.addData("output", grub_mkconfig.readAll());
-#endif
-        return reply;
+    ActionReply grub_mkconfigReply = executeCommand(QStringList() << mkconfigExePath << "-o" << menuFileName);
+    if (grub_mkconfigReply.failed()) {
+        return grub_mkconfigReply;
     }
 
-    KProcess grub_set_default;
-    grub_set_default.setShellCommand(QString("%1 %2").arg(set_defaultExePath, defaultEntry));
-    grub_set_default.setOutputChannelMode(KProcess::MergedChannels);
-    if (grub_set_default.execute() != 0) {
-        reply = ActionReply::HelperErrorReply;
-#if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(grub_set_default.readAll());
-#else
-        reply.addData("output", grub_set_default.readAll());
-#endif
-        return reply;
+    ActionReply grub_set_defaultReply = executeCommand(QStringList() << set_defaultExePath << defaultEntry);
+    if (grub_set_defaultReply.failed()) {
+        return grub_set_defaultReply;
     }
 
-    reply.addData("output", grub_mkconfig.readAll());
-    return reply;
+    return grub_mkconfigReply;
 }
 
 KDE4_AUTH_HELPER_MAIN("org.kde.kcontrol.kcmgrub2", Helper)

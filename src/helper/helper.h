@@ -27,6 +27,8 @@ class Helper : public QObject
     Q_OBJECT
 public:
     Helper();
+private:
+    ActionReply executeCommand(const QStringList &command);
 public Q_SLOTS:
     ActionReply defaults(QVariantMap args);
     ActionReply install(QVariantMap args);
