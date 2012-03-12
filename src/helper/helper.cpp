@@ -29,7 +29,6 @@
 #include <KGlobal>
 #include <KLocale>
 #include <KProcess>
-#include <KShell>
 #include <KAuth/HelperSupport>
 
 //Project
