@@ -6,7 +6,7 @@ APP=kcm-grub2
 VERSION="0.5.5"
 MODULE=extragear
 SUBMODULE=sysadmin
-THRESHOLD=80
+THRESHOLD=75
 
 echo "== Start =="
 echo
