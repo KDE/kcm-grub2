@@ -25,118 +25,118 @@
 static QString statusToString(PackageKit::Enum::Status status)
 {
     switch (status) {
-    case PackageKit::Enum::LastStatus :
-    case PackageKit::Enum::UnknownStatus :
+    case PackageKit::Enum::LastStatus:
+    case PackageKit::Enum::UnknownStatus:
         return i18nc("This is when the transaction status is not known",
-        "Unknown state");
-    case PackageKit::Enum::StatusSetup :
+                     "Unknown state");
+    case PackageKit::Enum::StatusSetup:
         return i18nc("transaction state, the daemon is in the process of starting",
-        "Waiting for service to start");
-    case PackageKit::Enum::StatusWait :
+                     "Waiting for service to start");
+    case PackageKit::Enum::StatusWait:
         return i18nc("transaction state, the transaction is waiting for another to complete",
-        "Waiting for other tasks");
-    case PackageKit::Enum::StatusRunning :
+                     "Waiting for other tasks");
+    case PackageKit::Enum::StatusRunning:
         return i18nc("transaction state, just started",
-        "Running task");
-    case PackageKit::Enum::StatusQuery :
+                     "Running task");
+    case PackageKit::Enum::StatusQuery:
         return i18nc("transaction state, is querying data",
-        "Querying");
-    case PackageKit::Enum::StatusInfo :
+                     "Querying");
+    case PackageKit::Enum::StatusInfo:
         return i18nc("transaction state, getting data from a server",
-        "Getting information");
-    case PackageKit::Enum::StatusRemove :
+                     "Getting information");
+    case PackageKit::Enum::StatusRemove:
         return i18nc("transaction state, removing packages",
-        "Removing packages");
-    case PackageKit::Enum::StatusDownload :
+                     "Removing packages");
+    case PackageKit::Enum::StatusDownload:
         return i18nc("transaction state, downloading package files",
-        "Downloading packages");
-    case PackageKit::Enum::StatusInstall :
+                     "Downloading packages");
+    case PackageKit::Enum::StatusInstall:
         return i18nc("transaction state, installing packages",
-        "Installing packages");
-    case PackageKit::Enum::StatusRefreshCache :
+                     "Installing packages");
+    case PackageKit::Enum::StatusRefreshCache:
         return i18nc("transaction state, refreshing internal lists",
-        "Refreshing software list");
-    case PackageKit::Enum::StatusUpdate :
+                     "Refreshing software list");
+    case PackageKit::Enum::StatusUpdate:
         return i18nc("transaction state, installing updates",
-        "Updating packages");
-    case PackageKit::Enum::StatusCleanup :
+                     "Updating packages");
+    case PackageKit::Enum::StatusCleanup:
         return i18nc("transaction state, removing old packages, and cleaning config files",
-        "Cleaning up packages");
-    case PackageKit::Enum::StatusObsolete :
+                     "Cleaning up packages");
+    case PackageKit::Enum::StatusObsolete:
         return i18nc("transaction state, obsoleting old packages",
-        "Obsoleting packages");
-    case PackageKit::Enum::StatusDepResolve :
+                     "Obsoleting packages");
+    case PackageKit::Enum::StatusDepResolve:
         return i18nc("transaction state, checking the transaction before we do it",
-        "Resolving dependencies");
-    case PackageKit::Enum::StatusSigCheck :
+                     "Resolving dependencies");
+    case PackageKit::Enum::StatusSigCheck:
         return i18nc("transaction state, checking if we have all the security keys for the operation",
-        "Checking signatures");
-    case PackageKit::Enum::StatusRollback :
+                     "Checking signatures");
+    case PackageKit::Enum::StatusRollback:
         return i18nc("transaction state, when we return to a previous system state",
-        "Rolling back");
-    case PackageKit::Enum::StatusTestCommit :
+                     "Rolling back");
+    case PackageKit::Enum::StatusTestCommit:
         return i18nc("transaction state, when we're doing a test transaction",
-        "Testing changes");
-    case PackageKit::Enum::StatusCommit :
+                     "Testing changes");
+    case PackageKit::Enum::StatusCommit:
         return i18nc("transaction state, when we're writing to the system package database",
-        "Committing changes");
-    case PackageKit::Enum::StatusRequest :
+                     "Committing changes");
+    case PackageKit::Enum::StatusRequest:
         return i18nc("transaction state, requesting data from a server",
-        "Requesting data");
-    case PackageKit::Enum::StatusFinished :
+                     "Requesting data");
+    case PackageKit::Enum::StatusFinished:
         return i18nc("transaction state, all done!",
-        "Finished");
-    case PackageKit::Enum::StatusCancel :
+                     "Finished");
+    case PackageKit::Enum::StatusCancel:
         return i18nc("transaction state, in the process of cancelling",
-        "Cancelling");
-    case PackageKit::Enum::StatusDownloadRepository :
+                     "Cancelling");
+    case PackageKit::Enum::StatusDownloadRepository:
         return i18nc("transaction state, downloading metadata",
-        "Downloading repository information");
-    case PackageKit::Enum::StatusDownloadPackagelist :
+                     "Downloading repository information");
+    case PackageKit::Enum::StatusDownloadPackagelist:
         return i18nc("transaction state, downloading metadata",
-        "Downloading list of packages");
-    case PackageKit::Enum::StatusDownloadFilelist :
+                     "Downloading list of packages");
+    case PackageKit::Enum::StatusDownloadFilelist:
         return i18nc("transaction state, downloading metadata",
-        "Downloading file lists");
-    case PackageKit::Enum::StatusDownloadChangelog :
+                     "Downloading file lists");
+    case PackageKit::Enum::StatusDownloadChangelog:
         return i18nc("transaction state, downloading metadata",
-        "Downloading lists of changes");
-    case PackageKit::Enum::StatusDownloadGroup :
+                     "Downloading lists of changes");
+    case PackageKit::Enum::StatusDownloadGroup:
         return i18nc("transaction state, downloading metadata",
-        "Downloading groups");
-    case PackageKit::Enum::StatusDownloadUpdateinfo :
+                     "Downloading groups");
+    case PackageKit::Enum::StatusDownloadUpdateinfo:
         return i18nc("transaction state, downloading metadata",
-        "Downloading update information");
-    case PackageKit::Enum::StatusRepackaging :
+                     "Downloading update information");
+    case PackageKit::Enum::StatusRepackaging:
         return i18nc("transaction state, repackaging delta files",
-        "Repackaging files");
-    case PackageKit::Enum::StatusLoadingCache :
+                     "Repackaging files");
+    case PackageKit::Enum::StatusLoadingCache:
         return i18nc("transaction state, loading databases",
-        "Loading cache");
-    case PackageKit::Enum::StatusScanApplications :
+                     "Loading cache");
+    case PackageKit::Enum::StatusScanApplications:
         return i18nc("transaction state, scanning for running processes",
-        "Scanning installed applications");
-    case PackageKit::Enum::StatusGeneratePackageList :
+                     "Scanning installed applications");
+    case PackageKit::Enum::StatusGeneratePackageList:
         return i18nc("transaction state, generating a list of packages installed on the system",
-        "Generating package lists");
-    case PackageKit::Enum::StatusWaitingForLock :
+                     "Generating package lists");
+    case PackageKit::Enum::StatusWaitingForLock:
         return i18nc("transaction state, when we're waiting for the native tools to exit",
-        "Waiting for package manager lock");
-    case PackageKit::Enum::StatusWaitingForAuth :
+                     "Waiting for package manager lock");
+    case PackageKit::Enum::StatusWaitingForAuth:
         return i18nc("waiting for user to type in a password",
-        "Waiting for authentication");
-    case PackageKit::Enum::StatusScanProcessList :
+                     "Waiting for authentication");
+    case PackageKit::Enum::StatusScanProcessList:
         return i18nc("we are updating the list of processes",
-        "Updating the list of running applications");
-    case PackageKit::Enum::StatusCheckExecutableFiles :
+                     "Updating the list of running applications");
+    case PackageKit::Enum::StatusCheckExecutableFiles:
         return i18nc("we are checking executable files in use",
-        "Checking for applications currently in use");
-    case PackageKit::Enum::StatusCheckLibraries :
+                     "Checking for applications currently in use");
+    case PackageKit::Enum::StatusCheckLibraries:
         return i18nc("we are checking for libraries in use",
-        "Checking for libraries currently in use");
-    case PackageKit::Enum::StatusCopyFiles :
+                     "Checking for libraries currently in use");
+    case PackageKit::Enum::StatusCopyFiles:
         return i18nc("we are copying package files to prepare to install",
-        "Copying files");
+                     "Copying files");
     }
     return QString();
 }
