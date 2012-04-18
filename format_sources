@@ -1,0 +1,1 @@
+*.cpp *.cc *.h : astyle --indent=spaces=4 --brackets=linux --indent-labels --pad-oper --unpad-paren --pad-header --keep-one-line-statements --convert-tabs --indent-preprocessor $TMPFILE
