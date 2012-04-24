@@ -15,6 +15,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
+//Krazy
+//krazy:excludeall=cpp
+
 //Own
 #include "helper.h"
 
@@ -76,7 +79,7 @@ ActionReply Helper::executeCommand(const QStringList &command)
         errorMessage = output;
         break;
     }
-    QString errorDescription = i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", command.join(" "), QString::number(exitCode), errorMessage);
+    QString errorDescription = i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", command.join(" "), exitCode, errorMessage);
 
     reply = ActionReply::HelperErrorReply;
     reply.setErrorCode(exitCode);

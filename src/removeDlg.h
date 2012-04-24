@@ -15,6 +15,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
+//Krazy
+//krazy:excludeall=cpp
+
 #ifndef REMOVEDLG_H
 #define REMOVEDLG_H
 

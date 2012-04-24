@@ -15,6 +15,9 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
+//Krazy
+//krazy:excludeall=cpp
+
 //Own
 #include "kcm_grub2.h"
 
