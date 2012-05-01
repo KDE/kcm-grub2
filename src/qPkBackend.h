@@ -19,7 +19,7 @@
 #define QPKBACKEND_H
 
 //Qt
-#include <QtCore/QStringList>
+#include <QStringList>
 
 //QPackageKit
 #include <QPackageKit>

@@ -19,7 +19,7 @@
 #define QAPTBACKEND_H
 
 //Qt
-#include <QtCore/QStringList>
+#include <QStringList>
 
 //QApt
 #include <libqapt/backend.h>

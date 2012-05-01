@@ -19,7 +19,7 @@
 #include "qaptBackend.h"
 
 //Qt
-#include <QtCore/QEventLoop>
+#include <QEventLoop>
 
 QAptBackend::QAptBackend(QObject *parent): QObject(parent)
 {

@@ -19,8 +19,8 @@
 #include "installDlg.h"
 
 //Qt
-#include <QtCore/QFile>
-#include <QtGui/QRadioButton>
+#include <QFile>
+#include <QRadioButton>
 
 //KDE
 #include <kdeversion.h>

@@ -22,9 +22,9 @@
 #include "removeDlg.h"
 
 //Qt
-#include <QtCore/QFile>
-#include <QtCore/QTextStream>
-#include <QtCore/QTimer>
+#include <QFile>
+#include <QTextStream>
+#include <QTimer>
 
 //KDE
 #include <KMessageBox>

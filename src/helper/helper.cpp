@@ -22,9 +22,9 @@
 #include "helper.h"
 
 //Qt
-#include <QtCore/QDir>
-#include <QtCore/QTextCodec>
-#include <QtCore/QTextStream>
+#include <QDir>
+#include <QTextCodec>
+#include <QTextStream>
 
 //KDE
 #include <KDebug>

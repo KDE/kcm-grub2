@@ -22,7 +22,7 @@
 #include "kcm_grub2.h"
 
 //Qt
-#include <QtGui/QDesktopWidget>
+#include <QDesktopWidget>
 
 //KDE
 #include <KAboutData>

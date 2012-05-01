@@ -19,7 +19,7 @@
 #define KCMGRUB2_H
 
 //Qt
-#include <QtCore/QBitArray>
+#include <QBitArray>
 
 //KDE
 #include <KCModule>
