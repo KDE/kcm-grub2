@@ -11,7 +11,7 @@ THRESHOLD=75
 echo "== Start =="
 echo
 echo "== Fetching ${APP} source... =="
-git clone kde:${APP}
+git clone -l ${WD} ${APP}
 rm -rf ${WD}/${APP}/.git
 rm ${WD}/${APP}/format_sources
 rm ${WD}/${APP}/Messages.sh
