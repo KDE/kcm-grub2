@@ -1,3 +1,9 @@
+v.0.5.8 (18/06/2012)
+--------------------
+*ADDED: Install on the boot sector of a partition instead of the MBR.
+*FIXED: Fix installation detection in Gentoo.
+*FIXED: Fix translation loading.
+
 v.0.5.5 (09/01/2012)
 --------------------
 *ADDED: Experimental BURG support (only commands shared with GRUB2).
