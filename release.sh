@@ -13,6 +13,7 @@ echo
 echo "== Fetching ${APP} source... =="
 git clone kde:${APP}
 rm -rf ${WD}/${APP}/.git
+rm ${WD}/${APP}/format_sources
 rm ${WD}/${APP}/Messages.sh
 rm ${WD}/${APP}/release.sh
 
