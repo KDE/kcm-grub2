@@ -82,6 +82,7 @@ X-KDE-Keywords[pl]=grub,uruchamianie,menu,wpisy,domyślne,czas oczekiwania,hasł
 X-KDE-Keywords[pt]=grub,arranque,menu,itens,predefinido,tempo-limite,senha,cor,ecrã inicial,imagem,gestor de arranque
 X-KDE-Keywords[pt_BR]=grub,inicialização,menu,entradas,padrão,tempo de espera,senha,boot,cor,splash,imagem,carregador de inicialização
 X-KDE-Keywords[ru]=grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,загрузка,загрузчик,пароль,меню,ядра,образ,приветствие,цвета,время ожидания
+X-KDE-Keywords[sk]=grub,boot,menu,položky,predvolené,timeout,heslo,farba,splash,obrázok,zavádzač
 X-KDE-Keywords[sv]=grub,start,meny,alternativ,förval,tidsgräns,lösenord,färg,startskärm,bild,startprogram
 X-KDE-Keywords[uk]=grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,завантаження,меню,записи,типовий,час очікування,тайм-аут,пароль,паролі,колір,кольори,вітання,вікно,зображення,завантажувач
 X-KDE-Keywords[x-test]=xxgrub,boot,menu,entries,default,timeout,password,color,splash,image,bootloaderxx
