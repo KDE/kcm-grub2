@@ -1,6 +1,5 @@
 [Domain]
 Name=GRUB2 Bootloader Control Module
-Name[bs]=Kontrolni modul GRUB2 pokretača sistema
 Name[ca]=Mòdul de control del gestor d'arrencada Grub2
 Name[cs]=Ovládací modul pro zavaděč GRUB2
 Name[da]=Kontrolmodul til GRUB2-bootloaderen
@@ -32,7 +31,6 @@ Icon=system-reboot
 
 [org.kde.kcontrol.kcmgrub2.defaults]
 Name=Restore the default GRUB2 Bootloader settings
-Name[bs]=Obnovi uobičajene postavke GRUB2 pokretača sistema
 Name[ca]=Restaura l'arranjament per omissió del gestor d'arrencada Grub2
 Name[cs]=Obnovit výchozí nastavení zavaděče GRUB2
 Name[da]=Genskab indstillingerne for GRUB2-bootloaderen
@@ -62,7 +60,6 @@ Name[x-test]=xxRestore the default GRUB2 Bootloader settingsxx
 Name[zh_CN]=恢复默认的 GRUB2 启动加载器设置
 Name[zh_TW]=回覆預設的 GRUB2 開機載入器設定
 Description=Administrator authorization is required to restore the default GRUB2 Bootloader settings
-Description[bs]=Potrebna je administratorska potvrda za obnovu podrazumijevanihpostavki GRUB2 pokretača sistema
 Description[ca]=Es requereix autorització de l'administrador per a restaurar l'arranjament del gestor d'arrencada Grub2
 Description[cs]=Pro obnovení výchozího nastavení zavaděče GRUB2 je potřeba oprávnění administrátora
 Description[da]=Administrator-godkendelse kræves for at genskabe standardindstillingerne for GRUB2-bootloaderen
@@ -95,7 +92,6 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.install]
 Name=Install the GRUB2 Bootloader
-Name[bs]=Instaliraj GRUB2 pokretač sistema
 Name[ca]=Instal·la el gestor d'arrencada Grub2
 Name[cs]=Nainstalovat zavaděč GRUB2
 Name[da]=Installér GRUB2-bootloaderen
@@ -125,7 +121,6 @@ Name[x-test]=xxInstall the GRUB2 Bootloaderxx
 Name[zh_CN]=安装 GRUB2 启动加载器
 Name[zh_TW]=安裝 GRUB2 開機載入器
 Description=Administrator authorization is required to install the GRUB2 Bootloader
-Description[bs]=Administratorska potvrda je potrebna za instaliranje GRUB2 pokretača sistema
 Description[ca]=Es requereix autorització de l'administrador per a instal·lar el gestor d'arrencada Grub2
 Description[cs]=Pro instalaci zavaděče GRUB2 je potřeba oprávnění administrátora
 Description[da]=Administrator-godkendelse kræves for at installere GRUB2-bootloaderen
@@ -159,7 +154,6 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.load]
 Name=Load the GRUB2 Bootloader settings
-Name[bs]=Učitaj postavke GRUB2 pokretača sistema
 Name[ca]=Carrega l'arranjament del gestor d'arrencada Grub2
 Name[cs]=Načíst nastavení zavaděče GRUB2
 Name[da]=Indlæs indstillingerne for GRUB2-bootloaderen
@@ -189,7 +183,6 @@ Name[x-test]=xxLoad the GRUB2 Bootloader settingsxx
 Name[zh_CN]=载入 GRUB2 启动加载器设置
 Name[zh_TW]=載入 GRUB2 開機載入器設定
 Description=Administrator authorization is required to load the GRUB2 Bootloader settings
-Description[bs]=Administratorska potvrda je potrebna za čitanje postavki GRUB2 pokretača sistema
 Description[ca]=Es requereix autorització de l'administrador per a carregar l'arranjament del gestor d'arrencada Grub2
 Description[cs]=Pro načtení nastavení zavaděče GRUB2 je potřeba oprávnění administrátora
 Description[da]=Administrator-godkendelse kræves for at indlæse indstillingerne for GRUB2-bootloaderen
@@ -223,7 +216,6 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.probe]
 Name=Probe devices for their GRUB2 names
-Name[bs]=Testiranje uređaja za njihova GRUB2 imena
 Name[ca]=Prova els dispositius pels seus noms a Grub2
 Name[cs]=Prozkoumat zařízení pro jejich GRUB2 názvy
 Name[da]=Søg efter enheders GRUB2-navne
@@ -251,7 +243,6 @@ Name[x-test]=xxProbe devices for their GRUB2 namesxx
 Name[zh_CN]=探测设备的 GRUB2 名字
 Name[zh_TW]=偵測裝置在 GRUB2 上的名稱
 Description=Administrator authorization is required to probe devices for their GRUB2 names
-Description[bs]=Administratorska potvrda je potrebna za upit uređaja za njihova GRUB2 imena
 Description[ca]=Es requereix autorització de l'administrador per a provar els dispositius pels seus noms a Grub2
 Description[cs]=Pro prozkoumání GRUB2 názvů zařízení je potřeba oprávnění administrátora
 Description[da]=Administrator-godkendelse kræves for at søge efter enheders GRUB2-navne
@@ -282,7 +273,6 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.probevbe]
 Name=Probe VESA BIOS Extensions
-Name[bs]=Ispitaj VESA BIOS proširenja
 Name[ca]=Prova les extensions VESA del BIOS
 Name[cs]=Prozkoumat rozšířeni VESA BIOS (VBE)
 Name[da]=Søg efter VESA BIOS-udvidelser
@@ -310,7 +300,6 @@ Name[x-test]=xxProbe VESA BIOS Extensionsxx
 Name[zh_CN]=探测 VESA BIOS 扩展
 Name[zh_TW]=偵測 VESA BIOS 延伸
 Description=Administrator authorization is required to probe VESA BIOS Extensions
-Description[bs]=Administratorska potvrda je potrebna za testiranje VESA BIOS proširenja
 Description[ca]=Es requereix autorització de l'administrador per a provar les extensions VESA del BIOS
 Description[cs]=Pro prozkoumání rozšíření VESA BIOS (VBE) je potřeba oprávnění administrátora
 Description[da]=Administrator-godkendelse kræves for at søge efter VESA BIOS-udvidelser
@@ -341,7 +330,6 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.save]
 Name=Save the GRUB2 Bootloader settings
-Name[bs]=Snimie postavke GRUB2 pokretača sistema
 Name[ca]=Desa l'arranjament del gestor d'arrencada Grub2
 Name[cs]=Uložit nastavení zavaděče GRUB2
 Name[da]=Gem indstillingerne for GRUB2-bootloader
@@ -371,7 +359,6 @@ Name[x-test]=xxSave the GRUB2 Bootloader settingsxx
 Name[zh_CN]=保存 GRUB2 启动加载器设置
 Name[zh_TW]=儲存 GRUB2 開機載入器設定
 Description=Administrator authorization is required to save the GRUB2 Bootloader settings
-Description[bs]=Administratorska potvrda je potrebna za snimanje postavki GRUB2 pokretača sistema
 Description[ca]=Es requereix autorització de l'administrador per a desar l'arranjament del gestor d'arrencada Grub2
 Description[cs]=Pro uložení nastavení zavaděče GRUB2 je potřeba oprávnění administrátora
 Description[da]=Administrator-godkendelse kræves for at gemme indstillingerne for GRUB2-bootloaderen

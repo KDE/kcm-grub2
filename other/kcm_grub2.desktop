@@ -10,7 +10,6 @@ X-KDE-ParentApp=kcontrol
 X-KDE-System-Settings-Parent-Category=startup-and-shutdown
 
 Name=GRUB2 Bootloader
-Name[bs]=GRUB2 pokretač sistemar
 Name[ca]=Gestor d'arrencada Grub2
 Name[cs]=Zavaděč GRUB2
 Name[da]=GRUB2 Bootloader
