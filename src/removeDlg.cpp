@@ -30,10 +30,14 @@
 #include <KMessageBox>
 #include <KProgressDialog>
 
+//Ui
+#include "ui_removeDlg.h"
+
 RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QString> &kernels, QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
 {
     QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
+    ui = new Ui::RemoveDialog;
+    ui->setupUi(widget);
     setMainWidget(widget);
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Remove Old Entries"));
@@ -67,27 +71,27 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
         QString packageName = package.takeFirst();
         QString packageVersion = package.takeFirst();
         QTreeWidgetItem *item = 0;
-        for (int j = 0; j < ui.treeWidget->topLevelItemCount(); j++) {
-            if (ui.treeWidget->topLevelItem(j)->data(0, Qt::UserRole).toString() == packageName && ui.treeWidget->topLevelItem(j)->data(0, Qt::UserRole + 1).toString() == packageVersion) {
-                item = ui.treeWidget->topLevelItem(j);
+        for (int j = 0; j < ui->treeWidget->topLevelItemCount(); j++) {
+            if (ui->treeWidget->topLevelItem(j)->data(0, Qt::UserRole).toString() == packageName && ui->treeWidget->topLevelItem(j)->data(0, Qt::UserRole + 1).toString() == packageVersion) {
+                item = ui->treeWidget->topLevelItem(j);
                 break;
             }
         }
         if (!item) {
-            item = new QTreeWidgetItem(ui.treeWidget, QStringList(i18nc("@item:inlistbox", "Kernel %1", packageVersion)));
+            item = new QTreeWidgetItem(ui->treeWidget, QStringList(i18nc("@item:inlistbox", "Kernel %1", packageVersion)));
             item->setFlags(Qt::ItemIsEnabled | Qt::ItemIsUserCheckable);
             item->setData(0, Qt::UserRole, packageName);
             item->setData(0, Qt::UserRole + 1, packageVersion);
             item->setCheckState(0, Qt::Checked);
-            ui.treeWidget->addTopLevelItem(item);
+            ui->treeWidget->addTopLevelItem(item);
         }
         item->addChild(new QTreeWidgetItem(QStringList(entries.at(i))));
     }
     if (found) {
-        ui.treeWidget->expandAll();
-        ui.treeWidget->resizeColumnToContents(0);
-        ui.treeWidget->setMinimumWidth(ui.treeWidget->columnWidth(0) + ui.treeWidget->sizeHintForRow(0));
-        connect(ui.treeWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(slotItemChanged()));
+        ui->treeWidget->expandAll();
+        ui->treeWidget->resizeColumnToContents(0);
+        ui->treeWidget->setMinimumWidth(ui->treeWidget->columnWidth(0) + ui->treeWidget->sizeHintForRow(0));
+        connect(ui->treeWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(slotItemChanged()));
         enableButtonOk(true);
     } else {
         KMessageBox::sorry(this, i18nc("@info", "No removable entries were found."));
@@ -97,15 +101,16 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
 RemoveDialog::~RemoveDialog()
 {
     delete m_backend;
+    delete ui;
 }
 void RemoveDialog::slotButtonClicked(int button)
 {
     if (button == KDialog::Ok) {
-        for (int i = 0; i < ui.treeWidget->topLevelItemCount(); i++) {
-            if (ui.treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
-                QString packageName = ui.treeWidget->topLevelItem(i)->data(0, Qt::UserRole).toString();
+        for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
+            if (ui->treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
+                QString packageName = ui->treeWidget->topLevelItem(i)->data(0, Qt::UserRole).toString();
                 m_backend->markForRemoval(packageName);
-                if (ui.checkBox_headers->isChecked()) {
+                if (ui->checkBox_headers->isChecked()) {
                     packageName.replace("image", "headers");
                     m_backend->markForRemoval(packageName);
                 }
@@ -124,8 +129,8 @@ void RemoveDialog::slotButtonClicked(int button)
 }
 void RemoveDialog::slotItemChanged()
 {
-    for (int i = 0; i < ui.treeWidget->topLevelItemCount(); i++) {
-        if (ui.treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
+        if (ui->treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
             enableButtonOk(true);
             return;
         }

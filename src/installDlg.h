@@ -19,21 +19,25 @@
 #define INSTALLDLG_H
 
 //KDE
-class KProgressDialog;
+#include <KDialog>
 
 //Ui
-#include "ui_installDlg.h"
+namespace Ui
+{
+    class InstallDialog;
+}
 
 class InstallDialog : public KDialog
 {
     Q_OBJECT
 public:
     explicit InstallDialog(const QString installExePath, QWidget *parent = 0, Qt::WFlags flags = 0);
+    virtual ~InstallDialog();
 protected Q_SLOTS:
     virtual void slotButtonClicked(int button);
 private:
     QString m_installExePath;
-    Ui::InstallDialog ui;
+    Ui::InstallDialog *ui;
 };
 
 #endif

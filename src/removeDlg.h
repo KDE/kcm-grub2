@@ -22,6 +22,7 @@
 #define REMOVEDLG_H
 
 //KDE
+#include <KDialog>
 class KProgressDialog;
 
 //Project
@@ -33,7 +34,10 @@ class KProgressDialog;
 #endif
 
 //Ui
-#include "ui_removeDlg.h"
+namespace Ui
+{
+    class RemoveDialog;
+}
 
 class RemoveDialog : public KDialog
 {
@@ -57,7 +61,7 @@ private:
 #endif
     QString m_currentKernelImage;
     KProgressDialog *m_progressDlg;
-    Ui::RemoveDialog ui;
+    Ui::RemoveDialog *ui;
 };
 
 #endif

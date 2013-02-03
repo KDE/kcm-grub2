@@ -26,10 +26,14 @@
 //ImageMagick
 #include <Magick++.h>
 
+//Ui
+#include "ui_convertDlg.h"
+
 ConvertDialog::ConvertDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
 {
     QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
+    ui = new Ui::ConvertDialog;
+    ui->setupUi(widget);
     setMainWidget(widget);
 
     QString readFilter;
@@ -45,39 +49,45 @@ ConvertDialog::ConvertDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
 
     QString writeFilter = QString("*%1|%5 (%1)\n*%2|%6 (%2)\n*%3 *%4|%7 (%3 %4)").arg(".png", ".tga", ".jpg", ".jpeg", KMimeType::mimeType("image/png")->comment(), KMimeType::mimeType("image/x-tga")->comment(), KMimeType::mimeType("image/jpeg")->comment());
 
-    ui.kurlrequester_image->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
-    ui.kurlrequester_image->fileDialog()->setOperationMode(KFileDialog::Opening);
-    ui.kurlrequester_image->fileDialog()->setFilter(readFilter);
-    ui.kurlrequester_converted->setMode(KFile::File | KFile::LocalOnly);
-    ui.kurlrequester_converted->fileDialog()->setOperationMode(KFileDialog::Saving);
-    ui.kurlrequester_converted->fileDialog()->setFilter(writeFilter);
+    ui->kurlrequester_image->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
+    ui->kurlrequester_image->fileDialog()->setOperationMode(KFileDialog::Opening);
+    ui->kurlrequester_image->fileDialog()->setFilter(readFilter);
+    ui->kurlrequester_converted->setMode(KFile::File | KFile::LocalOnly);
+    ui->kurlrequester_converted->fileDialog()->setOperationMode(KFileDialog::Saving);
+    ui->kurlrequester_converted->fileDialog()->setFilter(writeFilter);
 }
+ConvertDialog::~ConvertDialog()
+{
+    delete ui;
+}
+
 void ConvertDialog::setResolution(int width, int height)
 {
     if (width > 0 && height > 0) {
-        ui.spinBox_width->setValue(width);
-        ui.spinBox_height->setValue(height);
+        ui->spinBox_width->setValue(width);
+        ui->spinBox_height->setValue(height);
     }
 }
+
 void ConvertDialog::slotButtonClicked(int button)
 {
     if (button == KDialog::Ok) {
-        if (ui.kurlrequester_image->text().isEmpty() || ui.kurlrequester_converted->text().isEmpty()) {
+        if (ui->kurlrequester_image->text().isEmpty() || ui->kurlrequester_converted->text().isEmpty()) {
             KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Image</interface> and <interface>Convert To</interface> fields."));
             return;
-        } else if (ui.spinBox_width->value() == 0 || ui.spinBox_height->value() == 0) {
+        } else if (ui->spinBox_width->value() == 0 || ui->spinBox_height->value() == 0) {
             KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Width</interface> and <interface>Height</interface> fields."));
             return;
         }
-        Magick::Geometry resolution(ui.spinBox_width->value(), ui.spinBox_height->value());
-        resolution.aspect(ui.checkBox_force->isChecked());
-        Magick::Image image(ui.kurlrequester_image->url().toLocalFile().toStdString());
+        Magick::Geometry resolution(ui->spinBox_width->value(), ui->spinBox_height->value());
+        resolution.aspect(ui->checkBox_force->isChecked());
+        Magick::Image image(ui->kurlrequester_image->url().toLocalFile().toStdString());
         image.zoom(resolution);
         image.depth(8);
         image.classType(Magick::DirectClass);
-        image.write(ui.kurlrequester_converted->url().toLocalFile().toStdString());
-        if (ui.checkBox_wallpaper->isChecked()) {
-            emit splashImageCreated(ui.kurlrequester_converted->url().toLocalFile());
+        image.write(ui->kurlrequester_converted->url().toLocalFile().toStdString());
+        if (ui->checkBox_wallpaper->isChecked()) {
+            emit splashImageCreated(ui->kurlrequester_converted->url().toLocalFile());
         }
     }
     KDialog::slotButtonClicked(button);

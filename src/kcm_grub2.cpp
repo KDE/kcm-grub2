@@ -49,6 +49,9 @@ using namespace KAuth;
 #include "removeDlg.h"
 #endif
 
+//Ui
+#include "ui_kcm_grub2.h"
+
 K_PLUGIN_FACTORY(GRUB2Factory, registerPlugin<KCMGRUB2>();)
 K_EXPORT_PLUGIN(GRUB2Factory("kcmgrub2"))
 
@@ -61,12 +64,17 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
     about->addAuthor(ki18nc("@info:credit", "Κonstantinos Smanis"), ki18nc("@info:credit", "Main Developer"), "konstantinos.smanis@gmail.com", "http://ksmanis.wordpress.com/");
     setAboutData(about);
 
-    ui.setupUi(this);
+    ui = new Ui::KCMGRUB2;
+    ui->setupUi(this);
     setupObjects();
     setupConnections();
     if (check()) {
-        ui.stackedWidget->setCurrentIndex(1);
+        ui->stackedWidget->setCurrentIndex(1);
     }
+}
+KCMGRUB2::~KCMGRUB2()
+{
+    delete ui;
 }
 
 void KCMGRUB2::defaults()
@@ -89,7 +97,7 @@ void KCMGRUB2::defaults()
 }
 void KCMGRUB2::load()
 {
-    if (ui.stackedWidget->currentIndex() == 0) {
+    if (ui->stackedWidget->currentIndex() == 0) {
         return;
     }
 
@@ -104,54 +112,54 @@ void KCMGRUB2::load()
     }
 
     bool ok;
-    ui.kcombobox_default->clear();
+    ui->kcombobox_default->clear();
     if (m_entries.size() > 0) {
         Q_FOREACH(const QString &entry, m_entries) {
-            ui.kcombobox_default->addItem(unquoteWord(entry), entry);
+            ui->kcombobox_default->addItem(unquoteWord(entry), entry);
         }
-        int entryIndex = ui.kcombobox_default->findText(m_settings.value("GRUB_DEFAULT"));
+        int entryIndex = ui->kcombobox_default->findText(m_settings.value("GRUB_DEFAULT"));
         if (entryIndex != -1) {
-            ui.kcombobox_default->setCurrentIndex(entryIndex);
+            ui->kcombobox_default->setCurrentIndex(entryIndex);
         } else {
             entryIndex = unquoteWord(m_settings.value("GRUB_DEFAULT")).toInt(&ok);
             if (ok && entryIndex >= 0 && entryIndex < m_entries.size()) {
-                ui.kcombobox_default->setCurrentIndex(entryIndex);
+                ui->kcombobox_default->setCurrentIndex(entryIndex);
             } else {
                 kWarning() << "Invalid GRUB_DEFAULT value";
             }
         }
     }
-    ui.kpushbutton_remove->setEnabled(m_entries.size() > 0);
-    ui.checkBox_savedefault->setChecked(unquoteWord(m_settings.value("GRUB_SAVEDEFAULT")).compare("true") == 0);
+    ui->kpushbutton_remove->setEnabled(m_entries.size() > 0);
+    ui->checkBox_savedefault->setChecked(unquoteWord(m_settings.value("GRUB_SAVEDEFAULT")).compare("true") == 0);
 
     if (!m_settings.value("GRUB_HIDDEN_TIMEOUT").isEmpty()) {
         int grubHiddenTimeout = unquoteWord(m_settings.value("GRUB_HIDDEN_TIMEOUT")).toInt(&ok);
         if (ok && grubHiddenTimeout >= 0) {
-            ui.checkBox_hiddenTimeout->setChecked(grubHiddenTimeout > 0);
-            ui.spinBox_hiddenTimeout->setValue(grubHiddenTimeout);
+            ui->checkBox_hiddenTimeout->setChecked(grubHiddenTimeout > 0);
+            ui->spinBox_hiddenTimeout->setValue(grubHiddenTimeout);
         } else {
             kWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
         }
     }
-    ui.checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value("GRUB_HIDDEN_TIMEOUT_QUIET")).compare("true") != 0);
+    ui->checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value("GRUB_HIDDEN_TIMEOUT_QUIET")).compare("true") != 0);
     int grubTimeout = (m_settings.value("GRUB_TIMEOUT").isEmpty() ? 5 : unquoteWord(m_settings.value("GRUB_TIMEOUT")).toInt(&ok));
     if (ok && grubTimeout >= -1) {
-        ui.checkBox_timeout->setChecked(grubTimeout > -1);
-        ui.radioButton_timeout0->setChecked(grubTimeout == 0);
-        ui.radioButton_timeout->setChecked(grubTimeout > 0);
-        ui.spinBox_timeout->setValue(grubTimeout);
+        ui->checkBox_timeout->setChecked(grubTimeout > -1);
+        ui->radioButton_timeout0->setChecked(grubTimeout == 0);
+        ui->radioButton_timeout->setChecked(grubTimeout > 0);
+        ui->spinBox_timeout->setValue(grubTimeout);
     } else {
         kWarning() << "Invalid GRUB_TIMEOUT value";
     }
 
-    ui.checkBox_recovery->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_RECOVERY")).compare("true") != 0);
+    ui->checkBox_recovery->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_RECOVERY")).compare("true") != 0);
     if (QFile::exists(memtestPath)) {
-        ui.checkBox_memtest->setVisible(true);
-        ui.checkBox_memtest->setChecked(QFile::permissions(memtestPath) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
+        ui->checkBox_memtest->setVisible(true);
+        ui->checkBox_memtest->setChecked(QFile::permissions(memtestPath) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
     } else {
-        ui.checkBox_memtest->setVisible(false);
+        ui->checkBox_memtest->setVisible(false);
     }
-    ui.checkBox_osProber->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_OS_PROBER")).compare("true") != 0);
+    ui->checkBox_osProber->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_OS_PROBER")).compare("true") != 0);
 
     m_resolutions.append("640x480");
     QString grubGfxmode = (m_settings.value("GRUB_GFXMODE").isEmpty() ? "640x480" : unquoteWord(m_settings.value("GRUB_GFXMODE")));
@@ -165,57 +173,57 @@ void KCMGRUB2::load()
     m_resolutions.removeDuplicates();
     sortResolutions();
     showResolutions();
-    ui.kcombobox_gfxmode->setCurrentIndex(ui.kcombobox_gfxmode->findData(grubGfxmode));
-    ui.kcombobox_gfxpayload->setCurrentIndex(ui.kcombobox_gfxpayload->findData(grubGfxpayloadLinux));
+    ui->kcombobox_gfxmode->setCurrentIndex(ui->kcombobox_gfxmode->findData(grubGfxmode));
+    ui->kcombobox_gfxpayload->setCurrentIndex(ui->kcombobox_gfxpayload->findData(grubGfxpayloadLinux));
 
     QString grubColorNormal = unquoteWord(m_settings.value("GRUB_COLOR_NORMAL"));
     if (!grubColorNormal.isEmpty()) {
-        int normalForegroundIndex = ui.kcombobox_normalForeground->findData(grubColorNormal.section('/', 0, 0));
-        int normalBackgroundIndex = ui.kcombobox_normalBackground->findData(grubColorNormal.section('/', 1));
+        int normalForegroundIndex = ui->kcombobox_normalForeground->findData(grubColorNormal.section('/', 0, 0));
+        int normalBackgroundIndex = ui->kcombobox_normalBackground->findData(grubColorNormal.section('/', 1));
         if (normalForegroundIndex == -1 || normalBackgroundIndex == -1) {
             kWarning() << "Invalid GRUB_COLOR_NORMAL value";
         }
         if (normalForegroundIndex != -1) {
-            ui.kcombobox_normalForeground->setCurrentIndex(normalForegroundIndex);
+            ui->kcombobox_normalForeground->setCurrentIndex(normalForegroundIndex);
         }
         if (normalBackgroundIndex != -1) {
-            ui.kcombobox_normalBackground->setCurrentIndex(normalBackgroundIndex);
+            ui->kcombobox_normalBackground->setCurrentIndex(normalBackgroundIndex);
         }
     }
     QString grubColorHighlight = unquoteWord(m_settings.value("GRUB_COLOR_HIGHLIGHT"));
     if (!grubColorHighlight.isEmpty()) {
-        int highlightForegroundIndex = ui.kcombobox_highlightForeground->findData(grubColorHighlight.section('/', 0, 0));
-        int highlightBackgroundIndex = ui.kcombobox_highlightBackground->findData(grubColorHighlight.section('/', 1));
+        int highlightForegroundIndex = ui->kcombobox_highlightForeground->findData(grubColorHighlight.section('/', 0, 0));
+        int highlightBackgroundIndex = ui->kcombobox_highlightBackground->findData(grubColorHighlight.section('/', 1));
         if (highlightForegroundIndex == -1 || highlightBackgroundIndex == -1) {
             kWarning() << "Invalid GRUB_COLOR_HIGHLIGHT value";
         }
         if (highlightForegroundIndex != -1) {
-            ui.kcombobox_highlightForeground->setCurrentIndex(highlightForegroundIndex);
+            ui->kcombobox_highlightForeground->setCurrentIndex(highlightForegroundIndex);
         }
         if (highlightBackgroundIndex != -1) {
-            ui.kcombobox_highlightBackground->setCurrentIndex(highlightBackgroundIndex);
+            ui->kcombobox_highlightBackground->setCurrentIndex(highlightBackgroundIndex);
         }
     }
 
     QString grubBackground = unquoteWord(m_settings.value("GRUB_BACKGROUND"));
-    ui.kurlrequester_background->setText(grubBackground);
-    ui.kpushbutton_preview->setEnabled(!grubBackground.isEmpty());
-    ui.kurlrequester_theme->setText(unquoteWord(m_settings.value("GRUB_THEME")));
+    ui->kurlrequester_background->setText(grubBackground);
+    ui->kpushbutton_preview->setEnabled(!grubBackground.isEmpty());
+    ui->kurlrequester_theme->setText(unquoteWord(m_settings.value("GRUB_THEME")));
 
-    ui.klineedit_cmdlineDefault->setText(unquoteWord(m_settings.value("GRUB_CMDLINE_LINUX_DEFAULT")));
-    ui.klineedit_cmdline->setText(unquoteWord(m_settings.value("GRUB_CMDLINE_LINUX")));
+    ui->klineedit_cmdlineDefault->setText(unquoteWord(m_settings.value("GRUB_CMDLINE_LINUX_DEFAULT")));
+    ui->klineedit_cmdline->setText(unquoteWord(m_settings.value("GRUB_CMDLINE_LINUX")));
 
     QString grubTerminal = unquoteWord(m_settings.value("GRUB_TERMINAL"));
-    ui.klineedit_terminal->setText(grubTerminal);
-    ui.klineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
-    ui.klineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
-    ui.klineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_INPUT")));
-    ui.klineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_OUTPUT")));
+    ui->klineedit_terminal->setText(grubTerminal);
+    ui->klineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
+    ui->klineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
+    ui->klineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_INPUT")));
+    ui->klineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_OUTPUT")));
 
-    ui.klineedit_distributor->setText(unquoteWord(m_settings.value("GRUB_DISTRIBUTOR")));
-    ui.klineedit_serial->setText(unquoteWord(m_settings.value("GRUB_SERIAL_COMMAND")));
-    ui.klineedit_initTune->setText(unquoteWord(m_settings.value("GRUB_INIT_TUNE")));
-    ui.checkBox_uuid->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_LINUX_UUID")).compare("true") != 0);
+    ui->klineedit_distributor->setText(unquoteWord(m_settings.value("GRUB_DISTRIBUTOR")));
+    ui->klineedit_serial->setText(unquoteWord(m_settings.value("GRUB_SERIAL_COMMAND")));
+    ui->klineedit_initTune->setText(unquoteWord(m_settings.value("GRUB_INIT_TUNE")));
+    ui->checkBox_uuid->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_LINUX_UUID")).compare("true") != 0);
 
     m_dirtyBits.fill(0);
     emit changed(false);
@@ -226,70 +234,70 @@ void KCMGRUB2::save()
         m_settings["GRUB_DEFAULT"] = "saved";
     }
     if (m_dirtyBits.testBit(grubSavedefaultDirty)) {
-        if (ui.checkBox_savedefault->isChecked()) {
+        if (ui->checkBox_savedefault->isChecked()) {
             m_settings["GRUB_SAVEDEFAULT"] = "true";
         } else {
             m_settings.remove("GRUB_SAVEDEFAULT");
         }
     }
     if (m_dirtyBits.testBit(grubHiddenTimeoutDirty)) {
-        if (ui.checkBox_hiddenTimeout->isChecked()) {
-            m_settings["GRUB_HIDDEN_TIMEOUT"] = QString::number(ui.spinBox_hiddenTimeout->value());
+        if (ui->checkBox_hiddenTimeout->isChecked()) {
+            m_settings["GRUB_HIDDEN_TIMEOUT"] = QString::number(ui->spinBox_hiddenTimeout->value());
         } else {
             m_settings.remove("GRUB_HIDDEN_TIMEOUT");
         }
     }
     if (m_dirtyBits.testBit(grubHiddenTimeoutQuietDirty)) {
-        if (ui.checkBox_hiddenTimeoutShowTimer->isChecked()) {
+        if (ui->checkBox_hiddenTimeoutShowTimer->isChecked()) {
             m_settings.remove("GRUB_HIDDEN_TIMEOUT_QUIET");
         } else {
             m_settings["GRUB_HIDDEN_TIMEOUT_QUIET"] = "true";
         }
     }
     if (m_dirtyBits.testBit(grubTimeoutDirty)) {
-        if (ui.checkBox_timeout->isChecked()) {
-            if (ui.radioButton_timeout0->isChecked()) {
+        if (ui->checkBox_timeout->isChecked()) {
+            if (ui->radioButton_timeout0->isChecked()) {
                 m_settings["GRUB_TIMEOUT"] = '0';
             } else {
-                m_settings["GRUB_TIMEOUT"] = QString::number(ui.spinBox_timeout->value());
+                m_settings["GRUB_TIMEOUT"] = QString::number(ui->spinBox_timeout->value());
             }
         } else {
             m_settings["GRUB_TIMEOUT"] = "-1";
         }
     }
     if (m_dirtyBits.testBit(grubDisableRecoveryDirty)) {
-        if (ui.checkBox_recovery->isChecked()) {
+        if (ui->checkBox_recovery->isChecked()) {
             m_settings.remove("GRUB_DISABLE_RECOVERY");
         } else {
             m_settings["GRUB_DISABLE_RECOVERY"] = "true";
         }
     }
     if (m_dirtyBits.testBit(grubDisableOsProberDirty)) {
-        if (ui.checkBox_osProber->isChecked()) {
+        if (ui->checkBox_osProber->isChecked()) {
             m_settings.remove("GRUB_DISABLE_OS_PROBER");
         } else {
             m_settings["GRUB_DISABLE_OS_PROBER"] = "true";
         }
     }
     if (m_dirtyBits.testBit(grubGfxmodeDirty)) {
-        if (ui.kcombobox_gfxmode->currentIndex() <= 0) {
+        if (ui->kcombobox_gfxmode->currentIndex() <= 0) {
             kError() << "Something went terribly wrong!";
         } else {
-            m_settings["GRUB_GFXMODE"] = quoteWord(ui.kcombobox_gfxmode->itemData(ui.kcombobox_gfxmode->currentIndex()).toString());
+            m_settings["GRUB_GFXMODE"] = quoteWord(ui->kcombobox_gfxmode->itemData(ui->kcombobox_gfxmode->currentIndex()).toString());
         }
     }
     if (m_dirtyBits.testBit(grubGfxpayloadLinuxDirty)) {
-        if (ui.kcombobox_gfxpayload->currentIndex() <= 0) {
+        if (ui->kcombobox_gfxpayload->currentIndex() <= 0) {
             kError() << "Something went terribly wrong!";
-        } else if (ui.kcombobox_gfxpayload->currentIndex() == 1) {
+        } else if (ui->kcombobox_gfxpayload->currentIndex() == 1) {
             m_settings.remove("GRUB_GFXPAYLOAD_LINUX");
-        } else if (ui.kcombobox_gfxpayload->currentIndex() > 1) {
-            m_settings["GRUB_GFXPAYLOAD_LINUX"] = quoteWord(ui.kcombobox_gfxpayload->itemData(ui.kcombobox_gfxpayload->currentIndex()).toString());
+        } else if (ui->kcombobox_gfxpayload->currentIndex() > 1) {
+            m_settings["GRUB_GFXPAYLOAD_LINUX"] = quoteWord(ui->kcombobox_gfxpayload->itemData(ui->kcombobox_gfxpayload->currentIndex()).toString());
         }
     }
     if (m_dirtyBits.testBit(grubColorNormalDirty)) {
-        QString normalForeground = ui.kcombobox_normalForeground->itemData(ui.kcombobox_normalForeground->currentIndex()).toString();
-        QString normalBackground = ui.kcombobox_normalBackground->itemData(ui.kcombobox_normalBackground->currentIndex()).toString();
+        QString normalForeground = ui->kcombobox_normalForeground->itemData(ui->kcombobox_normalForeground->currentIndex()).toString();
+        QString normalBackground = ui->kcombobox_normalBackground->itemData(ui->kcombobox_normalBackground->currentIndex()).toString();
         if (normalForeground.compare("light-gray") != 0 || normalBackground.compare("black") != 0) {
             m_settings["GRUB_COLOR_NORMAL"] = normalForeground + '/' + normalBackground;
         } else {
@@ -297,8 +305,8 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubColorHighlightDirty)) {
-        QString highlightForeground = ui.kcombobox_highlightForeground->itemData(ui.kcombobox_highlightForeground->currentIndex()).toString();
-        QString highlightBackground = ui.kcombobox_highlightBackground->itemData(ui.kcombobox_highlightBackground->currentIndex()).toString();
+        QString highlightForeground = ui->kcombobox_highlightForeground->itemData(ui->kcombobox_highlightForeground->currentIndex()).toString();
+        QString highlightBackground = ui->kcombobox_highlightBackground->itemData(ui->kcombobox_highlightBackground->currentIndex()).toString();
         if (highlightForeground.compare("black") != 0 || highlightBackground.compare("light-gray") != 0) {
             m_settings["GRUB_COLOR_HIGHLIGHT"] = highlightForeground + '/' + highlightBackground;
         } else {
@@ -306,7 +314,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubBackgroundDirty)) {
-        QString background = ui.kurlrequester_background->url().toLocalFile();
+        QString background = ui->kurlrequester_background->url().toLocalFile();
         if (!background.isEmpty()) {
             m_settings["GRUB_BACKGROUND"] = quoteWord(background);
         } else {
@@ -314,7 +322,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubThemeDirty)) {
-        QString theme = ui.kurlrequester_theme->url().toLocalFile();
+        QString theme = ui->kurlrequester_theme->url().toLocalFile();
         if (!theme.isEmpty()) {
             m_settings["GRUB_THEME"] = quoteWord(theme);
         } else {
@@ -322,7 +330,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubCmdlineLinuxDefaultDirty)) {
-        QString cmdlineLinuxDefault = ui.klineedit_cmdlineDefault->text();
+        QString cmdlineLinuxDefault = ui->klineedit_cmdlineDefault->text();
         if (!cmdlineLinuxDefault.isEmpty()) {
             m_settings["GRUB_CMDLINE_LINUX_DEFAULT"] = quoteWord(cmdlineLinuxDefault);
         } else {
@@ -330,7 +338,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubCmdlineLinuxDirty)) {
-        QString cmdlineLinux = ui.klineedit_cmdline->text();
+        QString cmdlineLinux = ui->klineedit_cmdline->text();
         if (!cmdlineLinux.isEmpty()) {
             m_settings["GRUB_CMDLINE_LINUX"] = quoteWord(cmdlineLinux);
         } else {
@@ -338,7 +346,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubTerminalDirty)) {
-        QString terminal = ui.klineedit_terminal->text();
+        QString terminal = ui->klineedit_terminal->text();
         if (!terminal.isEmpty()) {
             m_settings["GRUB_TERMINAL"] = quoteWord(terminal);
         } else {
@@ -346,7 +354,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubTerminalInputDirty)) {
-        QString terminalInput = ui.klineedit_terminalInput->text();
+        QString terminalInput = ui->klineedit_terminalInput->text();
         if (!terminalInput.isEmpty()) {
             m_settings["GRUB_TERMINAL_INPUT"] = quoteWord(terminalInput);
         } else {
@@ -354,7 +362,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubTerminalOutputDirty)) {
-        QString terminalOutput = ui.klineedit_terminalOutput->text();
+        QString terminalOutput = ui->klineedit_terminalOutput->text();
         if (!terminalOutput.isEmpty()) {
             m_settings["GRUB_TERMINAL_OUTPUT"] = quoteWord(terminalOutput);
         } else {
@@ -362,7 +370,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubDistributorDirty)) {
-        QString distributor = ui.klineedit_distributor->text();
+        QString distributor = ui->klineedit_distributor->text();
         if (!distributor.isEmpty()) {
             m_settings["GRUB_DISTRIBUTOR"] = quoteWord(distributor);
         } else {
@@ -370,7 +378,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubSerialCommandDirty)) {
-        QString serialCommand = ui.klineedit_serial->text();
+        QString serialCommand = ui->klineedit_serial->text();
         if (!serialCommand.isEmpty()) {
             m_settings["GRUB_SERIAL_COMMAND"] = quoteWord(serialCommand);
         } else {
@@ -378,7 +386,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubInitTuneDirty)) {
-        QString initTune = ui.klineedit_initTune->text();
+        QString initTune = ui->klineedit_initTune->text();
         if (!initTune.isEmpty()) {
             m_settings["GRUB_INIT_TUNE"] = quoteWord(initTune);
         } else {
@@ -386,7 +394,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubDisableLinuxUuidDirty)) {
-        if (ui.checkBox_uuid->isChecked()) {
+        if (ui->checkBox_uuid->isChecked()) {
             m_settings.remove("GRUB_DISABLE_LINUX_UUID");
         } else {
             m_settings["GRUB_DISABLE_LINUX_UUID"] = "true";
@@ -409,10 +417,10 @@ void KCMGRUB2::save()
     saveAction.addArgument("configFileName", configPath);
     saveAction.addArgument("configFileContents", configFileContents);
     saveAction.addArgument("menuFileName", menuPath);
-    saveAction.addArgument("defaultEntry", m_entries.size() > 0 ? ui.kcombobox_default->currentText() : m_settings.value("GRUB_DEFAULT"));
+    saveAction.addArgument("defaultEntry", m_entries.size() > 0 ? ui->kcombobox_default->currentText() : m_settings.value("GRUB_DEFAULT"));
     if (m_dirtyBits.testBit(memtestDirty)) {
         saveAction.addArgument("memtestFileName", memtestPath);
-        saveAction.addArgument("memtest", ui.checkBox_memtest->isChecked());
+        saveAction.addArgument("memtest", ui->checkBox_memtest->isChecked());
     }
 #if KDE_IS_VERSION(4,6,0)
     saveAction.setParentWidget(this);
@@ -502,21 +510,21 @@ void KCMGRUB2::slotInstallBootloader()
 }
 void KCMGRUB2::slotGrubGfxmodeChanged()
 {
-    if (ui.kcombobox_gfxmode->currentIndex() == 0) {
+    if (ui->kcombobox_gfxmode->currentIndex() == 0) {
         bool ok;
         QRegExpValidator regExp(QRegExp("\\d{3,4}x\\d{3,4}(x\\d{1,2})?"), this);
         QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter screen resolution"), i18nc("@label:textbox", "Please enter a GRUB resolution:"), QString(), &ok, this, &regExp);
         if (ok) {
             if (!m_resolutions.contains(resolution)) {
-                QString gfxpayload = ui.kcombobox_gfxpayload->itemData(ui.kcombobox_gfxpayload->currentIndex()).toString();
+                QString gfxpayload = ui->kcombobox_gfxpayload->itemData(ui->kcombobox_gfxpayload->currentIndex()).toString();
                 m_resolutions.append(resolution);
                 sortResolutions();
                 showResolutions();
-                ui.kcombobox_gfxpayload->setCurrentIndex(ui.kcombobox_gfxpayload->findData(gfxpayload));
+                ui->kcombobox_gfxpayload->setCurrentIndex(ui->kcombobox_gfxpayload->findData(gfxpayload));
             }
-            ui.kcombobox_gfxmode->setCurrentIndex(ui.kcombobox_gfxmode->findData(resolution));
+            ui->kcombobox_gfxmode->setCurrentIndex(ui->kcombobox_gfxmode->findData(resolution));
         } else {
-            ui.kcombobox_gfxmode->setCurrentIndex(ui.kcombobox_gfxmode->findData("640x480"));
+            ui->kcombobox_gfxmode->setCurrentIndex(ui->kcombobox_gfxmode->findData("640x480"));
         }
     }
     m_dirtyBits.setBit(grubGfxmodeDirty);
@@ -524,21 +532,21 @@ void KCMGRUB2::slotGrubGfxmodeChanged()
 }
 void KCMGRUB2::slotGrubGfxpayloadLinuxChanged()
 {
-    if (ui.kcombobox_gfxpayload->currentIndex() == 0) {
+    if (ui->kcombobox_gfxpayload->currentIndex() == 0) {
         bool ok;
         QRegExpValidator regExp(QRegExp("\\d{3,4}x\\d{3,4}(x\\d{1,2})?"), this);
         QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter screen resolution"), i18nc("@label:textbox", "Please enter a Linux boot resolution:"), QString(), &ok, this, &regExp);
         if (ok) {
             if (!m_resolutions.contains(resolution)) {
-                QString gfxmode = ui.kcombobox_gfxmode->itemData(ui.kcombobox_gfxmode->currentIndex()).toString();
+                QString gfxmode = ui->kcombobox_gfxmode->itemData(ui->kcombobox_gfxmode->currentIndex()).toString();
                 m_resolutions.append(resolution);
                 sortResolutions();
                 showResolutions();
-                ui.kcombobox_gfxmode->setCurrentIndex(ui.kcombobox_gfxmode->findData(gfxmode));
+                ui->kcombobox_gfxmode->setCurrentIndex(ui->kcombobox_gfxmode->findData(gfxmode));
             }
-            ui.kcombobox_gfxpayload->setCurrentIndex(ui.kcombobox_gfxpayload->findData(resolution));
+            ui->kcombobox_gfxpayload->setCurrentIndex(ui->kcombobox_gfxpayload->findData(resolution));
         } else {
-            ui.kcombobox_gfxpayload->setCurrentIndex(ui.kcombobox_gfxpayload->findData(QString()));
+            ui->kcombobox_gfxpayload->setCurrentIndex(ui->kcombobox_gfxpayload->findData(QString()));
         }
     }
     m_dirtyBits.setBit(grubGfxpayloadLinuxDirty);
@@ -556,13 +564,13 @@ void KCMGRUB2::slotGrubColorHighlightChanged()
 }
 void KCMGRUB2::slowGrubBackgroundChanged()
 {
-    ui.kpushbutton_preview->setEnabled(!ui.kurlrequester_background->text().isEmpty());
+    ui->kpushbutton_preview->setEnabled(!ui->kurlrequester_background->text().isEmpty());
     m_dirtyBits.setBit(grubBackgroundDirty);
     emit changed(true);
 }
 void KCMGRUB2::slotPreviewGrubBackground()
 {
-    QFile file(ui.kurlrequester_background->url().toLocalFile());
+    QFile file(ui->kurlrequester_background->url().toLocalFile());
     if (!file.open(QIODevice::ReadOnly)) {
         return;
     }
@@ -579,9 +587,9 @@ void KCMGRUB2::slotCreateGrubBackground()
 {
 #if HAVE_IMAGEMAGICK
     QPointer<ConvertDialog> convertDlg = new ConvertDialog(this);
-    QString resolution = ui.kcombobox_gfxmode->itemData(ui.kcombobox_gfxmode->currentIndex()).toString();
+    QString resolution = ui->kcombobox_gfxmode->itemData(ui->kcombobox_gfxmode->currentIndex()).toString();
     convertDlg->setResolution(resolution.section('x', 0, 0).toInt(), resolution.section('x', 1, 1).toInt());
-    connect(convertDlg, SIGNAL(splashImageCreated(QString)), ui.kurlrequester_background, SLOT(setText(QString)));
+    connect(convertDlg, SIGNAL(splashImageCreated(QString)), ui->kurlrequester_background, SLOT(setText(QString)));
     convertDlg->exec();
     delete convertDlg;
 #endif
@@ -603,11 +611,11 @@ void KCMGRUB2::slotGrubCmdlineLinuxChanged()
 }
 void KCMGRUB2::slotGrubTerminalChanged()
 {
-    QString grubTerminal = ui.klineedit_terminal->text();
-    ui.klineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
-    ui.klineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
-    ui.klineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_INPUT")));
-    ui.klineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_OUTPUT")));
+    QString grubTerminal = ui->klineedit_terminal->text();
+    ui->klineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
+    ui->klineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
+    ui->klineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_INPUT")));
+    ui->klineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_OUTPUT")));
     m_dirtyBits.setBit(grubTerminalDirty);
     emit changed(true);
 }
@@ -649,16 +657,16 @@ void KCMGRUB2::slotUpdateSuggestions()
     }
 
     KLineEdit *lineEdit = 0;
-    if (ui.kpushbutton_cmdlineDefaultSuggestions->isDown()) {
-        lineEdit = ui.klineedit_cmdlineDefault;
-    } else if (ui.kpushbutton_cmdlineSuggestions->isDown()) {
-        lineEdit = ui.klineedit_cmdline;
-    } else if (ui.kpushbutton_terminalSuggestions->isDown()) {
-        lineEdit = ui.klineedit_terminal;
-    } else if (ui.kpushbutton_terminalInputSuggestions->isDown()) {
-        lineEdit = ui.klineedit_terminalInput;
-    } else if (ui.kpushbutton_terminalOutputSuggestions->isDown()) {
-        lineEdit = ui.klineedit_terminalOutput;
+    if (ui->kpushbutton_cmdlineDefaultSuggestions->isDown()) {
+        lineEdit = ui->klineedit_cmdlineDefault;
+    } else if (ui->kpushbutton_cmdlineSuggestions->isDown()) {
+        lineEdit = ui->klineedit_cmdline;
+    } else if (ui->kpushbutton_terminalSuggestions->isDown()) {
+        lineEdit = ui->klineedit_terminal;
+    } else if (ui->kpushbutton_terminalInputSuggestions->isDown()) {
+        lineEdit = ui->klineedit_terminalInput;
+    } else if (ui->kpushbutton_terminalOutputSuggestions->isDown()) {
+        lineEdit = ui->klineedit_terminalOutput;
     } else {
         return;
     }
@@ -674,20 +682,20 @@ void KCMGRUB2::slotTriggeredSuggestion(QAction *action)
 {
     KLineEdit *lineEdit = 0;
     void (KCMGRUB2::*updateFunction)() = 0;
-    if (ui.kpushbutton_cmdlineDefaultSuggestions->isDown()) {
-        lineEdit = ui.klineedit_cmdlineDefault;
+    if (ui->kpushbutton_cmdlineDefaultSuggestions->isDown()) {
+        lineEdit = ui->klineedit_cmdlineDefault;
         updateFunction = &KCMGRUB2::slotGrubCmdlineLinuxDefaultChanged;
-    } else if (ui.kpushbutton_cmdlineSuggestions->isDown()) {
-        lineEdit = ui.klineedit_cmdline;
+    } else if (ui->kpushbutton_cmdlineSuggestions->isDown()) {
+        lineEdit = ui->klineedit_cmdline;
         updateFunction = &KCMGRUB2::slotGrubCmdlineLinuxChanged;
-    } else if (ui.kpushbutton_terminalSuggestions->isDown()) {
-        lineEdit = ui.klineedit_terminal;
+    } else if (ui->kpushbutton_terminalSuggestions->isDown()) {
+        lineEdit = ui->klineedit_terminal;
         updateFunction = &KCMGRUB2::slotGrubTerminalChanged;
-    } else if (ui.kpushbutton_terminalInputSuggestions->isDown()) {
-        lineEdit = ui.klineedit_terminalInput;
+    } else if (ui->kpushbutton_terminalInputSuggestions->isDown()) {
+        lineEdit = ui->klineedit_terminalInput;
         updateFunction = &KCMGRUB2::slotGrubTerminalInputChanged;
-    } else if (ui.kpushbutton_terminalOutputSuggestions->isDown()) {
-        lineEdit = ui.klineedit_terminalOutput;
+    } else if (ui->kpushbutton_terminalOutputSuggestions->isDown()) {
+        lineEdit = ui->klineedit_terminalOutput;
         updateFunction = &KCMGRUB2::slotGrubTerminalOutputChanged;
     } else {
         return;
@@ -709,17 +717,17 @@ void KCMGRUB2::setupObjects()
 
     m_dirtyBits.resize(lastDirtyBit);
 
-    ui.kpushbutton_install->setIcon(KIcon("system-software-update"));
-    ui.kpushbutton_remove->setIcon(KIcon("list-remove"));
-    ui.kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
+    ui->kpushbutton_install->setIcon(KIcon("system-software-update"));
+    ui->kpushbutton_remove->setIcon(KIcon("list-remove"));
+    ui->kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
 
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);
     transparent.fill(Qt::transparent);
-    ui.kcombobox_normalForeground->addItem(QIcon(black), i18nc("@item:inlistbox Refers to color.", "Black"), "black");
-    ui.kcombobox_highlightForeground->addItem(QIcon(black), i18nc("@item:inlistbox Refers to color.", "Black"), "black");
-    ui.kcombobox_normalBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox Refers to color.", "Transparent"), "black");
-    ui.kcombobox_highlightBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox Refers to color.", "Transparent"), "black");
+    ui->kcombobox_normalForeground->addItem(QIcon(black), i18nc("@item:inlistbox Refers to color.", "Black"), "black");
+    ui->kcombobox_highlightForeground->addItem(QIcon(black), i18nc("@item:inlistbox Refers to color.", "Black"), "black");
+    ui->kcombobox_normalBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox Refers to color.", "Transparent"), "black");
+    ui->kcombobox_highlightBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox Refers to color.", "Transparent"), "black");
     QHash<QString, QString> colors;
     colors.insertMulti("blue", i18nc("@item:inlistbox Refers to color.", "Blue"));
     colors.insertMulti("blue", "blue");
@@ -754,112 +762,112 @@ void KCMGRUB2::setupObjects()
     for (; it != end; it += 2) {
         QPixmap color(16, 16);
         color.fill(QColor(colors.values(it.key()).at(0)));
-        ui.kcombobox_normalForeground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
-        ui.kcombobox_highlightForeground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
-        ui.kcombobox_normalBackground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
-        ui.kcombobox_highlightBackground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
+        ui->kcombobox_normalForeground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
+        ui->kcombobox_highlightForeground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
+        ui->kcombobox_normalBackground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
+        ui->kcombobox_highlightBackground->addItem(QIcon(color), colors.values(it.key()).at(1), it.key());
     }
-    ui.kcombobox_normalForeground->setCurrentIndex(ui.kcombobox_normalForeground->findData("light-gray"));
-    ui.kcombobox_normalBackground->setCurrentIndex(ui.kcombobox_normalBackground->findData("black"));
-    ui.kcombobox_highlightForeground->setCurrentIndex(ui.kcombobox_highlightForeground->findData("black"));
-    ui.kcombobox_highlightBackground->setCurrentIndex(ui.kcombobox_highlightBackground->findData("light-gray"));
+    ui->kcombobox_normalForeground->setCurrentIndex(ui->kcombobox_normalForeground->findData("light-gray"));
+    ui->kcombobox_normalBackground->setCurrentIndex(ui->kcombobox_normalBackground->findData("black"));
+    ui->kcombobox_highlightForeground->setCurrentIndex(ui->kcombobox_highlightForeground->findData("black"));
+    ui->kcombobox_highlightBackground->setCurrentIndex(ui->kcombobox_highlightBackground->findData("light-gray"));
 
-    ui.kpushbutton_preview->setIcon(KIcon("image-png"));
-    ui.kpushbutton_create->setIcon(KIcon("insert-image"));
-    ui.kpushbutton_create->setVisible(HAVE_IMAGEMAGICK);
+    ui->kpushbutton_preview->setIcon(KIcon("image-png"));
+    ui->kpushbutton_create->setIcon(KIcon("insert-image"));
+    ui->kpushbutton_create->setVisible(HAVE_IMAGEMAGICK);
 
-    ui.kpushbutton_cmdlineDefaultSuggestions->setIcon(KIcon("tools-wizard"));
-    ui.kpushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui.kpushbutton_cmdlineDefaultSuggestions));
-    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData("quiet");
-    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData("splash");
-    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData("noplymouth");
-    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData("acpi=off");
-    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData("noapic");
-    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData("nolapic");
-    ui.kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData("single");
-    ui.kpushbutton_cmdlineSuggestions->setIcon(KIcon("tools-wizard"));
-    ui.kpushbutton_cmdlineSuggestions->setMenu(new KMenu(ui.kpushbutton_cmdlineSuggestions));
-    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData("quiet");
-    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData("splash");
-    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData("noplymouth");
-    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData("acpi=off");
-    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData("noapic");
-    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData("nolapic");
-    ui.kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData("single");
-    ui.kpushbutton_terminalSuggestions->setIcon(KIcon("tools-wizard"));
-    ui.kpushbutton_terminalSuggestions->setMenu(new KMenu(ui.kpushbutton_terminalSuggestions));
-    ui.kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData("console");
-    ui.kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
-    ui.kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData("ofconsole");
-    ui.kpushbutton_terminalInputSuggestions->setIcon(KIcon("tools-wizard"));
-    ui.kpushbutton_terminalInputSuggestions->setMenu(new KMenu(ui.kpushbutton_terminalInputSuggestions));
-    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData("console");
-    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
-    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData("ofconsole");
-    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC AT Keyboard (Coreboot)"))->setData("at_keyboard");
-    ui.kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "USB Keyboard (HID Boot Protocol)"))->setData("usb_keyboard");
-    ui.kpushbutton_terminalOutputSuggestions->setIcon(KIcon("tools-wizard"));
-    ui.kpushbutton_terminalOutputSuggestions->setMenu(new KMenu(ui.kpushbutton_terminalOutputSuggestions));
-    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData("console");
-    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
-    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData("ofconsole");
-    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData("gfxterm");
-    ui.kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData("vga_text");
+    ui->kpushbutton_cmdlineDefaultSuggestions->setIcon(KIcon("tools-wizard"));
+    ui->kpushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui->kpushbutton_cmdlineDefaultSuggestions));
+    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData("quiet");
+    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData("splash");
+    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData("noplymouth");
+    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData("acpi=off");
+    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData("noapic");
+    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData("nolapic");
+    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData("single");
+    ui->kpushbutton_cmdlineSuggestions->setIcon(KIcon("tools-wizard"));
+    ui->kpushbutton_cmdlineSuggestions->setMenu(new KMenu(ui->kpushbutton_cmdlineSuggestions));
+    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData("quiet");
+    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData("splash");
+    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData("noplymouth");
+    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData("acpi=off");
+    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData("noapic");
+    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData("nolapic");
+    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData("single");
+    ui->kpushbutton_terminalSuggestions->setIcon(KIcon("tools-wizard"));
+    ui->kpushbutton_terminalSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalSuggestions));
+    ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData("console");
+    ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
+    ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData("ofconsole");
+    ui->kpushbutton_terminalInputSuggestions->setIcon(KIcon("tools-wizard"));
+    ui->kpushbutton_terminalInputSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalInputSuggestions));
+    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData("console");
+    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
+    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData("ofconsole");
+    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC AT Keyboard (Coreboot)"))->setData("at_keyboard");
+    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "USB Keyboard (HID Boot Protocol)"))->setData("usb_keyboard");
+    ui->kpushbutton_terminalOutputSuggestions->setIcon(KIcon("tools-wizard"));
+    ui->kpushbutton_terminalOutputSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalOutputSuggestions));
+    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData("console");
+    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData("serial");
+    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData("ofconsole");
+    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData("gfxterm");
+    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData("vga_text");
 }
 void KCMGRUB2::setupConnections()
 {
-    connect(ui.kcombobox_default, SIGNAL(activated(int)), this, SLOT(changed()));
-    connect(ui.kpushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
-    connect(ui.checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(slotGrubSavedefaultChanged()));
+    connect(ui->kcombobox_default, SIGNAL(activated(int)), this, SLOT(changed()));
+    connect(ui->kpushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
+    connect(ui->checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(slotGrubSavedefaultChanged()));
 
-    connect(ui.checkBox_hiddenTimeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutChanged()));
-    connect(ui.spinBox_hiddenTimeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubHiddenTimeoutChanged()));
-    connect(ui.checkBox_hiddenTimeoutShowTimer, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutQuietChanged()));
-    connect(ui.checkBox_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
-    connect(ui.radioButton_timeout0, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
-    connect(ui.radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
-    connect(ui.spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubTimeoutChanged()));
+    connect(ui->checkBox_hiddenTimeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutChanged()));
+    connect(ui->spinBox_hiddenTimeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubHiddenTimeoutChanged()));
+    connect(ui->checkBox_hiddenTimeoutShowTimer, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutQuietChanged()));
+    connect(ui->checkBox_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
+    connect(ui->radioButton_timeout0, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
+    connect(ui->radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
+    connect(ui->spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubTimeoutChanged()));
 
-    connect(ui.checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableRecoveryChanged()));
-    connect(ui.checkBox_memtest, SIGNAL(clicked(bool)), this, SLOT(slotMemtestChanged()));
-    connect(ui.checkBox_osProber, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableOsProberChanged()));
+    connect(ui->checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableRecoveryChanged()));
+    connect(ui->checkBox_memtest, SIGNAL(clicked(bool)), this, SLOT(slotMemtestChanged()));
+    connect(ui->checkBox_osProber, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableOsProberChanged()));
 
-    connect(ui.kcombobox_gfxmode, SIGNAL(activated(int)), this, SLOT(slotGrubGfxmodeChanged()));
-    connect(ui.kcombobox_gfxpayload, SIGNAL(activated(int)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
+    connect(ui->kcombobox_gfxmode, SIGNAL(activated(int)), this, SLOT(slotGrubGfxmodeChanged()));
+    connect(ui->kcombobox_gfxpayload, SIGNAL(activated(int)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
 
-    connect(ui.kcombobox_normalForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
-    connect(ui.kcombobox_normalBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
-    connect(ui.kcombobox_highlightForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
-    connect(ui.kcombobox_highlightBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
+    connect(ui->kcombobox_normalForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
+    connect(ui->kcombobox_normalBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
+    connect(ui->kcombobox_highlightForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
+    connect(ui->kcombobox_highlightBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
 
-    connect(ui.kurlrequester_background, SIGNAL(textChanged(QString)), this, SLOT(slowGrubBackgroundChanged()));
-    connect(ui.kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(slotPreviewGrubBackground()));
-    connect(ui.kpushbutton_create, SIGNAL(clicked(bool)), this, SLOT(slotCreateGrubBackground()));
-    connect(ui.kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(slotGrubThemeChanged()));
+    connect(ui->kurlrequester_background, SIGNAL(textChanged(QString)), this, SLOT(slowGrubBackgroundChanged()));
+    connect(ui->kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(slotPreviewGrubBackground()));
+    connect(ui->kpushbutton_create, SIGNAL(clicked(bool)), this, SLOT(slotCreateGrubBackground()));
+    connect(ui->kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(slotGrubThemeChanged()));
 
-    connect(ui.klineedit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxDefaultChanged()));
-    connect(ui.kpushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui.kpushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui.klineedit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxChanged()));
-    connect(ui.kpushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui.kpushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->klineedit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxDefaultChanged()));
+    connect(ui->kpushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->kpushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->klineedit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxChanged()));
+    connect(ui->kpushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->kpushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
 
-    connect(ui.klineedit_terminal, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalChanged()));
-    connect(ui.kpushbutton_terminalSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui.kpushbutton_terminalSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui.klineedit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalInputChanged()));
-    connect(ui.kpushbutton_terminalInputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui.kpushbutton_terminalInputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui.klineedit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalOutputChanged()));
-    connect(ui.kpushbutton_terminalOutputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui.kpushbutton_terminalOutputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->klineedit_terminal, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalChanged()));
+    connect(ui->kpushbutton_terminalSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->kpushbutton_terminalSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->klineedit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalInputChanged()));
+    connect(ui->kpushbutton_terminalInputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->kpushbutton_terminalInputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->klineedit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalOutputChanged()));
+    connect(ui->kpushbutton_terminalOutputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->kpushbutton_terminalOutputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
 
-    connect(ui.klineedit_distributor, SIGNAL(textEdited(QString)), this, SLOT(slotGrubDistributorChanged()));
-    connect(ui.klineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
-    connect(ui.klineedit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
-    connect(ui.checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableLinuxUuidChanged()));
+    connect(ui->klineedit_distributor, SIGNAL(textEdited(QString)), this, SLOT(slotGrubDistributorChanged()));
+    connect(ui->klineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
+    connect(ui->klineedit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
+    connect(ui->checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableLinuxUuidChanged()));
 
-    connect(ui.kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
+    connect(ui->kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
 }
 
 QString KCMGRUB2::findExe(const QString &exeName)
@@ -1078,18 +1086,18 @@ void KCMGRUB2::sortResolutions()
 }
 void KCMGRUB2::showResolutions()
 {
-    ui.kcombobox_gfxmode->clear();
-    ui.kcombobox_gfxmode->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Custom..."), "custom");
+    ui->kcombobox_gfxmode->clear();
+    ui->kcombobox_gfxmode->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Custom..."), "custom");
 
-    ui.kcombobox_gfxpayload->clear();
-    ui.kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Custom..."), "custom");
-    ui.kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Unspecified"), QString());
-    ui.kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Boot in Text Mode"), "text");
-    ui.kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Keep GRUB's Resolution"), "keep");
+    ui->kcombobox_gfxpayload->clear();
+    ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Custom..."), "custom");
+    ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Unspecified"), QString());
+    ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Boot in Text Mode"), "text");
+    ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Keep GRUB's Resolution"), "keep");
 
     Q_FOREACH(const QString &resolution, m_resolutions) {
-        ui.kcombobox_gfxmode->addItem(resolution, resolution);
-        ui.kcombobox_gfxpayload->addItem(resolution, resolution);
+        ui->kcombobox_gfxmode->addItem(resolution, resolution);
+        ui->kcombobox_gfxpayload->addItem(resolution, resolution);
     }
 }
 

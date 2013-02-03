@@ -25,13 +25,17 @@
 #include <KCModule>
 
 //Ui
-#include "ui_kcm_grub2.h"
+namespace Ui
+{
+    class KCMGRUB2;
+}
 
 class KCMGRUB2 : public KCModule
 {
     Q_OBJECT
 public:
     explicit KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
+    virtual ~KCMGRUB2();
 
     virtual void defaults();
     virtual void load();
@@ -94,7 +98,7 @@ private:
     void parseSettings(const QString &config);
     void parseEnv(const QString &config);
 
-    Ui::KCMGRUB2 ui;
+    Ui::KCMGRUB2 *ui;
 
     enum {
         grubSavedefaultDirty,

@@ -32,10 +32,14 @@ using namespace KAuth;
 #include <Solid/StorageAccess>
 #include <Solid/StorageVolume>
 
+//Ui
+#include "ui_installDlg.h"
+
 InstallDialog::InstallDialog(const QString installExePath, QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
 {
     QWidget *widget = new QWidget(this);
-    ui.setupUi(widget);
+    ui = new Ui::InstallDialog;
+    ui->setupUi(widget);
     setMainWidget(widget);
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Install/Recover Bootloader"));
@@ -46,9 +50,9 @@ InstallDialog::InstallDialog(const QString installExePath, QWidget *parent, Qt::
 
     m_installExePath = installExePath;
 
-    ui.treeWidget_recover->headerItem()->setText(0, QString());
-    ui.treeWidget_recover->header()->setResizeMode(QHeaderView::Stretch);
-    ui.treeWidget_recover->header()->setResizeMode(0, QHeaderView::ResizeToContents);
+    ui->treeWidget_recover->headerItem()->setText(0, QString());
+    ui->treeWidget_recover->header()->setResizeMode(QHeaderView::Stretch);
+    ui->treeWidget_recover->header()->setResizeMode(0, QHeaderView::ResizeToContents);
     Q_FOREACH(const Solid::Device &device, Solid::Device::listFromType(Solid::DeviceInterface::StorageAccess)) {
         if (!device.is<Solid::StorageAccess>() || !device.is<Solid::StorageVolume>()) {
             continue;
@@ -64,14 +68,18 @@ InstallDialog::InstallDialog(const QString installExePath, QWidget *parent, Qt::
 
         QString uuidDir = "/dev/disk/by-uuid/", uuid = volume->uuid(), name;
         name = (QFile::exists((name = uuidDir + uuid)) || QFile::exists((name = uuidDir + uuid.toLower())) || QFile::exists((name = uuidDir + uuid.toUpper())) ? QFile::symLinkTarget(name) : QString());
-        QTreeWidgetItem *item = new QTreeWidgetItem(ui.treeWidget_recover, QStringList() << QString() << name << partition->filePath() << volume->label() << volume->fsType() << KGlobal::locale()->formatByteSize(volume->size()));
+        QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_recover, QStringList() << QString() << name << partition->filePath() << volume->label() << volume->fsType() << KGlobal::locale()->formatByteSize(volume->size()));
         item->setIcon(1, KIcon(device.icon()));
         item->setTextAlignment(5, Qt::AlignRight | Qt::AlignVCenter);
-        ui.treeWidget_recover->addTopLevelItem(item);
-        QRadioButton *radio = new QRadioButton(ui.treeWidget_recover);
+        ui->treeWidget_recover->addTopLevelItem(item);
+        QRadioButton *radio = new QRadioButton(ui->treeWidget_recover);
         connect(radio, SIGNAL(clicked(bool)), this, SLOT(enableButtonOk(bool)));
-        ui.treeWidget_recover->setItemWidget(item, 0, radio);
+        ui->treeWidget_recover->setItemWidget(item, 0, radio);
     }
+}
+InstallDialog::~InstallDialog()
+{
+    delete ui;
 }
 
 void InstallDialog::slotButtonClicked(int button)
@@ -79,13 +87,13 @@ void InstallDialog::slotButtonClicked(int button)
     if (button == KDialog::Ok) {
         Action installAction("org.kde.kcontrol.kcmgrub2.install");
         installAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-        for (int i = 0; i < ui.treeWidget_recover->topLevelItemCount(); i++) {
-            QRadioButton *radio = qobject_cast<QRadioButton *>(ui.treeWidget_recover->itemWidget(ui.treeWidget_recover->topLevelItem(i), 0));
+        for (int i = 0; i < ui->treeWidget_recover->topLevelItemCount(); i++) {
+            QRadioButton *radio = qobject_cast<QRadioButton *>(ui->treeWidget_recover->itemWidget(ui->treeWidget_recover->topLevelItem(i), 0));
             if (radio && radio->isChecked()) {
                 installAction.addArgument("installExePath", m_installExePath);
-                installAction.addArgument("partition", ui.treeWidget_recover->topLevelItem(i)->text(1));
-                installAction.addArgument("mountPoint", ui.treeWidget_recover->topLevelItem(i)->text(2));
-                installAction.addArgument("mbrInstall", !ui.checkBox_partition->isChecked());
+                installAction.addArgument("partition", ui->treeWidget_recover->topLevelItem(i)->text(1));
+                installAction.addArgument("mountPoint", ui->treeWidget_recover->topLevelItem(i)->text(2));
+                installAction.addArgument("mbrInstall", !ui->checkBox_partition->isChecked());
                 break;
             }
         }
