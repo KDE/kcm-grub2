@@ -29,6 +29,7 @@ public:
     Helper();
 private:
     ActionReply executeCommand(const QStringList &command);
+    QString findShell();
 public Q_SLOTS:
     ActionReply defaults(QVariantMap args);
     ActionReply install(QVariantMap args);

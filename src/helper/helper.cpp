@@ -32,6 +32,7 @@
 #include <KGlobal>
 #include <KLocale>
 #include <KProcess>
+#include <KStandardDirs>
 #include <KAuth/HelperSupport>
 
 //Project
@@ -41,9 +42,24 @@
 #include <hd.h>
 #endif
 
+//The $PATH environment variable is emptied by D-Bus activation,
+//so let's provide a sane default. To be used as a fallback.
+static const QString path = QLatin1String("/usr/sbin:/usr/bin:/sbin:/bin");
+
 Helper::Helper()
 {
     KGlobal::locale()->insertCatalog("kcm-grub2");
+    //-l stands for --login. A login shell is needed in order to properly
+    //source /etc/profile, ~/.profile and/or other shell-specific login
+    //scripts (such as ~/.bash_profile for Bash).
+    //Not all shells implement this option, in which case we have the fallback.
+    //Bash, DASH, ksh and Zsh seem to work properly.
+    ActionReply pathReply = executeCommand(QStringList() << findShell() << "-l" << "-c" << "echo $PATH");
+    if (pathReply.succeeded()) {
+        qputenv("PATH", pathReply.data().value("output").toByteArray().trimmed());
+    } else {
+        qputenv("PATH", path.toLatin1());
+    }
     //TODO: system encoding should be sent from the core application
     QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 }
@@ -90,6 +106,26 @@ ActionReply Helper::executeCommand(const QStringList &command)
     reply.addData("errorDescription", errorDescription);
 #endif
     return reply;
+}
+QString Helper::findShell()
+{
+    QString shell = QFile::symLinkTarget(QLatin1String("/bin/sh"));
+    if (shell.isEmpty()) {
+        shell = KStandardDirs::findExe(QLatin1String("bash"), path);
+        if (shell.isEmpty()) {
+            shell = KStandardDirs::findExe(QLatin1String("dash"), path);
+            if (shell.isEmpty()) {
+                shell = KStandardDirs::findExe(QLatin1String("ksh"), path);
+                if (shell.isEmpty()) {
+                    shell = KStandardDirs::findExe(QLatin1String("zsh"), path);
+                    if (shell.isEmpty()) {
+                        shell = QLatin1String("/bin/sh");
+                    }
+                }
+            }
+        }
+    }
+    return shell;
 }
 
 ActionReply Helper::defaults(QVariantMap args)
@@ -232,7 +268,6 @@ ActionReply Helper::probevbe(QVariantMap args)
 ActionReply Helper::save(QVariantMap args)
 {
     ActionReply reply;
-    qputenv("PATH", args.value("PATH").toByteArray());
     QString mkconfigExePath = args.value("mkconfigExePath").toString();
     QString set_defaultExePath = args.value("set_defaultExePath").toString();
     QString configFileName = args.value("configFileName").toString();
