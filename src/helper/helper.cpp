@@ -23,13 +23,9 @@
 
 //Qt
 #include <QDir>
-#include <QTextCodec>
-#include <QTextStream>
 
 //KDE
 #include <KDebug>
-#include <kdeversion.h>
-#include <KGlobal>
 #include <KLocale>
 #include <KProcess>
 #include <KStandardDirs>
@@ -60,51 +56,24 @@ Helper::Helper()
     } else {
         qputenv("PATH", path.toLatin1());
     }
-    //TODO: system encoding should be sent from the core application
-    QTextCodec::setCodecForLocale(QTextCodec::codecForName("UTF-8"));
 }
 
 ActionReply Helper::executeCommand(const QStringList &command)
 {
-    ActionReply reply;
-    reply.addData("command", command);
-
     KProcess process;
     process.setProgram(command);
     process.setOutputChannelMode(KProcess::MergedChannels);
 
     kDebug() << "Executing" << command.join(" ");
     int exitCode = process.execute();
-    reply.addData("exitCode", exitCode);
-    QString output = QString::fromUtf8(process.readAll());
-    reply.addData("output", output);
 
-    if (exitCode == 0) {
-        return reply;
+    ActionReply reply;
+    if (exitCode != 0) {
+        reply = ActionReply::HelperErrorReply;
+        reply.setErrorCode(exitCode);
     }
-
-    QString errorMessage;
-    switch (exitCode) {
-    case -2:
-        errorMessage = i18nc("@info", "The process could not be started.");
-        break;
-    case -1:
-        errorMessage = i18nc("@info", "The process crashed.");
-        break;
-    default:
-        errorMessage = output;
-        break;
-    }
-    QString errorDescription = i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", command.join(" "), exitCode, errorMessage);
-
-    reply = ActionReply::HelperErrorReply;
-    reply.setErrorCode(exitCode);
-    reply.addData("errorMessage", errorMessage);
-#if KDE_IS_VERSION(4,7,0)
-    reply.setErrorDescription(errorDescription);
-#else
-    reply.addData("errorDescription", errorDescription);
-#endif
+    reply.addData("command", command);
+    reply.addData("output", process.readAll());
     return reply;
 }
 QString Helper::findShell()
@@ -136,32 +105,17 @@ ActionReply Helper::defaults(QVariantMap args)
 
     if (!QFile::exists(originalConfigFileName)) {
         reply = ActionReply::HelperErrorReply;
-        QString errorDescription = i18nc("@info", "Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName);
-#if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(errorDescription);
-#else
-        reply.addData("errorDescription", errorDescription);
-#endif
+        reply.addData("errorDescription", i18nc("@info", "Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName));
         return reply;
     }
     if (!QFile::remove(configFileName)) {
         reply = ActionReply::HelperErrorReply;
-        QString errorDescription = i18nc("@info", "Cannot remove current configuration file <filename>%1</filename>.", configFileName);
-#if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(errorDescription);
-#else
-        reply.addData("errorDescription", errorDescription);
-#endif
+        reply.addData("errorDescription", i18nc("@info", "Cannot remove current configuration file <filename>%1</filename>.", configFileName));
         return reply;
     }
     if (!QFile::copy(originalConfigFileName, configFileName)) {
         reply = ActionReply::HelperErrorReply;
-        QString errorDescription = i18nc("@info", "Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName);
-#if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(errorDescription);
-#else
-        reply.addData("errorDescription", errorDescription);
-#endif
+        reply.addData("errorDescription", i18nc("@info", "Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName));
         return reply;
     }
     return reply;
@@ -178,12 +132,7 @@ ActionReply Helper::install(QVariantMap args)
         for (int i = 0; QDir(mountPoint = QString("%1/kcm-grub2-%2").arg(QDir::tempPath(), QString::number(i))).exists(); i++);
         if (!QDir().mkpath(mountPoint)) {
             reply = ActionReply::HelperErrorReply;
-            QString errorDescription = i18nc("@info", "Failed to create temporary mount point.");
-#if KDE_IS_VERSION(4,7,0)
-            reply.setErrorDescription(errorDescription);
-#else
-            reply.addData("errorDescription", errorDescription);
-#endif
+            reply.addData("errorDescription", i18nc("@info", "Failed to create temporary mount point."));
             return reply;
         }
         ActionReply mountReply = executeCommand(QStringList() << "mount" << partition << mountPoint);
@@ -209,16 +158,10 @@ ActionReply Helper::load(QVariantMap args)
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         reply = ActionReply::HelperErrorReply;
-#if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(file.errorString());
-#else
         reply.addData("errorDescription", file.errorString());
-#endif
         return reply;
     }
-
-    QTextStream stream(&file);
-    reply.addData("fileContents", stream.readAll());
+    reply.addData("rawFileContents", file.readAll());
     return reply;
 }
 ActionReply Helper::probe(QVariantMap args)
@@ -271,9 +214,9 @@ ActionReply Helper::save(QVariantMap args)
     QString mkconfigExePath = args.value("mkconfigExePath").toString();
     QString set_defaultExePath = args.value("set_defaultExePath").toString();
     QString configFileName = args.value("configFileName").toString();
-    QString configFileContents = args.value("configFileContents").toString();
+    QByteArray rawConfigFileContents = args.value("rawConfigFileContents").toByteArray();
     QString menuFileName = args.value("menuFileName").toString();
-    QString defaultEntry = args.value("defaultEntry").toString();
+    QByteArray rawDefaultEntry = args.value("rawDefaultEntry").toByteArray();
     QString memtestFileName = args.value("memtestFileName").toString();
     bool memtest = args.value("memtest").toBool();
 
@@ -282,15 +225,10 @@ ActionReply Helper::save(QVariantMap args)
     QFile file(configFileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         reply = ActionReply::HelperErrorReply;
-#if KDE_IS_VERSION(4,7,0)
-        reply.setErrorDescription(file.errorString());
-#else
         reply.addData("errorDescription", file.errorString());
-#endif
         return reply;
     }
-    QTextStream stream(&file);
-    stream << configFileContents;
+    file.write(rawConfigFileContents);
     file.close();
 
     if (args.contains("memtest")) {
@@ -308,7 +246,7 @@ ActionReply Helper::save(QVariantMap args)
         return grub_mkconfigReply;
     }
 
-    ActionReply grub_set_defaultReply = executeCommand(QStringList() << set_defaultExePath << defaultEntry);
+    ActionReply grub_set_defaultReply = executeCommand(QStringList() << set_defaultExePath << rawDefaultEntry);
     if (grub_set_defaultReply.failed()) {
         return grub_set_defaultReply;
     }

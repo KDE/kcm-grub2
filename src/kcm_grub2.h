@@ -23,6 +23,10 @@
 
 //KDE
 #include <KCModule>
+namespace KAuth
+{
+    class ActionReply;
+}
 
 //Ui
 namespace Ui
@@ -94,6 +98,7 @@ private:
     QString quoteWord(const QString &word);
     QString unquoteWord(const QString &word);
 
+    void processReply(KAuth::ActionReply &reply);
     void parseEntries(const QString &config);
     void parseSettings(const QString &config);
     void parseEnv(const QString &config);

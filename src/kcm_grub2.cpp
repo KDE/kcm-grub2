@@ -87,12 +87,13 @@ void KCMGRUB2::defaults()
 #endif
 
     ActionReply reply = defaultsAction.execute();
+    processReply(reply);
     if (reply.succeeded()) {
         load();
         save();
         KMessageBox::information(this, i18nc("@info", "Successfully restored the default values."));
     } else {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), reply.errorDescription());
     }
 }
 void KCMGRUB2::load()
@@ -414,9 +415,9 @@ void KCMGRUB2::save()
     saveAction.addArgument("mkconfigExePath", mkconfigExePath);
     saveAction.addArgument("set_defaultExePath", set_defaultExePath);
     saveAction.addArgument("configFileName", configPath);
-    saveAction.addArgument("configFileContents", configFileContents);
+    saveAction.addArgument("rawConfigFileContents", configFileContents.toLocal8Bit());
     saveAction.addArgument("menuFileName", menuPath);
-    saveAction.addArgument("defaultEntry", m_entries.size() > 0 ? ui->kcombobox_default->currentText() : m_settings.value("GRUB_DEFAULT"));
+    saveAction.addArgument("rawDefaultEntry", m_entries.size() > 0 ? ui->kcombobox_default->currentText().toLocal8Bit() : m_settings.value("GRUB_DEFAULT").toLocal8Bit());
     if (m_dirtyBits.testBit(memtestDirty)) {
         saveAction.addArgument("memtestFileName", memtestPath);
         saveAction.addArgument("memtest", ui->checkBox_memtest->isChecked());
@@ -438,6 +439,7 @@ void KCMGRUB2::save()
     connect(saveAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
 
     ActionReply reply = saveAction.execute();
+    processReply(reply);
     if (reply.succeeded()) {
         KDialog *dialog = new KDialog(this, Qt::Dialog);
         dialog->setCaption(i18nc("@title:window", "Information"));
@@ -448,7 +450,7 @@ void KCMGRUB2::save()
         KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString()); // krazy:exclude=qclasses
         load();
     } else {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), reply.errorDescription());
     }
 }
 
@@ -972,12 +974,13 @@ QString KCMGRUB2::readFile(const QString &fileName)
 #endif
 
     ActionReply reply = loadAction.execute();
+    processReply(reply);
     if (reply.failed()) {
         kError() << "Error reading:" << fileName;
-        kError() << "Error description:" << (KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
+        kError() << "Error description:" << reply.errorDescription();
         return QString();
     }
-    return reply.data().value("fileContents").toString();
+    return QString::fromLocal8Bit(reply.data().value("rawFileContents").toByteArray());
 }
 void KCMGRUB2::readEntries()
 {
@@ -1028,8 +1031,9 @@ void KCMGRUB2::readDevices()
     connect(probeAction.watcher(), SIGNAL(progressStep(int)), progressDlg.progressBar(), SLOT(setValue(int)));
 
     ActionReply reply = probeAction.execute();
+    processReply(reply);
     if (reply.failed()) {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to get GRUB device names."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to get GRUB device names."), reply.errorDescription());
         return;
     }
     QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();
@@ -1052,6 +1056,7 @@ void KCMGRUB2::readResolutions()
 #endif
 
     ActionReply reply = probeVbeAction.execute();
+    processReply(reply);
     if (reply.failed()) {
         return;
     }
@@ -1110,7 +1115,7 @@ QString KCMGRUB2::unquoteWord(const QString &word)
     echo.setShellCommand(QString("echo -n %1").arg(word));
     echo.setOutputChannelMode(KProcess::OnlyStdoutChannel);
     if (echo.execute() == 0) {
-        return QString::fromUtf8(echo.readAllStandardOutput());
+        return QString::fromLocal8Bit(echo.readAllStandardOutput());
     }
 
     QChar ch;
@@ -1189,6 +1194,36 @@ QString KCMGRUB2::unquoteWord(const QString &word)
     return QString();
 }
 
+void KCMGRUB2::processReply(KAuth::ActionReply &reply)
+{
+    if (reply.type() == ActionReply::Success || reply.type() == ActionReply::KAuthError) {
+        return;
+    }
+
+    if (reply.errorCode() == 0) {
+        QLatin1String key("errorDescription");
+        if (reply.data().contains(key)) {
+            reply.setErrorDescription(reply.data().value(key).toString());
+            reply.data().remove(key);
+        }
+        return;
+    }
+
+    QString errorMessage;
+    switch (reply.errorCode()) {
+    case -2:
+        errorMessage = i18nc("@info", "The process could not be started.");
+        break;
+    case -1:
+        errorMessage = i18nc("@info", "The process crashed.");
+        break;
+    default:
+        errorMessage = QString::fromLocal8Bit(reply.data().value(QLatin1String("output")).toByteArray());
+        break;
+    }
+    reply.addData(QLatin1String("errorMessage"), errorMessage);
+    reply.setErrorDescription(i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", reply.data().value(QLatin1String("command")).toStringList().join(QLatin1String(" ")), reply.errorCode(), errorMessage));
+}
 void KCMGRUB2::parseEntries(const QString &config)
 {
     QChar ch;
