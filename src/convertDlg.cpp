@@ -78,14 +78,17 @@ void ConvertDialog::slotButtonClicked(int button)
         } else if (ui->spinBox_width->value() == 0 || ui->spinBox_height->value() == 0) {
             KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Width</interface> and <interface>Height</interface> fields."));
             return;
+        } else if (!QFileInfo(ui->kurlrequester_converted->url().directory()).isWritable()) {
+            KMessageBox::information(this, i18nc("@info", "You do not have write permissions in this directory, please select another destination."));
+            return;
         }
         Magick::Geometry resolution(ui->spinBox_width->value(), ui->spinBox_height->value());
         resolution.aspect(ui->checkBox_force->isChecked());
-        Magick::Image image(ui->kurlrequester_image->url().toLocalFile().toStdString());
+        Magick::Image image(std::string(ui->kurlrequester_image->url().toLocalFile().toUtf8()));
         image.zoom(resolution);
         image.depth(8);
         image.classType(Magick::DirectClass);
-        image.write(ui->kurlrequester_converted->url().toLocalFile().toStdString());
+        image.write(std::string(ui->kurlrequester_converted->url().toLocalFile().toUtf8()));
         if (ui->checkBox_wallpaper->isChecked()) {
             emit splashImageCreated(ui->kurlrequester_converted->url().toLocalFile());
         }
