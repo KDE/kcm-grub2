@@ -23,6 +23,8 @@
 
 //Qt
 #include <QDesktopWidget>
+#include <QStandardItemModel>
+#include <QTreeView>
 
 //KDE
 #include <KAboutData>
@@ -34,16 +36,17 @@
 #include <KPluginFactory>
 #include <KProcess>
 #include <KProgressDialog>
-#include <KShell>
 #include <KStandardDirs>
 #include <KAuth/ActionWatcher>
 using namespace KAuth;
 
 //Project
+#include "common.h"
 #include <config.h>
 #if HAVE_IMAGEMAGICK
 #include "convertDlg.h"
 #endif
+#include "entry.h"
 #include "installDlg.h"
 #if HAVE_QAPT || HAVE_QPACKAGEKIT
 #include "removeDlg.h"
@@ -108,31 +111,76 @@ void KCMGRUB2::load()
 #if HAVE_HD
     readResolutions();
 #endif
-    if (unquoteWord(m_settings.value("GRUB_DEFAULT")).compare("saved") == 0) {
-        m_settings["GRUB_DEFAULT"] = (!m_env.value("saved_entry").isEmpty() ? m_env.value("saved_entry") : "0");
+    QString grubDefault = unquoteWord(m_settings.value("GRUB_DEFAULT"));
+    if (grubDefault == QLatin1String("saved")) {
+        grubDefault = (m_env.value("saved_entry").isEmpty() ? "0" : m_env.value("saved_entry"));
     }
 
-    bool ok;
     ui->kcombobox_default->clear();
-    if (m_entries.size() > 0) {
-        Q_FOREACH(const QString &entry, m_entries) {
-            ui->kcombobox_default->addItem(unquoteWord(entry), entry);
-        }
-        int entryIndex = ui->kcombobox_default->findText(m_settings.value("GRUB_DEFAULT"));
-        if (entryIndex != -1) {
-            ui->kcombobox_default->setCurrentIndex(entryIndex);
-        } else {
-            entryIndex = unquoteWord(m_settings.value("GRUB_DEFAULT")).toInt(&ok);
-            if (ok && entryIndex >= 0 && entryIndex < m_entries.size()) {
-                ui->kcombobox_default->setCurrentIndex(entryIndex);
-            } else {
-                kWarning() << "Invalid GRUB_DEFAULT value";
+    if (!m_entries.isEmpty()) {
+        int maxLen = 0, maxLvl = 0;
+        QStandardItemModel *model = new QStandardItemModel(ui->kcombobox_default);
+        QTreeView *view = static_cast<QTreeView *>(ui->kcombobox_default->view());
+        QList<QStandardItem *> ancestors;
+        ancestors.append(model->invisibleRootItem());
+        for (int i = 0; i < m_entries.size(); i++) {
+            const Entry &entry = m_entries.at(i);
+            const QString &prettyTitle = entry.prettyTitle();
+            if (prettyTitle.length() > maxLen) {
+                maxLen = prettyTitle.length();
+            }
+            if (entry.level() > maxLvl) {
+                maxLvl = entry.level();
+            }
+            QStandardItem *item = new QStandardItem(prettyTitle);
+            item->setData(entry.fullTitle());
+            item->setSelectable(entry.type() == Entry::Menuentry);
+            ancestors.last()->appendRow(item);
+            if (i + 1 < m_entries.size()) {
+                int n = m_entries.at(i + 1).level() - entry.level();
+                if (n == 1) {
+                    ancestors.append(item);
+                } else if (n < 0) {
+                    for (int j = 0; j > n; j--) {
+                        ancestors.removeLast();
+                    }
+                }
             }
         }
+        view->setModel(model);
+        view->expandAll();
+        ui->kcombobox_default->setModel(model);
+        ui->kcombobox_default->setMinimumContentsLength(maxLen + maxLvl * 3);
+
+        bool numericDefault = QRegExp("((\\d)+>)*(\\d)+").exactMatch(grubDefault);
+        int entryIndex = -1;
+        for (int i = 0; i < m_entries.size(); i++) {
+            if ((numericDefault && m_entries.at(i).fullNumTitle() == grubDefault) || (!numericDefault && m_entries.at(i).fullTitle() == grubDefault)) {
+                entryIndex = i;
+                break;
+            }
+        }
+        if (entryIndex != -1) {
+            const Entry &entry = m_entries.at(entryIndex);
+            if (entry.level() == 0) {
+                ui->kcombobox_default->setCurrentIndex(entry.title().num);
+            } else {
+                QStandardItem *item = model->item(entry.ancestors().at(0).num);
+                for (int i = 1; i < entry.level(); i++) {
+                    item = item->child(entry.ancestors().at(i).num);
+                }
+                ui->kcombobox_default->setRootModelIndex(model->indexFromItem(item));
+                ui->kcombobox_default->setCurrentIndex(entry.title().num);
+                ui->kcombobox_default->setRootModelIndex(model->indexFromItem(model->invisibleRootItem()));
+            }
+        } else {
+            kWarning() << "Invalid GRUB_DEFAULT value";
+        }
     }
-    ui->kpushbutton_remove->setEnabled(m_entries.size() > 0);
+    ui->kpushbutton_remove->setEnabled(!m_entries.isEmpty());
     ui->checkBox_savedefault->setChecked(unquoteWord(m_settings.value("GRUB_SAVEDEFAULT")).compare("true") == 0);
 
+    bool ok;
     if (!m_settings.value("GRUB_HIDDEN_TIMEOUT").isEmpty()) {
         int grubHiddenTimeout = unquoteWord(m_settings.value("GRUB_HIDDEN_TIMEOUT")).toInt(&ok);
         if (ok && grubHiddenTimeout >= 0) {
@@ -231,8 +279,19 @@ void KCMGRUB2::load()
 }
 void KCMGRUB2::save()
 {
-    if (m_entries.size() > 0) {
+    QString grubDefault;
+    if (!m_entries.isEmpty()) {
         m_settings["GRUB_DEFAULT"] = "saved";
+        QStandardItemModel *model = static_cast<QStandardItemModel *>(ui->kcombobox_default->model());
+        QTreeView *view = static_cast<QTreeView *>(ui->kcombobox_default->view());
+        //Ugly, ugly hack. The view's current QModelIndex is invalidated
+        //while the view is hidden and there is no access to the internal
+        //QPersistentModelIndex (it is hidden in QComboBox's pimpl).
+        //While the popup is shown, the QComboBox selects the corrent entry.
+        //TODO: Maybe move away from the QComboBox+QTreeView implementation?
+        ui->kcombobox_default->showPopup();
+        grubDefault = model->itemFromIndex(view->currentIndex())->data().toString();
+        ui->kcombobox_default->hidePopup();
     }
     if (m_dirtyBits.testBit(grubSavedefaultDirty)) {
         if (ui->checkBox_savedefault->isChecked()) {
@@ -417,7 +476,7 @@ void KCMGRUB2::save()
     saveAction.addArgument("configFileName", configPath);
     saveAction.addArgument("rawConfigFileContents", configFileContents.toLocal8Bit());
     saveAction.addArgument("menuFileName", menuPath);
-    saveAction.addArgument("rawDefaultEntry", m_entries.size() > 0 ? ui->kcombobox_default->currentText().toLocal8Bit() : m_settings.value("GRUB_DEFAULT").toLocal8Bit());
+    saveAction.addArgument("rawDefaultEntry", !m_entries.isEmpty() ? grubDefault : m_settings.value("GRUB_DEFAULT").toLocal8Bit());
     if (m_dirtyBits.testBit(memtestDirty)) {
         saveAction.addArgument("memtestFileName", memtestPath);
         saveAction.addArgument("memtest", ui->checkBox_memtest->isChecked());
@@ -457,11 +516,7 @@ void KCMGRUB2::save()
 void KCMGRUB2::slotRemoveOldEntries()
 {
 #if HAVE_QAPT || HAVE_QPACKAGEKIT
-    QStringList entries;
-    Q_FOREACH(const QString &entry, m_entries) {
-        entries.append(unquoteWord(entry));
-    }
-    QPointer<RemoveDialog> removeDlg = new RemoveDialog(entries, m_kernels, this);
+    QPointer<RemoveDialog> removeDlg = new RemoveDialog(m_entries, this);
     if (removeDlg->exec()) {
         load();
     }
@@ -717,6 +772,12 @@ void KCMGRUB2::setupObjects()
     setNeedsAuthorization(true);
 
     m_dirtyBits.resize(lastDirtyBit);
+
+    QTreeView *view = new QTreeView(ui->kcombobox_default);
+    view->setHeaderHidden(true);
+    view->setItemsExpandable(false);
+    view->setRootIsDecorated(false);
+    ui->kcombobox_default->setView(view);
 
     ui->kpushbutton_install->setIcon(KIcon("system-software-update"));
     ui->kpushbutton_remove->setIcon(KIcon("list-remove"));
@@ -987,7 +1048,6 @@ void KCMGRUB2::readEntries()
     QString fileContents = readFile(menuPath);
 
     m_entries.clear();
-    m_kernels.clear();
     parseEntries(fileContents);
 }
 void KCMGRUB2::readSettings()
@@ -1105,95 +1165,6 @@ void KCMGRUB2::showResolutions()
     }
 }
 
-QString KCMGRUB2::quoteWord(const QString &word)
-{
-    return !word.startsWith('`') || !word.endsWith('`') ? KShell::quoteArg(word) : word;
-}
-QString KCMGRUB2::unquoteWord(const QString &word)
-{
-    KProcess echo(this);
-    echo.setShellCommand(QString("echo -n %1").arg(word));
-    echo.setOutputChannelMode(KProcess::OnlyStdoutChannel);
-    if (echo.execute() == 0) {
-        return QString::fromLocal8Bit(echo.readAllStandardOutput());
-    }
-
-    QChar ch;
-    QString quotedWord = word, unquotedWord;
-    QTextStream stream(&quotedWord, QIODevice::ReadOnly | QIODevice::Text);
-    while (!stream.atEnd()) {
-        stream >> ch;
-        if (ch == '\'') {
-            while (true) {
-                if (stream.atEnd()) {
-                    return QString();
-                }
-                stream >> ch;
-                if (ch == '\'') {
-                    return unquotedWord;
-                } else {
-                    unquotedWord.append(ch);
-                }
-            }
-        } else if (ch == '"') {
-            while (true) {
-                if (stream.atEnd()) {
-                    return QString();
-                }
-                stream >> ch;
-                if (ch == '\\') {
-                    if (stream.atEnd()) {
-                        return QString();
-                    }
-                    stream >> ch;
-                    switch (ch.toAscii()) {
-                    case '$':
-                    case '"':
-                    case '\\':
-                        unquotedWord.append(ch);
-                        break;
-                    case '\n':
-                        unquotedWord.append(' ');
-                        break;
-                    default:
-                        unquotedWord.append('\\').append(ch);
-                        break;
-                    }
-                } else if (ch == '"') {
-                    return unquotedWord;
-                } else {
-                    unquotedWord.append(ch);
-                }
-            }
-        } else {
-            while (true) {
-                if (ch == '\\') {
-                    if (stream.atEnd()) {
-                        return unquotedWord;
-                    }
-                    stream >> ch;
-                    switch (ch.toAscii()) {
-                    case '\n':
-                        break;
-                    default:
-                        unquotedWord.append(ch);
-                        break;
-                    }
-                } else if (ch.isSpace()) {
-                    return unquotedWord;
-                } else {
-                    unquotedWord.append(ch);
-                }
-                if (stream.atEnd()) {
-                    return unquotedWord;
-                }
-                stream >> ch;
-            }
-        }
-    }
-    return QString();
-}
-
 void KCMGRUB2::processReply(KAuth::ActionReply &reply)
 {
     if (reply.type() == ActionReply::Success || reply.type() == ActionReply::KAuthError) {
@@ -1224,83 +1195,121 @@ void KCMGRUB2::processReply(KAuth::ActionReply &reply)
     reply.addData(QLatin1String("errorMessage"), errorMessage);
     reply.setErrorDescription(i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", reply.data().value(QLatin1String("command")).toStringList().join(QLatin1String(" ")), reply.errorCode(), errorMessage));
 }
-void KCMGRUB2::parseEntries(const QString &config)
+QString KCMGRUB2::parseTitle(const QString &line)
 {
     QChar ch;
-    QString word, entry, entriesConfig = config;
-    QTextStream stream(&entriesConfig, QIODevice::ReadOnly | QIODevice::Text);
+    QString entry, lineStr = line;
+    QTextStream stream(&lineStr, QIODevice::ReadOnly | QIODevice::Text);
+
+    stream.skipWhiteSpace();
+    if (stream.atEnd()) {
+        return QString();
+    }
+
+    stream >> ch;
+    entry += ch;
+    if (ch == '\'') {
+        do {
+            if (stream.atEnd()) {
+                return QString();
+            }
+            stream >> ch;
+            entry += ch;
+        } while (ch != '\'');
+    } else if (ch == '"') {
+        do {
+            if (stream.atEnd()) {
+                return QString();
+            }
+            stream >> ch;
+            entry += ch;
+        } while (ch != '"' || entry.at(entry.size() - 2) == '\\');
+    } else {
+        do {
+            if (stream.atEnd()) {
+                return QString();
+            }
+            stream >> ch;
+            entry += ch;
+        } while (!ch.isSpace() || entry.at(entry.size() - 2) == '\\');
+        entry.chop(1); //remove trailing space
+    }
+    return entry;
+}
+void KCMGRUB2::parseEntries(const QString &config)
+{
+    bool inEntry = false;
+    int menuLvl = 0;
+    QList<int> levelCount;
+    levelCount.append(0);
+    QList<Entry::Title> submenus;
+    QString word, configStr = config;
+    QTextStream stream(&configStr, QIODevice::ReadOnly | QIODevice::Text);
     while (!stream.atEnd()) {
-        stream >> ch;
-        if (ch != '\n') {
-            continue;
-        }
-        stream.skipWhiteSpace();
+        //Read the first word of the line
+        stream >> word;
         if (stream.atEnd()) {
             return;
         }
-        stream >> word;
-        if (word.compare("menuentry") == 0) {
-            stream.skipWhiteSpace();
-            if (stream.atEnd()) {
+        //If the first word is known, process the rest of the line
+        if (word == QLatin1String("menuentry")) {
+            if (inEntry) {
+                kError() << "Malformed configuration file! Aborting entries' parsing.";
+                kDebug() << "A 'menuentry' directive was detected inside the scope of a menuentry.";
+                m_entries.clear();
                 return;
             }
-            entry.clear();
-            stream >> ch;
-            entry += ch;
-            if (ch == '\'') {
-                do {
-                    if (stream.atEnd()) {
-                        return;
-                    }
-                    stream >> ch;
-                    entry += ch;
-                } while (ch != '\'');
-            } else if (ch == '"') {
-                while (true) {
-                    if (stream.atEnd()) {
-                        return;
-                    }
-                    stream >> ch;
-                    entry += ch;
-                    if (ch == '\\') {
-                        stream >> ch;
-                        entry += ch;
-                    } else if (ch == '"') {
-                        break;
-                    }
-                }
-            } else {
-                while (true) {
-                    if (stream.atEnd()) {
-                        return;
-                    }
-                    stream >> ch;
-                    if (ch.isSpace()) {
-                        break;
-                    }
-                    entry += ch;
-                    if (ch == '\\') {
-                        stream >> ch;
-                        entry += ch;
-                    }
-                }
+            Entry entry(parseTitle(stream.readLine()), levelCount.at(menuLvl), Entry::Menuentry, menuLvl);
+            if (menuLvl > 0) {
+                entry.setAncestors(submenus);
             }
             m_entries.append(entry);
-        } else if (word.compare("linux") == 0 && !entry.isEmpty()) {
-            stream.skipWhiteSpace();
-            if (stream.atEnd()) {
+            levelCount[menuLvl]++;
+            inEntry = true;
+            continue;
+        } else if (word == QLatin1String("submenu")) {
+            if (inEntry) {
+                kError() << "Malformed configuration file! Aborting entries' parsing.";
+                kDebug() << "A 'submenu' directive was detected inside the scope of a menuentry.";
+                m_entries.clear();
+                return;
+            }
+            Entry entry(parseTitle(stream.readLine()), levelCount.at(menuLvl), Entry::Submenu, menuLvl);
+            if (menuLvl > 0) {
+                entry.setAncestors(submenus);
+            }
+            m_entries.append(entry);
+            submenus.append(entry.title());
+            levelCount[menuLvl]++;
+            levelCount.append(0);
+            menuLvl++;
+            continue;
+        } else if (word == QLatin1String("linux")) {
+            if (!inEntry) {
+                kError() << "Malformed configuration file! Aborting entries' parsing.";
+                kDebug() << "A 'linux' directive was detected outside the scope of a menuentry.";
+                m_entries.clear();
                 return;
             }
             stream >> word;
-            m_kernels[unquoteWord(entry)] = word;
-            entry.clear();
+            m_entries.last().setKernel(word);
+        } else if (word == QLatin1String("}")) {
+            if (inEntry) {
+                inEntry = false;
+            } else if (menuLvl > 0) {
+                submenus.removeLast();
+                levelCount[menuLvl] = 0;
+                menuLvl--;
+            }
         }
+        //Drop the rest of the line
+        stream.readLine();
     }
 }
 void KCMGRUB2::parseSettings(const QString &config)
 {
-    QString line, settingsConfig = config;
-    QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
+    QString line, configStr = config;
+    QTextStream stream(&configStr, QIODevice::ReadOnly | QIODevice::Text);
     while (!stream.atEnd()) {
         line = stream.readLine().trimmed();
         if (line.startsWith(QLatin1String("GRUB_"))) {
@@ -1310,8 +1319,8 @@ void KCMGRUB2::parseSettings(const QString &config)
 }
 void KCMGRUB2::parseEnv(const QString &config)
 {
-    QString line, settingsConfig = config;
-    QTextStream stream(&settingsConfig, QIODevice::ReadOnly);
+    QString line, configStr = config;
+    QTextStream stream(&configStr, QIODevice::ReadOnly | QIODevice::Text);
     while (!stream.atEnd()) {
         line = stream.readLine().trimmed();
         if (line.startsWith('#')) {

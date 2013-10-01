@@ -15,54 +15,51 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-//Krazy
-//krazy:excludeall=cpp
+#ifndef ENTRY_H
+#define ENTRY_H
 
-#ifndef REMOVEDLG_H
-#define REMOVEDLG_H
+//Qt
+#include <QList>
+#include <QString>
 
-//KDE
-#include <KDialog>
-class KProgressDialog;
-
-//Project
-#include <config.h>
-class Entry;
-#if HAVE_QAPT
-#include "qaptBackend.h"
-#elif HAVE_QPACKAGEKIT
-#include "qPkBackend.h"
-#endif
-
-//Ui
-namespace Ui
+class Entry
 {
-    class RemoveDialog;
-}
-
-class RemoveDialog : public KDialog
-{
-    Q_OBJECT
 public:
-    explicit RemoveDialog(const QList<Entry> &entries, QWidget *parent = 0, Qt::WFlags flags = 0);
-    virtual ~RemoveDialog();
-protected Q_SLOTS:
-    virtual void slotButtonClicked(int button);
-private Q_SLOTS:
-    void slotItemChanged();
-    void slotProgress(const QString &status, int percentage);
-    void slotFinished(bool success);
-private:
-    void detectCurrentKernelImage();
+    struct Title {
+        QString str;
+        int num;
+    };
+    enum Type {
+        Invalid,
+        Menuentry,
+        Submenu
+    };
 
-#if HAVE_QAPT
-    QAptBackend *m_backend;
-#elif HAVE_QPACKAGEKIT
-    QPkBackend *m_backend;
-#endif
-    QString m_currentKernelImage;
-    KProgressDialog *m_progressDlg;
-    Ui::RemoveDialog *ui;
+    Entry(const QString &strTitle = QString(), int numTitle = -1, Entry::Type type = Entry::Invalid, int level = -1);
+
+    Entry::Title title() const;
+    QString prettyTitle() const;
+    QString fullTitle() const;
+    QString fullNumTitle() const;
+    Entry::Type type() const;
+    int level() const;
+    QList<Entry::Title> ancestors() const;
+    QString kernel() const;
+
+    void setTitle(const Entry::Title &title);
+    void setTitle(const QString &strTitle, int numTitle);
+    void setType(Entry::Type type);
+    void setLevel(int level);
+    void setAncestors(const QList<Entry::Title> &ancestors);
+    void setKernel(const QString &kernel);
+
+    void clear();
+private:
+    Entry::Title m_title;
+    Entry::Type m_type;
+    int m_level;
+    QList<Entry::Title> m_ancestors;
+    QString m_kernel;
 };
 
 #endif

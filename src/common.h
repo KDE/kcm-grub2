@@ -15,54 +15,13 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-//Krazy
-//krazy:excludeall=cpp
+#ifndef COMMON_H
+#define COMMON_H
 
-#ifndef REMOVEDLG_H
-#define REMOVEDLG_H
+//Qt
+class QString;
 
-//KDE
-#include <KDialog>
-class KProgressDialog;
-
-//Project
-#include <config.h>
-class Entry;
-#if HAVE_QAPT
-#include "qaptBackend.h"
-#elif HAVE_QPACKAGEKIT
-#include "qPkBackend.h"
-#endif
-
-//Ui
-namespace Ui
-{
-    class RemoveDialog;
-}
-
-class RemoveDialog : public KDialog
-{
-    Q_OBJECT
-public:
-    explicit RemoveDialog(const QList<Entry> &entries, QWidget *parent = 0, Qt::WFlags flags = 0);
-    virtual ~RemoveDialog();
-protected Q_SLOTS:
-    virtual void slotButtonClicked(int button);
-private Q_SLOTS:
-    void slotItemChanged();
-    void slotProgress(const QString &status, int percentage);
-    void slotFinished(bool success);
-private:
-    void detectCurrentKernelImage();
-
-#if HAVE_QAPT
-    QAptBackend *m_backend;
-#elif HAVE_QPACKAGEKIT
-    QPkBackend *m_backend;
-#endif
-    QString m_currentKernelImage;
-    KProgressDialog *m_progressDlg;
-    Ui::RemoveDialog *ui;
-};
+QString quoteWord(const QString &word);
+QString unquoteWord(const QString &word);
 
 #endif

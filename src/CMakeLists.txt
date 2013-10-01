@@ -14,8 +14,8 @@ else (HAVE_QAPT)
 endif (HAVE_QAPT)
 
 # Set Sources
-set(kcm_grub2_SRCS kcm_grub2.cpp installDlg.cpp)
-kde4_add_ui_files(kcm_grub2_SRCS ../ui/kcm_grub2.ui ../ui/installDlg.ui)
+set(kcm_grub2_SRCS common.cpp entry.cpp installDlg.cpp kcm_grub2.cpp)
+kde4_add_ui_files(kcm_grub2_SRCS ../ui/installDlg.ui ../ui/kcm_grub2.ui)
 if (HAVE_IMAGEMAGICK)
     set(kcm_grub2_SRCS ${kcm_grub2_SRCS} convertDlg.cpp)
     kde4_add_ui_files(kcm_grub2_SRCS ../ui/convertDlg.ui)

@@ -30,10 +30,13 @@
 #include <KMessageBox>
 #include <KProgressDialog>
 
+//Project
+#include "entry.h"
+
 //Ui
 #include "ui_removeDlg.h"
 
-RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QString> &kernels, QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
+RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
 {
     QWidget *widget = new QWidget(this);
     ui = new Ui::RemoveDialog;
@@ -59,7 +62,7 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
     bool found = false;
     for (int i = 0; i < entries.size(); i++) {
         progressDlg.progressBar()->setValue(100. / entries.size() * (i + 1));
-        QString file = kernels.value(entries.at(i));
+        QString file = entries.at(i).kernel();
         if (file.isEmpty() || file == m_currentKernelImage) {
             continue;
         }
@@ -85,7 +88,7 @@ RemoveDialog::RemoveDialog(const QStringList &entries, const QHash<QString, QStr
             item->setCheckState(0, Qt::Checked);
             ui->treeWidget->addTopLevelItem(item);
         }
-        item->addChild(new QTreeWidgetItem(QStringList(entries.at(i))));
+        item->addChild(new QTreeWidgetItem(QStringList(entries.at(i).prettyTitle())));
     }
     if (found) {
         ui->treeWidget->expandAll();

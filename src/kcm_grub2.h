@@ -28,6 +28,9 @@ namespace KAuth
     class ActionReply;
 }
 
+//Project
+class Entry;
+
 //Ui
 namespace Ui
 {
@@ -95,10 +98,8 @@ private:
     void sortResolutions();
     void showResolutions();
 
-    QString quoteWord(const QString &word);
-    QString unquoteWord(const QString &word);
-
     void processReply(KAuth::ActionReply &reply);
+    QString parseTitle(const QString &line);
     void parseEntries(const QString &config);
     void parseSettings(const QString &config);
     void parseEnv(const QString &config);
@@ -141,8 +142,7 @@ private:
     QString envPath;
     QString memtestPath;
 
-    QStringList m_entries;
-    QHash<QString, QString> m_kernels;
+    QList<Entry> m_entries;
     QHash<QString, QString> m_settings;
     QHash<QString, QString> m_env;
     QHash<QString, QString> m_devices;
