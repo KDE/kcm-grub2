@@ -528,6 +528,11 @@ void KCMGRUB2::slotGrubSavedefaultChanged()
     m_dirtyBits.setBit(grubSavedefaultDirty);
     emit changed(true);
 }
+void KCMGRUB2::slotGrubHiddenTimeoutToggled(bool checked)
+{
+    ui->spinBox_hiddenTimeout->setEnabled(checked);
+    ui->checkBox_hiddenTimeoutShowTimer->setEnabled(checked);
+}
 void KCMGRUB2::slotGrubHiddenTimeoutChanged()
 {
     m_dirtyBits.setBit(grubHiddenTimeoutDirty);
@@ -537,6 +542,12 @@ void KCMGRUB2::slotGrubHiddenTimeoutQuietChanged()
 {
     m_dirtyBits.setBit(grubHiddenTimeoutQuietDirty);
     emit changed(true);
+}
+void KCMGRUB2::slotGrubTimeoutToggled(bool checked)
+{
+    ui->radioButton_timeout0->setEnabled(checked);
+    ui->radioButton_timeout->setEnabled(checked);
+    ui->spinBox_timeout->setEnabled(checked && ui->radioButton_timeout->isChecked());
 }
 void KCMGRUB2::slotGrubTimeoutChanged()
 {
@@ -882,11 +893,15 @@ void KCMGRUB2::setupConnections()
     connect(ui->kpushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
     connect(ui->checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(slotGrubSavedefaultChanged()));
 
+    connect(ui->checkBox_hiddenTimeout, SIGNAL(toggled(bool)), this, SLOT(slotGrubHiddenTimeoutToggled(bool)));
     connect(ui->checkBox_hiddenTimeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutChanged()));
     connect(ui->spinBox_hiddenTimeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubHiddenTimeoutChanged()));
     connect(ui->checkBox_hiddenTimeoutShowTimer, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutQuietChanged()));
+
+    connect(ui->checkBox_timeout, SIGNAL(toggled(bool)), this, SLOT(slotGrubTimeoutToggled(bool)));
     connect(ui->checkBox_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
     connect(ui->radioButton_timeout0, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
+    connect(ui->radioButton_timeout, SIGNAL(toggled(bool)), ui->spinBox_timeout, SLOT(setEnabled(bool)));
     connect(ui->radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
     connect(ui->spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubTimeoutChanged()));
 

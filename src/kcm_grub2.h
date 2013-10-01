@@ -50,8 +50,10 @@ public:
 private Q_SLOTS:
     void slotRemoveOldEntries();
     void slotGrubSavedefaultChanged();
+    void slotGrubHiddenTimeoutToggled(bool checked);
     void slotGrubHiddenTimeoutChanged();
     void slotGrubHiddenTimeoutQuietChanged();
+    void slotGrubTimeoutToggled(bool checked);
     void slotGrubTimeoutChanged();
     void slotGrubDisableRecoveryChanged();
     void slotMemtestChanged();
