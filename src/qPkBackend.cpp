@@ -141,7 +141,7 @@ static QString statusToString(PackageKit::Enum::Status status)
     return QString();
 }
 
-QPkBackend::QPkBackend(QObject *parent): QObject(parent)
+QPkBackend::QPkBackend(QObject *parent) : QObject(parent)
 {
     m_t = 0;
 }

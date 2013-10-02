@@ -15,58 +15,38 @@
  * with this program. If not, see <http://www.gnu.org/licenses/>.              *
  *******************************************************************************/
 
-//Krazy
-//krazy:excludeall=cpp
+#ifndef QAPT2BACKEND_H
+#define QAPT2BACKEND_H
 
-#ifndef REMOVEDLG_H
-#define REMOVEDLG_H
+//Qt
+#include <QStringList>
 
-//KDE
-#include <KDialog>
-class KProgressDialog;
+//QApt
+#include <LibQApt/Backend>
+#include <LibQApt/Transaction>
 
-//Project
-#include <config.h>
-class Entry;
-#if HAVE_QAPT && QAPT_VERSION_MAJOR == 1
-#include "qaptBackend.h"
-#elif HAVE_QAPT && QAPT_VERSION_MAJOR == 2
-#include "qapt2Backend.h"
-#elif HAVE_QPACKAGEKIT
-#include "qPkBackend.h"
-#endif
-
-//Ui
-namespace Ui
-{
-    class RemoveDialog;
-}
-
-class RemoveDialog : public KDialog
+class QApt2Backend : public QObject
 {
     Q_OBJECT
 public:
-    explicit RemoveDialog(const QList<Entry> &entries, QWidget *parent = 0, Qt::WFlags flags = 0);
-    virtual ~RemoveDialog();
-protected Q_SLOTS:
-    virtual void slotButtonClicked(int button);
-private Q_SLOTS:
-    void slotItemChanged();
-    void slotProgress(const QString &status, int percentage);
-    void slotFinished(bool success);
-private:
-    void detectCurrentKernelImage();
+    explicit QApt2Backend(QObject *parent = 0);
+    virtual ~QApt2Backend();
 
-#if HAVE_QAPT && QAPT_VERSION_MAJOR == 1
-    QAptBackend *m_backend;
-#elif HAVE_QAPT && QAPT_VERSION_MAJOR == 2
-    QApt2Backend *m_backend;
-#elif HAVE_QPACKAGEKIT
-    QPkBackend *m_backend;
-#endif
-    QString m_currentKernelImage;
-    KProgressDialog *m_progressDlg;
-    Ui::RemoveDialog *ui;
+    QStringList ownerPackage(const QString &fileName);
+    void markForRemoval(const QString &packageName);
+    QStringList markedForRemoval() const;
+    void removePackages();
+    void undoChanges();
+Q_SIGNALS:
+    void finished(bool success);
+    void progress(const QString &status, int percentage);
+private Q_SLOTS:
+    void slotUpdateProgress();
+    void slotTransactionFinished(QApt::ExitStatus status);
+private:
+    QApt::Backend *m_backend;
+    QApt::ExitStatus m_exitStatus;
+    QApt::Transaction *m_trans;
 };
 
 #endif

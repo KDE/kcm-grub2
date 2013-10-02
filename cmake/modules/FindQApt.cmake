@@ -22,9 +22,12 @@ endif (NOT QAPT_MIN_VERSION)
 if (NOT WIN32)
    # use pkg-config to get the directories and then use these values
    # in the FIND_PATH() and FIND_LIBRARY() calls
-   find_package(PkgConfig)
+   find_package(PkgConfig REQUIRED)
    pkg_check_modules(PC_QAPT libqapt)
-   set(QAPT_DEFINITIONS ${PC_QAPT_CFLAGS_OTHER})
+   if(${PC_QAPT_FOUND})
+       set(QAPT_DEFINITIONS ${PC_QAPT_CFLAGS_OTHER})
+       string(REGEX MATCH "^[0-9]+" QAPT_VERSION_MAJOR ${PC_QAPT_VERSION})
+   endif(${PC_QAPT_FOUND})
 endif (NOT WIN32)
 
 find_path( QAPT_INCLUDE_DIR

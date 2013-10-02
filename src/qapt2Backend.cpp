@@ -16,28 +16,25 @@
  *******************************************************************************/
 
 //Own
-#include "qaptBackend.h"
+#include "qapt2Backend.h"
 
-//Qt
-#include <QEventLoop>
-
-QAptBackend::QAptBackend(QObject *parent) : QObject(parent)
+QApt2Backend::QApt2Backend(QObject *parent) : QObject(parent)
 {
     m_backend = new QApt::Backend;
     m_backend->init();
-    m_error = QApt::UnknownError;
+    m_exitStatus = QApt::ExitSuccess;
 }
-QAptBackend::~QAptBackend()
+QApt2Backend::~QApt2Backend()
 {
     delete m_backend;
 }
 
-QStringList QAptBackend::ownerPackage(const QString &fileName)
+QStringList QApt2Backend::ownerPackage(const QString &fileName)
 {
     QApt::Package *package;
     return (package = m_backend->packageForFile(fileName)) ? QStringList() << package->name() << package->version() : QStringList();
 }
-void QAptBackend::markForRemoval(const QString &packageName)
+void QApt2Backend::markForRemoval(const QString &packageName)
 {
     Q_FOREACH(const QApt::Package *package, m_backend->markedPackages()) {
         if (packageName.compare(package->name()) == 0) {
@@ -49,7 +46,7 @@ void QAptBackend::markForRemoval(const QString &packageName)
         package->setRemove();
     }
 }
-QStringList QAptBackend::markedForRemoval() const
+QStringList QApt2Backend::markedForRemoval() const
 {
     QStringList marked;
     Q_FOREACH(const QApt::Package *package, m_backend->markedPackages()) {
@@ -57,26 +54,25 @@ QStringList QAptBackend::markedForRemoval() const
     }
     return marked;
 }
-void QAptBackend::removePackages()
+void QApt2Backend::removePackages()
 {
-    connect(m_backend, SIGNAL(commitProgress(QString,int)), this, SIGNAL(progress(QString,int)));
-    connect(m_backend, SIGNAL(workerEvent(QApt::WorkerEvent)), this, SLOT(slotWorkerEvent(QApt::WorkerEvent)));
-    connect(m_backend, SIGNAL(errorOccurred(QApt::ErrorCode,QVariantMap)), this, SLOT(slotErrorOccurred(QApt::ErrorCode,QVariantMap)));
-    m_backend->commitChanges();
+    m_trans = m_backend->commitChanges();
+
+    connect(m_trans, SIGNAL(progressChanged(int)), this, SLOT(slotUpdateProgress()));
+    connect(m_trans, SIGNAL(finished(QApt::ExitStatus)), this, SLOT(slotTransactionFinished(QApt::ExitStatus)));
+    m_trans->run();
 }
-void QAptBackend::undoChanges()
+void QApt2Backend::undoChanges()
 {
     m_backend->init();
 }
 
-void QAptBackend::slotWorkerEvent(QApt::WorkerEvent event)
+void QApt2Backend::slotUpdateProgress()
 {
-    if (event == QApt::CommitChangesFinished) {
-        emit finished(m_error == QApt::UnknownError);
-    }
+    emit progress(m_trans->statusDetails(), m_trans->progress());
 }
-void QAptBackend::slotErrorOccurred(QApt::ErrorCode error, const QVariantMap &details)
+void QApt2Backend::slotTransactionFinished(QApt::ExitStatus status)
 {
-    Q_UNUSED(details)
-    m_error = error;
+    m_exitStatus = status;
+    emit finished(status == QApt::ExitSuccess);
 }
