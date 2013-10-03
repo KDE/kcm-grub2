@@ -1,17 +1,17 @@
 # Set Include Directories
 set(kcmgrub2helper_INCLUDE_DIRS ${KDE4_INCLUDES})
-if (HAVE_HD)
+if(HAVE_HD)
     set(kcmgrub2helper_INCLUDE_DIRS ${kcmgrub2helper_INCLUDE_DIRS} ${HD_INCLUDE_DIR})
-endif (HAVE_HD)
+endif(HAVE_HD)
 
 # Set Sources
 set(kcmgrub2helper_SRCS helper.cpp)
 
 # Set Link Libraries
 set(kcmgrub2helper_LINK_LIBS ${KDE4_KDECORE_LIBS})
-if (HAVE_HD)
+if(HAVE_HD)
     set(kcmgrub2helper_LINK_LIBS ${kcmgrub2helper_LINK_LIBS} ${HD_LIBRARY})
-endif (HAVE_HD)
+endif(HAVE_HD)
 
 # Build & Link
 include_directories(${kcmgrub2helper_INCLUDE_DIRS})
