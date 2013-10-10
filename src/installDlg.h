@@ -31,12 +31,11 @@ class InstallDialog : public KDialog
 {
     Q_OBJECT
 public:
-    explicit InstallDialog(const QString installExePath, QWidget *parent = 0, Qt::WFlags flags = 0);
+    explicit InstallDialog(QWidget *parent = 0, Qt::WFlags flags = 0);
     virtual ~InstallDialog();
 protected Q_SLOTS:
     virtual void slotButtonClicked(int button);
 private:
-    QString m_installExePath;
     Ui::InstallDialog *ui;
 };
 

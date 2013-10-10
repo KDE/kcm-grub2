@@ -35,7 +35,7 @@ using namespace KAuth;
 //Ui
 #include "ui_installDlg.h"
 
-InstallDialog::InstallDialog(const QString installExePath, QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
+InstallDialog::InstallDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
 {
     QWidget *widget = new QWidget(this);
     ui = new Ui::InstallDialog;
@@ -47,8 +47,6 @@ InstallDialog::InstallDialog(const QString installExePath, QWidget *parent, Qt::
     if (parent) {
         setInitialSize(parent->size());
     }
-
-    m_installExePath = installExePath;
 
     ui->treeWidget_recover->headerItem()->setText(0, QString());
     ui->treeWidget_recover->header()->setResizeMode(QHeaderView::Stretch);
@@ -90,7 +88,6 @@ void InstallDialog::slotButtonClicked(int button)
         for (int i = 0; i < ui->treeWidget_recover->topLevelItemCount(); i++) {
             QRadioButton *radio = qobject_cast<QRadioButton *>(ui->treeWidget_recover->itemWidget(ui->treeWidget_recover->topLevelItem(i), 0));
             if (radio && radio->isChecked()) {
-                installAction.addArgument("installExePath", m_installExePath);
                 installAction.addArgument("partition", ui->treeWidget_recover->topLevelItem(i)->text(1));
                 installAction.addArgument("mountPoint", ui->treeWidget_recover->topLevelItem(i)->text(2));
                 installAction.addArgument("mbrInstall", !ui->checkBox_partition->isChecked());

@@ -29,6 +29,7 @@ namespace KAuth
 }
 
 //Project
+#include "config.h"
 class Entry;
 
 //Ui
@@ -83,14 +84,11 @@ private:
     void setupObjects();
     void setupConnections();
 
-    QString findExe(const QString &exeName);
-    bool check();
-
     //TODO: Maybe remove?
     QString convertToGRUBFileName(const QString &fileName);
     QString convertToLocalFileName(const QString &grubFileName);
 
-    QString readFile(const QString &fileName);
+    QString readFile(GrubFile grubFile);
     void readEntries();
     void readSettings();
     void readEnv();
@@ -134,15 +132,6 @@ private:
         lastDirtyBit
     };
     QBitArray m_dirtyBits;
-
-    QString installExePath;
-    QString mkconfigExePath;
-    QString probeExePath;
-    QString set_defaultExePath;
-    QString menuPath;
-    QString configPath;
-    QString envPath;
-    QString memtestPath;
 
     QList<Entry> m_entries;
     QHash<QString, QString> m_settings;

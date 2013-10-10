@@ -34,15 +34,12 @@
 #include <KMessageBox>
 #include <kmountpoint.h>
 #include <KPluginFactory>
-#include <KProcess>
 #include <KProgressDialog>
-#include <KStandardDirs>
 #include <KAuth/ActionWatcher>
 using namespace KAuth;
 
 //Project
 #include "common.h"
-#include <config.h>
 #if HAVE_IMAGEMAGICK
 #include "convertDlg.h"
 #endif
@@ -71,9 +68,6 @@ KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Fa
     ui->setupUi(this);
     setupObjects();
     setupConnections();
-    if (check()) {
-        ui->stackedWidget->setCurrentIndex(1);
-    }
 }
 KCMGRUB2::~KCMGRUB2()
 {
@@ -84,7 +78,6 @@ void KCMGRUB2::defaults()
 {
     Action defaultsAction("org.kde.kcontrol.kcmgrub2.defaults");
     defaultsAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    defaultsAction.addArgument("configFileName", configPath);
 #if KDE_IS_VERSION(4,6,0)
     defaultsAction.setParentWidget(this);
 #endif
@@ -101,10 +94,6 @@ void KCMGRUB2::defaults()
 }
 void KCMGRUB2::load()
 {
-    if (ui->stackedWidget->currentIndex() == 0) {
-        return;
-    }
-
     readEntries();
     readSettings();
     readEnv();
@@ -202,9 +191,9 @@ void KCMGRUB2::load()
     }
 
     ui->checkBox_recovery->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_RECOVERY")).compare("true") != 0);
-    if (QFile::exists(memtestPath)) {
+    if (QFile::exists(GRUB_MEMTEST)) {
         ui->checkBox_memtest->setVisible(true);
-        ui->checkBox_memtest->setChecked(QFile::permissions(memtestPath) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
+        ui->checkBox_memtest->setChecked(QFile::permissions(GRUB_MEMTEST) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
     } else {
         ui->checkBox_memtest->setVisible(false);
     }
@@ -471,14 +460,9 @@ void KCMGRUB2::save()
 
     Action saveAction("org.kde.kcontrol.kcmgrub2.save");
     saveAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    saveAction.addArgument("mkconfigExePath", mkconfigExePath);
-    saveAction.addArgument("set_defaultExePath", set_defaultExePath);
-    saveAction.addArgument("configFileName", configPath);
     saveAction.addArgument("rawConfigFileContents", configFileContents.toLocal8Bit());
-    saveAction.addArgument("menuFileName", menuPath);
     saveAction.addArgument("rawDefaultEntry", !m_entries.isEmpty() ? grubDefault : m_settings.value("GRUB_DEFAULT").toLocal8Bit());
     if (m_dirtyBits.testBit(memtestDirty)) {
-        saveAction.addArgument("memtestFileName", memtestPath);
         saveAction.addArgument("memtest", ui->checkBox_memtest->isChecked());
     }
 #if KDE_IS_VERSION(4,6,0)
@@ -571,7 +555,7 @@ void KCMGRUB2::slotGrubDisableOsProberChanged()
 }
 void KCMGRUB2::slotInstallBootloader()
 {
-    QPointer<InstallDialog> installDlg = new InstallDialog(installExePath, this);
+    QPointer<InstallDialog> installDlg = new InstallDialog(this);
     installDlg->exec();
     delete installDlg;
 }
@@ -947,64 +931,6 @@ void KCMGRUB2::setupConnections()
     connect(ui->kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
 }
 
-QString KCMGRUB2::findExe(const QString &exeName)
-{
-    QString exePath = KStandardDirs::findExe(exeName);
-    if (!exePath.isEmpty()) {
-        return exePath;
-    }
-    KProcess whereis;
-    whereis << "whereis" << "-b" << exeName;
-    whereis.setOutputChannelMode(KProcess::OnlyStdoutChannel);
-    if (whereis.execute() == 0) {
-        QString output = whereis.readAllStandardOutput();
-        if (output.startsWith(exeName + ':')) {
-            return output.mid(exeName.length() + 1).trimmed();
-        }
-    }
-    return QString();
-}
-bool KCMGRUB2::check()
-{
-    installExePath = findExe("grub-install");
-    mkconfigExePath = findExe("grub-mkconfig");
-    probeExePath = findExe("grub-probe");
-    set_defaultExePath = findExe("grub-set-default");
-    if (!installExePath.isEmpty() && !mkconfigExePath.isEmpty() && !probeExePath.isEmpty() && !set_defaultExePath.isEmpty()) {
-        kDebug() << "GRUB2 installation detected!";
-        menuPath = "/boot/grub/grub.cfg";
-        configPath = "/etc/default/grub";
-        envPath = "/boot/grub/grubenv";
-        memtestPath = "/etc/grub.d/20_memtest86+";
-        return true;
-    }
-    installExePath = findExe("grub2-install");
-    mkconfigExePath = findExe("grub2-mkconfig");
-    probeExePath = findExe("grub2-probe");
-    set_defaultExePath = findExe("grub2-set-default");
-    if (!installExePath.isEmpty() && !mkconfigExePath.isEmpty() && !probeExePath.isEmpty() && !set_defaultExePath.isEmpty()) {
-        kDebug() << "GRUB2 (RPM) installation detected!";
-        menuPath = "/boot/grub2/grub.cfg";
-        configPath = "/etc/default/grub";
-        envPath = "/boot/grub2/grubenv";
-        memtestPath = "/etc/grub.d/20_memtest86+";
-        return true;
-    }
-    installExePath = findExe("burg-install");
-    mkconfigExePath = findExe("burg-mkconfig");
-    probeExePath = findExe("burg-probe");
-    set_defaultExePath = findExe("burg-set-default");
-    if (!installExePath.isEmpty() && !mkconfigExePath.isEmpty() && !probeExePath.isEmpty() && !set_defaultExePath.isEmpty()) {
-        kDebug() << "BURG installation detected!";
-        menuPath = "/boot/burg/burg.cfg";
-        configPath = "/etc/default/burg";
-        envPath = "/boot/burg/burgenv";
-        memtestPath = "/etc/burg.d/20_memtest86+";
-        return true;
-    }
-    return false;
-}
-
 QString KCMGRUB2::convertToGRUBFileName(const QString &fileName)
 {
     QString grubFileName = fileName;
@@ -1034,8 +960,23 @@ QString KCMGRUB2::convertToLocalFileName(const QString &grubFileName)
     return fileName;
 }
 
-QString KCMGRUB2::readFile(const QString &fileName)
+QString KCMGRUB2::readFile(GrubFile grubFile)
 {
+    QString fileName;
+    switch (grubFile) {
+    case GrubMenuFile:
+        fileName = GRUB_MENU;
+        break;
+    case GrubConfigurationFile:
+        fileName = GRUB_CONFIG;
+        break;
+    case GrubEnvironmentFile:
+        fileName = GRUB_ENV;
+        break;
+    case GrubMemtestFile:
+        return QString();
+    }
+
     QFile file(fileName);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         QTextStream stream(&file);
@@ -1044,7 +985,7 @@ QString KCMGRUB2::readFile(const QString &fileName)
 
     Action loadAction("org.kde.kcontrol.kcmgrub2.load");
     loadAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    loadAction.addArgument("fileName", fileName);
+    loadAction.addArgument("grubFile", grubFile);
 #if KDE_IS_VERSION(4,6,0)
     loadAction.setParentWidget(this);
 #endif
@@ -1060,21 +1001,21 @@ QString KCMGRUB2::readFile(const QString &fileName)
 }
 void KCMGRUB2::readEntries()
 {
-    QString fileContents = readFile(menuPath);
+    QString fileContents = readFile(GrubMenuFile);
 
     m_entries.clear();
     parseEntries(fileContents);
 }
 void KCMGRUB2::readSettings()
 {
-    QString fileContents = readFile(configPath);
+    QString fileContents = readFile(GrubConfigurationFile);
 
     m_settings.clear();
     parseSettings(fileContents);
 }
 void KCMGRUB2::readEnv()
 {
-    QString fileContents = readFile(envPath);
+    QString fileContents = readFile(GrubEnvironmentFile);
 
     m_env.clear();
     parseEnv(fileContents);
@@ -1090,7 +1031,6 @@ void KCMGRUB2::readDevices()
 
     Action probeAction("org.kde.kcontrol.kcmgrub2.probe");
     probeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    probeAction.addArgument("probeExePath", probeExePath);
     probeAction.addArgument("mountPoints", mountPoints);
 #if KDE_IS_VERSION(4,6,0)
     probeAction.setParentWidget(this);

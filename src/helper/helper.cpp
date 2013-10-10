@@ -26,9 +26,9 @@
 
 //KDE
 #include <KDebug>
+#include <KGlobal>
 #include <KLocale>
 #include <KProcess>
-#include <KStandardDirs>
 #include <KAuth/HelperSupport>
 
 //Project
@@ -39,23 +39,13 @@
 #endif
 
 //The $PATH environment variable is emptied by D-Bus activation,
-//so let's provide a sane default. To be used as a fallback.
+//so let's provide a sane default. Needed for os-prober to work.
 static const QString path = QLatin1String("/usr/sbin:/usr/bin:/sbin:/bin");
 
 Helper::Helper()
 {
     KGlobal::locale()->insertCatalog("kcm-grub2");
-    //-l stands for --login. A login shell is needed in order to properly
-    //source /etc/profile, ~/.profile and/or other shell-specific login
-    //scripts (such as ~/.bash_profile for Bash).
-    //Not all shells implement this option, in which case we have the fallback.
-    //Bash, DASH, ksh and Zsh seem to work properly.
-    ActionReply pathReply = executeCommand(QStringList() << findShell() << "-l" << "-c" << "echo $PATH");
-    if (pathReply.succeeded()) {
-        qputenv("PATH", pathReply.data().value("output").toByteArray().trimmed());
-    } else {
-        qputenv("PATH", path.toLatin1());
-    }
+    qputenv("PATH", path.toLatin1());
 }
 
 ActionReply Helper::executeCommand(const QStringList &command)
@@ -76,31 +66,12 @@ ActionReply Helper::executeCommand(const QStringList &command)
     reply.addData("output", process.readAll());
     return reply;
 }
-QString Helper::findShell()
-{
-    QString shell = QFile::symLinkTarget(QLatin1String("/bin/sh"));
-    if (shell.isEmpty()) {
-        shell = KStandardDirs::findExe(QLatin1String("bash"), path);
-        if (shell.isEmpty()) {
-            shell = KStandardDirs::findExe(QLatin1String("dash"), path);
-            if (shell.isEmpty()) {
-                shell = KStandardDirs::findExe(QLatin1String("ksh"), path);
-                if (shell.isEmpty()) {
-                    shell = KStandardDirs::findExe(QLatin1String("zsh"), path);
-                    if (shell.isEmpty()) {
-                        shell = QLatin1String("/bin/sh");
-                    }
-                }
-            }
-        }
-    }
-    return shell;
-}
 
 ActionReply Helper::defaults(QVariantMap args)
 {
+    Q_UNUSED(args)
     ActionReply reply;
-    QString configFileName = args.value("configFileName").toString();
+    QString configFileName = GRUB_CONFIG;
     QString originalConfigFileName = configFileName + ".original";
 
     if (!QFile::exists(originalConfigFileName)) {
@@ -123,7 +94,6 @@ ActionReply Helper::defaults(QVariantMap args)
 ActionReply Helper::install(QVariantMap args)
 {
     ActionReply reply;
-    QString installExePath = args.value("installExePath").toString();
     QString partition = args.value("partition").toString();
     QString mountPoint = args.value("mountPoint").toString();
     bool mbrInstall = args.value("mbrInstall").toBool();
@@ -142,7 +112,7 @@ ActionReply Helper::install(QVariantMap args)
     }
 
     QStringList grub_installCommand;
-    grub_installCommand << installExePath << "--root-directory" << mountPoint;
+    grub_installCommand << GRUB_INSTALL_EXE << "--root-directory" << mountPoint;
     if (mbrInstall) {
         grub_installCommand << partition.remove(QRegExp("\\d+"));
     } else {
@@ -153,7 +123,18 @@ ActionReply Helper::install(QVariantMap args)
 ActionReply Helper::load(QVariantMap args)
 {
     ActionReply reply;
-    QString fileName = args.value("fileName").toString();
+    QString fileName;
+    switch (args.value("grubFile").toInt()) {
+    case GrubMenuFile:
+        fileName = GRUB_MENU;
+        break;
+    case GrubConfigurationFile:
+        fileName = GRUB_CONFIG;
+        break;
+    case GrubEnvironmentFile:
+        fileName = GRUB_ENV;
+        break;
+    }
 
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
@@ -167,13 +148,12 @@ ActionReply Helper::load(QVariantMap args)
 ActionReply Helper::probe(QVariantMap args)
 {
     ActionReply reply;
-    QString probeExePath = args.value("probeExePath").toString();
     QStringList mountPoints = args.value("mountPoints").toStringList();
 
     QStringList grubPartitions;
     HelperSupport::progressStep(0);
     for (int i = 0; i < mountPoints.size(); i++) {
-        ActionReply grub_probeReply = executeCommand(QStringList() << probeExePath << "-t" << "drive" << mountPoints.at(i));
+        ActionReply grub_probeReply = executeCommand(QStringList() << GRUB_PROBE_EXE << "-t" << "drive" << mountPoints.at(i));
         if (grub_probeReply.failed()) {
             return grub_probeReply;
         }
@@ -211,13 +191,9 @@ ActionReply Helper::probevbe(QVariantMap args)
 ActionReply Helper::save(QVariantMap args)
 {
     ActionReply reply;
-    QString mkconfigExePath = args.value("mkconfigExePath").toString();
-    QString set_defaultExePath = args.value("set_defaultExePath").toString();
-    QString configFileName = args.value("configFileName").toString();
+    QString configFileName = GRUB_CONFIG;
     QByteArray rawConfigFileContents = args.value("rawConfigFileContents").toByteArray();
-    QString menuFileName = args.value("menuFileName").toString();
     QByteArray rawDefaultEntry = args.value("rawDefaultEntry").toByteArray();
-    QString memtestFileName = args.value("memtestFileName").toString();
     bool memtest = args.value("memtest").toBool();
 
     QFile::copy(configFileName, configFileName + ".original");
@@ -232,21 +208,21 @@ ActionReply Helper::save(QVariantMap args)
     file.close();
 
     if (args.contains("memtest")) {
-        QFile::Permissions permissions = QFile::permissions(memtestFileName);
+        QFile::Permissions permissions = QFile::permissions(GRUB_MEMTEST);
         if (memtest) {
             permissions |= (QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         } else {
             permissions &= ~(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         }
-        QFile::setPermissions(memtestFileName, permissions);
+        QFile::setPermissions(GRUB_MEMTEST, permissions);
     }
 
-    ActionReply grub_mkconfigReply = executeCommand(QStringList() << mkconfigExePath << "-o" << menuFileName);
+    ActionReply grub_mkconfigReply = executeCommand(QStringList() << GRUB_MKCONFIG_EXE << "-o" << GRUB_MENU);
     if (grub_mkconfigReply.failed()) {
         return grub_mkconfigReply;
     }
 
-    ActionReply grub_set_defaultReply = executeCommand(QStringList() << set_defaultExePath << rawDefaultEntry);
+    ActionReply grub_set_defaultReply = executeCommand(QStringList() << GRUB_SET_DEFAULT_EXE << rawDefaultEntry);
     if (grub_set_defaultReply.failed()) {
         return grub_set_defaultReply;
     }

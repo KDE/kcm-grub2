@@ -9,6 +9,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 find_package(Qt4 4.6.0 REQUIRED)
 find_package(KDE4 4.4.0 REQUIRED)
 include(KDE4Defaults)
+include(GRUBPaths)
 
 add_definitions(-DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 
