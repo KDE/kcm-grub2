@@ -134,6 +134,13 @@ ActionReply Helper::load(QVariantMap args)
     case GrubEnvironmentFile:
         fileName = GRUB_ENV;
         break;
+    case GrubMemtestFile:
+        bool memtest = QFile::exists(GRUB_MEMTEST);
+        reply.addData("memtest", memtest);
+        if (memtest) {
+            reply.addData("memtestOn", (bool)(QFile::permissions(GRUB_MEMTEST) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther)));
+        }
+        return reply;
     }
 
     QFile file(fileName);

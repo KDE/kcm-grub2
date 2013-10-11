@@ -27,6 +27,7 @@ namespace KAuth
 {
     class ActionReply;
 }
+using namespace KAuth;
 
 //Project
 #include "config.h"
@@ -88,17 +89,19 @@ private:
     QString convertToGRUBFileName(const QString &fileName);
     QString convertToLocalFileName(const QString &grubFileName);
 
+    ActionReply loadFile(GrubFile grubFile);
     QString readFile(GrubFile grubFile);
     void readEntries();
     void readSettings();
     void readEnv();
+    void readMemtest();
     void readDevices();
     void readResolutions();
 
     void sortResolutions();
     void showResolutions();
 
-    void processReply(KAuth::ActionReply &reply);
+    void processReply(ActionReply &reply);
     QString parseTitle(const QString &line);
     void parseEntries(const QString &config);
     void parseSettings(const QString &config);
@@ -136,6 +139,8 @@ private:
     QList<Entry> m_entries;
     QHash<QString, QString> m_settings;
     QHash<QString, QString> m_env;
+    bool m_memtest;
+    bool m_memtestOn;
     QHash<QString, QString> m_devices;
     QStringList m_resolutions;
 };

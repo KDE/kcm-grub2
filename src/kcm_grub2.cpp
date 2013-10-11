@@ -36,7 +36,6 @@
 #include <KPluginFactory>
 #include <KProgressDialog>
 #include <KAuth/ActionWatcher>
-using namespace KAuth;
 
 //Project
 #include "common.h"
@@ -97,6 +96,7 @@ void KCMGRUB2::load()
     readEntries();
     readSettings();
     readEnv();
+    readMemtest();
 #if HAVE_HD
     readResolutions();
 #endif
@@ -191,12 +191,8 @@ void KCMGRUB2::load()
     }
 
     ui->checkBox_recovery->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_RECOVERY")).compare("true") != 0);
-    if (QFile::exists(GRUB_MEMTEST)) {
-        ui->checkBox_memtest->setVisible(true);
-        ui->checkBox_memtest->setChecked(QFile::permissions(GRUB_MEMTEST) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
-    } else {
-        ui->checkBox_memtest->setVisible(false);
-    }
+    ui->checkBox_memtest->setVisible(m_memtest);
+    ui->checkBox_memtest->setChecked(m_memtestOn);
     ui->checkBox_osProber->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_OS_PROBER")).compare("true") != 0);
 
     m_resolutions.append("640x480");
@@ -960,6 +956,19 @@ QString KCMGRUB2::convertToLocalFileName(const QString &grubFileName)
     return fileName;
 }
 
+ActionReply KCMGRUB2::loadFile(GrubFile grubFile)
+{
+    Action loadAction("org.kde.kcontrol.kcmgrub2.load");
+    loadAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+    loadAction.addArgument("grubFile", grubFile);
+#if KDE_IS_VERSION(4,6,0)
+    loadAction.setParentWidget(this);
+#endif
+
+    ActionReply reply = loadAction.execute();
+    processReply(reply);
+    return reply;
+}
 QString KCMGRUB2::readFile(GrubFile grubFile)
 {
     QString fileName;
@@ -983,17 +992,9 @@ QString KCMGRUB2::readFile(GrubFile grubFile)
         return stream.readAll();
     }
 
-    Action loadAction("org.kde.kcontrol.kcmgrub2.load");
-    loadAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    loadAction.addArgument("grubFile", grubFile);
-#if KDE_IS_VERSION(4,6,0)
-    loadAction.setParentWidget(this);
-#endif
-
-    ActionReply reply = loadAction.execute();
-    processReply(reply);
+    ActionReply reply = loadFile(grubFile);
     if (reply.failed()) {
-        kError() << "Error reading:" << fileName;
+        kError() << "Error loading:" << fileName;
         kError() << "Error description:" << reply.errorDescription();
         return QString();
     }
@@ -1019,6 +1020,26 @@ void KCMGRUB2::readEnv()
 
     m_env.clear();
     parseEnv(fileContents);
+}
+void KCMGRUB2::readMemtest()
+{
+    bool memtest = QFile::exists(GRUB_MEMTEST);
+    if (memtest) {
+        m_memtest = true;
+        m_memtestOn = (bool)(QFile::permissions(GRUB_MEMTEST) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
+        return;
+    }
+
+    ActionReply reply = loadFile(GrubMemtestFile);
+    if (reply.failed()) {
+        kError() << "Error loading:" << GRUB_MEMTEST;
+        kError() << "Error description:" << reply.errorDescription();
+        return;
+    }
+    m_memtest = reply.data().value("memtest").toBool();
+    if (m_memtest) {
+        m_memtestOn = reply.data().value("memtestOn").toBool();
+    }
 }
 void KCMGRUB2::readDevices()
 {
@@ -1120,7 +1141,7 @@ void KCMGRUB2::showResolutions()
     }
 }
 
-void KCMGRUB2::processReply(KAuth::ActionReply &reply)
+void KCMGRUB2::processReply(ActionReply &reply)
 {
     if (reply.type() == ActionReply::Success || reply.type() == ActionReply::KAuthError) {
         return;
