@@ -3,7 +3,7 @@ set -u
 
 WD=$(pwd)
 APP=kcm-grub2
-VERSION="0.5.8"
+VERSION="0.6.4"
 MODULE=extragear
 SUBMODULE=sysadmin
 THRESHOLD=75

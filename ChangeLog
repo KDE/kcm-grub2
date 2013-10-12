@@ -1,3 +1,12 @@
+v.0.6.4 (12/10/2013)
+--------------------
+*ADDED: Preliminary submenu support.
+*ADDED: Preliminary LibQApt 2.x support.
+*FIXED: Manage some ImageMagick crashes.
+*FIXED: Improved security by detecting GRUB paths at compile-time.
+*FIXED: Fixed the encoding issues in the helper.
+*FIXED: Check for the memtest script in the helper.
+
 v.0.5.8 (18/06/2012)
 --------------------
 *ADDED: Install on the boot sector of a partition instead of the MBR.
