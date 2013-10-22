@@ -32,6 +32,7 @@
 #include <KAuth/HelperSupport>
 
 //Project
+#include "../common.h"
 #include "../config.h"
 #if HAVE_HD
 #undef slots
@@ -123,57 +124,64 @@ ActionReply Helper::install(QVariantMap args)
 ActionReply Helper::load(QVariantMap args)
 {
     ActionReply reply;
-    QString fileName;
-    switch (args.value("grubFile").toInt()) {
-    case GrubMenuFile:
-        fileName = GRUB_MENU;
-        break;
-    case GrubConfigurationFile:
-        fileName = GRUB_CONFIG;
-        break;
-    case GrubEnvironmentFile:
-        fileName = GRUB_ENV;
-        break;
-    case GrubMemtestFile:
+    LoadOperations operations = (LoadOperations)(args.value("operations").toInt());
+
+    if (operations.testFlag(MenuFile)) {
+        QFile file(GRUB_MENU);
+        bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
+        reply.addData(QLatin1String("menuSuccess"), ok);
+        if (ok) {
+            reply.addData(QLatin1String("menuContents"), file.readAll());
+        } else {
+            reply.addData(QLatin1String("menuError"), file.error());
+            reply.addData(QLatin1String("menuErrorString"), file.errorString());
+        }
+    }
+    if (operations.testFlag(ConfigurationFile)) {
+        QFile file(GRUB_CONFIG);
+        bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
+        reply.addData(QLatin1String("configSuccess"), ok);
+        if (ok) {
+            reply.addData(QLatin1String("configContents"), file.readAll());
+        } else {
+            reply.addData(QLatin1String("configError"), file.error());
+            reply.addData(QLatin1String("configErrorString"), file.errorString());
+        }
+    }
+    if (operations.testFlag(EnvironmentFile)) {
+        QFile file(GRUB_ENV);
+        bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
+        reply.addData(QLatin1String("envSuccess"), ok);
+        if (ok) {
+            reply.addData(QLatin1String("envContents"), file.readAll());
+        } else {
+            reply.addData(QLatin1String("envError"), file.error());
+            reply.addData(QLatin1String("envErrorString"), file.errorString());
+        }
+    }
+    if (operations.testFlag(MemtestFile)) {
         bool memtest = QFile::exists(GRUB_MEMTEST);
-        reply.addData("memtest", memtest);
+        reply.addData(QLatin1String("memtest"), memtest);
         if (memtest) {
-            reply.addData("memtestOn", (bool)(QFile::permissions(GRUB_MEMTEST) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther)));
+            reply.addData(QLatin1String("memtestOn"), (bool)(QFile::permissions(GRUB_MEMTEST) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther)));
         }
-        return reply;
     }
-
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        reply = ActionReply::HelperErrorReply;
-        reply.addData("errorDescription", file.errorString());
-        return reply;
-    }
-    reply.addData("rawFileContents", file.readAll());
-    return reply;
-}
-ActionReply Helper::probevbe(QVariantMap args)
-{
-    Q_UNUSED(args)
-    ActionReply reply;
-
 #if HAVE_HD
-    QStringList gfxmodes;
-    hd_data_t hd_data;
-    memset(&hd_data, 0, sizeof(hd_data));
-    hd_t *hd = hd_list(&hd_data, hw_framebuffer, 1, NULL);
-    for (hd_res_t *res = hd->res; res; res = res->next) {
-        if (res->any.type == res_framebuffer) {
-            gfxmodes += QString("%1x%2x%3").arg(QString::number(res->framebuffer.width), QString::number(res->framebuffer.height), QString::number(res->framebuffer.colorbits));
+    if (operations.testFlag(Vbe)) {
+        QStringList gfxmodes;
+        hd_data_t hd_data;
+        memset(&hd_data, 0, sizeof(hd_data));
+        hd_t *hd = hd_list(&hd_data, hw_framebuffer, 1, NULL);
+        for (hd_res_t *res = hd->res; res; res = res->next) {
+            if (res->any.type == res_framebuffer) {
+                gfxmodes += QString("%1x%2x%3").arg(QString::number(res->framebuffer.width), QString::number(res->framebuffer.height), QString::number(res->framebuffer.colorbits));
+            }
         }
+        hd_free_hd_list(hd);
+        hd_free_hd_data(&hd_data);
+        reply.addData("gfxmodes", gfxmodes);
     }
-    hd_free_hd_list(hd);
-    hd_free_hd_data(&hd_data);
-    reply.addData("gfxmodes", gfxmodes);
-#else
-    reply = ActionReply::HelperErrorReply;
 #endif
-
     return reply;
 }
 ActionReply Helper::save(QVariantMap args)

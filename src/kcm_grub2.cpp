@@ -32,13 +32,13 @@
 #include <KInputDialog>
 #include <KMenu>
 #include <KMessageBox>
-#include <kmountpoint.h>
 #include <KPluginFactory>
 #include <KProgressDialog>
 #include <KAuth/ActionWatcher>
 
 //Project
 #include "common.h"
+#include "config.h"
 #if HAVE_IMAGEMAGICK
 #include "convertDlg.h"
 #endif
@@ -93,13 +93,8 @@ void KCMGRUB2::defaults()
 }
 void KCMGRUB2::load()
 {
-    readEntries();
-    readSettings();
-    readEnv();
-    readMemtest();
-#if HAVE_HD
-    readResolutions();
-#endif
+    readAll();
+
     QString grubDefault = unquoteWord(m_settings.value("GRUB_DEFAULT"));
     if (grubDefault == QLatin1String("saved")) {
         grubDefault = (m_env.value("saved_entry").isEmpty() ? "0" : m_env.value("saved_entry"));
@@ -927,107 +922,103 @@ void KCMGRUB2::setupConnections()
     connect(ui->kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
 }
 
-ActionReply KCMGRUB2::loadFile(GrubFile grubFile)
+bool KCMGRUB2::readFile(const QString &fileName, QByteArray &fileContents)
 {
-    Action loadAction("org.kde.kcontrol.kcmgrub2.load");
-    loadAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    loadAction.addArgument("grubFile", grubFile);
-#if KDE_IS_VERSION(4,6,0)
-    loadAction.setParentWidget(this);
-#endif
-
-    ActionReply reply = loadAction.execute();
-    processReply(reply);
-    return reply;
-}
-QString KCMGRUB2::readFile(GrubFile grubFile)
-{
-    QString fileName;
-    switch (grubFile) {
-    case GrubMenuFile:
-        fileName = GRUB_MENU;
-        break;
-    case GrubConfigurationFile:
-        fileName = GRUB_CONFIG;
-        break;
-    case GrubEnvironmentFile:
-        fileName = GRUB_ENV;
-        break;
-    case GrubMemtestFile:
-        return QString();
-    }
-
     QFile file(fileName);
-    if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        QTextStream stream(&file);
-        return stream.readAll();
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        kDebug() << "Failed to read file:" << fileName;
+        kDebug() << "Error code:" << file.error();
+        kDebug() << "Error description:" << file.errorString();
+        kDebug() << "The helper will now attempt to read this file.";
+        return false;
     }
+    fileContents = file.readAll();
+    return true;
+}
+void KCMGRUB2::readAll()
+{
+    QByteArray fileContents;
+    LoadOperations operations = NoOperation;
 
-    ActionReply reply = loadFile(grubFile);
-    if (reply.failed()) {
-        kError() << "Error loading:" << fileName;
-        kError() << "Error description:" << reply.errorDescription();
-        return QString();
+    if (readFile(GRUB_MENU, fileContents)) {
+        parseEntries(QString::fromUtf8(fileContents.constData()));
+    } else {
+        operations |= MenuFile;
     }
-    return QString::fromLocal8Bit(reply.data().value("rawFileContents").toByteArray());
-}
-void KCMGRUB2::readEntries()
-{
-    QString fileContents = readFile(GrubMenuFile);
-
-    m_entries.clear();
-    parseEntries(fileContents);
-}
-void KCMGRUB2::readSettings()
-{
-    QString fileContents = readFile(GrubConfigurationFile);
-
-    m_settings.clear();
-    parseSettings(fileContents);
-}
-void KCMGRUB2::readEnv()
-{
-    QString fileContents = readFile(GrubEnvironmentFile);
-
-    m_env.clear();
-    parseEnv(fileContents);
-}
-void KCMGRUB2::readMemtest()
-{
-    bool memtest = QFile::exists(GRUB_MEMTEST);
-    if (memtest) {
+    if (readFile(GRUB_CONFIG, fileContents)) {
+        parseSettings(QString::fromUtf8(fileContents.constData()));
+    } else {
+        operations |= ConfigurationFile;
+    }
+    if (readFile(GRUB_ENV, fileContents)) {
+        parseEnv(QString::fromUtf8(fileContents.constData()));
+    } else {
+        operations |= EnvironmentFile;
+    }
+    if (QFile::exists(GRUB_MEMTEST)) {
         m_memtest = true;
         m_memtestOn = (bool)(QFile::permissions(GRUB_MEMTEST) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
-        return;
+    } else {
+        operations |= MemtestFile;
     }
-
-    ActionReply reply = loadFile(GrubMemtestFile);
-    if (reply.failed()) {
-        kError() << "Error loading:" << GRUB_MEMTEST;
-        kError() << "Error description:" << reply.errorDescription();
-        return;
-    }
-    m_memtest = reply.data().value("memtest").toBool();
-    if (m_memtest) {
-        m_memtestOn = reply.data().value("memtestOn").toBool();
-    }
-}
-void KCMGRUB2::readResolutions()
-{
-    Action probeVbeAction("org.kde.kcontrol.kcmgrub2.probevbe");
-    probeVbeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-#if KDE_IS_VERSION(4,6,0)
-    probeVbeAction.setParentWidget(this);
+#if HAVE_HD
+    operations |= Vbe;
 #endif
 
-    ActionReply reply = probeVbeAction.execute();
-    processReply(reply);
-    if (reply.failed()) {
-        return;
-    }
+    if (operations) {
+        Action loadAction("org.kde.kcontrol.kcmgrub2.load");
+        loadAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+        loadAction.addArgument("operations", (int)(operations));
+#if KDE_IS_VERSION(4,6,0)
+        loadAction.setParentWidget(this);
+#endif
 
-    m_resolutions.clear();
-    m_resolutions = reply.data().value("gfxmodes").toStringList();
+        ActionReply reply = loadAction.execute();
+        processReply(reply);
+        if (reply.failed()) {
+            kError() << "KAuth error!";
+            kError() << "Error code:" << reply.errorCode();
+            kError() << "Error description:" << reply.errorDescription();
+            return;
+        }
+
+        if (operations.testFlag(MenuFile)) {
+            if (reply.data().value(QLatin1String("menuSuccess")).toBool()) {
+                parseEntries(QString::fromUtf8(reply.data().value(QLatin1String("menuContents")).toByteArray().constData()));
+            } else {
+                kError() << "Helper failed to read file:" << GRUB_MENU;
+                kError() << "Error code:" << reply.data().value(QLatin1String("menuError")).toInt();
+                kError() << "Error description:" << reply.data().value(QLatin1String("menuErrorString")).toString();
+            }
+        }
+        if (operations.testFlag(ConfigurationFile)) {
+            if (reply.data().value(QLatin1String("configSuccess")).toBool()) {
+                parseSettings(QString::fromUtf8(reply.data().value(QLatin1String("configContents")).toByteArray().constData()));
+            } else {
+                kError() << "Helper failed to read file:" << GRUB_CONFIG;
+                kError() << "Error code:" << reply.data().value(QLatin1String("configError")).toInt();
+                kError() << "Error description:" << reply.data().value(QLatin1String("configErrorString")).toString();
+            }
+        }
+        if (operations.testFlag(EnvironmentFile)) {
+            if (reply.data().value(QLatin1String("envSuccess")).toBool()) {
+                parseEnv(QString::fromUtf8(reply.data().value(QLatin1String("envContents")).toByteArray().constData()));
+            } else {
+                kError() << "Helper failed to read file:" << GRUB_ENV;
+                kError() << "Error code:" << reply.data().value(QLatin1String("envError")).toInt();
+                kError() << "Error description:" << reply.data().value(QLatin1String("envErrorString")).toString();
+            }
+        }
+        if (operations.testFlag(MemtestFile)) {
+            m_memtest = reply.data().value(QLatin1String("memtest")).toBool();
+            if (m_memtest) {
+                m_memtestOn = reply.data().value(QLatin1String("memtestOn")).toBool();
+            }
+        }
+        if (operations.testFlag(Vbe)) {
+            m_resolutions = reply.data().value(QLatin1String("gfxmodes")).toStringList();
+        }
+    }
 }
 
 void KCMGRUB2::sortResolutions()
@@ -1150,6 +1141,8 @@ void KCMGRUB2::parseEntries(const QString &config)
     QList<Entry::Title> submenus;
     QString word, configStr = config;
     QTextStream stream(&configStr, QIODevice::ReadOnly | QIODevice::Text);
+
+    m_entries.clear();
     while (!stream.atEnd()) {
         //Read the first word of the line
         stream >> word;
@@ -1215,6 +1208,8 @@ void KCMGRUB2::parseSettings(const QString &config)
 {
     QString line, configStr = config;
     QTextStream stream(&configStr, QIODevice::ReadOnly | QIODevice::Text);
+
+    m_settings.clear();
     while (!stream.atEnd()) {
         line = stream.readLine().trimmed();
         if (line.startsWith(QLatin1String("GRUB_"))) {
@@ -1226,6 +1221,8 @@ void KCMGRUB2::parseEnv(const QString &config)
 {
     QString line, configStr = config;
     QTextStream stream(&configStr, QIODevice::ReadOnly | QIODevice::Text);
+
+    m_env.clear();
     while (!stream.atEnd()) {
         line = stream.readLine().trimmed();
         if (line.startsWith('#')) {

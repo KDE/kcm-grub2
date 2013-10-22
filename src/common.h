@@ -19,7 +19,18 @@
 #define COMMON_H
 
 //Qt
-class QString;
+#include <QFlags>
+
+enum LoadOperation {
+    NoOperation = 0x0,
+    MenuFile = 0x1,
+    ConfigurationFile = 0x2,
+    EnvironmentFile = 0x4,
+    MemtestFile = 0x8,
+    Vbe = 0x10
+};
+Q_DECLARE_FLAGS(LoadOperations, LoadOperation)
+Q_DECLARE_OPERATORS_FOR_FLAGS(LoadOperations)
 
 QString quoteWord(const QString &word);
 QString unquoteWord(const QString &word);

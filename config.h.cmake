@@ -18,11 +18,4 @@
 #define GRUB_ENV "@GRUB_ENV@"
 #define GRUB_MEMTEST "@GRUB_MEMTEST@"
 
-enum GrubFile {
-    GrubMenuFile,
-    GrubConfigurationFile,
-    GrubEnvironmentFile,
-    GrubMemtestFile
-};
-
 #endif

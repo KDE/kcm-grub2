@@ -30,7 +30,6 @@ namespace KAuth
 using namespace KAuth;
 
 //Project
-#include "config.h"
 class Entry;
 
 //Ui
@@ -85,13 +84,8 @@ private:
     void setupObjects();
     void setupConnections();
 
-    ActionReply loadFile(GrubFile grubFile);
-    QString readFile(GrubFile grubFile);
-    void readEntries();
-    void readSettings();
-    void readEnv();
-    void readMemtest();
-    void readResolutions();
+    bool readFile(const QString &fileName, QByteArray &fileContents);
+    void readAll();
 
     void sortResolutions();
     void showResolutions();
