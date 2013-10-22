@@ -85,17 +85,12 @@ private:
     void setupObjects();
     void setupConnections();
 
-    //TODO: Maybe remove?
-    QString convertToGRUBFileName(const QString &fileName);
-    QString convertToLocalFileName(const QString &grubFileName);
-
     ActionReply loadFile(GrubFile grubFile);
     QString readFile(GrubFile grubFile);
     void readEntries();
     void readSettings();
     void readEnv();
     void readMemtest();
-    void readDevices();
     void readResolutions();
 
     void sortResolutions();

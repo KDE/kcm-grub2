@@ -927,35 +927,6 @@ void KCMGRUB2::setupConnections()
     connect(ui->kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
 }
 
-QString KCMGRUB2::convertToGRUBFileName(const QString &fileName)
-{
-    QString grubFileName = fileName;
-    QString mountpoint = KMountPoint::currentMountPoints().findByPath(grubFileName)->mountPoint();
-    if (m_devices.contains(mountpoint)) {
-        if (mountpoint.compare("/") != 0) {
-            grubFileName.remove(0, mountpoint.length());
-        }
-        grubFileName.prepend(m_devices.value(mountpoint));
-    }
-    return grubFileName;
-}
-QString KCMGRUB2::convertToLocalFileName(const QString &grubFileName)
-{
-    QString fileName = grubFileName;
-    QHash<QString, QString>::const_iterator it = m_devices.constBegin();
-    QHash<QString, QString>::const_iterator end = m_devices.constEnd();
-    for (; it != end; ++it) {
-        if (fileName.startsWith(it.value())) {
-            fileName.remove(0, it.value().length());
-            if (it.key().compare("/") != 0) {
-                fileName.prepend(it.key());
-            }
-            break;
-        }
-    }
-    return fileName;
-}
-
 ActionReply KCMGRUB2::loadFile(GrubFile grubFile)
 {
     Action loadAction("org.kde.kcontrol.kcmgrub2.load");
@@ -1039,48 +1010,6 @@ void KCMGRUB2::readMemtest()
     m_memtest = reply.data().value("memtest").toBool();
     if (m_memtest) {
         m_memtestOn = reply.data().value("memtestOn").toBool();
-    }
-}
-void KCMGRUB2::readDevices()
-{
-    QStringList mountPoints;
-    Q_FOREACH(const KMountPoint::Ptr mp, KMountPoint::currentMountPoints()) {
-        if (mp->mountedFrom().startsWith(QLatin1String("/dev"))) {
-            mountPoints.append(mp->mountPoint());
-        }
-    }
-
-    Action probeAction("org.kde.kcontrol.kcmgrub2.probe");
-    probeAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    probeAction.addArgument("mountPoints", mountPoints);
-#if KDE_IS_VERSION(4,6,0)
-    probeAction.setParentWidget(this);
-#endif
-    if (probeAction.authorize() != Action::Authorized) {
-        return;
-    }
-
-    KProgressDialog progressDlg(this, i18nc("@title:window", "Probing devices"), i18nc("@info:progress", "Probing devices for their GRUB names..."));
-    progressDlg.setAllowCancel(false);
-    progressDlg.setModal(true);
-    progressDlg.show();
-    connect(probeAction.watcher(), SIGNAL(progressStep(int)), progressDlg.progressBar(), SLOT(setValue(int)));
-
-    ActionReply reply = probeAction.execute();
-    processReply(reply);
-    if (reply.failed()) {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to get GRUB device names."), reply.errorDescription());
-        return;
-    }
-    QStringList grubPartitions = reply.data().value("grubPartitions").toStringList();
-    if (mountPoints.size() != grubPartitions.size()) {
-        KMessageBox::error(this, i18nc("@info", "Helper returned malformed device list."));
-        return;
-    }
-
-    m_devices.clear();
-    for (int i = 0; i < mountPoints.size(); i++) {
-        m_devices[mountPoints.at(i)] = grubPartitions.at(i);
     }
 }
 void KCMGRUB2::readResolutions()

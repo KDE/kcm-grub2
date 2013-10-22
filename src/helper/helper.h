@@ -33,7 +33,6 @@ public Q_SLOTS:
     ActionReply defaults(QVariantMap args);
     ActionReply install(QVariantMap args);
     ActionReply load(QVariantMap args);
-    ActionReply probe(QVariantMap args);
     ActionReply probevbe(QVariantMap args);
     ActionReply save(QVariantMap args);
 };

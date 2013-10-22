@@ -152,25 +152,6 @@ ActionReply Helper::load(QVariantMap args)
     reply.addData("rawFileContents", file.readAll());
     return reply;
 }
-ActionReply Helper::probe(QVariantMap args)
-{
-    ActionReply reply;
-    QStringList mountPoints = args.value("mountPoints").toStringList();
-
-    QStringList grubPartitions;
-    HelperSupport::progressStep(0);
-    for (int i = 0; i < mountPoints.size(); i++) {
-        ActionReply grub_probeReply = executeCommand(QStringList() << GRUB_PROBE_EXE << "-t" << "drive" << mountPoints.at(i));
-        if (grub_probeReply.failed()) {
-            return grub_probeReply;
-        }
-        grubPartitions.append(grub_probeReply.data().value("output").toString().trimmed());
-        HelperSupport::progressStep((i + 1) * 100. / mountPoints.size());
-    }
-
-    reply.addData("grubPartitions", grubPartitions);
-    return reply;
-}
 ActionReply Helper::probevbe(QVariantMap args)
 {
     Q_UNUSED(args)
