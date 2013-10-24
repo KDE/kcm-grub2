@@ -27,12 +27,12 @@
 
 QString quoteWord(const QString &word)
 {
-    return !word.startsWith('`') || !word.endsWith('`') ? KShell::quoteArg(word) : word;
+    return !word.startsWith(QLatin1Char('`')) || !word.endsWith(QLatin1Char('`')) ? KShell::quoteArg(word) : word;
 }
 QString unquoteWord(const QString &word)
 {
     KProcess echo;
-    echo.setShellCommand(QString("echo -n %1").arg(word));
+    echo.setShellCommand(QString(QLatin1String("echo -n %1")).arg(word));
     echo.setOutputChannelMode(KProcess::OnlyStdoutChannel);
     if (echo.execute() == 0) {
         return QString::fromLocal8Bit(echo.readAllStandardOutput().constData());
@@ -43,25 +43,25 @@ QString unquoteWord(const QString &word)
     QTextStream stream(&quotedWord, QIODevice::ReadOnly | QIODevice::Text);
     while (!stream.atEnd()) {
         stream >> ch;
-        if (ch == '\'') {
+        if (ch == QLatin1Char('\'')) {
             while (true) {
                 if (stream.atEnd()) {
                     return QString();
                 }
                 stream >> ch;
-                if (ch == '\'') {
+                if (ch == QLatin1Char('\'')) {
                     return unquotedWord;
                 } else {
                     unquotedWord.append(ch);
                 }
             }
-        } else if (ch == '"') {
+        } else if (ch == QLatin1Char('"')) {
             while (true) {
                 if (stream.atEnd()) {
                     return QString();
                 }
                 stream >> ch;
-                if (ch == '\\') {
+                if (ch == QLatin1Char('\\')) {
                     if (stream.atEnd()) {
                         return QString();
                     }
@@ -73,13 +73,13 @@ QString unquoteWord(const QString &word)
                             unquotedWord.append(ch);
                             break;
                         case '\n':
-                            unquotedWord.append(' ');
+                            unquotedWord.append(QLatin1Char(' '));
                             break;
                         default:
-                            unquotedWord.append('\\').append(ch);
+                            unquotedWord.append(QLatin1Char('\\')).append(ch);
                             break;
                     }
-                } else if (ch == '"') {
+                } else if (ch == QLatin1Char('"')) {
                     return unquotedWord;
                 } else {
                     unquotedWord.append(ch);
@@ -87,7 +87,7 @@ QString unquoteWord(const QString &word)
             }
         } else {
             while (true) {
-                if (ch == '\\') {
+                if (ch == QLatin1Char('\\')) {
                     if (stream.atEnd()) {
                         return unquotedWord;
                     }

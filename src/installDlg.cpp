@@ -43,7 +43,7 @@ InstallDialog::InstallDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
     setMainWidget(widget);
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Install/Recover Bootloader"));
-    setWindowIcon(KIcon("system-software-update"));
+    setWindowIcon(KIcon(QLatin1String("system-software-update")));
     if (parent) {
         setInitialSize(parent->size());
     }
@@ -64,7 +64,7 @@ InstallDialog::InstallDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
             continue;
         }
 
-        QString uuidDir = "/dev/disk/by-uuid/", uuid = volume->uuid(), name;
+        QString uuidDir = QLatin1String("/dev/disk/by-uuid/"), uuid = volume->uuid(), name;
         name = (QFile::exists((name = uuidDir + uuid)) || QFile::exists((name = uuidDir + uuid.toLower())) || QFile::exists((name = uuidDir + uuid.toUpper())) ? QFile::symLinkTarget(name) : QString());
         QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_recover, QStringList() << QString() << name << partition->filePath() << volume->label() << volume->fsType() << KGlobal::locale()->formatByteSize(volume->size()));
         item->setIcon(1, KIcon(device.icon()));
@@ -83,18 +83,18 @@ InstallDialog::~InstallDialog()
 void InstallDialog::slotButtonClicked(int button)
 {
     if (button == KDialog::Ok) {
-        Action installAction("org.kde.kcontrol.kcmgrub2.install");
-        installAction.setHelperID("org.kde.kcontrol.kcmgrub2");
+        Action installAction(QLatin1String("org.kde.kcontrol.kcmgrub2.install"));
+        installAction.setHelperID(QLatin1String("org.kde.kcontrol.kcmgrub2"));
         for (int i = 0; i < ui->treeWidget_recover->topLevelItemCount(); i++) {
             QRadioButton *radio = qobject_cast<QRadioButton *>(ui->treeWidget_recover->itemWidget(ui->treeWidget_recover->topLevelItem(i), 0));
             if (radio && radio->isChecked()) {
-                installAction.addArgument("partition", ui->treeWidget_recover->topLevelItem(i)->text(1));
-                installAction.addArgument("mountPoint", ui->treeWidget_recover->topLevelItem(i)->text(2));
-                installAction.addArgument("mbrInstall", !ui->checkBox_partition->isChecked());
+                installAction.addArgument(QLatin1String("partition"), ui->treeWidget_recover->topLevelItem(i)->text(1));
+                installAction.addArgument(QLatin1String("mountPoint"), ui->treeWidget_recover->topLevelItem(i)->text(2));
+                installAction.addArgument(QLatin1String("mbrInstall"), !ui->checkBox_partition->isChecked());
                 break;
             }
         }
-        if (installAction.arguments().value("partition").toString().isEmpty()) {
+        if (installAction.arguments().value(QLatin1String("partition")).toString().isEmpty()) {
             KMessageBox::sorry(this, i18nc("@info", "Sorry, you have to select a partition with a proper name!"));
             return;
         }
@@ -122,9 +122,9 @@ void InstallDialog::slotButtonClicked(int button)
             dialog->setModal(true);
             dialog->setDefaultButton(KDialog::Ok);
             dialog->setEscapeButton(KDialog::Ok);
-            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString()); // krazy:exclude=qclasses
+            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value(QLatin1String("output")).toString()); // krazy:exclude=qclasses
         } else {
-            KMessageBox::detailedError(this, i18nc("@info", "Failed to install GRUB."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value("errorDescription").toString());
+            KMessageBox::detailedError(this, i18nc("@info", "Failed to install GRUB."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value(QLatin1String("errorDescription")).toString());
         }
     }
     KDialog::slotButtonClicked(button);

@@ -42,12 +42,12 @@ ConvertDialog::ConvertDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
     QList<Magick::CoderInfo>::const_iterator it = coderList.constBegin();
     QList<Magick::CoderInfo>::const_iterator end = coderList.constEnd();
     for (; it != end; ++it) {
-        readFilter.append(QString(" *.%1").arg(QString::fromStdString(it->name()).toLower()));
+        readFilter.append(QString(QLatin1String(" *.%1")).arg(QString::fromStdString(it->name()).toLower()));
     }
     readFilter.remove(0, 1);
-    readFilter.append('|').append(i18nc("@item:inlistbox", "ImageMagick supported image formats"));
+    readFilter.append(QLatin1Char('|')).append(i18nc("@item:inlistbox", "ImageMagick supported image formats"));
 
-    QString writeFilter = QString("*%1|%5 (%1)\n*%2|%6 (%2)\n*%3 *%4|%7 (%3 %4)").arg(".png", ".tga", ".jpg", ".jpeg", KMimeType::mimeType("image/png")->comment(), KMimeType::mimeType("image/x-tga")->comment(), KMimeType::mimeType("image/jpeg")->comment());
+    QString writeFilter = QString(QLatin1String("*%1|%5 (%1)\n*%2|%6 (%2)\n*%3 *%4|%7 (%3 %4)")).arg(QLatin1String(".png"), QLatin1String(".tga"), QLatin1String(".jpg"), QLatin1String(".jpeg"), KMimeType::mimeType(QLatin1String("image/png"))->comment(), KMimeType::mimeType(QLatin1String("image/x-tga"))->comment(), KMimeType::mimeType(QLatin1String("image/jpeg"))->comment());
 
     ui->kurlrequester_image->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
     ui->kurlrequester_image->fileDialog()->setOperationMode(KFileDialog::Opening);

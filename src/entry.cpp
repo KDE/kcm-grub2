@@ -41,7 +41,7 @@ QString Entry::fullTitle() const
 {
     QString fullTitle;
     Q_FOREACH(const Entry::Title &ancestor, m_ancestors) {
-        fullTitle += unquoteWord(ancestor.str) += '>';
+        fullTitle += unquoteWord(ancestor.str) += QLatin1Char('>');
     }
     return fullTitle + unquoteWord(m_title.str);
 }
@@ -49,7 +49,7 @@ QString Entry::fullNumTitle() const
 {
     QString fullNumTitle;
     Q_FOREACH(const Entry::Title &ancestor, m_ancestors) {
-        fullNumTitle += QString::number(ancestor.num) += '>';
+        fullNumTitle += QString::number(ancestor.num) += QLatin1Char('>');
     }
     return fullNumTitle + QString::number(m_title.num);
 }

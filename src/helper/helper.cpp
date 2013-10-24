@@ -45,7 +45,7 @@ static const QString path = QLatin1String("/usr/sbin:/usr/bin:/sbin:/bin");
 
 Helper::Helper()
 {
-    KGlobal::locale()->insertCatalog("kcm-grub2");
+    KGlobal::locale()->insertCatalog(QLatin1String("kcm-grub2"));
     qputenv("PATH", path.toLatin1());
 }
 
@@ -55,7 +55,7 @@ ActionReply Helper::executeCommand(const QStringList &command)
     process.setProgram(command);
     process.setOutputChannelMode(KProcess::MergedChannels);
 
-    kDebug() << "Executing" << command.join(" ");
+    kDebug() << "Executing" << command.join(QLatin1String(" "));
     int exitCode = process.execute();
 
     ActionReply reply;
@@ -63,13 +63,13 @@ ActionReply Helper::executeCommand(const QStringList &command)
         reply = ActionReply::HelperErrorReply;
         reply.setErrorCode(exitCode);
     }
-    reply.addData("command", command);
-    reply.addData("output", process.readAll());
+    reply.addData(QLatin1String("command"), command);
+    reply.addData(QLatin1String("output"), process.readAll());
     return reply;
 }
 bool Helper::setLang(const QString &lang)
 {
-    QFile file(GRUB_MENU);
+    QFile file(QString::fromUtf8(GRUB_MENU));
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         kError() << "Failed to open file for reading:" << GRUB_MENU;
         kError() << "Error code:" << file.error();
@@ -99,22 +99,22 @@ ActionReply Helper::defaults(QVariantMap args)
 {
     Q_UNUSED(args)
     ActionReply reply;
-    QString configFileName = GRUB_CONFIG;
-    QString originalConfigFileName = configFileName + ".original";
+    QString configFileName = QString::fromUtf8(GRUB_CONFIG);
+    QString originalConfigFileName = configFileName + QLatin1String(".original");
 
     if (!QFile::exists(originalConfigFileName)) {
         reply = ActionReply::HelperErrorReply;
-        reply.addData("errorDescription", i18nc("@info", "Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName));
+        reply.addData(QLatin1String("errorDescription"), i18nc("@info", "Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName));
         return reply;
     }
     if (!QFile::remove(configFileName)) {
         reply = ActionReply::HelperErrorReply;
-        reply.addData("errorDescription", i18nc("@info", "Cannot remove current configuration file <filename>%1</filename>.", configFileName));
+        reply.addData(QLatin1String("errorDescription"), i18nc("@info", "Cannot remove current configuration file <filename>%1</filename>.", configFileName));
         return reply;
     }
     if (!QFile::copy(originalConfigFileName, configFileName)) {
         reply = ActionReply::HelperErrorReply;
-        reply.addData("errorDescription", i18nc("@info", "Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName));
+        reply.addData(QLatin1String("errorDescription"), i18nc("@info", "Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName));
         return reply;
     }
     return reply;
@@ -122,39 +122,39 @@ ActionReply Helper::defaults(QVariantMap args)
 ActionReply Helper::install(QVariantMap args)
 {
     ActionReply reply;
-    QString partition = args.value("partition").toString();
-    QString mountPoint = args.value("mountPoint").toString();
-    bool mbrInstall = args.value("mbrInstall").toBool();
+    QString partition = args.value(QLatin1String("partition")).toString();
+    QString mountPoint = args.value(QLatin1String("mountPoint")).toString();
+    bool mbrInstall = args.value(QLatin1String("mbrInstall")).toBool();
 
     if (mountPoint.isEmpty()) {
-        for (int i = 0; QDir(mountPoint = QString("%1/kcm-grub2-%2").arg(QDir::tempPath(), QString::number(i))).exists(); i++);
+        for (int i = 0; QDir(mountPoint = QString(QLatin1String("%1/kcm-grub2-%2")).arg(QDir::tempPath(), QString::number(i))).exists(); i++);
         if (!QDir().mkpath(mountPoint)) {
             reply = ActionReply::HelperErrorReply;
-            reply.addData("errorDescription", i18nc("@info", "Failed to create temporary mount point."));
+            reply.addData(QLatin1String("errorDescription"), i18nc("@info", "Failed to create temporary mount point."));
             return reply;
         }
-        ActionReply mountReply = executeCommand(QStringList() << "mount" << partition << mountPoint);
+        ActionReply mountReply = executeCommand(QStringList() << QLatin1String("mount") << partition << mountPoint);
         if (mountReply.failed()) {
             return mountReply;
         }
     }
 
     QStringList grub_installCommand;
-    grub_installCommand << GRUB_INSTALL_EXE << "--root-directory" << mountPoint;
+    grub_installCommand << QString::fromUtf8(GRUB_INSTALL_EXE) << QLatin1String("--root-directory") << mountPoint;
     if (mbrInstall) {
-        grub_installCommand << partition.remove(QRegExp("\\d+"));
+        grub_installCommand << partition.remove(QRegExp(QLatin1String("\\d+")));
     } else {
-        grub_installCommand << "--force" << partition;
+        grub_installCommand << QLatin1String("--force") << partition;
     }
     return executeCommand(grub_installCommand);
 }
 ActionReply Helper::load(QVariantMap args)
 {
     ActionReply reply;
-    LoadOperations operations = (LoadOperations)(args.value("operations").toInt());
+    LoadOperations operations = (LoadOperations)(args.value(QLatin1String("operations")).toInt());
 
     if (operations.testFlag(MenuFile)) {
-        QFile file(GRUB_MENU);
+        QFile file(QString::fromUtf8(GRUB_MENU));
         bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
         reply.addData(QLatin1String("menuSuccess"), ok);
         if (ok) {
@@ -165,7 +165,7 @@ ActionReply Helper::load(QVariantMap args)
         }
     }
     if (operations.testFlag(ConfigurationFile)) {
-        QFile file(GRUB_CONFIG);
+        QFile file(QString::fromUtf8(GRUB_CONFIG));
         bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
         reply.addData(QLatin1String("configSuccess"), ok);
         if (ok) {
@@ -176,7 +176,7 @@ ActionReply Helper::load(QVariantMap args)
         }
     }
     if (operations.testFlag(EnvironmentFile)) {
-        QFile file(GRUB_ENV);
+        QFile file(QString::fromUtf8(GRUB_ENV));
         bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
         reply.addData(QLatin1String("envSuccess"), ok);
         if (ok) {
@@ -187,10 +187,10 @@ ActionReply Helper::load(QVariantMap args)
         }
     }
     if (operations.testFlag(MemtestFile)) {
-        bool memtest = QFile::exists(GRUB_MEMTEST);
+        bool memtest = QFile::exists(QString::fromUtf8(GRUB_MEMTEST));
         reply.addData(QLatin1String("memtest"), memtest);
         if (memtest) {
-            reply.addData(QLatin1String("memtestOn"), (bool)(QFile::permissions(GRUB_MEMTEST) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther)));
+            reply.addData(QLatin1String("memtestOn"), (bool)(QFile::permissions(QString::fromUtf8(GRUB_MEMTEST)) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther)));
         }
     }
 #if HAVE_HD
@@ -201,52 +201,52 @@ ActionReply Helper::load(QVariantMap args)
         hd_t *hd = hd_list(&hd_data, hw_framebuffer, 1, NULL);
         for (hd_res_t *res = hd->res; res; res = res->next) {
             if (res->any.type == res_framebuffer) {
-                gfxmodes += QString("%1x%2x%3").arg(QString::number(res->framebuffer.width), QString::number(res->framebuffer.height), QString::number(res->framebuffer.colorbits));
+                gfxmodes += QString(QLatin1String("%1x%2x%3")).arg(QString::number(res->framebuffer.width), QString::number(res->framebuffer.height), QString::number(res->framebuffer.colorbits));
             }
         }
         hd_free_hd_list(hd);
         hd_free_hd_data(&hd_data);
-        reply.addData("gfxmodes", gfxmodes);
+        reply.addData(QLatin1String("gfxmodes"), gfxmodes);
     }
 #endif
     if (operations.testFlag(Locales)) {
-        reply.addData(QLatin1String("locales"), QDir(GRUB_LOCALE).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString()));
+        reply.addData(QLatin1String("locales"), QDir(QString::fromUtf8(GRUB_LOCALE)).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString()));
     }
     return reply;
 }
 ActionReply Helper::save(QVariantMap args)
 {
     ActionReply reply;
-    QString configFileName = GRUB_CONFIG;
-    QByteArray rawConfigFileContents = args.value("rawConfigFileContents").toByteArray();
-    QByteArray rawDefaultEntry = args.value("rawDefaultEntry").toByteArray();
-    bool memtest = args.value("memtest").toBool();
+    QString configFileName = QString::fromUtf8(GRUB_CONFIG);
+    QByteArray rawConfigFileContents = args.value(QLatin1String("rawConfigFileContents")).toByteArray();
+    QByteArray rawDefaultEntry = args.value(QLatin1String("rawDefaultEntry")).toByteArray();
+    bool memtest = args.value(QLatin1String("memtest")).toBool();
 
-    QFile::copy(configFileName, configFileName + ".original");
+    QFile::copy(configFileName, configFileName + QLatin1String(".original"));
 
     QFile file(configFileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         reply = ActionReply::HelperErrorReply;
-        reply.addData("errorDescription", file.errorString());
+        reply.addData(QLatin1String("errorDescription"), file.errorString());
         return reply;
     }
     file.write(rawConfigFileContents);
     file.close();
 
-    if (args.contains("memtest")) {
-        QFile::Permissions permissions = QFile::permissions(GRUB_MEMTEST);
+    if (args.contains(QLatin1String("memtest"))) {
+        QFile::Permissions permissions = QFile::permissions(QString::fromUtf8(GRUB_MEMTEST));
         if (memtest) {
             permissions |= (QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         } else {
             permissions &= ~(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         }
-        QFile::setPermissions(GRUB_MEMTEST, permissions);
+        QFile::setPermissions(QString::fromUtf8(GRUB_MEMTEST), permissions);
     }
 
     if (args.contains(QLatin1String("LANG"))) {
         qputenv("LANG", args.value(QLatin1String("LANG")).toByteArray());
     }
-    ActionReply grub_mkconfigReply = executeCommand(QStringList() << GRUB_MKCONFIG_EXE << "-o" << GRUB_MENU);
+    ActionReply grub_mkconfigReply = executeCommand(QStringList() << QString::fromUtf8(GRUB_MKCONFIG_EXE) << QLatin1String("-o") << QString::fromUtf8(GRUB_MENU));
     if (grub_mkconfigReply.failed()) {
         return grub_mkconfigReply;
     }
@@ -257,7 +257,7 @@ ActionReply Helper::save(QVariantMap args)
         }
     }
 
-    ActionReply grub_set_defaultReply = executeCommand(QStringList() << GRUB_SET_DEFAULT_EXE << rawDefaultEntry);
+    ActionReply grub_set_defaultReply = executeCommand(QStringList() << QString::fromUtf8(GRUB_SET_DEFAULT_EXE) << QString::fromUtf8(rawDefaultEntry.constData()));
     if (grub_set_defaultReply.failed()) {
         return grub_set_defaultReply;
     }
