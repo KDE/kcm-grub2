@@ -466,8 +466,8 @@ void KCMGRUB2::save()
 
     Action saveAction("org.kde.kcontrol.kcmgrub2.save");
     saveAction.setHelperID("org.kde.kcontrol.kcmgrub2");
-    saveAction.addArgument("rawConfigFileContents", configFileContents.toLocal8Bit());
-    saveAction.addArgument("rawDefaultEntry", !m_entries.isEmpty() ? grubDefault : m_settings.value("GRUB_DEFAULT").toLocal8Bit());
+    saveAction.addArgument("rawConfigFileContents", configFileContents.toUtf8());
+    saveAction.addArgument("rawDefaultEntry", !m_entries.isEmpty() ? grubDefault.toUtf8() : m_settings.value("GRUB_DEFAULT").toUtf8());
     if (ui->kcombobox_language->currentIndex() > 0) {
         saveAction.addArgument(QLatin1String("LANG"), qgetenv("LANG"));
         saveAction.addArgument(QLatin1String("LANGUAGE"), m_settings.value(QLatin1String("LANGUAGE")));
@@ -500,7 +500,7 @@ void KCMGRUB2::save()
         dialog->setModal(true);
         dialog->setDefaultButton(KDialog::Ok);
         dialog->setEscapeButton(KDialog::Ok);
-        KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value("output").toString()); // krazy:exclude=qclasses
+        KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, QString::fromUtf8(reply.data().value("output").toByteArray())); // krazy:exclude=qclasses
         load();
     } else {
         KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), reply.errorDescription());
@@ -1134,7 +1134,7 @@ void KCMGRUB2::processReply(ActionReply &reply)
         errorMessage = i18nc("@info", "The process crashed.");
         break;
     default:
-        errorMessage = QString::fromLocal8Bit(reply.data().value(QLatin1String("output")).toByteArray());
+        errorMessage = QString::fromUtf8(reply.data().value(QLatin1String("output")).toByteArray());
         break;
     }
     reply.addData(QLatin1String("errorMessage"), errorMessage);
