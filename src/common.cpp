@@ -35,7 +35,7 @@ QString unquoteWord(const QString &word)
     echo.setShellCommand(QString("echo -n %1").arg(word));
     echo.setOutputChannelMode(KProcess::OnlyStdoutChannel);
     if (echo.execute() == 0) {
-        return QString::fromLocal8Bit(echo.readAllStandardOutput());
+        return QString::fromLocal8Bit(echo.readAllStandardOutput().constData());
     }
 
     QChar ch;

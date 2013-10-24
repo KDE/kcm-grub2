@@ -500,7 +500,7 @@ void KCMGRUB2::save()
         dialog->setModal(true);
         dialog->setDefaultButton(KDialog::Ok);
         dialog->setEscapeButton(KDialog::Ok);
-        KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, QString::fromUtf8(reply.data().value("output").toByteArray())); // krazy:exclude=qclasses
+        KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, QString::fromUtf8(reply.data().value("output").toByteArray().constData())); // krazy:exclude=qclasses
         load();
     } else {
         KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), reply.errorDescription());
@@ -1134,7 +1134,7 @@ void KCMGRUB2::processReply(ActionReply &reply)
         errorMessage = i18nc("@info", "The process crashed.");
         break;
     default:
-        errorMessage = QString::fromUtf8(reply.data().value(QLatin1String("output")).toByteArray());
+        errorMessage = QString::fromUtf8(reply.data().value(QLatin1String("output")).toByteArray().constData());
         break;
     }
     reply.addData(QLatin1String("errorMessage"), errorMessage);
