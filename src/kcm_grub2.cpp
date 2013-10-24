@@ -262,7 +262,7 @@ void KCMGRUB2::load()
     ui->checkBox_uuid->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_LINUX_UUID")).compare("true") != 0);
 
     m_dirtyBits.fill(0);
-    emit changed(false);
+    Q_EMIT changed(false);
 }
 void KCMGRUB2::save()
 {
@@ -520,7 +520,7 @@ void KCMGRUB2::slotRemoveOldEntries()
 void KCMGRUB2::slotGrubSavedefaultChanged()
 {
     m_dirtyBits.setBit(grubSavedefaultDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubHiddenTimeoutToggled(bool checked)
 {
@@ -530,12 +530,12 @@ void KCMGRUB2::slotGrubHiddenTimeoutToggled(bool checked)
 void KCMGRUB2::slotGrubHiddenTimeoutChanged()
 {
     m_dirtyBits.setBit(grubHiddenTimeoutDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubHiddenTimeoutQuietChanged()
 {
     m_dirtyBits.setBit(grubHiddenTimeoutQuietDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubTimeoutToggled(bool checked)
 {
@@ -546,27 +546,27 @@ void KCMGRUB2::slotGrubTimeoutToggled(bool checked)
 void KCMGRUB2::slotGrubTimeoutChanged()
 {
     m_dirtyBits.setBit(grubTimeoutDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubLanguageChanged()
 {
     m_dirtyBits.setBit(grubLocaleDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubDisableRecoveryChanged()
 {
     m_dirtyBits.setBit(grubDisableRecoveryDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotMemtestChanged()
 {
     m_dirtyBits.setBit(memtestDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubDisableOsProberChanged()
 {
     m_dirtyBits.setBit(grubDisableOsProberDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotInstallBootloader()
 {
@@ -594,7 +594,7 @@ void KCMGRUB2::slotGrubGfxmodeChanged()
         }
     }
     m_dirtyBits.setBit(grubGfxmodeDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubGfxpayloadLinuxChanged()
 {
@@ -616,23 +616,23 @@ void KCMGRUB2::slotGrubGfxpayloadLinuxChanged()
         }
     }
     m_dirtyBits.setBit(grubGfxpayloadLinuxDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubColorNormalChanged()
 {
     m_dirtyBits.setBit(grubColorNormalDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubColorHighlightChanged()
 {
     m_dirtyBits.setBit(grubColorHighlightDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slowGrubBackgroundChanged()
 {
     ui->kpushbutton_preview->setEnabled(!ui->kurlrequester_background->text().isEmpty());
     m_dirtyBits.setBit(grubBackgroundDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotPreviewGrubBackground()
 {
@@ -663,17 +663,17 @@ void KCMGRUB2::slotCreateGrubBackground()
 void KCMGRUB2::slotGrubThemeChanged()
 {
     m_dirtyBits.setBit(grubThemeDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubCmdlineLinuxDefaultChanged()
 {
     m_dirtyBits.setBit(grubCmdlineLinuxDefaultDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubCmdlineLinuxChanged()
 {
     m_dirtyBits.setBit(grubCmdlineLinuxDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubTerminalChanged()
 {
@@ -683,37 +683,37 @@ void KCMGRUB2::slotGrubTerminalChanged()
     ui->klineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_INPUT")));
     ui->klineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value("GRUB_TERMINAL_OUTPUT")));
     m_dirtyBits.setBit(grubTerminalDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubTerminalInputChanged()
 {
     m_dirtyBits.setBit(grubTerminalInputDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubTerminalOutputChanged()
 {
     m_dirtyBits.setBit(grubTerminalOutputDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubDistributorChanged()
 {
     m_dirtyBits.setBit(grubDistributorDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubSerialCommandChanged()
 {
     m_dirtyBits.setBit(grubSerialCommandDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubInitTuneChanged()
 {
     m_dirtyBits.setBit(grubInitTuneDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 void KCMGRUB2::slotGrubDisableLinuxUuidChanged()
 {
     m_dirtyBits.setBit(grubDisableLinuxUuidDirty);
-    emit changed(true);
+    Q_EMIT changed(true);
 }
 
 void KCMGRUB2::slotUpdateSuggestions()

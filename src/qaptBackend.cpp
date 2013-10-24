@@ -72,7 +72,7 @@ void QAptBackend::undoChanges()
 void QAptBackend::slotWorkerEvent(QApt::WorkerEvent event)
 {
     if (event == QApt::CommitChangesFinished) {
-        emit finished(m_error == QApt::UnknownError);
+        Q_EMIT finished(m_error == QApt::UnknownError);
     }
 }
 void QAptBackend::slotErrorOccurred(QApt::ErrorCode error, const QVariantMap &details)

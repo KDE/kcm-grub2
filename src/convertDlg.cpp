@@ -90,7 +90,7 @@ void ConvertDialog::slotButtonClicked(int button)
         image.classType(Magick::DirectClass);
         image.write(std::string(ui->kurlrequester_converted->url().toLocalFile().toUtf8().constData()));
         if (ui->checkBox_wallpaper->isChecked()) {
-            emit splashImageCreated(ui->kurlrequester_converted->url().toLocalFile());
+            Q_EMIT splashImageCreated(ui->kurlrequester_converted->url().toLocalFile());
         }
     }
     KDialog::slotButtonClicked(button);

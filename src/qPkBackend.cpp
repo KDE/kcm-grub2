@@ -196,7 +196,7 @@ void QPkBackend::slotFinished(PackageKit::Enum::Exit status, uint runtime)
     Q_UNUSED(runtime)
     m_status = status;
     if (m_t && m_t->role() == PackageKit::Enum::RoleRemovePackages) {
-        emit finished(m_status == PackageKit::Enum::ExitSuccess);
+        Q_EMIT finished(m_status == PackageKit::Enum::ExitSuccess);
     }
 }
 void QPkBackend::slotPackage(const QSharedPointer<PackageKit::Package> &package)
@@ -205,7 +205,7 @@ void QPkBackend::slotPackage(const QSharedPointer<PackageKit::Package> &package)
 }
 void QPkBackend::slotUpdateProgress()
 {
-    emit progress(statusToString(m_t->status()), m_t->percentage());
+    Q_EMIT progress(statusToString(m_t->status()), m_t->percentage());
 }
 
 bool QPkBackend::packageExists(const QString &packageName)

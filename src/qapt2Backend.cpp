@@ -69,10 +69,10 @@ void QApt2Backend::undoChanges()
 
 void QApt2Backend::slotUpdateProgress()
 {
-    emit progress(m_trans->statusDetails(), m_trans->progress());
+    Q_EMIT progress(m_trans->statusDetails(), m_trans->progress());
 }
 void QApt2Backend::slotTransactionFinished(QApt::ExitStatus status)
 {
     m_exitStatus = status;
-    emit finished(status == QApt::ExitSuccess);
+    Q_EMIT finished(status == QApt::ExitSuccess);
 }
