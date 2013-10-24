@@ -39,10 +39,8 @@ ConvertDialog::ConvertDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
     QString readFilter;
     QList<Magick::CoderInfo> coderList;
     coderInfoList(&coderList, Magick::CoderInfo::TrueMatch, Magick::CoderInfo::AnyMatch, Magick::CoderInfo::AnyMatch);
-    QList<Magick::CoderInfo>::const_iterator it = coderList.constBegin();
-    QList<Magick::CoderInfo>::const_iterator end = coderList.constEnd();
-    for (; it != end; ++it) {
-        readFilter.append(QString(QLatin1String(" *.%1")).arg(QString::fromStdString(it->name()).toLower()));
+    Q_FOREACH(const Magick::CoderInfo &coder, coderList) {
+        readFilter.append(QString(QLatin1String(" *.%1")).arg(QString::fromStdString(coder.name()).toLower()));
     }
     readFilter.remove(0, 1);
     readFilter.append(QLatin1Char('|')).append(i18nc("@item:inlistbox", "ImageMagick supported image formats"));

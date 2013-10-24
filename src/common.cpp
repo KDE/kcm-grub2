@@ -44,7 +44,7 @@ QString unquoteWord(const QString &word)
     while (!stream.atEnd()) {
         stream >> ch;
         if (ch == QLatin1Char('\'')) {
-            while (true) {
+            Q_FOREVER {
                 if (stream.atEnd()) {
                     return QString();
                 }
@@ -56,7 +56,7 @@ QString unquoteWord(const QString &word)
                 }
             }
         } else if (ch == QLatin1Char('"')) {
-            while (true) {
+            Q_FOREVER {
                 if (stream.atEnd()) {
                     return QString();
                 }
@@ -86,7 +86,7 @@ QString unquoteWord(const QString &word)
                 }
             }
         } else {
-            while (true) {
+            Q_FOREVER {
                 if (ch == QLatin1Char('\\')) {
                     if (stream.atEnd()) {
                         return unquotedWord;
