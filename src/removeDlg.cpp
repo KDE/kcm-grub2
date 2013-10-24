@@ -44,7 +44,7 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent, Qt::WFl
     setMainWidget(widget);
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Remove Old Entries"));
-    setWindowIcon(KIcon("list-remove"));
+    setWindowIcon(KIcon(QLatin1String("list-remove")));
 
     m_progressDlg = 0;
 
@@ -116,7 +116,7 @@ void RemoveDialog::slotButtonClicked(int button)
                 QString packageName = ui->treeWidget->topLevelItem(i)->data(0, Qt::UserRole).toString();
                 m_backend->markForRemoval(packageName);
                 if (ui->checkBox_headers->isChecked()) {
-                    packageName.replace("image", "headers");
+                    packageName.replace(QLatin1String("image"), QLatin1String("headers"));
                     m_backend->markForRemoval(packageName);
                 }
             }
@@ -164,15 +164,15 @@ void RemoveDialog::slotFinished(bool success)
 }
 void RemoveDialog::detectCurrentKernelImage()
 {
-    QFile file("/proc/cmdline");
+    QFile file(QLatin1String("/proc/cmdline"));
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return;
     }
 
     QTextStream stream(&file);
-    Q_FOREACH(const QString &argument, stream.readAll().split(QRegExp("\\s+"))) {
+    Q_FOREACH(const QString &argument, stream.readAll().split(QRegExp(QLatin1String("\\s+")))) {
         if (argument.startsWith(QLatin1String("BOOT_IMAGE"))) {
-            m_currentKernelImage = argument.section('=', 1);
+            m_currentKernelImage = argument.section(QLatin1Char('='), 1);
             return;
         }
     }

@@ -41,12 +41,12 @@
 
 //The $PATH environment variable is emptied by D-Bus activation,
 //so let's provide a sane default. Needed for os-prober to work.
-static const QString path = QLatin1String("/usr/sbin:/usr/bin:/sbin:/bin");
+static const QLatin1String path("/usr/sbin:/usr/bin:/sbin:/bin");
 
 Helper::Helper()
 {
     KGlobal::locale()->insertCatalog(QLatin1String("kcm-grub2"));
-    qputenv("PATH", path.toLatin1());
+    qputenv("PATH", path.latin1());
 }
 
 ActionReply Helper::executeCommand(const QStringList &command)
