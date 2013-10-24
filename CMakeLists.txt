@@ -11,7 +11,10 @@ find_package(KDE4 4.4.0 REQUIRED)
 include(KDE4Defaults)
 include(GRUBPaths)
 
-add_definitions(-DQT_NO_CAST_FROM_BYTEARRAY -DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS -DMAGICKCORE_QUANTUM_DEPTH=16 -DMAGICKCORE_HDRI_ENABLE=0)
+# Qt
+add_definitions(-DQT_NO_CAST_FROM_BYTEARRAY -DQT_NO_KEYWORDS -DQT_STRICT_ITERATORS -DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
+# ImageMagick
+add_definitions(-DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16)
 
 macro_optional_find_package(ImageMagick COMPONENTS Magick++ MagickCore)
 macro_log_feature(ImageMagick_FOUND "ImageMagick" "Create splash images compatible with GRUB2" "http://www.imagemagick.org/" FALSE "" "")
