@@ -104,7 +104,7 @@ void KCMGRUB2::load()
     if (!m_entries.isEmpty()) {
         int maxLen = 0, maxLvl = 0;
         QStandardItemModel *model = new QStandardItemModel(ui->kcombobox_default);
-        QTreeView *view = static_cast<QTreeView *>(ui->kcombobox_default->view());
+        QTreeView *view = qobject_cast<QTreeView *>(ui->kcombobox_default->view());
         QList<QStandardItem *> ancestors;
         ancestors.append(model->invisibleRootItem());
         for (int i = 0; i < m_entries.size(); i++) {
@@ -269,8 +269,8 @@ void KCMGRUB2::save()
     QString grubDefault;
     if (!m_entries.isEmpty()) {
         m_settings["GRUB_DEFAULT"] = "saved";
-        QStandardItemModel *model = static_cast<QStandardItemModel *>(ui->kcombobox_default->model());
-        QTreeView *view = static_cast<QTreeView *>(ui->kcombobox_default->view());
+        QStandardItemModel *model = qobject_cast<QStandardItemModel *>(ui->kcombobox_default->model());
+        QTreeView *view = qobject_cast<QTreeView *>(ui->kcombobox_default->view());
         //Ugly, ugly hack. The view's current QModelIndex is invalidated
         //while the view is hidden and there is no access to the internal
         //QPersistentModelIndex (it is hidden in QComboBox's pimpl).
