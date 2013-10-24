@@ -27,7 +27,8 @@ enum LoadOperation {
     ConfigurationFile = 0x2,
     EnvironmentFile = 0x4,
     MemtestFile = 0x8,
-    Vbe = 0x10
+    Vbe = 0x10,
+    Locales = 0x20
 };
 Q_DECLARE_FLAGS(LoadOperations, LoadOperation)
 Q_DECLARE_OPERATORS_FOR_FLAGS(LoadOperations)

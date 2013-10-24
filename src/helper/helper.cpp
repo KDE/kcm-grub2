@@ -67,6 +67,33 @@ ActionReply Helper::executeCommand(const QStringList &command)
     reply.addData("output", process.readAll());
     return reply;
 }
+bool Helper::setLang(const QString &lang)
+{
+    QFile file(GRUB_MENU);
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
+        kError() << "Failed to open file for reading:" << GRUB_MENU;
+        kError() << "Error code:" << file.error();
+        kError() << "Error description:" << file.errorString();
+        return false;
+    }
+    QString fileContents = QString::fromUtf8(file.readAll().constData());
+    file.close();
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        kError() << "Failed to open file for writing:" << GRUB_MENU;
+        kError() << "Error code:" << file.error();
+        kError() << "Error description:" << file.errorString();
+        return false;
+    }
+    fileContents.replace(QRegExp(QLatin1String("(\\n\\s*set\\s+lang=)\\S*\\n")), QString(QLatin1String("\\1%1\n")).arg(lang));
+    if (file.write(fileContents.toUtf8()) == -1) {
+        kError() << "Failed to write data to file:" << GRUB_MENU;
+        kError() << "Error code:" << file.error();
+        kError() << "Error description:" << file.errorString();
+        return false;
+    }
+    file.close();
+    return true;
+}
 
 ActionReply Helper::defaults(QVariantMap args)
 {
@@ -182,6 +209,9 @@ ActionReply Helper::load(QVariantMap args)
         reply.addData("gfxmodes", gfxmodes);
     }
 #endif
+    if (operations.testFlag(Locales)) {
+        reply.addData(QLatin1String("locales"), QDir(GRUB_LOCALE).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString()));
+    }
     return reply;
 }
 ActionReply Helper::save(QVariantMap args)
@@ -213,9 +243,18 @@ ActionReply Helper::save(QVariantMap args)
         QFile::setPermissions(GRUB_MEMTEST, permissions);
     }
 
+    if (args.contains(QLatin1String("LANG"))) {
+        qputenv("LANG", args.value(QLatin1String("LANG")).toByteArray());
+    }
     ActionReply grub_mkconfigReply = executeCommand(QStringList() << GRUB_MKCONFIG_EXE << "-o" << GRUB_MENU);
     if (grub_mkconfigReply.failed()) {
         return grub_mkconfigReply;
+    }
+    if (args.contains(QLatin1String("LANGUAGE"))) {
+        if (!setLang(args.value(QLatin1String("LANGUAGE")).toString())) {
+            kError() << "An error occured while setting the language for the GRUB menu.";
+            kError() << "The GRUB menu will not be properly translated!";
+        }
     }
 
     ActionReply grub_set_defaultReply = executeCommand(QStringList() << GRUB_SET_DEFAULT_EXE << rawDefaultEntry);

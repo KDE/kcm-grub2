@@ -185,6 +185,13 @@ void KCMGRUB2::load()
         kWarning() << "Invalid GRUB_TIMEOUT value";
     }
 
+    showLocales();
+    int languageIndex = ui->kcombobox_language->findData(unquoteWord(m_settings.value(QLatin1String("LANGUAGE"))));
+    if (languageIndex != -1) {
+        ui->kcombobox_language->setCurrentIndex(languageIndex);
+    } else {
+        kWarning() << "Invalid LANGUAGE value";
+    }
     ui->checkBox_recovery->setChecked(unquoteWord(m_settings.value("GRUB_DISABLE_RECOVERY")).compare("true") != 0);
     ui->checkBox_memtest->setVisible(m_memtest);
     ui->checkBox_memtest->setChecked(m_memtestOn);
@@ -303,6 +310,14 @@ void KCMGRUB2::save()
             }
         } else {
             m_settings["GRUB_TIMEOUT"] = "-1";
+        }
+    }
+    if (m_dirtyBits.testBit(grubLocaleDirty)) {
+        int langIndex = ui->kcombobox_language->currentIndex();
+        if (langIndex > 0) {
+            m_settings[QLatin1String("LANGUAGE")] = ui->kcombobox_language->itemData(langIndex).toString();
+        } else {
+            m_settings.remove(QLatin1String("LANGUAGE"));
         }
     }
     if (m_dirtyBits.testBit(grubDisableRecoveryDirty)) {
@@ -453,6 +468,10 @@ void KCMGRUB2::save()
     saveAction.setHelperID("org.kde.kcontrol.kcmgrub2");
     saveAction.addArgument("rawConfigFileContents", configFileContents.toLocal8Bit());
     saveAction.addArgument("rawDefaultEntry", !m_entries.isEmpty() ? grubDefault : m_settings.value("GRUB_DEFAULT").toLocal8Bit());
+    if (ui->kcombobox_language->currentIndex() > 0) {
+        saveAction.addArgument(QLatin1String("LANG"), qgetenv("LANG"));
+        saveAction.addArgument(QLatin1String("LANGUAGE"), m_settings.value(QLatin1String("LANGUAGE")));
+    }
     if (m_dirtyBits.testBit(memtestDirty)) {
         saveAction.addArgument("memtest", ui->checkBox_memtest->isChecked());
     }
@@ -527,6 +546,11 @@ void KCMGRUB2::slotGrubTimeoutToggled(bool checked)
 void KCMGRUB2::slotGrubTimeoutChanged()
 {
     m_dirtyBits.setBit(grubTimeoutDirty);
+    emit changed(true);
+}
+void KCMGRUB2::slotGrubLanguageChanged()
+{
+    m_dirtyBits.setBit(grubLocaleDirty);
     emit changed(true);
 }
 void KCMGRUB2::slotGrubDisableRecoveryChanged()
@@ -880,6 +904,7 @@ void KCMGRUB2::setupConnections()
     connect(ui->radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
     connect(ui->spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubTimeoutChanged()));
 
+    connect(ui->kcombobox_language, SIGNAL(activated(int)), this, SLOT(slotGrubLanguageChanged()));
     connect(ui->checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableRecoveryChanged()));
     connect(ui->checkBox_memtest, SIGNAL(clicked(bool)), this, SLOT(slotMemtestChanged()));
     connect(ui->checkBox_osProber, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableOsProberChanged()));
@@ -926,7 +951,7 @@ bool KCMGRUB2::readFile(const QString &fileName, QByteArray &fileContents)
 {
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        kDebug() << "Failed to read file:" << fileName;
+        kDebug() << "Failed to open file for reading:" << fileName;
         kDebug() << "Error code:" << file.error();
         kDebug() << "Error description:" << file.errorString();
         kDebug() << "The helper will now attempt to read this file.";
@@ -964,6 +989,11 @@ void KCMGRUB2::readAll()
 #if HAVE_HD
     operations |= Vbe;
 #endif
+    if (QFileInfo(GRUB_LOCALE).isReadable()) {
+        m_locales = QDir(GRUB_LOCALE).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString());
+    } else {
+        operations |= Locales;
+    }
 
     if (operations) {
         Action loadAction("org.kde.kcontrol.kcmgrub2.load");
@@ -1018,9 +1048,28 @@ void KCMGRUB2::readAll()
         if (operations.testFlag(Vbe)) {
             m_resolutions = reply.data().value(QLatin1String("gfxmodes")).toStringList();
         }
+        if (operations.testFlag(Locales)) {
+            m_locales = reply.data().value(QLatin1String("locales")).toStringList();
+        }
     }
 }
 
+void KCMGRUB2::showLocales()
+{
+    ui->kcombobox_language->clear();
+    ui->kcombobox_language->addItem(i18nc("@item:inlistbox", "No translation"), QString());
+
+    Q_FOREACH(const QString &locale, m_locales) {
+        QString language = KGlobal::locale()->languageCodeToName(locale);
+        if (language.isEmpty()) {
+            language = KGlobal::locale()->languageCodeToName(locale.split('@').first());
+            if (language.isEmpty()) {
+                language = KGlobal::locale()->languageCodeToName(locale.split('@').first().split('_').first());
+            }
+        }
+        ui->kcombobox_language->addItem(QString("%1 (%2)").arg(language, locale), locale);
+    }
+}
 void KCMGRUB2::sortResolutions()
 {
     for (int i = 0; i < m_resolutions.size(); i++) {
@@ -1212,7 +1261,7 @@ void KCMGRUB2::parseSettings(const QString &config)
     m_settings.clear();
     while (!stream.atEnd()) {
         line = stream.readLine().trimmed();
-        if (line.startsWith(QLatin1String("GRUB_"))) {
+        if (line.contains(QRegExp(QLatin1String("^(GRUB_|LANGUAGE=)")))) {
             m_settings[line.section('=', 0, 0)] = line.section('=', 1);
         }
     }

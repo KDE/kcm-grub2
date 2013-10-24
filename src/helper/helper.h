@@ -29,6 +29,7 @@ public:
     Helper();
 private:
     ActionReply executeCommand(const QStringList &command);
+    bool setLang(const QString &lang);
 public Q_SLOTS:
     ActionReply defaults(QVariantMap args);
     ActionReply install(QVariantMap args);

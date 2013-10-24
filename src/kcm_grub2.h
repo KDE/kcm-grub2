@@ -56,6 +56,7 @@ private Q_SLOTS:
     void slotGrubHiddenTimeoutQuietChanged();
     void slotGrubTimeoutToggled(bool checked);
     void slotGrubTimeoutChanged();
+    void slotGrubLanguageChanged();
     void slotGrubDisableRecoveryChanged();
     void slotMemtestChanged();
     void slotGrubDisableOsProberChanged();
@@ -87,6 +88,7 @@ private:
     bool readFile(const QString &fileName, QByteArray &fileContents);
     void readAll();
 
+    void showLocales();
     void sortResolutions();
     void showResolutions();
 
@@ -103,6 +105,7 @@ private:
         grubHiddenTimeoutDirty,
         grubHiddenTimeoutQuietDirty,
         grubTimeoutDirty,
+        grubLocaleDirty,
         grubDisableRecoveryDirty,
         memtestDirty,
         grubDisableOsProberDirty,
@@ -132,6 +135,7 @@ private:
     bool m_memtestOn;
     QHash<QString, QString> m_devices;
     QStringList m_resolutions;
+    QStringList m_locales;
 };
 
 #endif

@@ -17,5 +17,6 @@
 #define GRUB_CONFIG "@GRUB_CONFIG@"
 #define GRUB_ENV "@GRUB_ENV@"
 #define GRUB_MEMTEST "@GRUB_MEMTEST@"
+#define GRUB_LOCALE "@GRUB_LOCALE@"
 
 #endif
