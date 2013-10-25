@@ -272,11 +272,25 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="KComboBox" name="kcombobox_gfxmode">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContents</enum>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <item>
+             <widget class="KComboBox" name="kcombobox_gfxmode">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContents</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_refreshGfxmode">
+              <property name="toolTip">
+               <string comment="@info:tooltip">Probe for supported VBE resolutions.</string>
+              </property>
+              <property name="autoRaise">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_gfxpayload">
@@ -286,11 +300,25 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="KComboBox" name="kcombobox_gfxpayload">
-            <property name="sizeAdjustPolicy">
-             <enum>QComboBox::AdjustToContents</enum>
-            </property>
-           </widget>
+           <layout class="QHBoxLayout" name="horizontalLayout_9">
+            <item>
+             <widget class="KComboBox" name="kcombobox_gfxpayload">
+              <property name="sizeAdjustPolicy">
+               <enum>QComboBox::AdjustToContents</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QToolButton" name="toolButton_refreshGfxpayload">
+              <property name="toolTip">
+               <string comment="@info:tooltip">Probe for supported VBE resolutions.</string>
+              </property>
+              <property name="autoRaise">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+           </layout>
           </item>
          </layout>
         </widget>

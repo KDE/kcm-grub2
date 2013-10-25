@@ -212,7 +212,9 @@ void KCMGRUB2::load()
     sortResolutions();
     showResolutions();
     ui->kcombobox_gfxmode->setCurrentIndex(ui->kcombobox_gfxmode->findData(grubGfxmode));
+    ui->toolButton_refreshGfxmode->setVisible(HAVE_HD && m_resolutionsEmpty);
     ui->kcombobox_gfxpayload->setCurrentIndex(ui->kcombobox_gfxpayload->findData(grubGfxpayloadLinux));
+    ui->toolButton_refreshGfxpayload->setVisible(HAVE_HD && m_resolutionsEmpty);
 
     QString grubColorNormal = unquoteWord(m_settings.value(QLatin1String("GRUB_COLOR_NORMAL")));
     if (!grubColorNormal.isEmpty()) {
@@ -570,12 +572,6 @@ void KCMGRUB2::slotGrubDisableOsProberChanged()
     m_dirtyBits.setBit(grubDisableOsProberDirty);
     Q_EMIT changed(true);
 }
-void KCMGRUB2::slotInstallBootloader()
-{
-    QPointer<InstallDialog> installDlg = new InstallDialog(this);
-    installDlg->exec();
-    delete installDlg;
-}
 void KCMGRUB2::slotGrubGfxmodeChanged()
 {
     if (ui->kcombobox_gfxmode->currentIndex() == 0) {
@@ -619,6 +615,11 @@ void KCMGRUB2::slotGrubGfxpayloadLinuxChanged()
     }
     m_dirtyBits.setBit(grubGfxpayloadLinuxDirty);
     Q_EMIT changed(true);
+}
+void KCMGRUB2::slotResolutionsRefresh()
+{
+    m_resolutionsForceRead = true;
+    load();
 }
 void KCMGRUB2::slotGrubColorNormalChanged()
 {
@@ -717,6 +718,12 @@ void KCMGRUB2::slotGrubDisableLinuxUuidChanged()
     m_dirtyBits.setBit(grubDisableLinuxUuidDirty);
     Q_EMIT changed(true);
 }
+void KCMGRUB2::slotInstallBootloader()
+{
+    QPointer<InstallDialog> installDlg = new InstallDialog(this);
+    installDlg->exec();
+    delete installDlg;
+}
 
 void KCMGRUB2::slotUpdateSuggestions()
 {
@@ -784,6 +791,8 @@ void KCMGRUB2::setupObjects()
     setNeedsAuthorization(true);
 
     m_dirtyBits.resize(lastDirtyBit);
+    m_resolutionsEmpty = true;
+    m_resolutionsForceRead = false;
 
     QTreeView *view = new QTreeView(ui->kcombobox_default);
     view->setHeaderHidden(true);
@@ -791,9 +800,11 @@ void KCMGRUB2::setupObjects()
     view->setRootIsDecorated(false);
     ui->kcombobox_default->setView(view);
 
-    ui->kpushbutton_install->setIcon(KIcon(QLatin1String("system-software-update")));
     ui->kpushbutton_remove->setIcon(KIcon(QLatin1String("list-remove")));
     ui->kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
+
+    ui->toolButton_refreshGfxmode->setIcon(KIcon(QLatin1String("view-refresh")));
+    ui->toolButton_refreshGfxpayload->setIcon(KIcon(QLatin1String("view-refresh")));
 
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);
@@ -887,6 +898,8 @@ void KCMGRUB2::setupObjects()
     ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
     ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData(QLatin1String("gfxterm"));
     ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData(QLatin1String("vga_text"));
+
+    ui->kpushbutton_install->setIcon(KIcon(QLatin1String("system-software-update")));
 }
 void KCMGRUB2::setupConnections()
 {
@@ -912,7 +925,9 @@ void KCMGRUB2::setupConnections()
     connect(ui->checkBox_osProber, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableOsProberChanged()));
 
     connect(ui->kcombobox_gfxmode, SIGNAL(activated(int)), this, SLOT(slotGrubGfxmodeChanged()));
+    connect(ui->toolButton_refreshGfxmode, SIGNAL(clicked(bool)), this, SLOT(slotResolutionsRefresh()));
     connect(ui->kcombobox_gfxpayload, SIGNAL(activated(int)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
+    connect(ui->toolButton_refreshGfxpayload, SIGNAL(clicked(bool)), this, SLOT(slotResolutionsRefresh()));
 
     connect(ui->kcombobox_normalForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
     connect(ui->kcombobox_normalBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
@@ -989,7 +1004,9 @@ void KCMGRUB2::readAll()
         operations |= MemtestFile;
     }
 #if HAVE_HD
-    operations |= Vbe;
+    if (m_resolutionsEmpty) {
+        operations |= Vbe;
+    }
 #endif
     if (QFileInfo(QString::fromUtf8(GRUB_LOCALE)).isReadable()) {
         m_locales = QDir(QString::fromUtf8(GRUB_LOCALE)).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString());
@@ -997,7 +1014,8 @@ void KCMGRUB2::readAll()
         operations |= Locales;
     }
 
-    if (operations) {
+    //Do not prompt for password if only the VBE operation is required, unless forced.
+    if (operations && ((operations & (~Vbe)) || m_resolutionsForceRead)) {
         Action loadAction(QLatin1String("org.kde.kcontrol.kcmgrub2.load"));
         loadAction.setHelperID(QLatin1String("org.kde.kcontrol.kcmgrub2"));
         loadAction.addArgument(QLatin1String("operations"), (int)(operations));
@@ -1049,6 +1067,8 @@ void KCMGRUB2::readAll()
         }
         if (operations.testFlag(Vbe)) {
             m_resolutions = reply.data().value(QLatin1String("gfxmodes")).toStringList();
+            m_resolutionsEmpty = false;
+            m_resolutionsForceRead = false;
         }
         if (operations.testFlag(Locales)) {
             m_locales = reply.data().value(QLatin1String("locales")).toStringList();

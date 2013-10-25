@@ -60,9 +60,9 @@ private Q_SLOTS:
     void slotGrubDisableRecoveryChanged();
     void slotMemtestChanged();
     void slotGrubDisableOsProberChanged();
-    void slotInstallBootloader();
     void slotGrubGfxmodeChanged();
     void slotGrubGfxpayloadLinuxChanged();
+    void slotResolutionsRefresh();
     void slotGrubColorNormalChanged();
     void slotGrubColorHighlightChanged();
     void slowGrubBackgroundChanged();
@@ -78,6 +78,7 @@ private Q_SLOTS:
     void slotGrubSerialCommandChanged();
     void slotGrubInitTuneChanged();
     void slotGrubDisableLinuxUuidChanged();
+    void slotInstallBootloader();
 
     void slotUpdateSuggestions();
     void slotTriggeredSuggestion(QAction *action);
@@ -135,6 +136,8 @@ private:
     bool m_memtestOn;
     QHash<QString, QString> m_devices;
     QStringList m_resolutions;
+    bool m_resolutionsEmpty;
+    bool m_resolutionsForceRead;
     QStringList m_locales;
 };
 
