@@ -1116,29 +1116,34 @@ void KCMGRUB2::processReply(ActionReply &reply)
         return;
     }
 
-    if (reply.errorCode() == 0) {
-        QLatin1String key("errorDescription");
-        if (reply.data().contains(key)) {
-            reply.setErrorDescription(reply.data().value(key).toString());
-            reply.data().remove(key);
+    //Process error (contains command, output, errorCode, errorMessage, errorDescription)
+    QLatin1String processKey("isProcessReply");
+    if (reply.data().contains(processKey) && reply.data().value(processKey).toBool()) {
+        QString errorMessage;
+        switch (reply.errorCode()) {
+        case -2:
+            errorMessage = i18nc("@info", "The process could not be started.");
+            break;
+        case -1:
+            errorMessage = i18nc("@info", "The process crashed.");
+            break;
+        default:
+            errorMessage = QString::fromUtf8(reply.data().value(QLatin1String("output")).toByteArray().constData());
+            break;
         }
+        reply.addData(QLatin1String("errorMessage"), errorMessage);
+        reply.setErrorDescription(i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", reply.data().value(QLatin1String("command")).toStringList().join(QLatin1String(" ")), reply.errorCode(), errorMessage));
         return;
     }
 
-    QString errorMessage;
-    switch (reply.errorCode()) {
-    case -2:
-        errorMessage = i18nc("@info", "The process could not be started.");
-        break;
-    case -1:
-        errorMessage = i18nc("@info", "The process crashed.");
-        break;
-    default:
-        errorMessage = QString::fromUtf8(reply.data().value(QLatin1String("output")).toByteArray().constData());
-        break;
+    //Simple error (contains errorCode, errorMessage, errorDescription)
+    QLatin1String errorKey("errorDescription");
+    if (reply.data().contains(errorKey)) {
+        QString errorMessage = reply.data().value(errorKey).toString();
+        reply.addData(QLatin1String("errorMessage"), errorMessage);
+        reply.setErrorDescription(i18nc("@info", "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>", reply.errorCode(), errorMessage));
+        reply.data().remove(errorKey);
     }
-    reply.addData(QLatin1String("errorMessage"), errorMessage);
-    reply.setErrorDescription(i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", reply.data().value(QLatin1String("command")).toStringList().join(QLatin1String(" ")), reply.errorCode(), errorMessage));
 }
 QString KCMGRUB2::parseTitle(const QString &line)
 {

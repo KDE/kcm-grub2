@@ -63,6 +63,7 @@ ActionReply Helper::executeCommand(const QStringList &command)
         reply = ActionReply::HelperErrorReply;
         reply.setErrorCode(exitCode);
     }
+    reply.addData(QLatin1String("isProcessReply"), true);
     reply.addData(QLatin1String("command"), command);
     reply.addData(QLatin1String("output"), process.readAll());
     return reply;
@@ -104,17 +105,20 @@ ActionReply Helper::defaults(QVariantMap args)
 
     if (!QFile::exists(originalConfigFileName)) {
         reply = ActionReply::HelperErrorReply;
-        reply.addData(QLatin1String("errorDescription"), i18nc("@info", "Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName));
+        reply.setErrorCode(1);
+        reply.addData(QLatin1String("errorDescription"), i18n("Original configuration file <filename>%1</filename> does not exist.", originalConfigFileName));
         return reply;
     }
     if (!QFile::remove(configFileName)) {
         reply = ActionReply::HelperErrorReply;
-        reply.addData(QLatin1String("errorDescription"), i18nc("@info", "Cannot remove current configuration file <filename>%1</filename>.", configFileName));
+        reply.setErrorCode(2);
+        reply.addData(QLatin1String("errorDescription"), i18n("Cannot remove current configuration file <filename>%1</filename>.", configFileName));
         return reply;
     }
     if (!QFile::copy(originalConfigFileName, configFileName)) {
         reply = ActionReply::HelperErrorReply;
-        reply.addData(QLatin1String("errorDescription"), i18nc("@info", "Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName));
+        reply.setErrorCode(3);
+        reply.addData(QLatin1String("errorDescription"), i18n("Cannot copy original configuration file <filename>%1</filename> to <filename>%2</filename>.", originalConfigFileName, configFileName));
         return reply;
     }
     return reply;
@@ -130,7 +134,8 @@ ActionReply Helper::install(QVariantMap args)
         for (int i = 0; QDir(mountPoint = QString(QLatin1String("%1/kcm-grub2-%2")).arg(QDir::tempPath(), QString::number(i))).exists(); i++);
         if (!QDir().mkpath(mountPoint)) {
             reply = ActionReply::HelperErrorReply;
-            reply.addData(QLatin1String("errorDescription"), i18nc("@info", "Failed to create temporary mount point."));
+            reply.setErrorCode(4);
+            reply.addData(QLatin1String("errorDescription"), i18n("Failed to create temporary mount point."));
             return reply;
         }
         ActionReply mountReply = executeCommand(QStringList() << QLatin1String("mount") << partition << mountPoint);
@@ -227,6 +232,7 @@ ActionReply Helper::save(QVariantMap args)
     QFile file(configFileName);
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
         reply = ActionReply::HelperErrorReply;
+        reply.setErrorCode(5);
         reply.addData(QLatin1String("errorDescription"), file.errorString());
         return reply;
     }
