@@ -197,13 +197,15 @@ void KCMGRUB2::load()
     ui->checkBox_memtest->setChecked(m_memtestOn);
     ui->checkBox_osProber->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_DISABLE_OS_PROBER"))).compare(QLatin1String("true")) != 0);
 
-    m_resolutions.append(QLatin1String("640x480"));
-    QString grubGfxmode = (m_settings.value(QLatin1String("GRUB_GFXMODE")).isEmpty() ? QLatin1String("640x480") : unquoteWord(m_settings.value(QLatin1String("GRUB_GFXMODE"))));
-    if (!grubGfxmode.isEmpty() && !m_resolutions.contains(grubGfxmode)) {
+    QString grubGfxmode = unquoteWord(m_settings.value(QLatin1String("GRUB_GFXMODE")));
+    if (grubGfxmode.isEmpty()) {
+        grubGfxmode = QLatin1String("auto");
+    }
+    if (grubGfxmode != QLatin1String("auto") && !m_resolutions.contains(grubGfxmode)) {
         m_resolutions.append(grubGfxmode);
     }
     QString grubGfxpayloadLinux = unquoteWord(m_settings.value(QLatin1String("GRUB_GFXPAYLOAD_LINUX")));
-    if (!grubGfxpayloadLinux.isEmpty() && grubGfxpayloadLinux.compare(QLatin1String("text")) != 0 && grubGfxpayloadLinux.compare(QLatin1String("keep")) != 0 && !m_resolutions.contains(grubGfxpayloadLinux)) {
+    if (!grubGfxpayloadLinux.isEmpty() && grubGfxpayloadLinux != QLatin1String("text") && grubGfxpayloadLinux != QLatin1String("keep") && !m_resolutions.contains(grubGfxpayloadLinux)) {
         m_resolutions.append(grubGfxpayloadLinux);
     }
     m_resolutions.removeDuplicates();
@@ -1097,10 +1099,12 @@ void KCMGRUB2::showResolutions()
 {
     ui->kcombobox_gfxmode->clear();
     ui->kcombobox_gfxmode->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Custom..."), QLatin1String("custom"));
+    ui->kcombobox_gfxmode->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Auto"), QLatin1String("auto"));
 
     ui->kcombobox_gfxpayload->clear();
     ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Custom..."), QLatin1String("custom"));
-    ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Unspecified"), QString());
+    ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Auto"), QLatin1String("auto"));
+    ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox Refers to screen resolution.", "Unspecified"), QString());
     ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Boot in Text Mode"), QLatin1String("text"));
     ui->kcombobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Keep GRUB's Resolution"), QLatin1String("keep"));
 
