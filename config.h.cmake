@@ -12,47 +12,47 @@
 //Qt
 #include <QFile>
 
-const QString & grubInstallExePath()
+inline const QString & grubInstallExePath()
 {
     static const QString str = QFile::decodeName("@GRUB_INSTALL_EXE@");
     return str;
 }
-const QString & grubMkconfigExePath()
+inline const QString & grubMkconfigExePath()
 {
     static const QString str = QFile::decodeName("@GRUB_MKCONFIG_EXE@");
     return str;
 }
-const QString & grubProbeExePath()
+inline const QString & grubProbeExePath()
 {
     static const QString str = QFile::decodeName("@GRUB_PROBE_EXE@");
     return str;
 }
-const QString & grubSetDefaultExePath()
+inline const QString & grubSetDefaultExePath()
 {
     static const QString str = QFile::decodeName("@GRUB_SET_DEFAULT_EXE@");
     return str;
 }
-const QString & grubMenuPath()
+inline const QString & grubMenuPath()
 {
     static const QString str = QFile::decodeName("@GRUB_MENU@");
     return str;
 }
-const QString & grubConfigPath()
+inline const QString & grubConfigPath()
 {
     static const QString str = QFile::decodeName("@GRUB_CONFIG@");
     return str;
 }
-const QString & grubEnvPath()
+inline const QString & grubEnvPath()
 {
     static const QString str = QFile::decodeName("@GRUB_ENV@");
     return str;
 }
-const QString & grubMemtestPath()
+inline const QString & grubMemtestPath()
 {
     static const QString str = QFile::decodeName("@GRUB_MEMTEST@");
     return str;
 }
-const QString & grubLocalePath()
+inline const QString & grubLocalePath()
 {
     static const QString str = QFile::decodeName("@GRUB_LOCALE@");
     return str;
