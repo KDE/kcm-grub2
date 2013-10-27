@@ -70,9 +70,9 @@ ActionReply Helper::executeCommand(const QStringList &command)
 }
 bool Helper::setLang(const QString &lang)
 {
-    QFile file(QString::fromUtf8(GRUB_MENU));
+    QFile file(grubMenuPath());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        kError() << "Failed to open file for reading:" << GRUB_MENU;
+        kError() << "Failed to open file for reading:" << grubMenuPath();
         kError() << "Error code:" << file.error();
         kError() << "Error description:" << file.errorString();
         return false;
@@ -80,14 +80,14 @@ bool Helper::setLang(const QString &lang)
     QString fileContents = QString::fromUtf8(file.readAll().constData());
     file.close();
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        kError() << "Failed to open file for writing:" << GRUB_MENU;
+        kError() << "Failed to open file for writing:" << grubMenuPath();
         kError() << "Error code:" << file.error();
         kError() << "Error description:" << file.errorString();
         return false;
     }
     fileContents.replace(QRegExp(QLatin1String("(\\n\\s*set\\s+lang=)\\S*\\n")), QString(QLatin1String("\\1%1\n")).arg(lang));
     if (file.write(fileContents.toUtf8()) == -1) {
-        kError() << "Failed to write data to file:" << GRUB_MENU;
+        kError() << "Failed to write data to file:" << grubMenuPath();
         kError() << "Error code:" << file.error();
         kError() << "Error description:" << file.errorString();
         return false;
@@ -100,7 +100,7 @@ ActionReply Helper::defaults(QVariantMap args)
 {
     Q_UNUSED(args)
     ActionReply reply;
-    QString configFileName = QString::fromUtf8(GRUB_CONFIG);
+    QString configFileName = grubConfigPath();
     QString originalConfigFileName = configFileName + QLatin1String(".original");
 
     if (!QFile::exists(originalConfigFileName)) {
@@ -145,7 +145,7 @@ ActionReply Helper::install(QVariantMap args)
     }
 
     QStringList grub_installCommand;
-    grub_installCommand << QString::fromUtf8(GRUB_INSTALL_EXE) << QLatin1String("--root-directory") << mountPoint;
+    grub_installCommand << grubInstallExePath() << QLatin1String("--root-directory") << mountPoint;
     if (mbrInstall) {
         grub_installCommand << partition.remove(QRegExp(QLatin1String("\\d+")));
     } else {
@@ -159,7 +159,7 @@ ActionReply Helper::load(QVariantMap args)
     LoadOperations operations = (LoadOperations)(args.value(QLatin1String("operations")).toInt());
 
     if (operations.testFlag(MenuFile)) {
-        QFile file(QString::fromUtf8(GRUB_MENU));
+        QFile file(grubMenuPath());
         bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
         reply.addData(QLatin1String("menuSuccess"), ok);
         if (ok) {
@@ -170,7 +170,7 @@ ActionReply Helper::load(QVariantMap args)
         }
     }
     if (operations.testFlag(ConfigurationFile)) {
-        QFile file(QString::fromUtf8(GRUB_CONFIG));
+        QFile file(grubConfigPath());
         bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
         reply.addData(QLatin1String("configSuccess"), ok);
         if (ok) {
@@ -181,7 +181,7 @@ ActionReply Helper::load(QVariantMap args)
         }
     }
     if (operations.testFlag(EnvironmentFile)) {
-        QFile file(QString::fromUtf8(GRUB_ENV));
+        QFile file(grubEnvPath());
         bool ok = file.open(QIODevice::ReadOnly | QIODevice::Text);
         reply.addData(QLatin1String("envSuccess"), ok);
         if (ok) {
@@ -192,10 +192,10 @@ ActionReply Helper::load(QVariantMap args)
         }
     }
     if (operations.testFlag(MemtestFile)) {
-        bool memtest = QFile::exists(QString::fromUtf8(GRUB_MEMTEST));
+        bool memtest = QFile::exists(grubMemtestPath());
         reply.addData(QLatin1String("memtest"), memtest);
         if (memtest) {
-            reply.addData(QLatin1String("memtestOn"), (bool)(QFile::permissions(QString::fromUtf8(GRUB_MEMTEST)) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther)));
+            reply.addData(QLatin1String("memtestOn"), (bool)(QFile::permissions(grubMemtestPath()) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther)));
         }
     }
 #if HAVE_HD
@@ -215,14 +215,14 @@ ActionReply Helper::load(QVariantMap args)
     }
 #endif
     if (operations.testFlag(Locales)) {
-        reply.addData(QLatin1String("locales"), QDir(QString::fromUtf8(GRUB_LOCALE)).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString()));
+        reply.addData(QLatin1String("locales"), QDir(grubLocalePath()).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString()));
     }
     return reply;
 }
 ActionReply Helper::save(QVariantMap args)
 {
     ActionReply reply;
-    QString configFileName = QString::fromUtf8(GRUB_CONFIG);
+    QString configFileName = grubConfigPath();
     QByteArray rawConfigFileContents = args.value(QLatin1String("rawConfigFileContents")).toByteArray();
     QByteArray rawDefaultEntry = args.value(QLatin1String("rawDefaultEntry")).toByteArray();
     bool memtest = args.value(QLatin1String("memtest")).toBool();
@@ -240,19 +240,19 @@ ActionReply Helper::save(QVariantMap args)
     file.close();
 
     if (args.contains(QLatin1String("memtest"))) {
-        QFile::Permissions permissions = QFile::permissions(QString::fromUtf8(GRUB_MEMTEST));
+        QFile::Permissions permissions = QFile::permissions(grubMemtestPath());
         if (memtest) {
             permissions |= (QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         } else {
             permissions &= ~(QFile::ExeOwner | QFile::ExeUser | QFile::ExeGroup | QFile::ExeOther);
         }
-        QFile::setPermissions(QString::fromUtf8(GRUB_MEMTEST), permissions);
+        QFile::setPermissions(grubMemtestPath(), permissions);
     }
 
     if (args.contains(QLatin1String("LANG"))) {
         qputenv("LANG", args.value(QLatin1String("LANG")).toByteArray());
     }
-    ActionReply grub_mkconfigReply = executeCommand(QStringList() << QString::fromUtf8(GRUB_MKCONFIG_EXE) << QLatin1String("-o") << QString::fromUtf8(GRUB_MENU));
+    ActionReply grub_mkconfigReply = executeCommand(QStringList() << grubMkconfigExePath() << QLatin1String("-o") << grubMenuPath());
     if (grub_mkconfigReply.failed()) {
         return grub_mkconfigReply;
     }
@@ -263,7 +263,7 @@ ActionReply Helper::save(QVariantMap args)
         }
     }
 
-    ActionReply grub_set_defaultReply = executeCommand(QStringList() << QString::fromUtf8(GRUB_SET_DEFAULT_EXE) << QString::fromUtf8(rawDefaultEntry.constData()));
+    ActionReply grub_set_defaultReply = executeCommand(QStringList() << grubSetDefaultExePath() << QString::fromUtf8(rawDefaultEntry.constData()));
     if (grub_set_defaultReply.failed()) {
         return grub_set_defaultReply;
     }

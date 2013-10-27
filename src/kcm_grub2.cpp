@@ -982,24 +982,24 @@ void KCMGRUB2::readAll()
     QByteArray fileContents;
     LoadOperations operations = NoOperation;
 
-    if (readFile(QString::fromUtf8(GRUB_MENU), fileContents)) {
+    if (readFile(grubMenuPath(), fileContents)) {
         parseEntries(QString::fromUtf8(fileContents.constData()));
     } else {
         operations |= MenuFile;
     }
-    if (readFile(QString::fromUtf8(GRUB_CONFIG), fileContents)) {
+    if (readFile(grubConfigPath(), fileContents)) {
         parseSettings(QString::fromUtf8(fileContents.constData()));
     } else {
         operations |= ConfigurationFile;
     }
-    if (readFile(QString::fromUtf8(GRUB_ENV), fileContents)) {
+    if (readFile(grubEnvPath(), fileContents)) {
         parseEnv(QString::fromUtf8(fileContents.constData()));
     } else {
         operations |= EnvironmentFile;
     }
-    if (QFile::exists(QString::fromUtf8(GRUB_MEMTEST))) {
+    if (QFile::exists(grubMemtestPath())) {
         m_memtest = true;
-        m_memtestOn = (bool)(QFile::permissions(QString::fromUtf8(GRUB_MEMTEST)) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
+        m_memtestOn = (bool)(QFile::permissions(grubMemtestPath()) & (QFile::ExeOwner | QFile::ExeGroup | QFile::ExeOther));
     } else {
         operations |= MemtestFile;
     }
@@ -1008,8 +1008,8 @@ void KCMGRUB2::readAll()
         operations |= Vbe;
     }
 #endif
-    if (QFileInfo(QString::fromUtf8(GRUB_LOCALE)).isReadable()) {
-        m_locales = QDir(QString::fromUtf8(GRUB_LOCALE)).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString());
+    if (QFileInfo(grubLocalePath()).isReadable()) {
+        m_locales = QDir(grubLocalePath()).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString());
     } else {
         operations |= Locales;
     }
@@ -1036,7 +1036,7 @@ void KCMGRUB2::readAll()
             if (reply.data().value(QLatin1String("menuSuccess")).toBool()) {
                 parseEntries(QString::fromUtf8(reply.data().value(QLatin1String("menuContents")).toByteArray().constData()));
             } else {
-                kError() << "Helper failed to read file:" << GRUB_MENU;
+                kError() << "Helper failed to read file:" << grubMenuPath();
                 kError() << "Error code:" << reply.data().value(QLatin1String("menuError")).toInt();
                 kError() << "Error description:" << reply.data().value(QLatin1String("menuErrorString")).toString();
             }
@@ -1045,7 +1045,7 @@ void KCMGRUB2::readAll()
             if (reply.data().value(QLatin1String("configSuccess")).toBool()) {
                 parseSettings(QString::fromUtf8(reply.data().value(QLatin1String("configContents")).toByteArray().constData()));
             } else {
-                kError() << "Helper failed to read file:" << GRUB_CONFIG;
+                kError() << "Helper failed to read file:" << grubConfigPath();
                 kError() << "Error code:" << reply.data().value(QLatin1String("configError")).toInt();
                 kError() << "Error description:" << reply.data().value(QLatin1String("configErrorString")).toString();
             }
@@ -1054,7 +1054,7 @@ void KCMGRUB2::readAll()
             if (reply.data().value(QLatin1String("envSuccess")).toBool()) {
                 parseEnv(QString::fromUtf8(reply.data().value(QLatin1String("envContents")).toByteArray().constData()));
             } else {
-                kError() << "Helper failed to read file:" << GRUB_ENV;
+                kError() << "Helper failed to read file:" << grubEnvPath();
                 kError() << "Error code:" << reply.data().value(QLatin1String("envError")).toInt();
                 kError() << "Error description:" << reply.data().value(QLatin1String("envErrorString")).toString();
             }

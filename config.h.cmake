@@ -9,14 +9,53 @@
 #define HAVE_QPACKAGEKIT @HAVE_QPACKAGEKIT@
 #define QAPT_VERSION_MAJOR @QAPT_VERSION_MAJOR@
 
-#define GRUB_INSTALL_EXE "@GRUB_INSTALL_EXE@"
-#define GRUB_MKCONFIG_EXE "@GRUB_MKCONFIG_EXE@"
-#define GRUB_PROBE_EXE "@GRUB_PROBE_EXE@"
-#define GRUB_SET_DEFAULT_EXE "@GRUB_SET_DEFAULT_EXE@"
-#define GRUB_MENU "@GRUB_MENU@"
-#define GRUB_CONFIG "@GRUB_CONFIG@"
-#define GRUB_ENV "@GRUB_ENV@"
-#define GRUB_MEMTEST "@GRUB_MEMTEST@"
-#define GRUB_LOCALE "@GRUB_LOCALE@"
+//Qt
+#include <QFile>
+
+const QString & grubInstallExePath()
+{
+    static const QString str = QFile::decodeName("@GRUB_INSTALL_EXE@");
+    return str;
+}
+const QString & grubMkconfigExePath()
+{
+    static const QString str = QFile::decodeName("@GRUB_MKCONFIG_EXE@");
+    return str;
+}
+const QString & grubProbeExePath()
+{
+    static const QString str = QFile::decodeName("@GRUB_PROBE_EXE@");
+    return str;
+}
+const QString & grubSetDefaultExePath()
+{
+    static const QString str = QFile::decodeName("@GRUB_SET_DEFAULT_EXE@");
+    return str;
+}
+const QString & grubMenuPath()
+{
+    static const QString str = QFile::decodeName("@GRUB_MENU@");
+    return str;
+}
+const QString & grubConfigPath()
+{
+    static const QString str = QFile::decodeName("@GRUB_CONFIG@");
+    return str;
+}
+const QString & grubEnvPath()
+{
+    static const QString str = QFile::decodeName("@GRUB_ENV@");
+    return str;
+}
+const QString & grubMemtestPath()
+{
+    static const QString str = QFile::decodeName("@GRUB_MEMTEST@");
+    return str;
+}
+const QString & grubLocalePath()
+{
+    static const QString str = QFile::decodeName("@GRUB_LOCALE@");
+    return str;
+}
 
 #endif
