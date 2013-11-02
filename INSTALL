@@ -60,6 +60,7 @@ appropriately fill in the following variables:
 * GRUB_CONFIG = GRUB's main configuration file
 * GRUB_ENV = GRUB's environment file
 * GRUB_MEMTEST = script installed by memtest (usually under /etc/grub.d)
+* GRUB_LOCALE = GRUB's locale directory
 
 For security reasons these variables can only be set at compile time and
 will be embedded in the binary, so that they cannot be altered
