@@ -31,6 +31,10 @@ QString quoteWord(const QString &word)
 }
 QString unquoteWord(const QString &word)
 {
+    if (word.isEmpty()) {
+        return QString();
+    }
+
     KProcess echo;
     echo.setShellCommand(QString(QLatin1String("echo -n %1")).arg(word));
     echo.setOutputChannelMode(KProcess::OnlyStdoutChannel);

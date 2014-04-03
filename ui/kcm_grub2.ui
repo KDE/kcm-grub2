@@ -85,9 +85,6 @@
               <property name="suffix">
                <string comment="@label:spinbox seconds (suffix)">s</string>
               </property>
-              <property name="minimum">
-               <number>1</number>
-              </property>
              </widget>
             </item>
            </layout>

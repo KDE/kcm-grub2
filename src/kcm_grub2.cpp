@@ -165,16 +165,19 @@ void KCMGRUB2::load()
     ui->checkBox_savedefault->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_SAVEDEFAULT"))).compare(QLatin1String("true")) == 0);
 
     bool ok;
-    if (!m_settings.value(QLatin1String("GRUB_HIDDEN_TIMEOUT")).isEmpty()) {
-        int grubHiddenTimeout = unquoteWord(m_settings.value(QLatin1String("GRUB_HIDDEN_TIMEOUT"))).toInt(&ok);
+    QString grubHiddenTimeoutRaw = unquoteWord(m_settings.value(QLatin1String("GRUB_HIDDEN_TIMEOUT")));
+    if (grubHiddenTimeoutRaw.isEmpty()) {
+        ui->checkBox_hiddenTimeout->setChecked(false);
+    } else {
+        int grubHiddenTimeout = grubHiddenTimeoutRaw.toInt(&ok);
         if (ok && grubHiddenTimeout >= 0) {
-            ui->checkBox_hiddenTimeout->setChecked(grubHiddenTimeout > 0);
+            ui->checkBox_hiddenTimeout->setChecked(true);
             ui->spinBox_hiddenTimeout->setValue(grubHiddenTimeout);
+            ui->checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_HIDDEN_TIMEOUT_QUIET"))).compare(QLatin1String("true")) != 0);
         } else {
             kWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
         }
     }
-    ui->checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_HIDDEN_TIMEOUT_QUIET"))).compare(QLatin1String("true")) != 0);
     int grubTimeout = (m_settings.value(QLatin1String("GRUB_TIMEOUT")).isEmpty() ? 5 : unquoteWord(m_settings.value(QLatin1String("GRUB_TIMEOUT"))).toInt(&ok));
     if (ok && grubTimeout >= -1) {
         ui->checkBox_timeout->setChecked(grubTimeout > -1);
