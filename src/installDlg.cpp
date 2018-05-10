@@ -23,12 +23,12 @@
 #include <QRadioButton>
 #include <QPushButton>
 #include <QIcon>
+#include <QProgressDialog>
 
 //KDE
 #include <KFormat>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KProgressDialog>
 #include <KAuthAction>
 #include <KAuthExecuteJob>
 using namespace KAuth;
@@ -109,11 +109,13 @@ void InstallDialog::slotButtonClicked(int button)
             return;
         }
 
-        KProgressDialog progressDlg(this, i18nc("@title:window", "Installing"), i18nc("@info:progress", "Installing GRUB..."));
-        progressDlg.setAllowCancel(false);
+        QProgressDialog progressDlg(this);
+        progressDlg.setWindowTitle(i18nc("@title:window", "Installing"));
+        progressDlg.setLabelText(i18nc("@info:progress", "Installing GRUB..."));
+        progressDlg.setCancelButton(nullptr);
         progressDlg.setModal(true);
-        progressDlg.progressBar()->setMinimum(0);
-        progressDlg.progressBar()->setMaximum(0);
+        progressDlg.setMinimum(0);
+        progressDlg.setMaximum(0);
         progressDlg.show();
         installJob = installAction.execute();
         connect(installJob, SIGNAL(finished(KJob*)), &progressDlg, SLOT(hide()));

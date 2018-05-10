@@ -28,6 +28,7 @@
 #include <QPushButton>
 #include <QIcon>
 #include <QMenu>
+#include <QProgressDialog>
 
 //KDE
 #include <KLocalizedString>
@@ -36,7 +37,6 @@
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KPluginFactory>
-#include <KProgressDialog>
 #include <KAuthAction>
 #include <KAuthExecuteJob>
 
@@ -493,11 +493,13 @@ void KCMGRUB2::save()
     }
     saveJob = saveAction.execute();
 
-    KProgressDialog progressDlg(this, i18nc("@title:window Verb (gerund). Refers to current status.", "Saving"), i18nc("@info:progress", "Saving GRUB settings..."));
-    progressDlg.setAllowCancel(false);
+    QProgressDialog progressDlg(this);
+    progressDlg.setWindowTitle(i18nc("@title:window Verb (gerund). Refers to current status.", "Saving"));
+    progressDlg.setLabelText(i18nc("@info:progress", "Saving GRUB settings..."));
+    progressDlg.setCancelButton(nullptr);
     progressDlg.setModal(true);
-    progressDlg.progressBar()->setMinimum(0);
-    progressDlg.progressBar()->setMaximum(0);
+    progressDlg.setMinimum(0);
+    progressDlg.setMaximum(0);
     progressDlg.show();
     connect(saveJob, SIGNAL(finished(KJob*)), &progressDlg, SLOT(hide()));
 

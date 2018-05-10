@@ -26,10 +26,10 @@
 #include <QTextStream>
 #include <QTimer>
 #include <QIcon>
+#include <QProgressDialog>
 
 //KDE
 #include <KMessageBox>
-#include <KProgressDialog>
 
 //Project
 #include "entry.h"
@@ -58,13 +58,15 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent, Qt::WFl
 #endif
 
     detectCurrentKernelImage();
-    KProgressDialog progressDlg(this, i18nc("@title:window", "Finding Old Entries"), i18nc("@info:progress", "Finding Old Entries..."));
-    progressDlg.setAllowCancel(false);
+    QProgressDialog progressDlg(this);
+    progressDlg.setWindowTitle(i18nc("@title:window", "Finding Old Entries"));
+    progressDlg.setLabelText(i18nc("@info:progress", "Finding Old Entries..."));
+    progressDlg.setCancelButton(nullptr);
     progressDlg.setModal(true);
     progressDlg.show();
     bool found = false;
     for (int i = 0; i < entries.size(); i++) {
-        progressDlg.progressBar()->setValue(100. / entries.size() * (i + 1));
+        progressDlg.setValue(100. / entries.size() * (i + 1));
         QString file = entries.at(i).kernel();
         if (file.isEmpty() || file == m_currentKernelImage) {
             continue;
@@ -146,13 +148,14 @@ void RemoveDialog::slotItemChanged()
 void RemoveDialog::slotProgress(const QString &status, int percentage)
 {
     if (!m_progressDlg) {
-        m_progressDlg = new KProgressDialog(this, i18nc("@title:window", "Removing Old Entries"));
-        m_progressDlg->setAllowCancel(false);
+        m_progressDlg = new QProgressDialog(this);
+        m_progressDlg->setWindowTitle(i18nc("@title:window", "Removing Old Entries"));
+        m_progressDlg->setCancelButton(nullptr);
         m_progressDlg->setModal(true);
         m_progressDlg->show();
     }
     m_progressDlg->setLabelText(status);
-    m_progressDlg->progressBar()->setValue(percentage);
+    m_progressDlg->setValue(percentage);
 }
 void RemoveDialog::slotFinished(bool success)
 {

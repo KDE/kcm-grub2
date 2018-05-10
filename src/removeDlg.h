@@ -23,7 +23,8 @@
 
 //KDE
 #include <KDialog>
-class KProgressDialog;
+
+class QProgressDialog;
 
 //Project
 #include <config.h>
@@ -65,7 +66,7 @@ private:
     QPkBackend *m_backend;
 #endif
     QString m_currentKernelImage;
-    KProgressDialog *m_progressDlg;
+    QProgressDialog *m_progressDlg;
     Ui::RemoveDialog *ui;
 };
 
