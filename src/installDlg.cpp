@@ -25,7 +25,7 @@
 #include <QIcon>
 
 //KDE
-#include <KGlobal>
+#include <KFormat>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KProgressDialog>
@@ -70,7 +70,7 @@ InstallDialog::InstallDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
 
         QString uuidDir = QLatin1String("/dev/disk/by-uuid/"), uuid = volume->uuid(), name;
         name = (QFile::exists((name = uuidDir + uuid)) || QFile::exists((name = uuidDir + uuid.toLower())) || QFile::exists((name = uuidDir + uuid.toUpper())) ? QFile::symLinkTarget(name) : QString());
-        QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_recover, QStringList() << QString() << name << partition->filePath() << volume->label() << volume->fsType() << KGlobal::locale()->formatByteSize(volume->size()));
+        QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_recover, QStringList() << QString() << name << partition->filePath() << volume->label() << volume->fsType() << KFormat().formatByteSize(volume->size()));
         item->setIcon(1, QIcon::fromTheme(device.icon()));
         item->setTextAlignment(5, Qt::AlignRight | Qt::AlignVCenter);
         ui->treeWidget_recover->addTopLevelItem(item);

@@ -29,7 +29,6 @@
 #include <QIcon>
 
 //KDE
-#include <KGlobal>
 #include <KLocalizedString>
 #include <KAboutData>
 #include <KDebug>
@@ -1095,11 +1094,11 @@ void KCMGRUB2::showLocales()
     ui->kcombobox_language->addItem(i18nc("@item:inlistbox", "No translation"), QString());
 
     Q_FOREACH(const QString &locale, m_locales) {
-        QString language = KGlobal::locale()->languageCodeToName(locale);
+        QString language = QLocale(locale).nativeLanguageName();
         if (language.isEmpty()) {
-            language = KGlobal::locale()->languageCodeToName(locale.split(QLatin1Char('@')).first());
+            language = QLocale(locale.split(QLatin1Char('@')).first()).nativeLanguageName();
             if (language.isEmpty()) {
-                language = KGlobal::locale()->languageCodeToName(locale.split(QLatin1Char('@')).first().split(QLatin1Char('_')).first());
+                language = QLocale(locale.split(QLatin1Char('@')).first().split(QLatin1Char('_')).first()).nativeLanguageName();
             }
         }
         ui->kcombobox_language->addItem(QString(QLatin1String("%1 (%2)")).arg(language, locale), locale);
