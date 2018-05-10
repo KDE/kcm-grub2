@@ -1,39 +1,84 @@
 project(kcm-grub2)
-set(KCM_GRUB2_VERSION_MAJOR "0")
-set(KCM_GRUB2_VERSION_MINOR "6")
-set(KCM_GRUB2_VERSION_PATCH "4")
-set(KCM_GRUB2_VERSION "${KCM_GRUB2_VERSION_MAJOR}.${KCM_GRUB2_VERSION_MINOR}.${KCM_GRUB2_VERSION_PATCH}")
+
+cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
+set(PROJECT_VERSION "0.6.4")
+set(QT_MIN_VERSION "5.9.0")
+find_package(ECM 1.0.0 REQUIRED NO_MODULE)
+set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+include(ECMInstallIcons)
+include(KDEInstallDirs)
+include(KDECMakeSettings)
+include(KDECompilerSettings)
+include(FeatureSummary)
+
+set(KCM_GRUB2_VERSION ${PROJECT_VERSION})
 
 set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
-find_package(Qt4 4.6.0 REQUIRED)
-find_package(KDE4 4.4.0 REQUIRED)
-include(KDE4Defaults)
 include(GRUBPaths)
+
+find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core Gui Widgets)
+
+find_package(KF5 REQUIRED COMPONENTS
+    Auth
+    KDELibs4Support
+)
 
 # Qt
 add_definitions(-DQT_NO_CAST_FROM_ASCII -DQT_NO_CAST_TO_ASCII -DQT_NO_CAST_FROM_BYTEARRAY -DQT_NO_KEYWORDS -DQT_STRICT_ITERATORS -DQT_USE_FAST_CONCATENATION -DQT_USE_FAST_OPERATOR_PLUS)
 # ImageMagick
 add_definitions(-DMAGICKCORE_HDRI_ENABLE=0 -DMAGICKCORE_QUANTUM_DEPTH=16)
 
-macro_optional_find_package(ImageMagick COMPONENTS Magick++ MagickCore)
-macro_log_feature(ImageMagick_FOUND "ImageMagick" "Create splash images compatible with GRUB2" "http://www.imagemagick.org/" FALSE "" "")
-macro_bool_to_01(ImageMagick_FOUND HAVE_IMAGEMAGICK)
+find_package(ImageMagick COMPONENTS Magick++ MagickCore)
+set_package_properties(ImageMagick PROPERTIES
+                       DESCRIPTION "Create splash images compatible with GRUB2"
+                       URL "http://www.imagemagick.org/"
+                       TYPE OPTIONAL)
+if(ImageMagick_FOUND)
+    set(HAVE_IMAGEMAGICK 1)
+else()
+    set(HAVE_IMAGEMAGICK 0)
+endif()
 
-macro_optional_find_package(HD)
-macro_log_feature(HD_FOUND "hwinfo" "Retrieve list of resolutions valid in GRUB2" "http://www.opensuse.org/" FALSE "" "")
-macro_bool_to_01(HD_FOUND HAVE_HD)
+find_package(HD)
+set_package_properties(hwinfo PROPERTIES
+                       DESCRIPTION "Retrieve list of resolutions valid in GRUB2"
+                       URL "http://www.opensuse.org/"
+                       TYPE OPTIONAL)
+if(HD_FOUND)
+    set(HAVE_HD 1)
+else()
+    set(HAVE_HD 0)
+endif()
 
-macro_optional_find_package(QApt)
-macro_log_feature(QAPT_FOUND "LibQApt" "Remove unneeded old entries (qapt backend)" "https://projects.kde.org/projects/extragear/sysadmin/libqapt/" FALSE "" "")
-macro_bool_to_01(QAPT_FOUND HAVE_QAPT)
+find_package(QApt)
+set_package_properties(QApt PROPERTIES
+                       DESCRIPTION "Remove unneeded old entries (qapt backend)"
+                       URL "https://projects.kde.org/projects/extragear/sysadmin/libqapt/"
+                       TYPE OPTIONAL)
+if(QAPT_FOUND)
+    set(HAVE_QAPT 1)
+else()
+    set(HAVE_QAPT 0)
+endif()
 
-macro_optional_find_package(QPackageKit)
-macro_log_feature(QPACKAGEKIT_FOUND "QPackageKit" "Remove unneeded old entries (qpackagekit backend)" "http://www.packagekit.org/" FALSE "" "")
-macro_bool_to_01(QPACKAGEKIT_FOUND HAVE_QPACKAGEKIT)
+find_package(QPackageKit)
+set_package_properties(QPackageKit PROPERTIES
+                       DESCRIPTION "Remove unneeded old entries (qpackagekit backend)"
+                       URL "http://www.packagekit.org/"
+                       TYPE OPTIONAL)
+if(QPACKAGEKIT_FOUND)
+    set(HAVE_QPACKAGEKIT 1)
+else()
+    set(HAVE_QPACKAGEKIT 0)
+endif()
 
-macro_display_feature_log()
 configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
+
+feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
 add_subdirectory(other)
 add_subdirectory(src)
+
+find_package(KF5I18n CONFIG REQUIRED)
+ki18n_install(po)

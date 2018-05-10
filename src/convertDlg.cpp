@@ -19,9 +19,10 @@
 #include "convertDlg.h"
 
 //KDE
-#include <KFileDialog>
 #include <KMessageBox>
 #include <KMimeType>
+#include <KLocalizedString>
+#include <KUrl>
 
 //ImageMagick
 #include <Magick++.h>
@@ -48,11 +49,11 @@ ConvertDialog::ConvertDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
     QString writeFilter = QString(QLatin1String("*%1|%5 (%1)\n*%2|%6 (%2)\n*%3 *%4|%7 (%3 %4)")).arg(QLatin1String(".png"), QLatin1String(".tga"), QLatin1String(".jpg"), QLatin1String(".jpeg"), KMimeType::mimeType(QLatin1String("image/png"))->comment(), KMimeType::mimeType(QLatin1String("image/x-tga"))->comment(), KMimeType::mimeType(QLatin1String("image/jpeg"))->comment());
 
     ui->kurlrequester_image->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
-    ui->kurlrequester_image->fileDialog()->setOperationMode(KFileDialog::Opening);
-    ui->kurlrequester_image->fileDialog()->setFilter(readFilter);
+    ui->kurlrequester_image->setAcceptMode(QFileDialog::AcceptOpen);
+    ui->kurlrequester_image->setFilter(readFilter);
     ui->kurlrequester_converted->setMode(KFile::File | KFile::LocalOnly);
-    ui->kurlrequester_converted->fileDialog()->setOperationMode(KFileDialog::Saving);
-    ui->kurlrequester_converted->fileDialog()->setFilter(writeFilter);
+    ui->kurlrequester_converted->setAcceptMode(QFileDialog::AcceptSave);
+    ui->kurlrequester_converted->setFilter(writeFilter);
 }
 ConvertDialog::~ConvertDialog()
 {
@@ -76,7 +77,7 @@ void ConvertDialog::slotButtonClicked(int button)
         } else if (ui->spinBox_width->value() == 0 || ui->spinBox_height->value() == 0) {
             KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Width</interface> and <interface>Height</interface> fields."));
             return;
-        } else if (!QFileInfo(ui->kurlrequester_converted->url().directory()).isWritable()) {
+        } else if (!QFileInfo(KUrl(ui->kurlrequester_converted->url()).directory()).isWritable()) {
             KMessageBox::information(this, i18nc("@info", "You do not have write permissions in this directory, please select another destination."));
             return;
         }

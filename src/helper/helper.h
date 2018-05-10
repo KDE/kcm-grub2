@@ -35,6 +35,8 @@ public Q_SLOTS:
     ActionReply install(QVariantMap args);
     ActionReply load(QVariantMap args);
     ActionReply save(QVariantMap args);
+private:
+    QString errorDescription(int errorCode, const QString &errorMessage) const;
 };
 
 #endif

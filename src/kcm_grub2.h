@@ -93,7 +93,6 @@ private:
     void sortResolutions();
     void showResolutions();
 
-    void processReply(ActionReply &reply);
     QString parseTitle(const QString &line);
     void parseEntries(const QString &config);
     void parseSettings(const QString &config);

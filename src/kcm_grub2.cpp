@@ -25,8 +25,12 @@
 #include <QDesktopWidget>
 #include <QStandardItemModel>
 #include <QTreeView>
+#include <QPushButton>
 
 //KDE
+#include <KGlobal>
+#include <KLocalizedString>
+#include <KIcon>
 #include <KAboutData>
 #include <KDebug>
 #include <KInputDialog>
@@ -34,7 +38,8 @@
 #include <KMessageBox>
 #include <KPluginFactory>
 #include <KProgressDialog>
-#include <KAuth/ActionWatcher>
+#include <KAuthAction>
+#include <KAuthExecuteJob>
 
 //Project
 #include "common.h"
@@ -54,13 +59,14 @@
 K_PLUGIN_FACTORY(GRUB2Factory, registerPlugin<KCMGRUB2>();)
 K_EXPORT_PLUGIN(GRUB2Factory("kcmgrub2"))
 
-KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(GRUB2Factory::componentData(), parent, list)
+KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(parent, list)
 {
-    //Isn't KAboutData's second argument supposed to do this?
-    KGlobal::locale()->insertCatalog(QLatin1String("kcm-grub2"));
-
-    KAboutData *about = new KAboutData("kcmgrub2", "kcm-grub2", ki18nc("@title", "KDE GRUB2 Bootloader Control Module"), KCM_GRUB2_VERSION, ki18nc("@title", "A KDE Control Module for configuring the GRUB2 bootloader."), KAboutData::License_GPL_V3, ki18nc("@info:credit", "Copyright (C) 2008-2013 Konstantinos Smanis"), KLocalizedString(), "http://ksmanis.wordpress.com/projects/grub2-editor/");
-    about->addAuthor(ki18nc("@info:credit", "Κonstantinos Smanis"), ki18nc("@info:credit", "Main Developer"), "konstantinos.smanis@gmail.com", "http://ksmanis.wordpress.com/");
+    KAboutData *about = new KAboutData(QStringLiteral("kcmgrub2"), i18nc("@title", "KDE GRUB2 Bootloader Control Module"),
+                                       QStringLiteral(KCM_GRUB2_VERSION), i18nc("@title", "A KDE Control Module for configuring the GRUB2 bootloader."),
+                                       KAboutLicense::GPL_V3, i18nc("@info:credit", "Copyright (C) 2008-2013 Konstantinos Smanis"), QString(),
+                                       QStringLiteral("http://ksmanis.wordpress.com/projects/grub2-editor/"));
+    about->addAuthor(i18nc("@info:credit", "Κonstantinos Smanis"), i18nc("@info:credit", "Main Developer"),
+                     QStringLiteral("konstantinos.smanis@gmail.com"), QStringLiteral("http://ksmanis.wordpress.com/"));
     setAboutData(about);
 
     ui = new Ui::KCMGRUB2;
@@ -76,19 +82,16 @@ KCMGRUB2::~KCMGRUB2()
 void KCMGRUB2::defaults()
 {
     Action defaultsAction(QLatin1String("org.kde.kcontrol.kcmgrub2.defaults"));
-    defaultsAction.setHelperID(QLatin1String("org.kde.kcontrol.kcmgrub2"));
-#if KDE_IS_VERSION(4,6,0)
+    defaultsAction.setHelperId(QLatin1String("org.kde.kcontrol.kcmgrub2"));
     defaultsAction.setParentWidget(this);
-#endif
 
-    ActionReply reply = defaultsAction.execute();
-    processReply(reply);
-    if (reply.succeeded()) {
+    KAuth::ExecuteJob *defaultsJob = defaultsAction.execute();
+    if (defaultsJob->exec()) {
         load();
         save();
         KMessageBox::information(this, i18nc("@info", "Successfully restored the default values."));
     } else {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), reply.errorDescription());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to restore the default values."), defaultsJob->errorText());
     }
 }
 void KCMGRUB2::load()
@@ -472,7 +475,7 @@ void KCMGRUB2::save()
     }
 
     Action saveAction(QLatin1String("org.kde.kcontrol.kcmgrub2.save"));
-    saveAction.setHelperID(QLatin1String("org.kde.kcontrol.kcmgrub2"));
+    saveAction.setHelperId(QLatin1String("org.kde.kcontrol.kcmgrub2"));
     saveAction.addArgument(QLatin1String("rawConfigFileContents"), configFileContents.toUtf8());
     saveAction.addArgument(QLatin1String("rawDefaultEntry"), !m_entries.isEmpty() ? grubDefault.toUtf8() : m_settings.value(QLatin1String("GRUB_DEFAULT")).toUtf8());
     if (ui->kcombobox_language->currentIndex() > 0) {
@@ -482,13 +485,14 @@ void KCMGRUB2::save()
     if (m_dirtyBits.testBit(memtestDirty)) {
         saveAction.addArgument(QLatin1String("memtest"), ui->checkBox_memtest->isChecked());
     }
-#if KDE_IS_VERSION(4,6,0)
     saveAction.setParentWidget(this);
-#endif
+    saveAction.setTimeout(60000);
 
-    if (saveAction.authorize() != Action::Authorized) {
+    KAuth::ExecuteJob *saveJob = saveAction.execute(KAuth::Action::AuthorizeOnlyMode);
+    if (!saveJob->exec()) {
         return;
     }
+    saveJob = saveAction.execute();
 
     KProgressDialog progressDlg(this, i18nc("@title:window Verb (gerund). Refers to current status.", "Saving"), i18nc("@info:progress", "Saving GRUB settings..."));
     progressDlg.setAllowCancel(false);
@@ -496,21 +500,30 @@ void KCMGRUB2::save()
     progressDlg.progressBar()->setMinimum(0);
     progressDlg.progressBar()->setMaximum(0);
     progressDlg.show();
-    connect(saveAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
+    connect(saveJob, SIGNAL(finished(KJob*)), &progressDlg, SLOT(hide()));
 
-    ActionReply reply = saveAction.execute();
-    processReply(reply);
-    if (reply.succeeded()) {
-        KDialog *dialog = new KDialog(this, Qt::Dialog);
-        dialog->setCaption(i18nc("@title:window", "Information"));
-        dialog->setButtons(KDialog::Ok | KDialog::Details);
+    if (saveJob->exec()) {
+        QDialog *dialog = new QDialog(this);
+        dialog->setWindowTitle(i18nc("@title:window", "Information"));
         dialog->setModal(true);
-        dialog->setDefaultButton(KDialog::Ok);
-        dialog->setEscapeButton(KDialog::Ok);
-        KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."), QStringList(), QString(), 0, KMessageBox::Notify, QString::fromUtf8(reply.data().value(QLatin1String("output")).toByteArray().constData())); // krazy:exclude=qclasses
+        dialog->setAttribute(Qt::WA_DeleteOnClose);
+
+        QPushButton *detailsButton = new QPushButton;
+        detailsButton->setObjectName(QStringLiteral("detailsButton"));
+        detailsButton->setText(QApplication::translate("KMessageBox", "&Details") + QStringLiteral(" >>"));
+        detailsButton->setIcon(QIcon::fromTheme(QStringLiteral("help-about")));
+
+        QDialogButtonBox *buttonBox = new QDialogButtonBox(dialog);
+        buttonBox->addButton(detailsButton, QDialogButtonBox::HelpRole);
+        buttonBox->addButton(QDialogButtonBox::Ok);
+        buttonBox->button(QDialogButtonBox::Ok)->setFocus();
+
+        KMessageBox::createKMessageBox(dialog, buttonBox, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."),
+                                       QStringList(), QString(), nullptr, KMessageBox::Notify,
+                                       QString::fromUtf8(saveJob->data().value(QLatin1String("output")).toByteArray().constData())); // krazy:exclude=qclasses
         load();
     } else {
-        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), reply.errorDescription());
+        KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), saveJob->errorText());
     }
 }
 
@@ -1020,61 +1033,58 @@ void KCMGRUB2::readAll()
     //Do not prompt for password if only the VBE operation is required, unless forced.
     if (operations && ((operations & (~Vbe)) || m_resolutionsForceRead)) {
         Action loadAction(QLatin1String("org.kde.kcontrol.kcmgrub2.load"));
-        loadAction.setHelperID(QLatin1String("org.kde.kcontrol.kcmgrub2"));
+        loadAction.setHelperId(QLatin1String("org.kde.kcontrol.kcmgrub2"));
         loadAction.addArgument(QLatin1String("operations"), (int)(operations));
-#if KDE_IS_VERSION(4,6,0)
         loadAction.setParentWidget(this);
-#endif
 
-        ActionReply reply = loadAction.execute();
-        processReply(reply);
-        if (reply.failed()) {
+        KAuth::ExecuteJob *loadJob = loadAction.execute();
+        if (!loadJob->exec()) {
             kError() << "KAuth error!";
-            kError() << "Error code:" << reply.errorCode();
-            kError() << "Error description:" << reply.errorDescription();
+            kError() << "Error code:" << loadJob->error();
+            kError() << "Error description:" << loadJob->errorText();
             return;
         }
 
         if (operations.testFlag(MenuFile)) {
-            if (reply.data().value(QLatin1String("menuSuccess")).toBool()) {
-                parseEntries(QString::fromUtf8(reply.data().value(QLatin1String("menuContents")).toByteArray().constData()));
+            if (loadJob->data().value(QLatin1String("menuSuccess")).toBool()) {
+                parseEntries(QString::fromUtf8(loadJob->data().value(QLatin1String("menuContents")).toByteArray().constData()));
             } else {
                 kError() << "Helper failed to read file:" << grubMenuPath();
-                kError() << "Error code:" << reply.data().value(QLatin1String("menuError")).toInt();
-                kError() << "Error description:" << reply.data().value(QLatin1String("menuErrorString")).toString();
+                kError() << "Error code:" << loadJob->data().value(QLatin1String("menuError")).toInt();
+                kError() << "Error description:" << loadJob->data().value(QLatin1String("menuErrorString")).toString();
             }
         }
         if (operations.testFlag(ConfigurationFile)) {
-            if (reply.data().value(QLatin1String("configSuccess")).toBool()) {
-                parseSettings(QString::fromUtf8(reply.data().value(QLatin1String("configContents")).toByteArray().constData()));
+            if (loadJob->data().value(QLatin1String("configSuccess")).toBool()) {
+                parseSettings(QString::fromUtf8(loadJob->data().value(QLatin1String("configContents")).toByteArray().constData()));
             } else {
                 kError() << "Helper failed to read file:" << grubConfigPath();
-                kError() << "Error code:" << reply.data().value(QLatin1String("configError")).toInt();
-                kError() << "Error description:" << reply.data().value(QLatin1String("configErrorString")).toString();
+                kError() << "Error code:" << loadJob->data().value(QLatin1String("configError")).toInt();
+                kError() << "Error description:" << loadJob->data().value(QLatin1String("configErrorString")).toString();
             }
         }
         if (operations.testFlag(EnvironmentFile)) {
-            if (reply.data().value(QLatin1String("envSuccess")).toBool()) {
-                parseEnv(QString::fromUtf8(reply.data().value(QLatin1String("envContents")).toByteArray().constData()));
+            if (loadJob->data().value(QLatin1String("envSuccess")).toBool()) {
+                parseEnv(QString::fromUtf8(loadJob->data().value(QLatin1String("envContents")).toByteArray().constData()));
             } else {
                 kError() << "Helper failed to read file:" << grubEnvPath();
-                kError() << "Error code:" << reply.data().value(QLatin1String("envError")).toInt();
-                kError() << "Error description:" << reply.data().value(QLatin1String("envErrorString")).toString();
+                kError() << "Error code:" << loadJob->data().value(QLatin1String("envError")).toInt();
+                kError() << "Error description:" << loadJob->data().value(QLatin1String("envErrorString")).toString();
             }
         }
         if (operations.testFlag(MemtestFile)) {
-            m_memtest = reply.data().value(QLatin1String("memtest")).toBool();
+            m_memtest = loadJob->data().value(QLatin1String("memtest")).toBool();
             if (m_memtest) {
-                m_memtestOn = reply.data().value(QLatin1String("memtestOn")).toBool();
+                m_memtestOn = loadJob->data().value(QLatin1String("memtestOn")).toBool();
             }
         }
         if (operations.testFlag(Vbe)) {
-            m_resolutions = reply.data().value(QLatin1String("gfxmodes")).toStringList();
+            m_resolutions = loadJob->data().value(QLatin1String("gfxmodes")).toStringList();
             m_resolutionsEmpty = false;
             m_resolutionsForceRead = false;
         }
         if (operations.testFlag(Locales)) {
-            m_locales = reply.data().value(QLatin1String("locales")).toStringList();
+            m_locales = loadJob->data().value(QLatin1String("locales")).toStringList();
         }
     }
 }
@@ -1137,41 +1147,6 @@ void KCMGRUB2::showResolutions()
     }
 }
 
-void KCMGRUB2::processReply(ActionReply &reply)
-{
-    if (reply.type() == ActionReply::Success || reply.type() == ActionReply::KAuthError) {
-        return;
-    }
-
-    //Process error (contains command, output, errorCode, errorMessage, errorDescription)
-    QLatin1String processKey("isProcessReply");
-    if (reply.data().contains(processKey) && reply.data().value(processKey).toBool()) {
-        QString errorMessage;
-        switch (reply.errorCode()) {
-        case -2:
-            errorMessage = i18nc("@info", "The process could not be started.");
-            break;
-        case -1:
-            errorMessage = i18nc("@info", "The process crashed.");
-            break;
-        default:
-            errorMessage = QString::fromUtf8(reply.data().value(QLatin1String("output")).toByteArray().constData());
-            break;
-        }
-        reply.addData(QLatin1String("errorMessage"), errorMessage);
-        reply.setErrorDescription(i18nc("@info", "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/>Error message:<nl/><message>%3</message>", reply.data().value(QLatin1String("command")).toStringList().join(QLatin1String(" ")), reply.errorCode(), errorMessage));
-        return;
-    }
-
-    //Simple error (contains errorCode, errorMessage, errorDescription)
-    QLatin1String errorKey("errorDescription");
-    if (reply.data().contains(errorKey)) {
-        QString errorMessage = reply.data().value(errorKey).toString();
-        reply.addData(QLatin1String("errorMessage"), errorMessage);
-        reply.setErrorDescription(i18nc("@info", "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>", reply.errorCode(), errorMessage));
-        reply.data().remove(errorKey);
-    }
-}
 QString KCMGRUB2::parseTitle(const QString &line)
 {
     QChar ch;
@@ -1312,3 +1287,5 @@ void KCMGRUB2::parseEnv(const QString &config)
         m_env[line.section(QLatin1Char('='), 0, 0)] = line.section(QLatin1Char('='), 1);
     }
 }
+
+#include "kcm_grub2.moc"

@@ -21,12 +21,16 @@
 //Qt
 #include <QFile>
 #include <QRadioButton>
+#include <QPushButton>
 
 //KDE
-#include <kdeversion.h>
+#include <KGlobal>
+#include <KLocalizedString>
+#include <KIcon>
 #include <KMessageBox>
 #include <KProgressDialog>
-#include <KAuth/ActionWatcher>
+#include <KAuthAction>
+#include <KAuthExecuteJob>
 using namespace KAuth;
 #include <Solid/Device>
 #include <Solid/StorageAccess>
@@ -84,7 +88,7 @@ void InstallDialog::slotButtonClicked(int button)
 {
     if (button == KDialog::Ok) {
         Action installAction(QLatin1String("org.kde.kcontrol.kcmgrub2.install"));
-        installAction.setHelperID(QLatin1String("org.kde.kcontrol.kcmgrub2"));
+        installAction.setHelperId(QLatin1String("org.kde.kcontrol.kcmgrub2"));
         for (int i = 0; i < ui->treeWidget_recover->topLevelItemCount(); i++) {
             QRadioButton *radio = qobject_cast<QRadioButton *>(ui->treeWidget_recover->itemWidget(ui->treeWidget_recover->topLevelItem(i), 0));
             if (radio && radio->isChecked()) {
@@ -98,11 +102,10 @@ void InstallDialog::slotButtonClicked(int button)
             KMessageBox::sorry(this, i18nc("@info", "Sorry, you have to select a partition with a proper name!"));
             return;
         }
-#if KDE_IS_VERSION(4,6,0)
         installAction.setParentWidget(this);
-#endif
 
-        if (installAction.authorize() != Action::Authorized) {
+        KAuth::ExecuteJob *installJob = installAction.execute(KAuth::Action::AuthorizeOnlyMode);
+        if (!installJob->exec()) {
             return;
         }
 
@@ -112,19 +115,30 @@ void InstallDialog::slotButtonClicked(int button)
         progressDlg.progressBar()->setMinimum(0);
         progressDlg.progressBar()->setMaximum(0);
         progressDlg.show();
-        connect(installAction.watcher(), SIGNAL(actionPerformed(ActionReply)), &progressDlg, SLOT(hide()));
+        installJob = installAction.execute();
+        connect(installJob, SIGNAL(finished(KJob*)), &progressDlg, SLOT(hide()));
 
-        ActionReply reply = installAction.execute();
-        if (reply.succeeded()) {
-            KDialog *dialog = new KDialog(this, Qt::Dialog);
-            dialog->setCaption(i18nc("@title:window", "Information"));
-            dialog->setButtons(KDialog::Ok | KDialog::Details);
+        if (installJob->exec()) {
+            QDialog *dialog = new QDialog(this);
+            dialog->setWindowTitle(i18nc("@title:window", "Information"));
             dialog->setModal(true);
-            dialog->setDefaultButton(KDialog::Ok);
-            dialog->setEscapeButton(KDialog::Ok);
-            KMessageBox::createKMessageBox(dialog, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."), QStringList(), QString(), 0, KMessageBox::Notify, reply.data().value(QLatin1String("output")).toString()); // krazy:exclude=qclasses
+            dialog->setAttribute(Qt::WA_DeleteOnClose);
+
+            QPushButton *detailsButton = new QPushButton;
+            detailsButton->setObjectName(QStringLiteral("detailsButton"));
+            detailsButton->setText(QApplication::translate("KMessageBox", "&Details") + QStringLiteral(" >>"));
+            detailsButton->setIcon(QIcon::fromTheme(QStringLiteral("help-about")));
+
+            QDialogButtonBox *buttonBox = new QDialogButtonBox(dialog);
+            buttonBox->addButton(detailsButton, QDialogButtonBox::HelpRole);
+            buttonBox->addButton(QDialogButtonBox::Ok);
+            buttonBox->button(QDialogButtonBox::Ok)->setFocus();
+
+            KMessageBox::createKMessageBox(dialog, buttonBox, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."),
+                                           QStringList(), QString(), nullptr, KMessageBox::Notify,
+                                           QString::fromUtf8(installJob->data().value(QLatin1String("output")).toByteArray())); // krazy:exclude=qclasses
         } else {
-            KMessageBox::detailedError(this, i18nc("@info", "Failed to install GRUB."), KDE_IS_VERSION(4,7,0) ? reply.errorDescription() : reply.data().value(QLatin1String("errorDescription")).toString());
+            KMessageBox::detailedError(this, i18nc("@info", "Failed to install GRUB."), installJob->errorText());
         }
     }
     KDialog::slotButtonClicked(button);
