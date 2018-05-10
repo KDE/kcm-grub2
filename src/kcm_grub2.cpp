@@ -27,13 +27,13 @@
 #include <QTreeView>
 #include <QPushButton>
 #include <QIcon>
+#include <QMenu>
 
 //KDE
 #include <KLocalizedString>
 #include <KAboutData>
 #include <KDebug>
 #include <KInputDialog>
-#include <KMenu>
 #include <KMessageBox>
 #include <KPluginFactory>
 #include <KProgressDialog>
@@ -877,7 +877,7 @@ void KCMGRUB2::setupObjects()
     ui->pushbutton_create->setVisible(HAVE_IMAGEMAGICK);
 
     ui->pushbutton_cmdlineDefaultSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->pushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui->pushbutton_cmdlineDefaultSuggestions));
+    ui->pushbutton_cmdlineDefaultSuggestions->setMenu(new QMenu(ui->pushbutton_cmdlineDefaultSuggestions));
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData(QLatin1String("noplymouth"));
@@ -886,7 +886,7 @@ void KCMGRUB2::setupObjects()
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
     ui->pushbutton_cmdlineSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->pushbutton_cmdlineSuggestions->setMenu(new KMenu(ui->pushbutton_cmdlineSuggestions));
+    ui->pushbutton_cmdlineSuggestions->setMenu(new QMenu(ui->pushbutton_cmdlineSuggestions));
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData(QLatin1String("noplymouth"));
@@ -895,19 +895,19 @@ void KCMGRUB2::setupObjects()
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
     ui->pushbutton_terminalSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->pushbutton_terminalSuggestions->setMenu(new KMenu(ui->pushbutton_terminalSuggestions));
+    ui->pushbutton_terminalSuggestions->setMenu(new QMenu(ui->pushbutton_terminalSuggestions));
     ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
     ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
     ui->pushbutton_terminalInputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->pushbutton_terminalInputSuggestions->setMenu(new KMenu(ui->pushbutton_terminalInputSuggestions));
+    ui->pushbutton_terminalInputSuggestions->setMenu(new QMenu(ui->pushbutton_terminalInputSuggestions));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC AT Keyboard (Coreboot)"))->setData(QLatin1String("at_keyboard"));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "USB Keyboard (HID Boot Protocol)"))->setData(QLatin1String("usb_keyboard"));
     ui->pushbutton_terminalOutputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->pushbutton_terminalOutputSuggestions->setMenu(new KMenu(ui->pushbutton_terminalOutputSuggestions));
+    ui->pushbutton_terminalOutputSuggestions->setMenu(new QMenu(ui->pushbutton_terminalOutputSuggestions));
     ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
     ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
