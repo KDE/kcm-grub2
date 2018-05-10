@@ -22,11 +22,11 @@
 #include <QFile>
 #include <QRadioButton>
 #include <QPushButton>
+#include <QIcon>
 
 //KDE
 #include <KGlobal>
 #include <KLocalizedString>
-#include <KIcon>
 #include <KMessageBox>
 #include <KProgressDialog>
 #include <KAuthAction>
@@ -47,7 +47,7 @@ InstallDialog::InstallDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
     setMainWidget(widget);
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Install/Recover Bootloader"));
-    setWindowIcon(KIcon(QLatin1String("system-software-update")));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("system-software-update")));
     if (parent) {
         setInitialSize(parent->size());
     }
@@ -71,7 +71,7 @@ InstallDialog::InstallDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent
         QString uuidDir = QLatin1String("/dev/disk/by-uuid/"), uuid = volume->uuid(), name;
         name = (QFile::exists((name = uuidDir + uuid)) || QFile::exists((name = uuidDir + uuid.toLower())) || QFile::exists((name = uuidDir + uuid.toUpper())) ? QFile::symLinkTarget(name) : QString());
         QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_recover, QStringList() << QString() << name << partition->filePath() << volume->label() << volume->fsType() << KGlobal::locale()->formatByteSize(volume->size()));
-        item->setIcon(1, KIcon(device.icon()));
+        item->setIcon(1, QIcon::fromTheme(device.icon()));
         item->setTextAlignment(5, Qt::AlignRight | Qt::AlignVCenter);
         ui->treeWidget_recover->addTopLevelItem(item);
         QRadioButton *radio = new QRadioButton(ui->treeWidget_recover);

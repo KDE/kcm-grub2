@@ -26,11 +26,11 @@
 #include <QStandardItemModel>
 #include <QTreeView>
 #include <QPushButton>
+#include <QIcon>
 
 //KDE
 #include <KGlobal>
 #include <KLocalizedString>
-#include <KIcon>
 #include <KAboutData>
 #include <KDebug>
 #include <KInputDialog>
@@ -816,11 +816,11 @@ void KCMGRUB2::setupObjects()
     view->setRootIsDecorated(false);
     ui->kcombobox_default->setView(view);
 
-    ui->kpushbutton_remove->setIcon(KIcon(QLatin1String("list-remove")));
+    ui->kpushbutton_remove->setIcon(QIcon::fromTheme(QLatin1String("list-remove")));
     ui->kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
 
-    ui->toolButton_refreshGfxmode->setIcon(KIcon(QLatin1String("view-refresh")));
-    ui->toolButton_refreshGfxpayload->setIcon(KIcon(QLatin1String("view-refresh")));
+    ui->toolButton_refreshGfxmode->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
+    ui->toolButton_refreshGfxpayload->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
 
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);
@@ -873,11 +873,11 @@ void KCMGRUB2::setupObjects()
     ui->kcombobox_highlightForeground->setCurrentIndex(ui->kcombobox_highlightForeground->findData(QLatin1String("black")));
     ui->kcombobox_highlightBackground->setCurrentIndex(ui->kcombobox_highlightBackground->findData(QLatin1String("light-gray")));
 
-    ui->kpushbutton_preview->setIcon(KIcon(QLatin1String("image-png")));
-    ui->kpushbutton_create->setIcon(KIcon(QLatin1String("insert-image")));
+    ui->kpushbutton_preview->setIcon(QIcon::fromTheme(QLatin1String("image-png")));
+    ui->kpushbutton_create->setIcon(QIcon::fromTheme(QLatin1String("insert-image")));
     ui->kpushbutton_create->setVisible(HAVE_IMAGEMAGICK);
 
-    ui->kpushbutton_cmdlineDefaultSuggestions->setIcon(KIcon(QLatin1String("tools-wizard")));
+    ui->kpushbutton_cmdlineDefaultSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
     ui->kpushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui->kpushbutton_cmdlineDefaultSuggestions));
     ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
     ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
@@ -886,7 +886,7 @@ void KCMGRUB2::setupObjects()
     ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData(QLatin1String("noapic"));
     ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
     ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
-    ui->kpushbutton_cmdlineSuggestions->setIcon(KIcon(QLatin1String("tools-wizard")));
+    ui->kpushbutton_cmdlineSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
     ui->kpushbutton_cmdlineSuggestions->setMenu(new KMenu(ui->kpushbutton_cmdlineSuggestions));
     ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
     ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
@@ -895,19 +895,19 @@ void KCMGRUB2::setupObjects()
     ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData(QLatin1String("noapic"));
     ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
     ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
-    ui->kpushbutton_terminalSuggestions->setIcon(KIcon(QLatin1String("tools-wizard")));
+    ui->kpushbutton_terminalSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
     ui->kpushbutton_terminalSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalSuggestions));
     ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
     ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
-    ui->kpushbutton_terminalInputSuggestions->setIcon(KIcon(QLatin1String("tools-wizard")));
+    ui->kpushbutton_terminalInputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
     ui->kpushbutton_terminalInputSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalInputSuggestions));
     ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
     ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
     ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC AT Keyboard (Coreboot)"))->setData(QLatin1String("at_keyboard"));
     ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "USB Keyboard (HID Boot Protocol)"))->setData(QLatin1String("usb_keyboard"));
-    ui->kpushbutton_terminalOutputSuggestions->setIcon(KIcon(QLatin1String("tools-wizard")));
+    ui->kpushbutton_terminalOutputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
     ui->kpushbutton_terminalOutputSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalOutputSuggestions));
     ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
@@ -915,7 +915,7 @@ void KCMGRUB2::setupObjects()
     ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData(QLatin1String("gfxterm"));
     ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData(QLatin1String("vga_text"));
 
-    ui->kpushbutton_install->setIcon(KIcon(QLatin1String("system-software-update")));
+    ui->kpushbutton_install->setIcon(QIcon::fromTheme(QLatin1String("system-software-update")));
 }
 void KCMGRUB2::setupConnections()
 {

@@ -25,6 +25,7 @@
 #include <QFile>
 #include <QTextStream>
 #include <QTimer>
+#include <QIcon>
 
 //KDE
 #include <KMessageBox>
@@ -44,7 +45,7 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent, Qt::WFl
     setMainWidget(widget);
     enableButtonOk(false);
     setWindowTitle(i18nc("@title:window", "Remove Old Entries"));
-    setWindowIcon(KIcon(QLatin1String("list-remove")));
+    setWindowIcon(QIcon::fromTheme(QLatin1String("list-remove")));
 
     m_progressDlg = 0;
 
