@@ -44,7 +44,7 @@
              </widget>
             </item>
             <item>
-             <widget class="KPushButton" name="kpushbutton_remove">
+             <widget class="QPushButton" name="pushbutton_remove">
               <property name="text">
                <string comment="@action:button">Remove Old Entries</string>
               </property>
@@ -396,14 +396,14 @@
              <widget class="KUrlRequester" name="kurlrequester_background"/>
             </item>
             <item>
-             <widget class="KPushButton" name="kpushbutton_preview">
+             <widget class="QPushButton" name="pushbutton_preview">
               <property name="text">
                <string comment="@action:button">Preview</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="KPushButton" name="kpushbutton_create">
+             <widget class="QPushButton" name="pushbutton_create">
               <property name="text">
                <string comment="@action:button">Create</string>
               </property>
@@ -463,7 +463,7 @@
              <widget class="KLineEdit" name="klineedit_cmdlineDefault"/>
             </item>
             <item>
-             <widget class="KPushButton" name="kpushbutton_cmdlineDefaultSuggestions">
+             <widget class="QPushButton" name="pushbutton_cmdlineDefaultSuggestions">
               <property name="text">
                <string comment="@action:button">Suggestions</string>
               </property>
@@ -484,7 +484,7 @@
              <widget class="KLineEdit" name="klineedit_cmdline"/>
             </item>
             <item>
-             <widget class="KPushButton" name="kpushbutton_cmdlineSuggestions">
+             <widget class="QPushButton" name="pushbutton_cmdlineSuggestions">
               <property name="text">
                <string comment="@action:button">Suggestions</string>
               </property>
@@ -514,7 +514,7 @@
              <widget class="KLineEdit" name="klineedit_terminal"/>
             </item>
             <item>
-             <widget class="KPushButton" name="kpushbutton_terminalSuggestions">
+             <widget class="QPushButton" name="pushbutton_terminalSuggestions">
               <property name="text">
                <string comment="@action:button">Suggestions</string>
               </property>
@@ -535,7 +535,7 @@
              <widget class="KLineEdit" name="klineedit_terminalInput"/>
             </item>
             <item>
-             <widget class="KPushButton" name="kpushbutton_terminalInputSuggestions">
+             <widget class="QPushButton" name="pushbutton_terminalInputSuggestions">
               <property name="text">
                <string comment="@action:button">Suggestions</string>
               </property>
@@ -556,7 +556,7 @@
              <widget class="KLineEdit" name="klineedit_terminalOutput"/>
             </item>
             <item>
-             <widget class="KPushButton" name="kpushbutton_terminalOutputSuggestions">
+             <widget class="QPushButton" name="pushbutton_terminalOutputSuggestions">
               <property name="text">
                <string comment="@action:button">Suggestions</string>
               </property>
@@ -636,7 +636,7 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
           <item row="0" column="0">
-           <widget class="KPushButton" name="kpushbutton_install">
+           <widget class="QPushButton" name="pushbutton_install">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Maximum" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -667,11 +667,6 @@
    <class>KLineEdit</class>
    <extends>QLineEdit</extends>
    <header>klineedit.h</header>
-  </customwidget>
-  <customwidget>
-   <class>KPushButton</class>
-   <extends>QPushButton</extends>
-   <header>kpushbutton.h</header>
   </customwidget>
   <customwidget>
    <class>KUrlRequester</class>

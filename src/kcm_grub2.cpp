@@ -164,7 +164,7 @@ void KCMGRUB2::load()
             kWarning() << "Invalid GRUB_DEFAULT value";
         }
     }
-    ui->kpushbutton_remove->setEnabled(!m_entries.isEmpty());
+    ui->pushbutton_remove->setEnabled(!m_entries.isEmpty());
     ui->checkBox_savedefault->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_SAVEDEFAULT"))).compare(QLatin1String("true")) == 0);
 
     bool ok;
@@ -253,7 +253,7 @@ void KCMGRUB2::load()
 
     QString grubBackground = unquoteWord(m_settings.value(QLatin1String("GRUB_BACKGROUND")));
     ui->kurlrequester_background->setText(grubBackground);
-    ui->kpushbutton_preview->setEnabled(!grubBackground.isEmpty());
+    ui->pushbutton_preview->setEnabled(!grubBackground.isEmpty());
     ui->kurlrequester_theme->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_THEME"))));
 
     ui->klineedit_cmdlineDefault->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_CMDLINE_LINUX_DEFAULT"))));
@@ -649,7 +649,7 @@ void KCMGRUB2::slotGrubColorHighlightChanged()
 }
 void KCMGRUB2::slowGrubBackgroundChanged()
 {
-    ui->kpushbutton_preview->setEnabled(!ui->kurlrequester_background->text().isEmpty());
+    ui->pushbutton_preview->setEnabled(!ui->kurlrequester_background->text().isEmpty());
     m_dirtyBits.setBit(grubBackgroundDirty);
     Q_EMIT changed(true);
 }
@@ -748,15 +748,15 @@ void KCMGRUB2::slotUpdateSuggestions()
     }
 
     KLineEdit *lineEdit = 0;
-    if (ui->kpushbutton_cmdlineDefaultSuggestions->isDown()) {
+    if (ui->pushbutton_cmdlineDefaultSuggestions->isDown()) {
         lineEdit = ui->klineedit_cmdlineDefault;
-    } else if (ui->kpushbutton_cmdlineSuggestions->isDown()) {
+    } else if (ui->pushbutton_cmdlineSuggestions->isDown()) {
         lineEdit = ui->klineedit_cmdline;
-    } else if (ui->kpushbutton_terminalSuggestions->isDown()) {
+    } else if (ui->pushbutton_terminalSuggestions->isDown()) {
         lineEdit = ui->klineedit_terminal;
-    } else if (ui->kpushbutton_terminalInputSuggestions->isDown()) {
+    } else if (ui->pushbutton_terminalInputSuggestions->isDown()) {
         lineEdit = ui->klineedit_terminalInput;
-    } else if (ui->kpushbutton_terminalOutputSuggestions->isDown()) {
+    } else if (ui->pushbutton_terminalOutputSuggestions->isDown()) {
         lineEdit = ui->klineedit_terminalOutput;
     } else {
         return;
@@ -773,19 +773,19 @@ void KCMGRUB2::slotTriggeredSuggestion(QAction *action)
 {
     KLineEdit *lineEdit = 0;
     void (KCMGRUB2::*updateFunction)() = 0;
-    if (ui->kpushbutton_cmdlineDefaultSuggestions->isDown()) {
+    if (ui->pushbutton_cmdlineDefaultSuggestions->isDown()) {
         lineEdit = ui->klineedit_cmdlineDefault;
         updateFunction = &KCMGRUB2::slotGrubCmdlineLinuxDefaultChanged;
-    } else if (ui->kpushbutton_cmdlineSuggestions->isDown()) {
+    } else if (ui->pushbutton_cmdlineSuggestions->isDown()) {
         lineEdit = ui->klineedit_cmdline;
         updateFunction = &KCMGRUB2::slotGrubCmdlineLinuxChanged;
-    } else if (ui->kpushbutton_terminalSuggestions->isDown()) {
+    } else if (ui->pushbutton_terminalSuggestions->isDown()) {
         lineEdit = ui->klineedit_terminal;
         updateFunction = &KCMGRUB2::slotGrubTerminalChanged;
-    } else if (ui->kpushbutton_terminalInputSuggestions->isDown()) {
+    } else if (ui->pushbutton_terminalInputSuggestions->isDown()) {
         lineEdit = ui->klineedit_terminalInput;
         updateFunction = &KCMGRUB2::slotGrubTerminalInputChanged;
-    } else if (ui->kpushbutton_terminalOutputSuggestions->isDown()) {
+    } else if (ui->pushbutton_terminalOutputSuggestions->isDown()) {
         lineEdit = ui->klineedit_terminalOutput;
         updateFunction = &KCMGRUB2::slotGrubTerminalOutputChanged;
     } else {
@@ -816,8 +816,8 @@ void KCMGRUB2::setupObjects()
     view->setRootIsDecorated(false);
     ui->kcombobox_default->setView(view);
 
-    ui->kpushbutton_remove->setIcon(QIcon::fromTheme(QLatin1String("list-remove")));
-    ui->kpushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
+    ui->pushbutton_remove->setIcon(QIcon::fromTheme(QLatin1String("list-remove")));
+    ui->pushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
 
     ui->toolButton_refreshGfxmode->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
     ui->toolButton_refreshGfxpayload->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
@@ -873,54 +873,54 @@ void KCMGRUB2::setupObjects()
     ui->kcombobox_highlightForeground->setCurrentIndex(ui->kcombobox_highlightForeground->findData(QLatin1String("black")));
     ui->kcombobox_highlightBackground->setCurrentIndex(ui->kcombobox_highlightBackground->findData(QLatin1String("light-gray")));
 
-    ui->kpushbutton_preview->setIcon(QIcon::fromTheme(QLatin1String("image-png")));
-    ui->kpushbutton_create->setIcon(QIcon::fromTheme(QLatin1String("insert-image")));
-    ui->kpushbutton_create->setVisible(HAVE_IMAGEMAGICK);
+    ui->pushbutton_preview->setIcon(QIcon::fromTheme(QLatin1String("image-png")));
+    ui->pushbutton_create->setIcon(QIcon::fromTheme(QLatin1String("insert-image")));
+    ui->pushbutton_create->setVisible(HAVE_IMAGEMAGICK);
 
-    ui->kpushbutton_cmdlineDefaultSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->kpushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui->kpushbutton_cmdlineDefaultSuggestions));
-    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
-    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
-    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData(QLatin1String("noplymouth"));
-    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData(QLatin1String("acpi=off"));
-    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData(QLatin1String("noapic"));
-    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
-    ui->kpushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
-    ui->kpushbutton_cmdlineSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->kpushbutton_cmdlineSuggestions->setMenu(new KMenu(ui->kpushbutton_cmdlineSuggestions));
-    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
-    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
-    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData(QLatin1String("noplymouth"));
-    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData(QLatin1String("acpi=off"));
-    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData(QLatin1String("noapic"));
-    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
-    ui->kpushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
-    ui->kpushbutton_terminalSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->kpushbutton_terminalSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalSuggestions));
-    ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
-    ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
-    ui->kpushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
-    ui->kpushbutton_terminalInputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->kpushbutton_terminalInputSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalInputSuggestions));
-    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
-    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
-    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
-    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC AT Keyboard (Coreboot)"))->setData(QLatin1String("at_keyboard"));
-    ui->kpushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "USB Keyboard (HID Boot Protocol)"))->setData(QLatin1String("usb_keyboard"));
-    ui->kpushbutton_terminalOutputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
-    ui->kpushbutton_terminalOutputSuggestions->setMenu(new KMenu(ui->kpushbutton_terminalOutputSuggestions));
-    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
-    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
-    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
-    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData(QLatin1String("gfxterm"));
-    ui->kpushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData(QLatin1String("vga_text"));
+    ui->pushbutton_cmdlineDefaultSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_cmdlineDefaultSuggestions->setMenu(new KMenu(ui->pushbutton_cmdlineDefaultSuggestions));
+    ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
+    ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
+    ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData(QLatin1String("noplymouth"));
+    ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData(QLatin1String("acpi=off"));
+    ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData(QLatin1String("noapic"));
+    ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
+    ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
+    ui->pushbutton_cmdlineSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_cmdlineSuggestions->setMenu(new KMenu(ui->pushbutton_cmdlineSuggestions));
+    ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
+    ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
+    ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Disable Plymouth"))->setData(QLatin1String("noplymouth"));
+    ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off ACPI"))->setData(QLatin1String("acpi=off"));
+    ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData(QLatin1String("noapic"));
+    ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
+    ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
+    ui->pushbutton_terminalSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_terminalSuggestions->setMenu(new KMenu(ui->pushbutton_terminalSuggestions));
+    ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
+    ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
+    ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
+    ui->pushbutton_terminalInputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_terminalInputSuggestions->setMenu(new KMenu(ui->pushbutton_terminalInputSuggestions));
+    ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
+    ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
+    ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
+    ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC AT Keyboard (Coreboot)"))->setData(QLatin1String("at_keyboard"));
+    ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "USB Keyboard (HID Boot Protocol)"))->setData(QLatin1String("usb_keyboard"));
+    ui->pushbutton_terminalOutputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_terminalOutputSuggestions->setMenu(new KMenu(ui->pushbutton_terminalOutputSuggestions));
+    ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
+    ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
+    ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
+    ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData(QLatin1String("gfxterm"));
+    ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData(QLatin1String("vga_text"));
 
-    ui->kpushbutton_install->setIcon(QIcon::fromTheme(QLatin1String("system-software-update")));
+    ui->pushbutton_install->setIcon(QIcon::fromTheme(QLatin1String("system-software-update")));
 }
 void KCMGRUB2::setupConnections()
 {
     connect(ui->kcombobox_default, SIGNAL(activated(int)), this, SLOT(changed()));
-    connect(ui->kpushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
+    connect(ui->pushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
     connect(ui->checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(slotGrubSavedefaultChanged()));
 
     connect(ui->checkBox_hiddenTimeout, SIGNAL(toggled(bool)), this, SLOT(slotGrubHiddenTimeoutToggled(bool)));
@@ -951,33 +951,33 @@ void KCMGRUB2::setupConnections()
     connect(ui->kcombobox_highlightBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
 
     connect(ui->kurlrequester_background, SIGNAL(textChanged(QString)), this, SLOT(slowGrubBackgroundChanged()));
-    connect(ui->kpushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(slotPreviewGrubBackground()));
-    connect(ui->kpushbutton_create, SIGNAL(clicked(bool)), this, SLOT(slotCreateGrubBackground()));
+    connect(ui->pushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(slotPreviewGrubBackground()));
+    connect(ui->pushbutton_create, SIGNAL(clicked(bool)), this, SLOT(slotCreateGrubBackground()));
     connect(ui->kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(slotGrubThemeChanged()));
 
     connect(ui->klineedit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxDefaultChanged()));
-    connect(ui->kpushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->kpushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->pushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->pushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
     connect(ui->klineedit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxChanged()));
-    connect(ui->kpushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->kpushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->pushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->pushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
 
     connect(ui->klineedit_terminal, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalChanged()));
-    connect(ui->kpushbutton_terminalSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->kpushbutton_terminalSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->pushbutton_terminalSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->pushbutton_terminalSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
     connect(ui->klineedit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalInputChanged()));
-    connect(ui->kpushbutton_terminalInputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->kpushbutton_terminalInputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->pushbutton_terminalInputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->pushbutton_terminalInputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
     connect(ui->klineedit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalOutputChanged()));
-    connect(ui->kpushbutton_terminalOutputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->kpushbutton_terminalOutputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->pushbutton_terminalOutputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
+    connect(ui->pushbutton_terminalOutputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
 
     connect(ui->klineedit_distributor, SIGNAL(textEdited(QString)), this, SLOT(slotGrubDistributorChanged()));
     connect(ui->klineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
     connect(ui->klineedit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
     connect(ui->checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableLinuxUuidChanged()));
 
-    connect(ui->kpushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
+    connect(ui->pushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
 }
 
 bool KCMGRUB2::readFile(const QString &fileName, QByteArray &fileContents)
