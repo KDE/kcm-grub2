@@ -63,11 +63,7 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent) : QDial
     m_progressDlg = 0;
 
 #if HAVE_QAPT
-#if QAPT_VERSION_MAJOR == 1
     m_backend = new QAptBackend;
-#elif QAPT_VERSION_MAJOR == 2
-    m_backend = new QApt2Backend;
-#endif
 #elif HAVE_QPACKAGEKIT
     m_backend = new QPkBackend;
 #endif

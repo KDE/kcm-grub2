@@ -29,11 +29,7 @@ class QProgressDialog;
 #include <config.h>
 class Entry;
 #if HAVE_QAPT
-#if QAPT_VERSION_MAJOR == 1
 #include "qaptBackend.h"
-#elif QAPT_VERSION_MAJOR == 2
-#include "qapt2Backend.h"
-#endif
 #elif HAVE_QPACKAGEKIT
 #include "qPkBackend.h"
 #endif
@@ -59,11 +55,7 @@ private:
     void detectCurrentKernelImage();
 
 #if HAVE_QAPT
-#if QAPT_VERSION_MAJOR == 1
     QAptBackend *m_backend;
-#elif QAPT_VERSION_MAJOR == 2
-    QApt2Backend *m_backend;
-#endif
 #elif HAVE_QPACKAGEKIT
     QPkBackend *m_backend;
 #endif

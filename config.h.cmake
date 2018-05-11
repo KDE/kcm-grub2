@@ -7,7 +7,6 @@
 #define HAVE_HD @HAVE_HD@
 #define HAVE_QAPT @HAVE_QAPT@
 #define HAVE_QPACKAGEKIT @HAVE_QPACKAGEKIT@
-#define QAPT_VERSION_MAJOR @QAPT_VERSION_MAJOR@
 
 //Qt
 #include <QFile>

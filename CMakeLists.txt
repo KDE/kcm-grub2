@@ -54,12 +54,12 @@ else()
     set(HAVE_HD 0)
 endif()
 
-find_package(QApt)
+find_package(QApt 3.0.0)
 set_package_properties(QApt PROPERTIES
                        DESCRIPTION "Remove unneeded old entries (qapt backend)"
                        URL "https://projects.kde.org/projects/extragear/sysadmin/libqapt/"
                        TYPE OPTIONAL)
-if(QAPT_FOUND)
+if(QApt_FOUND)
     set(HAVE_QAPT 1)
 else()
     set(HAVE_QAPT 0)
