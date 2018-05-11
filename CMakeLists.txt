@@ -21,7 +21,10 @@ find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core Gui Widgets)
 
 find_package(KF5 REQUIRED COMPONENTS
     Auth
-    KDELibs4Support
+    I18n
+    KCMUtils
+    KIO
+    Solid
 )
 
 # Qt

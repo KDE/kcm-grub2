@@ -26,9 +26,9 @@
 #include <QDir>
 
 //KDE
-#include <KLocale>
+#include <KLocalizedString>
 #include <KProcess>
-#include <KAuth/HelperSupport>
+#include <KAuthHelperSupport>
 
 //Project
 #include "../common.h"

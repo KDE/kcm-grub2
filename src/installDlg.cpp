@@ -64,8 +64,8 @@ InstallDialog::InstallDialog(QWidget *parent) : QDialog(parent)
     }
 
     ui->treeWidget_recover->headerItem()->setText(0, QString());
-    ui->treeWidget_recover->header()->setResizeMode(QHeaderView::Stretch);
-    ui->treeWidget_recover->header()->setResizeMode(0, QHeaderView::ResizeToContents);
+    ui->treeWidget_recover->header()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->treeWidget_recover->header()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
     Q_FOREACH(const Solid::Device &device, Solid::Device::listFromType(Solid::DeviceInterface::StorageAccess)) {
         if (!device.is<Solid::StorageAccess>() || !device.is<Solid::StorageVolume>()) {
             continue;

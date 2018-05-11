@@ -19,7 +19,7 @@
 #define HELPER_H
 
 //KDE
-#include <KAuth/ActionReply>
+#include <KAuthActionReply>
 using namespace KAuth;
 
 class Helper : public QObject

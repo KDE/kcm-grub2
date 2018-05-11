@@ -45,13 +45,13 @@ endif(HAVE_QAPT)
 
 # Definitions
 if(HAVE_IMAGEMAGICK)
-    add_definitions(${KDE4_ENABLE_EXCEPTIONS})
+    add_definitions(-fexceptions)
 endif(HAVE_IMAGEMAGICK)
 
 # Build & Link
 include_directories(${kcm_grub2_INCLUDE_DIRS})
 add_library(kcm_grub2 MODULE ${kcm_grub2_SRCS})
-target_link_libraries(kcm_grub2 ${kcm_grub2_LINK_LIBS} Qt5::Core Qt5::Widgets KF5::Auth KF5::KIOCore KF5::Solid KF5::KDELibs4Support)
+target_link_libraries(kcm_grub2 ${kcm_grub2_LINK_LIBS} Qt5::Core Qt5::Widgets KF5::Auth KF5::I18n KF5::KCMUtils KF5::KIOCore KF5::KIOWidgets KF5::Solid)
 
 # Install
 install(TARGETS kcm_grub2 DESTINATION ${PLUGIN_INSTALL_DIR})
