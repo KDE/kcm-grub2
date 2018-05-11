@@ -37,13 +37,24 @@
 //Ui
 #include "ui_removeDlg.h"
 
-RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
+RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent) : QDialog(parent)
 {
     QWidget *widget = new QWidget(this);
     ui = new Ui::RemoveDialog;
     ui->setupUi(widget);
-    setMainWidget(widget);
-    enableButtonOk(false);
+    ui->gridLayout->setContentsMargins(0, 0, 0, 0);
+
+    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &RemoveDialog::slotAccepted);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+    m_okButton = buttonBox->button(QDialogButtonBox::Ok);
+    m_okButton->setEnabled(false);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(widget);
+    mainLayout->addWidget(buttonBox);
+
     setWindowTitle(i18nc("@title:window", "Remove Old Entries"));
     setWindowIcon(QIcon::fromTheme(QLatin1String("list-remove")));
 
@@ -100,7 +111,7 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent, Qt::WFl
         ui->treeWidget->resizeColumnToContents(0);
         ui->treeWidget->setMinimumWidth(ui->treeWidget->columnWidth(0) + ui->treeWidget->sizeHintForRow(0));
         connect(ui->treeWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(slotItemChanged()));
-        enableButtonOk(true);
+        m_okButton->setEnabled(true);
     } else {
         KMessageBox::sorry(this, i18nc("@info", "No removable entries were found."));
         QTimer::singleShot(0, this, SLOT(reject()));
@@ -111,39 +122,37 @@ RemoveDialog::~RemoveDialog()
     delete m_backend;
     delete ui;
 }
-void RemoveDialog::slotButtonClicked(int button)
+void RemoveDialog::slotAccepted()
 {
-    if (button == KDialog::Ok) {
-        for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
-            if (ui->treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
-                QString packageName = ui->treeWidget->topLevelItem(i)->data(0, Qt::UserRole).toString();
+    for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
+        if (ui->treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
+            QString packageName = ui->treeWidget->topLevelItem(i)->data(0, Qt::UserRole).toString();
+            m_backend->markForRemoval(packageName);
+            if (ui->checkBox_headers->isChecked()) {
+                packageName.replace(QLatin1String("image"), QLatin1String("headers"));
                 m_backend->markForRemoval(packageName);
-                if (ui->checkBox_headers->isChecked()) {
-                    packageName.replace(QLatin1String("image"), QLatin1String("headers"));
-                    m_backend->markForRemoval(packageName);
-                }
             }
         }
-        if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval()) == KMessageBox::Yes) {
-            connect(m_backend, SIGNAL(progress(QString,int)), this, SLOT(slotProgress(QString,int)));
-            connect(m_backend, SIGNAL(finished(bool)), this, SLOT(slotFinished(bool)));
-            m_backend->removePackages();
-        } else {
-            m_backend->undoChanges();
-        }
-        return;
     }
-    KDialog::slotButtonClicked(button);
+    if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval()) == KMessageBox::Yes) {
+        connect(m_backend, SIGNAL(progress(QString,int)), this, SLOT(slotProgress(QString,int)));
+        connect(m_backend, SIGNAL(finished(bool)), this, SLOT(slotFinished(bool)));
+        m_backend->removePackages();
+    } else {
+        m_backend->undoChanges();
+    }
+
+    accept();
 }
 void RemoveDialog::slotItemChanged()
 {
     for (int i = 0; i < ui->treeWidget->topLevelItemCount(); i++) {
         if (ui->treeWidget->topLevelItem(i)->checkState(0) == Qt::Checked) {
-            enableButtonOk(true);
+            m_okButton->setEnabled(true);
             return;
         }
     }
-    enableButtonOk(false);
+    m_okButton->setEnabled(false);
 }
 void RemoveDialog::slotProgress(const QString &status, int percentage)
 {

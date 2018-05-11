@@ -18,8 +18,8 @@
 #ifndef INSTALLDLG_H
 #define INSTALLDLG_H
 
-//KDE
-#include <KDialog>
+//Qt
+#include <QDialog>
 
 //Ui
 namespace Ui
@@ -27,14 +27,14 @@ namespace Ui
     class InstallDialog;
 }
 
-class InstallDialog : public KDialog
+class InstallDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit InstallDialog(QWidget *parent = 0, Qt::WFlags flags = 0);
+    explicit InstallDialog(QWidget *parent = 0);
     virtual ~InstallDialog();
-protected Q_SLOTS:
-    virtual void slotButtonClicked(int button);
+private Q_SLOTS:
+    void slotAccepted();
 private:
     Ui::InstallDialog *ui;
 };

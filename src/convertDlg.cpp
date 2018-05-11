@@ -30,12 +30,21 @@
 //Ui
 #include "ui_convertDlg.h"
 
-ConvertDialog::ConvertDialog(QWidget *parent, Qt::WFlags flags) : KDialog(parent, flags)
+ConvertDialog::ConvertDialog(QWidget *parent) : QDialog(parent)
 {
     QWidget *widget = new QWidget(this);
     ui = new Ui::ConvertDialog;
     ui->setupUi(widget);
-    setMainWidget(widget);
+    ui->gridLayout->setContentsMargins(0, 0, 0, 0);
+
+    auto *buttonBox = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
+    connect(buttonBox, &QDialogButtonBox::accepted, this, &ConvertDialog::slotAccepted);
+    connect(buttonBox, &QDialogButtonBox::rejected, this, &QDialog::reject);
+
+    QVBoxLayout *mainLayout = new QVBoxLayout;
+    setLayout(mainLayout);
+    mainLayout->addWidget(widget);
+    mainLayout->addWidget(buttonBox);
 
     QString readFilter;
     QList<Magick::CoderInfo> coderList;
@@ -68,29 +77,28 @@ void ConvertDialog::setResolution(int width, int height)
     }
 }
 
-void ConvertDialog::slotButtonClicked(int button)
+void ConvertDialog::slotAccepted()
 {
-    if (button == KDialog::Ok) {
-        if (ui->kurlrequester_image->text().isEmpty() || ui->kurlrequester_converted->text().isEmpty()) {
-            KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Image</interface> and <interface>Convert To</interface> fields."));
-            return;
-        } else if (ui->spinBox_width->value() == 0 || ui->spinBox_height->value() == 0) {
-            KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Width</interface> and <interface>Height</interface> fields."));
-            return;
-        } else if (!QFileInfo(KUrl(ui->kurlrequester_converted->url()).directory()).isWritable()) {
-            KMessageBox::information(this, i18nc("@info", "You do not have write permissions in this directory, please select another destination."));
-            return;
-        }
-        Magick::Geometry resolution(ui->spinBox_width->value(), ui->spinBox_height->value());
-        resolution.aspect(ui->checkBox_force->isChecked());
-        Magick::Image image(std::string(ui->kurlrequester_image->url().toLocalFile().toUtf8().constData()));
-        image.zoom(resolution);
-        image.depth(8);
-        image.classType(Magick::DirectClass);
-        image.write(std::string(ui->kurlrequester_converted->url().toLocalFile().toUtf8().constData()));
-        if (ui->checkBox_wallpaper->isChecked()) {
-            Q_EMIT splashImageCreated(ui->kurlrequester_converted->url().toLocalFile());
-        }
+    if (ui->kurlrequester_image->text().isEmpty() || ui->kurlrequester_converted->text().isEmpty()) {
+        KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Image</interface> and <interface>Convert To</interface> fields."));
+        return;
+    } else if (ui->spinBox_width->value() == 0 || ui->spinBox_height->value() == 0) {
+        KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Width</interface> and <interface>Height</interface> fields."));
+        return;
+    } else if (!QFileInfo(KUrl(ui->kurlrequester_converted->url()).directory()).isWritable()) {
+        KMessageBox::information(this, i18nc("@info", "You do not have write permissions in this directory, please select another destination."));
+        return;
     }
-    KDialog::slotButtonClicked(button);
+    Magick::Geometry resolution(ui->spinBox_width->value(), ui->spinBox_height->value());
+    resolution.aspect(ui->checkBox_force->isChecked());
+    Magick::Image image(std::string(ui->kurlrequester_image->url().toLocalFile().toUtf8().constData()));
+    image.zoom(resolution);
+    image.depth(8);
+    image.classType(Magick::DirectClass);
+    image.write(std::string(ui->kurlrequester_converted->url().toLocalFile().toUtf8().constData()));
+    if (ui->checkBox_wallpaper->isChecked()) {
+        Q_EMIT splashImageCreated(ui->kurlrequester_converted->url().toLocalFile());
+    }
+
+    accept();
 }

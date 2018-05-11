@@ -21,9 +21,8 @@
 #ifndef REMOVEDLG_H
 #define REMOVEDLG_H
 
-//KDE
-#include <KDialog>
-
+//Qt
+#include <QDialog>
 class QProgressDialog;
 
 //Project
@@ -43,15 +42,14 @@ namespace Ui
     class RemoveDialog;
 }
 
-class RemoveDialog : public KDialog
+class RemoveDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit RemoveDialog(const QList<Entry> &entries, QWidget *parent = 0, Qt::WFlags flags = 0);
+    explicit RemoveDialog(const QList<Entry> &entries, QWidget *parent = 0);
     virtual ~RemoveDialog();
-protected Q_SLOTS:
-    virtual void slotButtonClicked(int button);
 private Q_SLOTS:
+    void slotAccepted();
     void slotItemChanged();
     void slotProgress(const QString &status, int percentage);
     void slotFinished(bool success);
@@ -68,6 +66,7 @@ private:
     QString m_currentKernelImage;
     QProgressDialog *m_progressDlg;
     Ui::RemoveDialog *ui;
+    QPushButton *m_okButton;
 };
 
 #endif
