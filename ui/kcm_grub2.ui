@@ -460,7 +460,7 @@
           <item row="0" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="KLineEdit" name="klineedit_cmdlineDefault"/>
+             <widget class="QLineEdit" name="lineedit_cmdlineDefault"/>
             </item>
             <item>
              <widget class="QPushButton" name="pushbutton_cmdlineDefaultSuggestions">
@@ -481,7 +481,7 @@
           <item row="1" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_3">
             <item>
-             <widget class="KLineEdit" name="klineedit_cmdline"/>
+             <widget class="QLineEdit" name="lineedit_cmdline"/>
             </item>
             <item>
              <widget class="QPushButton" name="pushbutton_cmdlineSuggestions">
@@ -511,7 +511,7 @@
           <item row="0" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_4">
             <item>
-             <widget class="KLineEdit" name="klineedit_terminal"/>
+             <widget class="QLineEdit" name="lineedit_terminal"/>
             </item>
             <item>
              <widget class="QPushButton" name="pushbutton_terminalSuggestions">
@@ -532,7 +532,7 @@
           <item row="1" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_5">
             <item>
-             <widget class="KLineEdit" name="klineedit_terminalInput"/>
+             <widget class="QLineEdit" name="lineedit_terminalInput"/>
             </item>
             <item>
              <widget class="QPushButton" name="pushbutton_terminalInputSuggestions">
@@ -553,7 +553,7 @@
           <item row="2" column="1">
            <layout class="QHBoxLayout" name="horizontalLayout_6">
             <item>
-             <widget class="KLineEdit" name="klineedit_terminalOutput"/>
+             <widget class="QLineEdit" name="lineedit_terminalOutput"/>
             </item>
             <item>
              <widget class="QPushButton" name="pushbutton_terminalOutputSuggestions">
@@ -581,7 +581,7 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="KLineEdit" name="klineedit_distributor"/>
+           <widget class="QLineEdit" name="lineedit_distributor"/>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_serial">
@@ -591,7 +591,7 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="KLineEdit" name="klineedit_serial"/>
+           <widget class="QLineEdit" name="lineedit_serial"/>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_initTune">
@@ -601,7 +601,7 @@
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="KLineEdit" name="klineedit_initTune"/>
+           <widget class="QLineEdit" name="lineedit_initTune"/>
           </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_uuid">
@@ -658,11 +658,6 @@
   </layout>
  </widget>
  <customwidgets>
-  <customwidget>
-   <class>KLineEdit</class>
-   <extends>QLineEdit</extends>
-   <header>klineedit.h</header>
-  </customwidget>
   <customwidget>
    <class>KUrlRequester</class>
    <extends>QFrame</extends>

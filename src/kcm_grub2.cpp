@@ -255,19 +255,19 @@ void KCMGRUB2::load()
     ui->pushbutton_preview->setEnabled(!grubBackground.isEmpty());
     ui->kurlrequester_theme->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_THEME"))));
 
-    ui->klineedit_cmdlineDefault->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_CMDLINE_LINUX_DEFAULT"))));
-    ui->klineedit_cmdline->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_CMDLINE_LINUX"))));
+    ui->lineedit_cmdlineDefault->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_CMDLINE_LINUX_DEFAULT"))));
+    ui->lineedit_cmdline->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_CMDLINE_LINUX"))));
 
     QString grubTerminal = unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL")));
-    ui->klineedit_terminal->setText(grubTerminal);
-    ui->klineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
-    ui->klineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
-    ui->klineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_INPUT"))));
-    ui->klineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_OUTPUT"))));
+    ui->lineedit_terminal->setText(grubTerminal);
+    ui->lineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
+    ui->lineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
+    ui->lineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_INPUT"))));
+    ui->lineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_OUTPUT"))));
 
-    ui->klineedit_distributor->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_DISTRIBUTOR"))));
-    ui->klineedit_serial->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_SERIAL_COMMAND"))));
-    ui->klineedit_initTune->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_INIT_TUNE"))));
+    ui->lineedit_distributor->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_DISTRIBUTOR"))));
+    ui->lineedit_serial->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_SERIAL_COMMAND"))));
+    ui->lineedit_initTune->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_INIT_TUNE"))));
     ui->checkBox_uuid->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_DISABLE_LINUX_UUID"))).compare(QLatin1String("true")) != 0);
 
     m_dirtyBits.fill(0);
@@ -394,7 +394,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubCmdlineLinuxDefaultDirty)) {
-        QString cmdlineLinuxDefault = ui->klineedit_cmdlineDefault->text();
+        QString cmdlineLinuxDefault = ui->lineedit_cmdlineDefault->text();
         if (!cmdlineLinuxDefault.isEmpty()) {
             m_settings[QLatin1String("GRUB_CMDLINE_LINUX_DEFAULT")] = quoteWord(cmdlineLinuxDefault);
         } else {
@@ -402,7 +402,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubCmdlineLinuxDirty)) {
-        QString cmdlineLinux = ui->klineedit_cmdline->text();
+        QString cmdlineLinux = ui->lineedit_cmdline->text();
         if (!cmdlineLinux.isEmpty()) {
             m_settings[QLatin1String("GRUB_CMDLINE_LINUX")] = quoteWord(cmdlineLinux);
         } else {
@@ -410,7 +410,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubTerminalDirty)) {
-        QString terminal = ui->klineedit_terminal->text();
+        QString terminal = ui->lineedit_terminal->text();
         if (!terminal.isEmpty()) {
             m_settings[QLatin1String("GRUB_TERMINAL")] = quoteWord(terminal);
         } else {
@@ -418,7 +418,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubTerminalInputDirty)) {
-        QString terminalInput = ui->klineedit_terminalInput->text();
+        QString terminalInput = ui->lineedit_terminalInput->text();
         if (!terminalInput.isEmpty()) {
             m_settings[QLatin1String("GRUB_TERMINAL_INPUT")] = quoteWord(terminalInput);
         } else {
@@ -426,7 +426,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubTerminalOutputDirty)) {
-        QString terminalOutput = ui->klineedit_terminalOutput->text();
+        QString terminalOutput = ui->lineedit_terminalOutput->text();
         if (!terminalOutput.isEmpty()) {
             m_settings[QLatin1String("GRUB_TERMINAL_OUTPUT")] = quoteWord(terminalOutput);
         } else {
@@ -434,7 +434,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubDistributorDirty)) {
-        QString distributor = ui->klineedit_distributor->text();
+        QString distributor = ui->lineedit_distributor->text();
         if (!distributor.isEmpty()) {
             m_settings[QLatin1String("GRUB_DISTRIBUTOR")] = quoteWord(distributor);
         } else {
@@ -442,7 +442,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubSerialCommandDirty)) {
-        QString serialCommand = ui->klineedit_serial->text();
+        QString serialCommand = ui->lineedit_serial->text();
         if (!serialCommand.isEmpty()) {
             m_settings[QLatin1String("GRUB_SERIAL_COMMAND")] = quoteWord(serialCommand);
         } else {
@@ -450,7 +450,7 @@ void KCMGRUB2::save()
         }
     }
     if (m_dirtyBits.testBit(grubInitTuneDirty)) {
-        QString initTune = ui->klineedit_initTune->text();
+        QString initTune = ui->lineedit_initTune->text();
         if (!initTune.isEmpty()) {
             m_settings[QLatin1String("GRUB_INIT_TUNE")] = quoteWord(initTune);
         } else {
@@ -697,11 +697,11 @@ void KCMGRUB2::slotGrubCmdlineLinuxChanged()
 }
 void KCMGRUB2::slotGrubTerminalChanged()
 {
-    QString grubTerminal = ui->klineedit_terminal->text();
-    ui->klineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
-    ui->klineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
-    ui->klineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_INPUT"))));
-    ui->klineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_OUTPUT"))));
+    QString grubTerminal = ui->lineedit_terminal->text();
+    ui->lineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
+    ui->lineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
+    ui->lineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_INPUT"))));
+    ui->lineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_OUTPUT"))));
     m_dirtyBits.setBit(grubTerminalDirty);
     Q_EMIT changed(true);
 }
@@ -748,17 +748,17 @@ void KCMGRUB2::slotUpdateSuggestions()
         return;
     }
 
-    KLineEdit *lineEdit = 0;
+    QLineEdit *lineEdit = nullptr;
     if (ui->pushbutton_cmdlineDefaultSuggestions->isDown()) {
-        lineEdit = ui->klineedit_cmdlineDefault;
+        lineEdit = ui->lineedit_cmdlineDefault;
     } else if (ui->pushbutton_cmdlineSuggestions->isDown()) {
-        lineEdit = ui->klineedit_cmdline;
+        lineEdit = ui->lineedit_cmdline;
     } else if (ui->pushbutton_terminalSuggestions->isDown()) {
-        lineEdit = ui->klineedit_terminal;
+        lineEdit = ui->lineedit_terminal;
     } else if (ui->pushbutton_terminalInputSuggestions->isDown()) {
-        lineEdit = ui->klineedit_terminalInput;
+        lineEdit = ui->lineedit_terminalInput;
     } else if (ui->pushbutton_terminalOutputSuggestions->isDown()) {
-        lineEdit = ui->klineedit_terminalOutput;
+        lineEdit = ui->lineedit_terminalOutput;
     } else {
         return;
     }
@@ -772,22 +772,22 @@ void KCMGRUB2::slotUpdateSuggestions()
 }
 void KCMGRUB2::slotTriggeredSuggestion(QAction *action)
 {
-    KLineEdit *lineEdit = 0;
+    QLineEdit *lineEdit = nullptr;
     void (KCMGRUB2::*updateFunction)() = 0;
     if (ui->pushbutton_cmdlineDefaultSuggestions->isDown()) {
-        lineEdit = ui->klineedit_cmdlineDefault;
+        lineEdit = ui->lineedit_cmdlineDefault;
         updateFunction = &KCMGRUB2::slotGrubCmdlineLinuxDefaultChanged;
     } else if (ui->pushbutton_cmdlineSuggestions->isDown()) {
-        lineEdit = ui->klineedit_cmdline;
+        lineEdit = ui->lineedit_cmdline;
         updateFunction = &KCMGRUB2::slotGrubCmdlineLinuxChanged;
     } else if (ui->pushbutton_terminalSuggestions->isDown()) {
-        lineEdit = ui->klineedit_terminal;
+        lineEdit = ui->lineedit_terminal;
         updateFunction = &KCMGRUB2::slotGrubTerminalChanged;
     } else if (ui->pushbutton_terminalInputSuggestions->isDown()) {
-        lineEdit = ui->klineedit_terminalInput;
+        lineEdit = ui->lineedit_terminalInput;
         updateFunction = &KCMGRUB2::slotGrubTerminalInputChanged;
     } else if (ui->pushbutton_terminalOutputSuggestions->isDown()) {
-        lineEdit = ui->klineedit_terminalOutput;
+        lineEdit = ui->lineedit_terminalOutput;
         updateFunction = &KCMGRUB2::slotGrubTerminalOutputChanged;
     } else {
         return;
@@ -956,26 +956,26 @@ void KCMGRUB2::setupConnections()
     connect(ui->pushbutton_create, SIGNAL(clicked(bool)), this, SLOT(slotCreateGrubBackground()));
     connect(ui->kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(slotGrubThemeChanged()));
 
-    connect(ui->klineedit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxDefaultChanged()));
+    connect(ui->lineedit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxDefaultChanged()));
     connect(ui->pushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
     connect(ui->pushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui->klineedit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxChanged()));
+    connect(ui->lineedit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxChanged()));
     connect(ui->pushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
     connect(ui->pushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
 
-    connect(ui->klineedit_terminal, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalChanged()));
+    connect(ui->lineedit_terminal, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalChanged()));
     connect(ui->pushbutton_terminalSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
     connect(ui->pushbutton_terminalSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui->klineedit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalInputChanged()));
+    connect(ui->lineedit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalInputChanged()));
     connect(ui->pushbutton_terminalInputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
     connect(ui->pushbutton_terminalInputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui->klineedit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalOutputChanged()));
+    connect(ui->lineedit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalOutputChanged()));
     connect(ui->pushbutton_terminalOutputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
     connect(ui->pushbutton_terminalOutputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
 
-    connect(ui->klineedit_distributor, SIGNAL(textEdited(QString)), this, SLOT(slotGrubDistributorChanged()));
-    connect(ui->klineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
-    connect(ui->klineedit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
+    connect(ui->lineedit_distributor, SIGNAL(textEdited(QString)), this, SLOT(slotGrubDistributorChanged()));
+    connect(ui->lineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
+    connect(ui->lineedit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
     connect(ui->checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableLinuxUuidChanged()));
 
     connect(ui->pushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
