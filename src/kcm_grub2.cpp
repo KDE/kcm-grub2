@@ -34,7 +34,6 @@
 //KDE
 #include <KLocalizedString>
 #include <KAboutData>
-#include <KInputDialog>
 #include <KMessageBox>
 #include <KPluginFactory>
 #include <KAuthAction>
@@ -51,6 +50,7 @@
 #if HAVE_QAPT || HAVE_QPACKAGEKIT
 #include "removeDlg.h"
 #endif
+#include "textinputdialog.h"
 
 //Ui
 #include "ui_kcm_grub2.h"
@@ -594,7 +594,7 @@ void KCMGRUB2::slotGrubGfxmodeChanged()
     if (ui->kcombobox_gfxmode->currentIndex() == 0) {
         bool ok;
         QRegExpValidator regExp(QRegExp(QLatin1String("\\d{3,4}x\\d{3,4}(x\\d{1,2})?")), this);
-        QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter screen resolution"), i18nc("@label:textbox", "Please enter a GRUB resolution:"), QString(), &ok, this, &regExp);
+        QString resolution = TextInputDialog::getText(this, i18nc("@title:window", "Enter screen resolution"), i18nc("@label:textbox", "Please enter a GRUB resolution:"), QString(), &regExp, &ok);
         if (ok) {
             if (!m_resolutions.contains(resolution)) {
                 QString gfxpayload = ui->kcombobox_gfxpayload->itemData(ui->kcombobox_gfxpayload->currentIndex()).toString();
@@ -616,7 +616,7 @@ void KCMGRUB2::slotGrubGfxpayloadLinuxChanged()
     if (ui->kcombobox_gfxpayload->currentIndex() == 0) {
         bool ok;
         QRegExpValidator regExp(QRegExp(QLatin1String("\\d{3,4}x\\d{3,4}(x\\d{1,2})?")), this);
-        QString resolution = KInputDialog::getText(i18nc("@title:window", "Enter screen resolution"), i18nc("@label:textbox", "Please enter a Linux boot resolution:"), QString(), &ok, this, &regExp);
+        QString resolution = TextInputDialog::getText(this, i18nc("@title:window", "Enter screen resolution"), i18nc("@label:textbox", "Please enter a Linux boot resolution:"), QString(), &regExp, &ok);
         if (ok) {
             if (!m_resolutions.contains(resolution)) {
                 QString gfxmode = ui->kcombobox_gfxmode->itemData(ui->kcombobox_gfxmode->currentIndex()).toString();
