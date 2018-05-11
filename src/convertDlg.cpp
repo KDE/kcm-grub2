@@ -25,7 +25,6 @@
 //KDE
 #include <KMessageBox>
 #include <KLocalizedString>
-#include <KUrl>
 
 //ImageMagick
 #include <Magick++.h>
@@ -93,7 +92,7 @@ void ConvertDialog::slotAccepted()
     } else if (ui->spinBox_width->value() == 0 || ui->spinBox_height->value() == 0) {
         KMessageBox::information(this, i18nc("@info", "Please fill in both <interface>Width</interface> and <interface>Height</interface> fields."));
         return;
-    } else if (!QFileInfo(KUrl(ui->kurlrequester_converted->url()).directory()).isWritable()) {
+    } else if (!QFileInfo(QFileInfo(ui->kurlrequester_converted->url().toLocalFile()).path()).isWritable()) {
         KMessageBox::information(this, i18nc("@info", "You do not have write permissions in this directory, please select another destination."));
         return;
     }
