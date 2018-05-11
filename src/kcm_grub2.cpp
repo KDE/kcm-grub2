@@ -22,6 +22,7 @@
 #include "kcm_grub2.h"
 
 //Qt
+#include <QDebug>
 #include <QDesktopWidget>
 #include <QStandardItemModel>
 #include <QTreeView>
@@ -33,7 +34,6 @@
 //KDE
 #include <KLocalizedString>
 #include <KAboutData>
-#include <KDebug>
 #include <KInputDialog>
 #include <KMessageBox>
 #include <KPluginFactory>
@@ -160,7 +160,7 @@ void KCMGRUB2::load()
                 ui->kcombobox_default->setRootModelIndex(model->indexFromItem(model->invisibleRootItem()));
             }
         } else {
-            kWarning() << "Invalid GRUB_DEFAULT value";
+            qWarning() << "Invalid GRUB_DEFAULT value";
         }
     }
     ui->pushbutton_remove->setEnabled(!m_entries.isEmpty());
@@ -177,7 +177,7 @@ void KCMGRUB2::load()
             ui->spinBox_hiddenTimeout->setValue(grubHiddenTimeout);
             ui->checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_HIDDEN_TIMEOUT_QUIET"))).compare(QLatin1String("true")) != 0);
         } else {
-            kWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
+            qWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
         }
     }
     int grubTimeout = (m_settings.value(QLatin1String("GRUB_TIMEOUT")).isEmpty() ? 5 : unquoteWord(m_settings.value(QLatin1String("GRUB_TIMEOUT"))).toInt(&ok));
@@ -187,7 +187,7 @@ void KCMGRUB2::load()
         ui->radioButton_timeout->setChecked(grubTimeout > 0);
         ui->spinBox_timeout->setValue(grubTimeout);
     } else {
-        kWarning() << "Invalid GRUB_TIMEOUT value";
+        qWarning() << "Invalid GRUB_TIMEOUT value";
     }
 
     showLocales();
@@ -195,7 +195,7 @@ void KCMGRUB2::load()
     if (languageIndex != -1) {
         ui->kcombobox_language->setCurrentIndex(languageIndex);
     } else {
-        kWarning() << "Invalid LANGUAGE value";
+        qWarning() << "Invalid LANGUAGE value";
     }
     ui->checkBox_recovery->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_DISABLE_RECOVERY"))).compare(QLatin1String("true")) != 0);
     ui->checkBox_memtest->setVisible(m_memtest);
@@ -226,7 +226,7 @@ void KCMGRUB2::load()
         int normalForegroundIndex = ui->kcombobox_normalForeground->findData(grubColorNormal.section(QLatin1Char('/'), 0, 0));
         int normalBackgroundIndex = ui->kcombobox_normalBackground->findData(grubColorNormal.section(QLatin1Char('/'), 1));
         if (normalForegroundIndex == -1 || normalBackgroundIndex == -1) {
-            kWarning() << "Invalid GRUB_COLOR_NORMAL value";
+            qWarning() << "Invalid GRUB_COLOR_NORMAL value";
         }
         if (normalForegroundIndex != -1) {
             ui->kcombobox_normalForeground->setCurrentIndex(normalForegroundIndex);
@@ -240,7 +240,7 @@ void KCMGRUB2::load()
         int highlightForegroundIndex = ui->kcombobox_highlightForeground->findData(grubColorHighlight.section(QLatin1Char('/'), 0, 0));
         int highlightBackgroundIndex = ui->kcombobox_highlightBackground->findData(grubColorHighlight.section(QLatin1Char('/'), 1));
         if (highlightForegroundIndex == -1 || highlightBackgroundIndex == -1) {
-            kWarning() << "Invalid GRUB_COLOR_HIGHLIGHT value";
+            qWarning() << "Invalid GRUB_COLOR_HIGHLIGHT value";
         }
         if (highlightForegroundIndex != -1) {
             ui->kcombobox_highlightForeground->setCurrentIndex(highlightForegroundIndex);
@@ -345,14 +345,14 @@ void KCMGRUB2::save()
     }
     if (m_dirtyBits.testBit(grubGfxmodeDirty)) {
         if (ui->kcombobox_gfxmode->currentIndex() <= 0) {
-            kError() << "Something went terribly wrong!";
+            qCritical() << "Something went terribly wrong!";
         } else {
             m_settings[QLatin1String("GRUB_GFXMODE")] = quoteWord(ui->kcombobox_gfxmode->itemData(ui->kcombobox_gfxmode->currentIndex()).toString());
         }
     }
     if (m_dirtyBits.testBit(grubGfxpayloadLinuxDirty)) {
         if (ui->kcombobox_gfxpayload->currentIndex() <= 0) {
-            kError() << "Something went terribly wrong!";
+            qCritical() << "Something went terribly wrong!";
         } else if (ui->kcombobox_gfxpayload->currentIndex() == 1) {
             m_settings.remove(QLatin1String("GRUB_GFXPAYLOAD_LINUX"));
         } else if (ui->kcombobox_gfxpayload->currentIndex() > 1) {
@@ -985,10 +985,10 @@ bool KCMGRUB2::readFile(const QString &fileName, QByteArray &fileContents)
 {
     QFile file(fileName);
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        kDebug() << "Failed to open file for reading:" << fileName;
-        kDebug() << "Error code:" << file.error();
-        kDebug() << "Error description:" << file.errorString();
-        kDebug() << "The helper will now attempt to read this file.";
+        qDebug() << "Failed to open file for reading:" << fileName;
+        qDebug() << "Error code:" << file.error();
+        qDebug() << "Error description:" << file.errorString();
+        qDebug() << "The helper will now attempt to read this file.";
         return false;
     }
     fileContents = file.readAll();
@@ -1040,9 +1040,9 @@ void KCMGRUB2::readAll()
 
         KAuth::ExecuteJob *loadJob = loadAction.execute();
         if (!loadJob->exec()) {
-            kError() << "KAuth error!";
-            kError() << "Error code:" << loadJob->error();
-            kError() << "Error description:" << loadJob->errorText();
+            qCritical() << "KAuth error!";
+            qCritical() << "Error code:" << loadJob->error();
+            qCritical() << "Error description:" << loadJob->errorText();
             return;
         }
 
@@ -1050,27 +1050,27 @@ void KCMGRUB2::readAll()
             if (loadJob->data().value(QLatin1String("menuSuccess")).toBool()) {
                 parseEntries(QString::fromUtf8(loadJob->data().value(QLatin1String("menuContents")).toByteArray().constData()));
             } else {
-                kError() << "Helper failed to read file:" << grubMenuPath();
-                kError() << "Error code:" << loadJob->data().value(QLatin1String("menuError")).toInt();
-                kError() << "Error description:" << loadJob->data().value(QLatin1String("menuErrorString")).toString();
+                qCritical() << "Helper failed to read file:" << grubMenuPath();
+                qCritical() << "Error code:" << loadJob->data().value(QLatin1String("menuError")).toInt();
+                qCritical() << "Error description:" << loadJob->data().value(QLatin1String("menuErrorString")).toString();
             }
         }
         if (operations.testFlag(ConfigurationFile)) {
             if (loadJob->data().value(QLatin1String("configSuccess")).toBool()) {
                 parseSettings(QString::fromUtf8(loadJob->data().value(QLatin1String("configContents")).toByteArray().constData()));
             } else {
-                kError() << "Helper failed to read file:" << grubConfigPath();
-                kError() << "Error code:" << loadJob->data().value(QLatin1String("configError")).toInt();
-                kError() << "Error description:" << loadJob->data().value(QLatin1String("configErrorString")).toString();
+                qCritical() << "Helper failed to read file:" << grubConfigPath();
+                qCritical() << "Error code:" << loadJob->data().value(QLatin1String("configError")).toInt();
+                qCritical() << "Error description:" << loadJob->data().value(QLatin1String("configErrorString")).toString();
             }
         }
         if (operations.testFlag(EnvironmentFile)) {
             if (loadJob->data().value(QLatin1String("envSuccess")).toBool()) {
                 parseEnv(QString::fromUtf8(loadJob->data().value(QLatin1String("envContents")).toByteArray().constData()));
             } else {
-                kError() << "Helper failed to read file:" << grubEnvPath();
-                kError() << "Error code:" << loadJob->data().value(QLatin1String("envError")).toInt();
-                kError() << "Error description:" << loadJob->data().value(QLatin1String("envErrorString")).toString();
+                qCritical() << "Helper failed to read file:" << grubEnvPath();
+                qCritical() << "Error code:" << loadJob->data().value(QLatin1String("envError")).toInt();
+                qCritical() << "Error description:" << loadJob->data().value(QLatin1String("envErrorString")).toString();
             }
         }
         if (operations.testFlag(MemtestFile)) {
@@ -1209,8 +1209,8 @@ void KCMGRUB2::parseEntries(const QString &config)
         //If the first word is known, process the rest of the line
         if (word == QLatin1String("menuentry")) {
             if (inEntry) {
-                kError() << "Malformed configuration file! Aborting entries' parsing.";
-                kDebug() << "A 'menuentry' directive was detected inside the scope of a menuentry.";
+                qCritical() << "Malformed configuration file! Aborting entries' parsing.";
+                qDebug() << "A 'menuentry' directive was detected inside the scope of a menuentry.";
                 m_entries.clear();
                 return;
             }
@@ -1224,8 +1224,8 @@ void KCMGRUB2::parseEntries(const QString &config)
             continue;
         } else if (word == QLatin1String("submenu")) {
             if (inEntry) {
-                kError() << "Malformed configuration file! Aborting entries' parsing.";
-                kDebug() << "A 'submenu' directive was detected inside the scope of a menuentry.";
+                qCritical() << "Malformed configuration file! Aborting entries' parsing.";
+                qDebug() << "A 'submenu' directive was detected inside the scope of a menuentry.";
                 m_entries.clear();
                 return;
             }
@@ -1241,8 +1241,8 @@ void KCMGRUB2::parseEntries(const QString &config)
             continue;
         } else if (word == QLatin1String("linux")) {
             if (!inEntry) {
-                kError() << "Malformed configuration file! Aborting entries' parsing.";
-                kDebug() << "A 'linux' directive was detected outside the scope of a menuentry.";
+                qCritical() << "Malformed configuration file! Aborting entries' parsing.";
+                qDebug() << "A 'linux' directive was detected outside the scope of a menuentry.";
                 m_entries.clear();
                 return;
             }

@@ -22,10 +22,10 @@
 #include "helper.h"
 
 //Qt
+#include <QDebug>
 #include <QDir>
 
 //KDE
-#include <KDebug>
 #include <KLocale>
 #include <KProcess>
 #include <KAuth/HelperSupport>
@@ -53,7 +53,7 @@ ActionReply Helper::executeCommand(const QStringList &command)
     process.setProgram(command);
     process.setOutputChannelMode(KProcess::MergedChannels);
 
-    kDebug() << "Executing" << command.join(QLatin1String(" "));
+    qDebug() << "Executing" << command.join(QLatin1String(" "));
     int exitCode = process.execute();
     const QByteArray output = process.readAll();
 
@@ -84,24 +84,24 @@ bool Helper::setLang(const QString &lang)
 {
     QFile file(grubMenuPath());
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
-        kError() << "Failed to open file for reading:" << grubMenuPath();
-        kError() << "Error code:" << file.error();
-        kError() << "Error description:" << file.errorString();
+        qCritical() << "Failed to open file for reading:" << grubMenuPath();
+        qCritical() << "Error code:" << file.error();
+        qCritical() << "Error description:" << file.errorString();
         return false;
     }
     QString fileContents = QString::fromUtf8(file.readAll().constData());
     file.close();
     if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        kError() << "Failed to open file for writing:" << grubMenuPath();
-        kError() << "Error code:" << file.error();
-        kError() << "Error description:" << file.errorString();
+        qCritical() << "Failed to open file for writing:" << grubMenuPath();
+        qCritical() << "Error code:" << file.error();
+        qCritical() << "Error description:" << file.errorString();
         return false;
     }
     fileContents.replace(QRegExp(QLatin1String("(\\n\\s*set\\s+lang=)\\S*\\n")), QString(QLatin1String("\\1%1\n")).arg(lang));
     if (file.write(fileContents.toUtf8()) == -1) {
-        kError() << "Failed to write data to file:" << grubMenuPath();
-        kError() << "Error code:" << file.error();
-        kError() << "Error description:" << file.errorString();
+        qCritical() << "Failed to write data to file:" << grubMenuPath();
+        qCritical() << "Error code:" << file.error();
+        qCritical() << "Error description:" << file.errorString();
         return false;
     }
     file.close();
@@ -270,8 +270,8 @@ ActionReply Helper::save(QVariantMap args)
     }
     if (args.contains(QLatin1String("LANGUAGE"))) {
         if (!setLang(args.value(QLatin1String("LANGUAGE")).toString())) {
-            kError() << "An error occured while setting the language for the GRUB menu.";
-            kError() << "The GRUB menu will not be properly translated!";
+            qCritical() << "An error occured while setting the language for the GRUB menu.";
+            qCritical() << "The GRUB menu will not be properly translated!";
         }
     }
 
