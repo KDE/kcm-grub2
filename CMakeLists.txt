@@ -65,12 +65,12 @@ else()
     set(HAVE_QAPT 0)
 endif()
 
-find_package(QPackageKit)
-set_package_properties(QPackageKit PROPERTIES
+find_package(PackageKitQt5)
+set_package_properties(PackageKitQt5 PROPERTIES
                        DESCRIPTION "Remove unneeded old entries (qpackagekit backend)"
                        URL "http://www.packagekit.org/"
                        TYPE OPTIONAL)
-if(QPACKAGEKIT_FOUND)
+if(PackageKitQt5_FOUND)
     set(HAVE_QPACKAGEKIT 1)
 else()
     set(HAVE_QPACKAGEKIT 0)

@@ -8,8 +8,6 @@ if(HAVE_IMAGEMAGICK)
 endif(HAVE_IMAGEMAGICK)
 if(HAVE_QAPT)
     set(kcm_grub2_INCLUDE_DIRS ${kcm_grub2_INCLUDE_DIRS} ${QAPT_INCLUDE_DIR})
-elseif(HAVE_QPACKAGEKIT)
-    set(kcm_grub2_INCLUDE_DIRS ${kcm_grub2_INCLUDE_DIRS} ${QPACKAGEKIT_INCLUDE_DIR})
 endif(HAVE_QAPT)
 
 # Set Sources
@@ -40,7 +38,7 @@ endif(HAVE_IMAGEMAGICK)
 if(HAVE_QAPT)
     set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} ${QAPT_LIBRARY})
 elseif(HAVE_QPACKAGEKIT)
-    set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} ${QPACKAGEKIT_LIB})
+    set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} ${PackageKitQt5_LIBRARIES})
 endif(HAVE_QAPT)
 
 # Definitions
