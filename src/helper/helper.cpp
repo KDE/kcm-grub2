@@ -258,7 +258,7 @@ ActionReply Helper::save(QVariantMap args)
     }
     if (args.contains(QLatin1String("LANGUAGE"))) {
         if (!setLang(args.value(QLatin1String("LANGUAGE")).toString())) {
-            kError() << "An error occured while setting the language for the GRUB menu.";
+            kError() << "An error occurred while setting the language for the GRUB menu.";
             kError() << "The GRUB menu will not be properly translated!";
         }
     }

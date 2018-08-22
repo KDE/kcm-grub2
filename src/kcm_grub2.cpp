@@ -281,7 +281,7 @@ void KCMGRUB2::save()
         //Ugly, ugly hack. The view's current QModelIndex is invalidated
         //while the view is hidden and there is no access to the internal
         //QPersistentModelIndex (it is hidden in QComboBox's pimpl).
-        //While the popup is shown, the QComboBox selects the corrent entry.
+        //While the popup is shown, the QComboBox selects the current entry.
         //TODO: Maybe move away from the QComboBox+QTreeView implementation?
         ui->kcombobox_default->showPopup();
         grubDefault = model->itemFromIndex(view->currentIndex())->data().toString();
