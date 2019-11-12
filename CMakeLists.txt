@@ -57,7 +57,7 @@ endif()
 find_package(QApt 3.0.0)
 set_package_properties(QApt PROPERTIES
                        DESCRIPTION "Remove unneeded old entries (qapt backend)"
-                       URL "https://projects.kde.org/projects/extragear/sysadmin/libqapt/"
+                       URL "https://commits.kde.org/libqapt"
                        TYPE OPTIONAL)
 if(QApt_FOUND)
     set(HAVE_QAPT 1)
