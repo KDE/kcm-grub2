@@ -45,9 +45,9 @@ public:
     explicit KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
     virtual ~KCMGRUB2();
 
-    virtual void defaults();
-    virtual void load();
-    virtual void save();
+    void defaults() override;
+    void load() override;
+    void save() override;
 private Q_SLOTS:
     void slotRemoveOldEntries();
     void slotGrubSavedefaultChanged();
