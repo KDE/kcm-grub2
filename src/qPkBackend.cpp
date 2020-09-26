@@ -136,6 +136,10 @@ static QString statusToString(PackageKit::Transaction::Status status)
     case PackageKit::Transaction::StatusCopyFiles:
         return i18nc("we are copying package files to prepare to install",
                      "Copying files");
+    case PackageKit::Transaction::StatusRunHook:
+		return i18n("Running install hooks");
+    case PackageKit::Transaction::StatusUnknown:
+        return QString();
     }
     return QString();
 }
