@@ -51,7 +51,7 @@ ConvertDialog::ConvertDialog(QWidget *parent) : QDialog(parent)
     QString readFilter;
     QList<Magick::CoderInfo> coderList;
     coderInfoList(&coderList, Magick::CoderInfo::TrueMatch, Magick::CoderInfo::AnyMatch, Magick::CoderInfo::AnyMatch);
-    Q_FOREACH(const Magick::CoderInfo &coder, coderList) {
+    for (const Magick::CoderInfo &coder : qAsConst(coderList)) {
         readFilter.append(QStringLiteral(" *.%1").arg(QString::fromStdString(coder.name()).toLower()));
     }
     readFilter.remove(0, 1);

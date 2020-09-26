@@ -182,8 +182,8 @@ void RemoveDialog::detectCurrentKernelImage()
         return;
     }
 
-    QTextStream stream(&file);
-    Q_FOREACH(const QString &argument, stream.readAll().split(QRegExp(QLatin1String("\\s+")))) {
+    const QStringList args = QTextStream(&file).readAll().split(QRegExp(QLatin1String("\\s+")));
+    for (const QString &argument : args) {
         if (argument.startsWith(QLatin1String("BOOT_IMAGE"))) {
             m_currentKernelImage = argument.section(QLatin1Char('='), 1);
             return;

@@ -762,7 +762,8 @@ void KCMGRUB2::slotUpdateSuggestions()
         return;
     }
 
-    Q_FOREACH(QAction *action, qobject_cast<const QWidget*>(sender())->actions()) {
+    const auto actions = qobject_cast<const QWidget*>(sender())->actions();
+    for (QAction *action : actions) {
         if (!action->isCheckable()) {
             action->setCheckable(true);
         }
@@ -1082,7 +1083,7 @@ void KCMGRUB2::showLocales()
     ui->combobox_language->clear();
     ui->combobox_language->addItem(i18nc("@item:inlistbox", "No translation"), QString());
 
-    Q_FOREACH(const QString &locale, m_locales) {
+    for (const QString &locale : qAsConst(m_locales)) {
         QString language = QLocale(locale).nativeLanguageName();
         if (language.isEmpty()) {
             language = QLocale(locale.split(QLatin1Char('@')).first()).nativeLanguageName();
@@ -1129,7 +1130,7 @@ void KCMGRUB2::showResolutions()
     ui->combobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Boot in Text Mode"), QLatin1String("text"));
     ui->combobox_gfxpayload->addItem(i18nc("@item:inlistbox", "Keep GRUB's Resolution"), QLatin1String("keep"));
 
-    Q_FOREACH(const QString &resolution, m_resolutions) {
+    for (const QString &resolution : qAsConst(m_resolutions)) {
         ui->combobox_gfxmode->addItem(resolution, resolution);
         ui->combobox_gfxpayload->addItem(resolution, resolution);
     }

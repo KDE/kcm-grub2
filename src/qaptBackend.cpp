@@ -36,7 +36,8 @@ QStringList QAptBackend::ownerPackage(const QString &fileName)
 }
 void QAptBackend::markForRemoval(const QString &packageName)
 {
-    Q_FOREACH(const QApt::Package *package, m_backend->markedPackages()) {
+    const auto markedPackages = m_backend->markedPackages();
+    for (const QApt::Package *package : markedPackages) {
         if (packageName.compare(package->name()) == 0) {
             return;
         }
@@ -49,7 +50,8 @@ void QAptBackend::markForRemoval(const QString &packageName)
 QStringList QAptBackend::markedForRemoval() const
 {
     QStringList marked;
-    Q_FOREACH(const QApt::Package *package, m_backend->markedPackages()) {
+    const auto markedPackages = m_backend->markedPackages();
+    for (const QApt::Package *package : markedPackages) {
         marked.append(package->name());
     }
     return marked;
