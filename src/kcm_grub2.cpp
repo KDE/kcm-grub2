@@ -470,7 +470,7 @@ void KCMGRUB2::save()
     QHash<QString, QString>::const_iterator it = m_settings.constBegin();
     QHash<QString, QString>::const_iterator end = m_settings.constEnd();
     for (; it != end; ++it) {
-        stream << it.key() << '=' << it.value() << endl;
+        stream << it.key() << '=' << it.value() << Qt::endl;
     }
 
     Action saveAction(QStringLiteral("org.kde.kcontrol.kcmgrub2.save"));
