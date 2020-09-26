@@ -58,11 +58,11 @@ ConvertDialog::ConvertDialog(QWidget *parent) : QDialog(parent)
     readFilter.append(QLatin1Char('|')).append(i18nc("@item:inlistbox", "ImageMagick supported image formats"));
 
     QMimeDatabase db;
-    QString writeFilter = QStringLiteral("*%1|%5 (%1)\n*%2|%6 (%2)\n*%3 *%4|%7 (%3 %4)")
-                          .arg(QLatin1String(".png"), QLatin1String(".tga"), QLatin1String(".jpg"), QLatin1String(".jpeg"),
-                               db.mimeTypeForName(QStringLiteral("image/png")).comment(),
-                               db.mimeTypeForName(QStringLiteral("image/x-tga")).comment(),
-                               db.mimeTypeForName(QStringLiteral("image/jpeg")).comment());
+    const QString writeFilter = QStringLiteral("*%1|%5 (%1)\n*%2|%6 (%2)\n*%3 *%4|%7 (%3 %4)")
+                                .arg(QLatin1String(".png"), QLatin1String(".tga"), QLatin1String(".jpg"), QLatin1String(".jpeg"),
+                                    db.mimeTypeForName(QStringLiteral("image/png")).comment(),
+                                    db.mimeTypeForName(QStringLiteral("image/x-tga")).comment(),
+                                    db.mimeTypeForName(QStringLiteral("image/jpeg")).comment());
 
     ui->kurlrequester_image->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
     ui->kurlrequester_image->setAcceptMode(QFileDialog::AcceptOpen);
