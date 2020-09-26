@@ -80,8 +80,8 @@ KCMGRUB2::~KCMGRUB2()
 
 void KCMGRUB2::defaults()
 {
-    Action defaultsAction(QLatin1String("org.kde.kcontrol.kcmgrub2.defaults"));
-    defaultsAction.setHelperId(QLatin1String("org.kde.kcontrol.kcmgrub2"));
+    Action defaultsAction(QStringLiteral("org.kde.kcontrol.kcmgrub2.defaults"));
+    defaultsAction.setHelperId(QStringLiteral("org.kde.kcontrol.kcmgrub2"));
     defaultsAction.setParentWidget(this);
 
     KAuth::ExecuteJob *defaultsJob = defaultsAction.execute();
@@ -97,9 +97,9 @@ void KCMGRUB2::load()
 {
     readAll();
 
-    QString grubDefault = unquoteWord(m_settings.value(QLatin1String("GRUB_DEFAULT")));
+    QString grubDefault = unquoteWord(m_settings.value(QStringLiteral("GRUB_DEFAULT")));
     if (grubDefault == QLatin1String("saved")) {
-        grubDefault = (m_env.value(QLatin1String("saved_entry")).isEmpty() ? QString(QLatin1Char('0')) : m_env.value(QLatin1String("saved_entry")));
+        grubDefault = (m_env.value(QStringLiteral("saved_entry")).isEmpty() ? QString(QLatin1Char('0')) : m_env.value(QStringLiteral("saved_entry")));
     }
 
     ui->combobox_default->clear();
@@ -164,10 +164,10 @@ void KCMGRUB2::load()
         }
     }
     ui->pushbutton_remove->setEnabled(!m_entries.isEmpty());
-    ui->checkBox_savedefault->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_SAVEDEFAULT"))).compare(QLatin1String("true")) == 0);
+    ui->checkBox_savedefault->setChecked(unquoteWord(m_settings.value(QStringLiteral("GRUB_SAVEDEFAULT"))).compare(QLatin1String("true")) == 0);
 
     bool ok;
-    QString grubHiddenTimeoutRaw = unquoteWord(m_settings.value(QLatin1String("GRUB_HIDDEN_TIMEOUT")));
+    QString grubHiddenTimeoutRaw = unquoteWord(m_settings.value(QStringLiteral("GRUB_HIDDEN_TIMEOUT")));
     if (grubHiddenTimeoutRaw.isEmpty()) {
         ui->checkBox_hiddenTimeout->setChecked(false);
     } else {
@@ -175,12 +175,12 @@ void KCMGRUB2::load()
         if (ok && grubHiddenTimeout >= 0) {
             ui->checkBox_hiddenTimeout->setChecked(true);
             ui->spinBox_hiddenTimeout->setValue(grubHiddenTimeout);
-            ui->checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_HIDDEN_TIMEOUT_QUIET"))).compare(QLatin1String("true")) != 0);
+            ui->checkBox_hiddenTimeoutShowTimer->setChecked(unquoteWord(m_settings.value(QStringLiteral("GRUB_HIDDEN_TIMEOUT_QUIET"))).compare(QLatin1String("true")) != 0);
         } else {
             qWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
         }
     }
-    int grubTimeout = (m_settings.value(QLatin1String("GRUB_TIMEOUT")).isEmpty() ? 5 : unquoteWord(m_settings.value(QLatin1String("GRUB_TIMEOUT"))).toInt(&ok));
+    int grubTimeout = (m_settings.value(QStringLiteral("GRUB_TIMEOUT")).isEmpty() ? 5 : unquoteWord(m_settings.value(QStringLiteral("GRUB_TIMEOUT"))).toInt(&ok));
     if (ok && grubTimeout >= -1) {
         ui->checkBox_timeout->setChecked(grubTimeout > -1);
         ui->radioButton_timeout0->setChecked(grubTimeout == 0);
@@ -191,25 +191,25 @@ void KCMGRUB2::load()
     }
 
     showLocales();
-    int languageIndex = ui->combobox_language->findData(unquoteWord(m_settings.value(QLatin1String("LANGUAGE"))));
+    int languageIndex = ui->combobox_language->findData(unquoteWord(m_settings.value(QStringLiteral("LANGUAGE"))));
     if (languageIndex != -1) {
         ui->combobox_language->setCurrentIndex(languageIndex);
     } else {
         qWarning() << "Invalid LANGUAGE value";
     }
-    ui->checkBox_recovery->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_DISABLE_RECOVERY"))).compare(QLatin1String("true")) != 0);
+    ui->checkBox_recovery->setChecked(unquoteWord(m_settings.value(QStringLiteral("GRUB_DISABLE_RECOVERY"))).compare(QLatin1String("true")) != 0);
     ui->checkBox_memtest->setVisible(m_memtest);
     ui->checkBox_memtest->setChecked(m_memtestOn);
-    ui->checkBox_osProber->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_DISABLE_OS_PROBER"))).compare(QLatin1String("true")) != 0);
+    ui->checkBox_osProber->setChecked(unquoteWord(m_settings.value(QStringLiteral("GRUB_DISABLE_OS_PROBER"))).compare(QLatin1String("true")) != 0);
 
-    QString grubGfxmode = unquoteWord(m_settings.value(QLatin1String("GRUB_GFXMODE")));
+    QString grubGfxmode = unquoteWord(m_settings.value(QStringLiteral("GRUB_GFXMODE")));
     if (grubGfxmode.isEmpty()) {
-        grubGfxmode = QLatin1String("auto");
+        grubGfxmode = QStringLiteral("auto");
     }
     if (grubGfxmode != QLatin1String("auto") && !m_resolutions.contains(grubGfxmode)) {
         m_resolutions.append(grubGfxmode);
     }
-    QString grubGfxpayloadLinux = unquoteWord(m_settings.value(QLatin1String("GRUB_GFXPAYLOAD_LINUX")));
+    QString grubGfxpayloadLinux = unquoteWord(m_settings.value(QStringLiteral("GRUB_GFXPAYLOAD_LINUX")));
     if (!grubGfxpayloadLinux.isEmpty() && grubGfxpayloadLinux != QLatin1String("text") && grubGfxpayloadLinux != QLatin1String("keep") && !m_resolutions.contains(grubGfxpayloadLinux)) {
         m_resolutions.append(grubGfxpayloadLinux);
     }
@@ -221,7 +221,7 @@ void KCMGRUB2::load()
     ui->combobox_gfxpayload->setCurrentIndex(ui->combobox_gfxpayload->findData(grubGfxpayloadLinux));
     ui->toolButton_refreshGfxpayload->setVisible(HAVE_HD && m_resolutionsEmpty);
 
-    QString grubColorNormal = unquoteWord(m_settings.value(QLatin1String("GRUB_COLOR_NORMAL")));
+    QString grubColorNormal = unquoteWord(m_settings.value(QStringLiteral("GRUB_COLOR_NORMAL")));
     if (!grubColorNormal.isEmpty()) {
         int normalForegroundIndex = ui->combobox_normalForeground->findData(grubColorNormal.section(QLatin1Char('/'), 0, 0));
         int normalBackgroundIndex = ui->combobox_normalBackground->findData(grubColorNormal.section(QLatin1Char('/'), 1));
@@ -235,7 +235,7 @@ void KCMGRUB2::load()
             ui->combobox_normalBackground->setCurrentIndex(normalBackgroundIndex);
         }
     }
-    QString grubColorHighlight = unquoteWord(m_settings.value(QLatin1String("GRUB_COLOR_HIGHLIGHT")));
+    QString grubColorHighlight = unquoteWord(m_settings.value(QStringLiteral("GRUB_COLOR_HIGHLIGHT")));
     if (!grubColorHighlight.isEmpty()) {
         int highlightForegroundIndex = ui->combobox_highlightForeground->findData(grubColorHighlight.section(QLatin1Char('/'), 0, 0));
         int highlightBackgroundIndex = ui->combobox_highlightBackground->findData(grubColorHighlight.section(QLatin1Char('/'), 1));
@@ -250,25 +250,25 @@ void KCMGRUB2::load()
         }
     }
 
-    QString grubBackground = unquoteWord(m_settings.value(QLatin1String("GRUB_BACKGROUND")));
+    QString grubBackground = unquoteWord(m_settings.value(QStringLiteral("GRUB_BACKGROUND")));
     ui->kurlrequester_background->setText(grubBackground);
     ui->pushbutton_preview->setEnabled(!grubBackground.isEmpty());
-    ui->kurlrequester_theme->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_THEME"))));
+    ui->kurlrequester_theme->setText(unquoteWord(m_settings.value(QStringLiteral("GRUB_THEME"))));
 
-    ui->lineedit_cmdlineDefault->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_CMDLINE_LINUX_DEFAULT"))));
-    ui->lineedit_cmdline->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_CMDLINE_LINUX"))));
+    ui->lineedit_cmdlineDefault->setText(unquoteWord(m_settings.value(QStringLiteral("GRUB_CMDLINE_LINUX_DEFAULT"))));
+    ui->lineedit_cmdline->setText(unquoteWord(m_settings.value(QStringLiteral("GRUB_CMDLINE_LINUX"))));
 
-    QString grubTerminal = unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL")));
+    QString grubTerminal = unquoteWord(m_settings.value(QStringLiteral("GRUB_TERMINAL")));
     ui->lineedit_terminal->setText(grubTerminal);
     ui->lineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
     ui->lineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
-    ui->lineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_INPUT"))));
-    ui->lineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_OUTPUT"))));
+    ui->lineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QStringLiteral("GRUB_TERMINAL_INPUT"))));
+    ui->lineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QStringLiteral("GRUB_TERMINAL_OUTPUT"))));
 
-    ui->lineedit_distributor->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_DISTRIBUTOR"))));
-    ui->lineedit_serial->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_SERIAL_COMMAND"))));
-    ui->lineedit_initTune->setText(unquoteWord(m_settings.value(QLatin1String("GRUB_INIT_TUNE"))));
-    ui->checkBox_uuid->setChecked(unquoteWord(m_settings.value(QLatin1String("GRUB_DISABLE_LINUX_UUID"))).compare(QLatin1String("true")) != 0);
+    ui->lineedit_distributor->setText(unquoteWord(m_settings.value(QStringLiteral("GRUB_DISTRIBUTOR"))));
+    ui->lineedit_serial->setText(unquoteWord(m_settings.value(QStringLiteral("GRUB_SERIAL_COMMAND"))));
+    ui->lineedit_initTune->setText(unquoteWord(m_settings.value(QStringLiteral("GRUB_INIT_TUNE"))));
+    ui->checkBox_uuid->setChecked(unquoteWord(m_settings.value(QStringLiteral("GRUB_DISABLE_LINUX_UUID"))).compare(QLatin1String("true")) != 0);
 
     m_dirtyBits.fill(0);
     Q_EMIT changed(false);
@@ -277,7 +277,7 @@ void KCMGRUB2::save()
 {
     QString grubDefault;
     if (!m_entries.isEmpty()) {
-        m_settings[QLatin1String("GRUB_DEFAULT")] = QLatin1String("saved");
+        m_settings[QStringLiteral("GRUB_DEFAULT")] = QStringLiteral("saved");
         QStandardItemModel *model = qobject_cast<QStandardItemModel *>(ui->combobox_default->model());
         QTreeView *view = qobject_cast<QTreeView *>(ui->combobox_default->view());
         //Ugly, ugly hack. The view's current QModelIndex is invalidated
@@ -291,177 +291,177 @@ void KCMGRUB2::save()
     }
     if (m_dirtyBits.testBit(grubSavedefaultDirty)) {
         if (ui->checkBox_savedefault->isChecked()) {
-            m_settings[QLatin1String("GRUB_SAVEDEFAULT")] = QLatin1String("true");
+            m_settings[QStringLiteral("GRUB_SAVEDEFAULT")] = QStringLiteral("true");
         } else {
-            m_settings.remove(QLatin1String("GRUB_SAVEDEFAULT"));
+            m_settings.remove(QStringLiteral("GRUB_SAVEDEFAULT"));
         }
     }
     if (m_dirtyBits.testBit(grubHiddenTimeoutDirty)) {
         if (ui->checkBox_hiddenTimeout->isChecked()) {
-            m_settings[QLatin1String("GRUB_HIDDEN_TIMEOUT")] = QString::number(ui->spinBox_hiddenTimeout->value());
+            m_settings[QStringLiteral("GRUB_HIDDEN_TIMEOUT")] = QString::number(ui->spinBox_hiddenTimeout->value());
         } else {
-            m_settings.remove(QLatin1String("GRUB_HIDDEN_TIMEOUT"));
+            m_settings.remove(QStringLiteral("GRUB_HIDDEN_TIMEOUT"));
         }
     }
     if (m_dirtyBits.testBit(grubHiddenTimeoutQuietDirty)) {
         if (ui->checkBox_hiddenTimeoutShowTimer->isChecked()) {
-            m_settings.remove(QLatin1String("GRUB_HIDDEN_TIMEOUT_QUIET"));
+            m_settings.remove(QStringLiteral("GRUB_HIDDEN_TIMEOUT_QUIET"));
         } else {
-            m_settings[QLatin1String("GRUB_HIDDEN_TIMEOUT_QUIET")] = QLatin1String("true");
+            m_settings[QStringLiteral("GRUB_HIDDEN_TIMEOUT_QUIET")] = QStringLiteral("true");
         }
     }
     if (m_dirtyBits.testBit(grubTimeoutDirty)) {
         if (ui->checkBox_timeout->isChecked()) {
             if (ui->radioButton_timeout0->isChecked()) {
-                m_settings[QLatin1String("GRUB_TIMEOUT")] = QLatin1Char('0');
+                m_settings[QStringLiteral("GRUB_TIMEOUT")] = QLatin1Char('0');
             } else {
-                m_settings[QLatin1String("GRUB_TIMEOUT")] = QString::number(ui->spinBox_timeout->value());
+                m_settings[QStringLiteral("GRUB_TIMEOUT")] = QString::number(ui->spinBox_timeout->value());
             }
         } else {
-            m_settings[QLatin1String("GRUB_TIMEOUT")] = QLatin1String("-1");
+            m_settings[QStringLiteral("GRUB_TIMEOUT")] = QStringLiteral("-1");
         }
     }
     if (m_dirtyBits.testBit(grubLocaleDirty)) {
         int langIndex = ui->combobox_language->currentIndex();
         if (langIndex > 0) {
-            m_settings[QLatin1String("LANGUAGE")] = ui->combobox_language->itemData(langIndex).toString();
+            m_settings[QStringLiteral("LANGUAGE")] = ui->combobox_language->itemData(langIndex).toString();
         } else {
-            m_settings.remove(QLatin1String("LANGUAGE"));
+            m_settings.remove(QStringLiteral("LANGUAGE"));
         }
     }
     if (m_dirtyBits.testBit(grubDisableRecoveryDirty)) {
         if (ui->checkBox_recovery->isChecked()) {
-            m_settings.remove(QLatin1String("GRUB_DISABLE_RECOVERY"));
+            m_settings.remove(QStringLiteral("GRUB_DISABLE_RECOVERY"));
         } else {
-            m_settings[QLatin1String("GRUB_DISABLE_RECOVERY")] = QLatin1String("true");
+            m_settings[QStringLiteral("GRUB_DISABLE_RECOVERY")] = QStringLiteral("true");
         }
     }
     if (m_dirtyBits.testBit(grubDisableOsProberDirty)) {
         if (ui->checkBox_osProber->isChecked()) {
-            m_settings.remove(QLatin1String("GRUB_DISABLE_OS_PROBER"));
+            m_settings.remove(QStringLiteral("GRUB_DISABLE_OS_PROBER"));
         } else {
-            m_settings[QLatin1String("GRUB_DISABLE_OS_PROBER")] = QLatin1String("true");
+            m_settings[QStringLiteral("GRUB_DISABLE_OS_PROBER")] = QStringLiteral("true");
         }
     }
     if (m_dirtyBits.testBit(grubGfxmodeDirty)) {
         if (ui->combobox_gfxmode->currentIndex() <= 0) {
             qCritical() << "Something went terribly wrong!";
         } else {
-            m_settings[QLatin1String("GRUB_GFXMODE")] = quoteWord(ui->combobox_gfxmode->itemData(ui->combobox_gfxmode->currentIndex()).toString());
+            m_settings[QStringLiteral("GRUB_GFXMODE")] = quoteWord(ui->combobox_gfxmode->itemData(ui->combobox_gfxmode->currentIndex()).toString());
         }
     }
     if (m_dirtyBits.testBit(grubGfxpayloadLinuxDirty)) {
         if (ui->combobox_gfxpayload->currentIndex() <= 0) {
             qCritical() << "Something went terribly wrong!";
         } else if (ui->combobox_gfxpayload->currentIndex() == 1) {
-            m_settings.remove(QLatin1String("GRUB_GFXPAYLOAD_LINUX"));
+            m_settings.remove(QStringLiteral("GRUB_GFXPAYLOAD_LINUX"));
         } else if (ui->combobox_gfxpayload->currentIndex() > 1) {
-            m_settings[QLatin1String("GRUB_GFXPAYLOAD_LINUX")] = quoteWord(ui->combobox_gfxpayload->itemData(ui->combobox_gfxpayload->currentIndex()).toString());
+            m_settings[QStringLiteral("GRUB_GFXPAYLOAD_LINUX")] = quoteWord(ui->combobox_gfxpayload->itemData(ui->combobox_gfxpayload->currentIndex()).toString());
         }
     }
     if (m_dirtyBits.testBit(grubColorNormalDirty)) {
         QString normalForeground = ui->combobox_normalForeground->itemData(ui->combobox_normalForeground->currentIndex()).toString();
         QString normalBackground = ui->combobox_normalBackground->itemData(ui->combobox_normalBackground->currentIndex()).toString();
         if (normalForeground.compare(QLatin1String("light-gray")) != 0 || normalBackground.compare(QLatin1String("black")) != 0) {
-            m_settings[QLatin1String("GRUB_COLOR_NORMAL")] = normalForeground + QLatin1Char('/') + normalBackground;
+            m_settings[QStringLiteral("GRUB_COLOR_NORMAL")] = normalForeground + QLatin1Char('/') + normalBackground;
         } else {
-            m_settings.remove(QLatin1String("GRUB_COLOR_NORMAL"));
+            m_settings.remove(QStringLiteral("GRUB_COLOR_NORMAL"));
         }
     }
     if (m_dirtyBits.testBit(grubColorHighlightDirty)) {
         QString highlightForeground = ui->combobox_highlightForeground->itemData(ui->combobox_highlightForeground->currentIndex()).toString();
         QString highlightBackground = ui->combobox_highlightBackground->itemData(ui->combobox_highlightBackground->currentIndex()).toString();
         if (highlightForeground.compare(QLatin1String("black")) != 0 || highlightBackground.compare(QLatin1String("light-gray")) != 0) {
-            m_settings[QLatin1String("GRUB_COLOR_HIGHLIGHT")] = highlightForeground + QLatin1Char('/') + highlightBackground;
+            m_settings[QStringLiteral("GRUB_COLOR_HIGHLIGHT")] = highlightForeground + QLatin1Char('/') + highlightBackground;
         } else {
-            m_settings.remove(QLatin1String("GRUB_COLOR_HIGHLIGHT"));
+            m_settings.remove(QStringLiteral("GRUB_COLOR_HIGHLIGHT"));
         }
     }
     if (m_dirtyBits.testBit(grubBackgroundDirty)) {
         QString background = ui->kurlrequester_background->url().toLocalFile();
         if (!background.isEmpty()) {
-            m_settings[QLatin1String("GRUB_BACKGROUND")] = quoteWord(background);
+            m_settings[QStringLiteral("GRUB_BACKGROUND")] = quoteWord(background);
         } else {
-            m_settings.remove(QLatin1String("GRUB_BACKGROUND"));
+            m_settings.remove(QStringLiteral("GRUB_BACKGROUND"));
         }
     }
     if (m_dirtyBits.testBit(grubThemeDirty)) {
         QString theme = ui->kurlrequester_theme->url().toLocalFile();
         if (!theme.isEmpty()) {
-            m_settings[QLatin1String("GRUB_THEME")] = quoteWord(theme);
+            m_settings[QStringLiteral("GRUB_THEME")] = quoteWord(theme);
         } else {
-            m_settings.remove(QLatin1String("GRUB_THEME"));
+            m_settings.remove(QStringLiteral("GRUB_THEME"));
         }
     }
     if (m_dirtyBits.testBit(grubCmdlineLinuxDefaultDirty)) {
         QString cmdlineLinuxDefault = ui->lineedit_cmdlineDefault->text();
         if (!cmdlineLinuxDefault.isEmpty()) {
-            m_settings[QLatin1String("GRUB_CMDLINE_LINUX_DEFAULT")] = quoteWord(cmdlineLinuxDefault);
+            m_settings[QStringLiteral("GRUB_CMDLINE_LINUX_DEFAULT")] = quoteWord(cmdlineLinuxDefault);
         } else {
-            m_settings.remove(QLatin1String("GRUB_CMDLINE_LINUX_DEFAULT"));
+            m_settings.remove(QStringLiteral("GRUB_CMDLINE_LINUX_DEFAULT"));
         }
     }
     if (m_dirtyBits.testBit(grubCmdlineLinuxDirty)) {
         QString cmdlineLinux = ui->lineedit_cmdline->text();
         if (!cmdlineLinux.isEmpty()) {
-            m_settings[QLatin1String("GRUB_CMDLINE_LINUX")] = quoteWord(cmdlineLinux);
+            m_settings[QStringLiteral("GRUB_CMDLINE_LINUX")] = quoteWord(cmdlineLinux);
         } else {
-            m_settings.remove(QLatin1String("GRUB_CMDLINE_LINUX"));
+            m_settings.remove(QStringLiteral("GRUB_CMDLINE_LINUX"));
         }
     }
     if (m_dirtyBits.testBit(grubTerminalDirty)) {
         QString terminal = ui->lineedit_terminal->text();
         if (!terminal.isEmpty()) {
-            m_settings[QLatin1String("GRUB_TERMINAL")] = quoteWord(terminal);
+            m_settings[QStringLiteral("GRUB_TERMINAL")] = quoteWord(terminal);
         } else {
-            m_settings.remove(QLatin1String("GRUB_TERMINAL"));
+            m_settings.remove(QStringLiteral("GRUB_TERMINAL"));
         }
     }
     if (m_dirtyBits.testBit(grubTerminalInputDirty)) {
         QString terminalInput = ui->lineedit_terminalInput->text();
         if (!terminalInput.isEmpty()) {
-            m_settings[QLatin1String("GRUB_TERMINAL_INPUT")] = quoteWord(terminalInput);
+            m_settings[QStringLiteral("GRUB_TERMINAL_INPUT")] = quoteWord(terminalInput);
         } else {
-            m_settings.remove(QLatin1String("GRUB_TERMINAL_INPUT"));
+            m_settings.remove(QStringLiteral("GRUB_TERMINAL_INPUT"));
         }
     }
     if (m_dirtyBits.testBit(grubTerminalOutputDirty)) {
         QString terminalOutput = ui->lineedit_terminalOutput->text();
         if (!terminalOutput.isEmpty()) {
-            m_settings[QLatin1String("GRUB_TERMINAL_OUTPUT")] = quoteWord(terminalOutput);
+            m_settings[QStringLiteral("GRUB_TERMINAL_OUTPUT")] = quoteWord(terminalOutput);
         } else {
-            m_settings.remove(QLatin1String("GRUB_TERMINAL_OUTPUT"));
+            m_settings.remove(QStringLiteral("GRUB_TERMINAL_OUTPUT"));
         }
     }
     if (m_dirtyBits.testBit(grubDistributorDirty)) {
         QString distributor = ui->lineedit_distributor->text();
         if (!distributor.isEmpty()) {
-            m_settings[QLatin1String("GRUB_DISTRIBUTOR")] = quoteWord(distributor);
+            m_settings[QStringLiteral("GRUB_DISTRIBUTOR")] = quoteWord(distributor);
         } else {
-            m_settings.remove(QLatin1String("GRUB_DISTRIBUTOR"));
+            m_settings.remove(QStringLiteral("GRUB_DISTRIBUTOR"));
         }
     }
     if (m_dirtyBits.testBit(grubSerialCommandDirty)) {
         QString serialCommand = ui->lineedit_serial->text();
         if (!serialCommand.isEmpty()) {
-            m_settings[QLatin1String("GRUB_SERIAL_COMMAND")] = quoteWord(serialCommand);
+            m_settings[QStringLiteral("GRUB_SERIAL_COMMAND")] = quoteWord(serialCommand);
         } else {
-            m_settings.remove(QLatin1String("GRUB_SERIAL_COMMAND"));
+            m_settings.remove(QStringLiteral("GRUB_SERIAL_COMMAND"));
         }
     }
     if (m_dirtyBits.testBit(grubInitTuneDirty)) {
         QString initTune = ui->lineedit_initTune->text();
         if (!initTune.isEmpty()) {
-            m_settings[QLatin1String("GRUB_INIT_TUNE")] = quoteWord(initTune);
+            m_settings[QStringLiteral("GRUB_INIT_TUNE")] = quoteWord(initTune);
         } else {
-            m_settings.remove(QLatin1String("GRUB_INIT_TUNE"));
+            m_settings.remove(QStringLiteral("GRUB_INIT_TUNE"));
         }
     }
     if (m_dirtyBits.testBit(grubDisableLinuxUuidDirty)) {
         if (ui->checkBox_uuid->isChecked()) {
-            m_settings.remove(QLatin1String("GRUB_DISABLE_LINUX_UUID"));
+            m_settings.remove(QStringLiteral("GRUB_DISABLE_LINUX_UUID"));
         } else {
-            m_settings[QLatin1String("GRUB_DISABLE_LINUX_UUID")] = QLatin1String("true");
+            m_settings[QStringLiteral("GRUB_DISABLE_LINUX_UUID")] = QStringLiteral("true");
         }
     }
 
@@ -473,16 +473,16 @@ void KCMGRUB2::save()
         stream << it.key() << '=' << it.value() << endl;
     }
 
-    Action saveAction(QLatin1String("org.kde.kcontrol.kcmgrub2.save"));
-    saveAction.setHelperId(QLatin1String("org.kde.kcontrol.kcmgrub2"));
-    saveAction.addArgument(QLatin1String("rawConfigFileContents"), configFileContents.toUtf8());
-    saveAction.addArgument(QLatin1String("rawDefaultEntry"), !m_entries.isEmpty() ? grubDefault.toUtf8() : m_settings.value(QLatin1String("GRUB_DEFAULT")).toUtf8());
+    Action saveAction(QStringLiteral("org.kde.kcontrol.kcmgrub2.save"));
+    saveAction.setHelperId(QStringLiteral("org.kde.kcontrol.kcmgrub2"));
+    saveAction.addArgument(QStringLiteral("rawConfigFileContents"), configFileContents.toUtf8());
+    saveAction.addArgument(QStringLiteral("rawDefaultEntry"), !m_entries.isEmpty() ? grubDefault.toUtf8() : m_settings.value(QStringLiteral("GRUB_DEFAULT")).toUtf8());
     if (ui->combobox_language->currentIndex() > 0) {
-        saveAction.addArgument(QLatin1String("LANG"), qgetenv("LANG"));
-        saveAction.addArgument(QLatin1String("LANGUAGE"), m_settings.value(QLatin1String("LANGUAGE")));
+        saveAction.addArgument(QStringLiteral("LANG"), qgetenv("LANG"));
+        saveAction.addArgument(QStringLiteral("LANGUAGE"), m_settings.value(QStringLiteral("LANGUAGE")));
     }
     if (m_dirtyBits.testBit(memtestDirty)) {
-        saveAction.addArgument(QLatin1String("memtest"), ui->checkBox_memtest->isChecked());
+        saveAction.addArgument(QStringLiteral("memtest"), ui->checkBox_memtest->isChecked());
     }
     saveAction.setParentWidget(this);
     saveAction.setTimeout(60000);
@@ -521,7 +521,7 @@ void KCMGRUB2::save()
 
         KMessageBox::createKMessageBox(dialog, buttonBox, QMessageBox::Information, i18nc("@info", "Successfully saved GRUB settings."),
                                        QStringList(), QString(), nullptr, KMessageBox::Notify,
-                                       QString::fromUtf8(saveJob->data().value(QLatin1String("output")).toByteArray().constData())); // krazy:exclude=qclasses
+                                       QString::fromUtf8(saveJob->data().value(QStringLiteral("output")).toByteArray().constData())); // krazy:exclude=qclasses
         load();
     } else {
         KMessageBox::detailedError(this, i18nc("@info", "Failed to save GRUB settings."), saveJob->errorText());
@@ -667,7 +667,7 @@ void KCMGRUB2::slotPreviewGrubBackground()
     label->setPixmap(QPixmap::fromImage(QImage::fromData(file.readAll())).scaled(QDesktopWidget().screenGeometry(this).size()));
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->showFullScreen();
-    KMessageBox::information(dialog, i18nc("@info", "Press <shortcut>Escape</shortcut> to exit fullscreen mode."), QString(), QLatin1String("GRUBFullscreenPreview"));
+    KMessageBox::information(dialog, i18nc("@info", "Press <shortcut>Escape</shortcut> to exit fullscreen mode."), QString(), QStringLiteral("GRUBFullscreenPreview"));
 }
 void KCMGRUB2::slotCreateGrubBackground()
 {
@@ -700,8 +700,8 @@ void KCMGRUB2::slotGrubTerminalChanged()
     QString grubTerminal = ui->lineedit_terminal->text();
     ui->lineedit_terminalInput->setReadOnly(!grubTerminal.isEmpty());
     ui->lineedit_terminalOutput->setReadOnly(!grubTerminal.isEmpty());
-    ui->lineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_INPUT"))));
-    ui->lineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QLatin1String("GRUB_TERMINAL_OUTPUT"))));
+    ui->lineedit_terminalInput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QStringLiteral("GRUB_TERMINAL_INPUT"))));
+    ui->lineedit_terminalOutput->setText(!grubTerminal.isEmpty() ? grubTerminal : unquoteWord(m_settings.value(QStringLiteral("GRUB_TERMINAL_OUTPUT"))));
     m_dirtyBits.setBit(grubTerminalDirty);
     Q_EMIT changed(true);
 }
@@ -817,11 +817,11 @@ void KCMGRUB2::setupObjects()
     view->setRootIsDecorated(false);
     ui->combobox_default->setView(view);
 
-    ui->pushbutton_remove->setIcon(QIcon::fromTheme(QLatin1String("list-remove")));
+    ui->pushbutton_remove->setIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
     ui->pushbutton_remove->setVisible(HAVE_QAPT || HAVE_QPACKAGEKIT);
 
-    ui->toolButton_refreshGfxmode->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
-    ui->toolButton_refreshGfxpayload->setIcon(QIcon::fromTheme(QLatin1String("view-refresh")));
+    ui->toolButton_refreshGfxmode->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
+    ui->toolButton_refreshGfxpayload->setIcon(QIcon::fromTheme(QStringLiteral("view-refresh")));
 
     QPixmap black(16, 16), transparent(16, 16);
     black.fill(Qt::black);
@@ -831,34 +831,34 @@ void KCMGRUB2::setupObjects()
     ui->combobox_normalBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox Refers to color.", "Transparent"), QLatin1String("black"));
     ui->combobox_highlightBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox Refers to color.", "Transparent"), QLatin1String("black"));
     QHash<QString, QString> colors;
-    colors.insertMulti(QLatin1String("blue"), i18nc("@item:inlistbox Refers to color.", "Blue"));
-    colors.insertMulti(QLatin1String("blue"), QLatin1String("blue"));
-    colors.insertMulti(QLatin1String("cyan"), i18nc("@item:inlistbox Refers to color.", "Cyan"));
-    colors.insertMulti(QLatin1String("cyan"), QLatin1String("cyan"));
-    colors.insertMulti(QLatin1String("dark-gray"), i18nc("@item:inlistbox Refers to color.", "Dark Gray"));
-    colors.insertMulti(QLatin1String("dark-gray"), QLatin1String("darkgray"));
-    colors.insertMulti(QLatin1String("green"), i18nc("@item:inlistbox Refers to color.", "Green"));
-    colors.insertMulti(QLatin1String("green"), QLatin1String("green"));
-    colors.insertMulti(QLatin1String("light-cyan"), i18nc("@item:inlistbox Refers to color.", "Light Cyan"));
-    colors.insertMulti(QLatin1String("light-cyan"), QLatin1String("lightcyan"));
-    colors.insertMulti(QLatin1String("light-blue"), i18nc("@item:inlistbox Refers to color.", "Light Blue"));
-    colors.insertMulti(QLatin1String("light-blue"), QLatin1String("lightblue"));
-    colors.insertMulti(QLatin1String("light-green"), i18nc("@item:inlistbox Refers to color.", "Light Green"));
-    colors.insertMulti(QLatin1String("light-green"), QLatin1String("lightgreen"));
-    colors.insertMulti(QLatin1String("light-gray"), i18nc("@item:inlistbox Refers to color.", "Light Gray"));
-    colors.insertMulti(QLatin1String("light-gray"), QLatin1String("lightgray"));
-    colors.insertMulti(QLatin1String("light-magenta"), i18nc("@item:inlistbox Refers to color.", "Light Magenta"));
-    colors.insertMulti(QLatin1String("light-magenta"), QLatin1String("magenta"));
-    colors.insertMulti(QLatin1String("light-red"), i18nc("@item:inlistbox Refers to color.", "Light Red"));
-    colors.insertMulti(QLatin1String("light-red"), QLatin1String("orangered"));
-    colors.insertMulti(QLatin1String("magenta"), i18nc("@item:inlistbox Refers to color.", "Magenta"));
-    colors.insertMulti(QLatin1String("magenta"), QLatin1String("darkmagenta"));
-    colors.insertMulti(QLatin1String("red"), i18nc("@item:inlistbox Refers to color.", "Red"));
-    colors.insertMulti(QLatin1String("red"), QLatin1String("red"));
-    colors.insertMulti(QLatin1String("white"), i18nc("@item:inlistbox Refers to color.", "White"));
-    colors.insertMulti(QLatin1String("white"), QLatin1String("white"));
-    colors.insertMulti(QLatin1String("yellow"), i18nc("@item:inlistbox Refers to color.", "Yellow"));
-    colors.insertMulti(QLatin1String("yellow"), QLatin1String("yellow"));
+    colors.insertMulti(QStringLiteral("blue"), i18nc("@item:inlistbox Refers to color.", "Blue"));
+    colors.insertMulti(QStringLiteral("blue"), QStringLiteral("blue"));
+    colors.insertMulti(QStringLiteral("cyan"), i18nc("@item:inlistbox Refers to color.", "Cyan"));
+    colors.insertMulti(QStringLiteral("cyan"), QStringLiteral("cyan"));
+    colors.insertMulti(QStringLiteral("dark-gray"), i18nc("@item:inlistbox Refers to color.", "Dark Gray"));
+    colors.insertMulti(QStringLiteral("dark-gray"), QStringLiteral("darkgray"));
+    colors.insertMulti(QStringLiteral("green"), i18nc("@item:inlistbox Refers to color.", "Green"));
+    colors.insertMulti(QStringLiteral("green"), QStringLiteral("green"));
+    colors.insertMulti(QStringLiteral("light-cyan"), i18nc("@item:inlistbox Refers to color.", "Light Cyan"));
+    colors.insertMulti(QStringLiteral("light-cyan"), QStringLiteral("lightcyan"));
+    colors.insertMulti(QStringLiteral("light-blue"), i18nc("@item:inlistbox Refers to color.", "Light Blue"));
+    colors.insertMulti(QStringLiteral("light-blue"), QStringLiteral("lightblue"));
+    colors.insertMulti(QStringLiteral("light-green"), i18nc("@item:inlistbox Refers to color.", "Light Green"));
+    colors.insertMulti(QStringLiteral("light-green"), QStringLiteral("lightgreen"));
+    colors.insertMulti(QStringLiteral("light-gray"), i18nc("@item:inlistbox Refers to color.", "Light Gray"));
+    colors.insertMulti(QStringLiteral("light-gray"), QStringLiteral("lightgray"));
+    colors.insertMulti(QStringLiteral("light-magenta"), i18nc("@item:inlistbox Refers to color.", "Light Magenta"));
+    colors.insertMulti(QStringLiteral("light-magenta"), QStringLiteral("magenta"));
+    colors.insertMulti(QStringLiteral("light-red"), i18nc("@item:inlistbox Refers to color.", "Light Red"));
+    colors.insertMulti(QStringLiteral("light-red"), QStringLiteral("orangered"));
+    colors.insertMulti(QStringLiteral("magenta"), i18nc("@item:inlistbox Refers to color.", "Magenta"));
+    colors.insertMulti(QStringLiteral("magenta"), QStringLiteral("darkmagenta"));
+    colors.insertMulti(QStringLiteral("red"), i18nc("@item:inlistbox Refers to color.", "Red"));
+    colors.insertMulti(QStringLiteral("red"), QStringLiteral("red"));
+    colors.insertMulti(QStringLiteral("white"), i18nc("@item:inlistbox Refers to color.", "White"));
+    colors.insertMulti(QStringLiteral("white"), QStringLiteral("white"));
+    colors.insertMulti(QStringLiteral("yellow"), i18nc("@item:inlistbox Refers to color.", "Yellow"));
+    colors.insertMulti(QStringLiteral("yellow"), QStringLiteral("yellow"));
     QHash<QString, QString>::const_iterator it = colors.constBegin();
     QHash<QString, QString>::const_iterator end = colors.constEnd();
     for (; it != end; it += 2) {
@@ -874,11 +874,11 @@ void KCMGRUB2::setupObjects()
     ui->combobox_highlightForeground->setCurrentIndex(ui->combobox_highlightForeground->findData(QLatin1String("black")));
     ui->combobox_highlightBackground->setCurrentIndex(ui->combobox_highlightBackground->findData(QLatin1String("light-gray")));
 
-    ui->pushbutton_preview->setIcon(QIcon::fromTheme(QLatin1String("image-png")));
-    ui->pushbutton_create->setIcon(QIcon::fromTheme(QLatin1String("insert-image")));
+    ui->pushbutton_preview->setIcon(QIcon::fromTheme(QStringLiteral("image-png")));
+    ui->pushbutton_create->setIcon(QIcon::fromTheme(QStringLiteral("insert-image")));
     ui->pushbutton_create->setVisible(HAVE_IMAGEMAGICK);
 
-    ui->pushbutton_cmdlineDefaultSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_cmdlineDefaultSuggestions->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
     ui->pushbutton_cmdlineDefaultSuggestions->setMenu(new QMenu(ui->pushbutton_cmdlineDefaultSuggestions));
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
@@ -887,7 +887,7 @@ void KCMGRUB2::setupObjects()
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData(QLatin1String("noapic"));
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
     ui->pushbutton_cmdlineDefaultSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
-    ui->pushbutton_cmdlineSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_cmdlineSuggestions->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
     ui->pushbutton_cmdlineSuggestions->setMenu(new QMenu(ui->pushbutton_cmdlineSuggestions));
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Quiet Boot"))->setData(QLatin1String("quiet"));
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Show Splash Screen"))->setData(QLatin1String("splash"));
@@ -896,19 +896,19 @@ void KCMGRUB2::setupObjects()
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off APIC"))->setData(QLatin1String("noapic"));
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Turn Off Local APIC"))->setData(QLatin1String("nolapic"));
     ui->pushbutton_cmdlineSuggestions->menu()->addAction(i18nc("@action:inmenu", "Single User Mode"))->setData(QLatin1String("single"));
-    ui->pushbutton_terminalSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_terminalSuggestions->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
     ui->pushbutton_terminalSuggestions->setMenu(new QMenu(ui->pushbutton_terminalSuggestions));
     ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
     ui->pushbutton_terminalSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
-    ui->pushbutton_terminalInputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_terminalInputSuggestions->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
     ui->pushbutton_terminalInputSuggestions->setMenu(new QMenu(ui->pushbutton_terminalInputSuggestions));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a former IEEE standard.", "Open Firmware Console"))->setData(QLatin1String("ofconsole"));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC AT Keyboard (Coreboot)"))->setData(QLatin1String("at_keyboard"));
     ui->pushbutton_terminalInputSuggestions->menu()->addAction(i18nc("@action:inmenu", "USB Keyboard (HID Boot Protocol)"))->setData(QLatin1String("usb_keyboard"));
-    ui->pushbutton_terminalOutputSuggestions->setIcon(QIcon::fromTheme(QLatin1String("tools-wizard")));
+    ui->pushbutton_terminalOutputSuggestions->setIcon(QIcon::fromTheme(QStringLiteral("tools-wizard")));
     ui->pushbutton_terminalOutputSuggestions->setMenu(new QMenu(ui->pushbutton_terminalOutputSuggestions));
     ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "PC BIOS && EFI Console"))->setData(QLatin1String("console"));
     ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Serial Terminal"))->setData(QLatin1String("serial"));
@@ -916,7 +916,7 @@ void KCMGRUB2::setupObjects()
     ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "Graphics Mode Output"))->setData(QLatin1String("gfxterm"));
     ui->pushbutton_terminalOutputSuggestions->menu()->addAction(i18nc("@action:inmenu", "VGA Text Output (Coreboot)"))->setData(QLatin1String("vga_text"));
 
-    ui->pushbutton_install->setIcon(QIcon::fromTheme(QLatin1String("system-software-update")));
+    ui->pushbutton_install->setIcon(QIcon::fromTheme(QStringLiteral("system-software-update")));
 }
 void KCMGRUB2::setupConnections()
 {
@@ -1026,16 +1026,16 @@ void KCMGRUB2::readAll()
     }
 #endif
     if (QFileInfo(grubLocalePath()).isReadable()) {
-        m_locales = QDir(grubLocalePath()).entryList(QStringList() << QLatin1String("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString());
+        m_locales = QDir(grubLocalePath()).entryList(QStringList() << QStringLiteral("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString());
     } else {
         operations |= Locales;
     }
 
     //Do not prompt for password if only the VBE operation is required, unless forced.
     if (operations && ((operations & (~Vbe)) || m_resolutionsForceRead)) {
-        Action loadAction(QLatin1String("org.kde.kcontrol.kcmgrub2.load"));
-        loadAction.setHelperId(QLatin1String("org.kde.kcontrol.kcmgrub2"));
-        loadAction.addArgument(QLatin1String("operations"), (int)(operations));
+        Action loadAction(QStringLiteral("org.kde.kcontrol.kcmgrub2.load"));
+        loadAction.setHelperId(QStringLiteral("org.kde.kcontrol.kcmgrub2"));
+        loadAction.addArgument(QStringLiteral("operations"), (int)(operations));
         loadAction.setParentWidget(this);
 
         KAuth::ExecuteJob *loadJob = loadAction.execute();
@@ -1047,45 +1047,45 @@ void KCMGRUB2::readAll()
         }
 
         if (operations.testFlag(MenuFile)) {
-            if (loadJob->data().value(QLatin1String("menuSuccess")).toBool()) {
-                parseEntries(QString::fromUtf8(loadJob->data().value(QLatin1String("menuContents")).toByteArray().constData()));
+            if (loadJob->data().value(QStringLiteral("menuSuccess")).toBool()) {
+                parseEntries(QString::fromUtf8(loadJob->data().value(QStringLiteral("menuContents")).toByteArray().constData()));
             } else {
                 qCritical() << "Helper failed to read file:" << grubMenuPath();
-                qCritical() << "Error code:" << loadJob->data().value(QLatin1String("menuError")).toInt();
-                qCritical() << "Error description:" << loadJob->data().value(QLatin1String("menuErrorString")).toString();
+                qCritical() << "Error code:" << loadJob->data().value(QStringLiteral("menuError")).toInt();
+                qCritical() << "Error description:" << loadJob->data().value(QStringLiteral("menuErrorString")).toString();
             }
         }
         if (operations.testFlag(ConfigurationFile)) {
-            if (loadJob->data().value(QLatin1String("configSuccess")).toBool()) {
-                parseSettings(QString::fromUtf8(loadJob->data().value(QLatin1String("configContents")).toByteArray().constData()));
+            if (loadJob->data().value(QStringLiteral("configSuccess")).toBool()) {
+                parseSettings(QString::fromUtf8(loadJob->data().value(QStringLiteral("configContents")).toByteArray().constData()));
             } else {
                 qCritical() << "Helper failed to read file:" << grubConfigPath();
-                qCritical() << "Error code:" << loadJob->data().value(QLatin1String("configError")).toInt();
-                qCritical() << "Error description:" << loadJob->data().value(QLatin1String("configErrorString")).toString();
+                qCritical() << "Error code:" << loadJob->data().value(QStringLiteral("configError")).toInt();
+                qCritical() << "Error description:" << loadJob->data().value(QStringLiteral("configErrorString")).toString();
             }
         }
         if (operations.testFlag(EnvironmentFile)) {
-            if (loadJob->data().value(QLatin1String("envSuccess")).toBool()) {
-                parseEnv(QString::fromUtf8(loadJob->data().value(QLatin1String("envContents")).toByteArray().constData()));
+            if (loadJob->data().value(QStringLiteral("envSuccess")).toBool()) {
+                parseEnv(QString::fromUtf8(loadJob->data().value(QStringLiteral("envContents")).toByteArray().constData()));
             } else {
                 qCritical() << "Helper failed to read file:" << grubEnvPath();
-                qCritical() << "Error code:" << loadJob->data().value(QLatin1String("envError")).toInt();
-                qCritical() << "Error description:" << loadJob->data().value(QLatin1String("envErrorString")).toString();
+                qCritical() << "Error code:" << loadJob->data().value(QStringLiteral("envError")).toInt();
+                qCritical() << "Error description:" << loadJob->data().value(QStringLiteral("envErrorString")).toString();
             }
         }
         if (operations.testFlag(MemtestFile)) {
-            m_memtest = loadJob->data().value(QLatin1String("memtest")).toBool();
+            m_memtest = loadJob->data().value(QStringLiteral("memtest")).toBool();
             if (m_memtest) {
-                m_memtestOn = loadJob->data().value(QLatin1String("memtestOn")).toBool();
+                m_memtestOn = loadJob->data().value(QStringLiteral("memtestOn")).toBool();
             }
         }
         if (operations.testFlag(Vbe)) {
-            m_resolutions = loadJob->data().value(QLatin1String("gfxmodes")).toStringList();
+            m_resolutions = loadJob->data().value(QStringLiteral("gfxmodes")).toStringList();
             m_resolutionsEmpty = false;
             m_resolutionsForceRead = false;
         }
         if (operations.testFlag(Locales)) {
-            m_locales = loadJob->data().value(QLatin1String("locales")).toStringList();
+            m_locales = loadJob->data().value(QStringLiteral("locales")).toStringList();
         }
     }
 }
@@ -1103,16 +1103,16 @@ void KCMGRUB2::showLocales()
                 language = QLocale(locale.split(QLatin1Char('@')).first().split(QLatin1Char('_')).first()).nativeLanguageName();
             }
         }
-        ui->combobox_language->addItem(QString(QLatin1String("%1 (%2)")).arg(language, locale), locale);
+        ui->combobox_language->addItem(QStringLiteral("%1 (%2)").arg(language, locale), locale);
     }
 }
 void KCMGRUB2::sortResolutions()
 {
     for (int i = 0; i < m_resolutions.size(); i++) {
         if (m_resolutions.at(i).contains(QRegExp(QLatin1String("^\\d{3,4}x\\d{3,4}$")))) {
-            m_resolutions[i] = QString(QLatin1String("%1x%2x0")).arg(m_resolutions.at(i).section(QLatin1Char('x'), 0, 0).rightJustified(4, QLatin1Char('0')), m_resolutions.at(i).section(QLatin1Char('x'), 1).rightJustified(4, QLatin1Char('0')));
+            m_resolutions[i] = QStringLiteral("%1x%2x0").arg(m_resolutions.at(i).section(QLatin1Char('x'), 0, 0).rightJustified(4, QLatin1Char('0')), m_resolutions.at(i).section(QLatin1Char('x'), 1).rightJustified(4, QLatin1Char('0')));
         } else if (m_resolutions.at(i).contains(QRegExp(QLatin1String("^\\d{3,4}x\\d{3,4}x\\d{1,2}$")))) {
-            m_resolutions[i] = QString(QLatin1String("%1x%2x%3")).arg(m_resolutions.at(i).section(QLatin1Char('x'), 0, 0).rightJustified(4, QLatin1Char('0')), m_resolutions.at(i).section(QLatin1Char('x'), 1, 1).rightJustified(4, QLatin1Char('0')), m_resolutions.at(i).section(QLatin1Char('x'), 2).rightJustified(2, QLatin1Char('0')));
+            m_resolutions[i] = QStringLiteral("%1x%2x%3").arg(m_resolutions.at(i).section(QLatin1Char('x'), 0, 0).rightJustified(4, QLatin1Char('0')), m_resolutions.at(i).section(QLatin1Char('x'), 1, 1).rightJustified(4, QLatin1Char('0')), m_resolutions.at(i).section(QLatin1Char('x'), 2).rightJustified(2, QLatin1Char('0')));
         }
     }
     m_resolutions.sort();

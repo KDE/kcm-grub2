@@ -58,7 +58,7 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent) : QDial
     mainLayout->addWidget(buttonBox);
 
     setWindowTitle(i18nc("@title:window", "Remove Old Entries"));
-    setWindowIcon(QIcon::fromTheme(QLatin1String("list-remove")));
+    setWindowIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
 
     m_progressDlg = 0;
 
@@ -177,7 +177,7 @@ void RemoveDialog::slotFinished(bool success)
 }
 void RemoveDialog::detectCurrentKernelImage()
 {
-    QFile file(QLatin1String("/proc/cmdline"));
+    QFile file(QStringLiteral("/proc/cmdline"));
     if (!file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         return;
     }

@@ -58,7 +58,7 @@ InstallDialog::InstallDialog(QWidget *parent) : QDialog(parent)
     mainLayout->addWidget(buttonBox);
 
     setWindowTitle(i18nc("@title:window", "Install/Recover Bootloader"));
-    setWindowIcon(QIcon::fromTheme(QLatin1String("system-software-update")));
+    setWindowIcon(QIcon::fromTheme(QStringLiteral("system-software-update")));
     if (parent) {
         resize(parent->size());
     }
@@ -79,7 +79,7 @@ InstallDialog::InstallDialog(QWidget *parent) : QDialog(parent)
             continue;
         }
 
-        QString uuidDir = QLatin1String("/dev/disk/by-uuid/"), uuid = volume->uuid(), name;
+        QString uuidDir = QStringLiteral("/dev/disk/by-uuid/"), uuid = volume->uuid(), name;
         name = (QFile::exists((name = uuidDir + uuid)) || QFile::exists((name = uuidDir + uuid.toLower())) || QFile::exists((name = uuidDir + uuid.toUpper())) ? QFile::symLinkTarget(name) : QString());
         QTreeWidgetItem *item = new QTreeWidgetItem(ui->treeWidget_recover, QStringList() << QString() << name << partition->filePath() << volume->label() << volume->fsType() << KFormat().formatByteSize(volume->size()));
         item->setIcon(1, QIcon::fromTheme(device.icon()));
@@ -97,18 +97,18 @@ InstallDialog::~InstallDialog()
 
 void InstallDialog::slotAccepted()
 {
-    Action installAction(QLatin1String("org.kde.kcontrol.kcmgrub2.install"));
-    installAction.setHelperId(QLatin1String("org.kde.kcontrol.kcmgrub2"));
+    Action installAction(QStringLiteral("org.kde.kcontrol.kcmgrub2.install"));
+    installAction.setHelperId(QStringLiteral("org.kde.kcontrol.kcmgrub2"));
     for (int i = 0; i < ui->treeWidget_recover->topLevelItemCount(); i++) {
         QRadioButton *radio = qobject_cast<QRadioButton *>(ui->treeWidget_recover->itemWidget(ui->treeWidget_recover->topLevelItem(i), 0));
         if (radio && radio->isChecked()) {
-            installAction.addArgument(QLatin1String("partition"), ui->treeWidget_recover->topLevelItem(i)->text(1));
-            installAction.addArgument(QLatin1String("mountPoint"), ui->treeWidget_recover->topLevelItem(i)->text(2));
-            installAction.addArgument(QLatin1String("mbrInstall"), !ui->checkBox_partition->isChecked());
+            installAction.addArgument(QStringLiteral("partition"), ui->treeWidget_recover->topLevelItem(i)->text(1));
+            installAction.addArgument(QStringLiteral("mountPoint"), ui->treeWidget_recover->topLevelItem(i)->text(2));
+            installAction.addArgument(QStringLiteral("mbrInstall"), !ui->checkBox_partition->isChecked());
             break;
         }
     }
-    if (installAction.arguments().value(QLatin1String("partition")).toString().isEmpty()) {
+    if (installAction.arguments().value(QStringLiteral("partition")).toString().isEmpty()) {
         KMessageBox::sorry(this, i18nc("@info", "Sorry, you have to select a partition with a proper name!"));
         return;
     }
@@ -148,7 +148,7 @@ void InstallDialog::slotAccepted()
 
         KMessageBox::createKMessageBox(dialog, buttonBox, QMessageBox::Information, i18nc("@info", "Successfully installed GRUB."),
                                        QStringList(), QString(), nullptr, KMessageBox::Notify,
-                                       QString::fromUtf8(installJob->data().value(QLatin1String("output")).toByteArray())); // krazy:exclude=qclasses
+                                       QString::fromUtf8(installJob->data().value(QStringLiteral("output")).toByteArray())); // krazy:exclude=qclasses
     } else {
         KMessageBox::detailedError(this, i18nc("@info", "Failed to install GRUB."), installJob->errorText());
     }

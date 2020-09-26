@@ -52,17 +52,17 @@ ConvertDialog::ConvertDialog(QWidget *parent) : QDialog(parent)
     QList<Magick::CoderInfo> coderList;
     coderInfoList(&coderList, Magick::CoderInfo::TrueMatch, Magick::CoderInfo::AnyMatch, Magick::CoderInfo::AnyMatch);
     Q_FOREACH(const Magick::CoderInfo &coder, coderList) {
-        readFilter.append(QString(QLatin1String(" *.%1")).arg(QString::fromStdString(coder.name()).toLower()));
+        readFilter.append(QStringLiteral(" *.%1").arg(QString::fromStdString(coder.name()).toLower()));
     }
     readFilter.remove(0, 1);
     readFilter.append(QLatin1Char('|')).append(i18nc("@item:inlistbox", "ImageMagick supported image formats"));
 
     QMimeDatabase db;
-    QString writeFilter = QString(QLatin1String("*%1|%5 (%1)\n*%2|%6 (%2)\n*%3 *%4|%7 (%3 %4)"))
+    QString writeFilter = QStringLiteral("*%1|%5 (%1)\n*%2|%6 (%2)\n*%3 *%4|%7 (%3 %4)")
                           .arg(QLatin1String(".png"), QLatin1String(".tga"), QLatin1String(".jpg"), QLatin1String(".jpeg"),
-                               db.mimeTypeForName(QLatin1String("image/png")).comment(),
-                               db.mimeTypeForName(QLatin1String("image/x-tga")).comment(),
-                               db.mimeTypeForName(QLatin1String("image/jpeg")).comment());
+                               db.mimeTypeForName(QStringLiteral("image/png")).comment(),
+                               db.mimeTypeForName(QStringLiteral("image/x-tga")).comment(),
+                               db.mimeTypeForName(QStringLiteral("image/jpeg")).comment());
 
     ui->kurlrequester_image->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
     ui->kurlrequester_image->setAcceptMode(QFileDialog::AcceptOpen);
