@@ -501,7 +501,7 @@ void KCMGRUB2::save()
     progressDlg.setMinimum(0);
     progressDlg.setMaximum(0);
     progressDlg.show();
-    connect(saveJob, SIGNAL(finished(KJob*)), &progressDlg, SLOT(hide()));
+    connect(saveJob, &KJob::finished, &progressDlg, &QWidget::hide);
 
     if (saveJob->exec()) {
         QDialog *dialog = new QDialog(this);
@@ -675,7 +675,7 @@ void KCMGRUB2::slotCreateGrubBackground()
     QPointer<ConvertDialog> convertDlg = new ConvertDialog(this);
     QString resolution = ui->combobox_gfxmode->itemData(ui->combobox_gfxmode->currentIndex()).toString();
     convertDlg->setResolution(resolution.section(QLatin1Char('x'), 0, 0).toInt(), resolution.section(QLatin1Char('x'), 1, 1).toInt());
-    connect(convertDlg, SIGNAL(splashImageCreated(QString)), ui->kurlrequester_background, SLOT(setText(QString)));
+    connect(convertDlg.data(), &ConvertDialog::splashImageCreated, ui->kurlrequester_background, &KUrlRequester::setText);
     convertDlg->exec();
     delete convertDlg;
 #endif
@@ -921,64 +921,64 @@ void KCMGRUB2::setupObjects()
 void KCMGRUB2::setupConnections()
 {
     connect(ui->combobox_default, SIGNAL(activated(int)), this, SLOT(changed()));
-    connect(ui->pushbutton_remove, SIGNAL(clicked(bool)), this, SLOT(slotRemoveOldEntries()));
-    connect(ui->checkBox_savedefault, SIGNAL(clicked(bool)), this, SLOT(slotGrubSavedefaultChanged()));
+    connect(ui->pushbutton_remove, &QAbstractButton::clicked, this, &KCMGRUB2::slotRemoveOldEntries);
+    connect(ui->checkBox_savedefault, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubSavedefaultChanged);
 
-    connect(ui->checkBox_hiddenTimeout, SIGNAL(toggled(bool)), this, SLOT(slotGrubHiddenTimeoutToggled(bool)));
-    connect(ui->checkBox_hiddenTimeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutChanged()));
+    connect(ui->checkBox_hiddenTimeout, &QAbstractButton::toggled, this, &KCMGRUB2::slotGrubHiddenTimeoutToggled);
+    connect(ui->checkBox_hiddenTimeout, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubHiddenTimeoutChanged);
     connect(ui->spinBox_hiddenTimeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubHiddenTimeoutChanged()));
-    connect(ui->checkBox_hiddenTimeoutShowTimer, SIGNAL(clicked(bool)), this, SLOT(slotGrubHiddenTimeoutQuietChanged()));
+    connect(ui->checkBox_hiddenTimeoutShowTimer, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubHiddenTimeoutQuietChanged);
 
-    connect(ui->checkBox_timeout, SIGNAL(toggled(bool)), this, SLOT(slotGrubTimeoutToggled(bool)));
-    connect(ui->checkBox_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
-    connect(ui->radioButton_timeout0, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
-    connect(ui->radioButton_timeout, SIGNAL(toggled(bool)), ui->spinBox_timeout, SLOT(setEnabled(bool)));
-    connect(ui->radioButton_timeout, SIGNAL(clicked(bool)), this, SLOT(slotGrubTimeoutChanged()));
+    connect(ui->checkBox_timeout, &QAbstractButton::toggled, this, &KCMGRUB2::slotGrubTimeoutToggled);
+    connect(ui->checkBox_timeout, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubTimeoutChanged);
+    connect(ui->radioButton_timeout0, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubTimeoutChanged);
+    connect(ui->radioButton_timeout, &QAbstractButton::toggled, ui->spinBox_timeout, &QWidget::setEnabled);
+    connect(ui->radioButton_timeout, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubTimeoutChanged);
     connect(ui->spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubTimeoutChanged()));
 
     connect(ui->combobox_language, SIGNAL(activated(int)), this, SLOT(slotGrubLanguageChanged()));
-    connect(ui->checkBox_recovery, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableRecoveryChanged()));
-    connect(ui->checkBox_memtest, SIGNAL(clicked(bool)), this, SLOT(slotMemtestChanged()));
-    connect(ui->checkBox_osProber, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableOsProberChanged()));
+    connect(ui->checkBox_recovery, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubDisableRecoveryChanged);
+    connect(ui->checkBox_memtest, &QAbstractButton::clicked, this, &KCMGRUB2::slotMemtestChanged);
+    connect(ui->checkBox_osProber, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubDisableOsProberChanged);
 
     connect(ui->combobox_gfxmode, SIGNAL(activated(int)), this, SLOT(slotGrubGfxmodeChanged()));
-    connect(ui->toolButton_refreshGfxmode, SIGNAL(clicked(bool)), this, SLOT(slotResolutionsRefresh()));
+    connect(ui->toolButton_refreshGfxmode, &QAbstractButton::clicked, this, &KCMGRUB2::slotResolutionsRefresh);
     connect(ui->combobox_gfxpayload, SIGNAL(activated(int)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
-    connect(ui->toolButton_refreshGfxpayload, SIGNAL(clicked(bool)), this, SLOT(slotResolutionsRefresh()));
+    connect(ui->toolButton_refreshGfxpayload, &QAbstractButton::clicked, this, &KCMGRUB2::slotResolutionsRefresh);
 
     connect(ui->combobox_normalForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
     connect(ui->combobox_normalBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
     connect(ui->combobox_highlightForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
     connect(ui->combobox_highlightBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
 
-    connect(ui->kurlrequester_background, SIGNAL(textChanged(QString)), this, SLOT(slowGrubBackgroundChanged()));
-    connect(ui->pushbutton_preview, SIGNAL(clicked(bool)), this, SLOT(slotPreviewGrubBackground()));
-    connect(ui->pushbutton_create, SIGNAL(clicked(bool)), this, SLOT(slotCreateGrubBackground()));
-    connect(ui->kurlrequester_theme, SIGNAL(textChanged(QString)), this, SLOT(slotGrubThemeChanged()));
+    connect(ui->kurlrequester_background, &KUrlRequester::textChanged, this, &KCMGRUB2::slowGrubBackgroundChanged);
+    connect(ui->pushbutton_preview, &QAbstractButton::clicked, this, &KCMGRUB2::slotPreviewGrubBackground);
+    connect(ui->pushbutton_create, &QAbstractButton::clicked, this, &KCMGRUB2::slotCreateGrubBackground);
+    connect(ui->kurlrequester_theme, &KUrlRequester::textChanged, this, &KCMGRUB2::slotGrubThemeChanged);
 
-    connect(ui->lineedit_cmdlineDefault, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxDefaultChanged()));
-    connect(ui->pushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->pushbutton_cmdlineDefaultSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui->lineedit_cmdline, SIGNAL(textEdited(QString)), this, SLOT(slotGrubCmdlineLinuxChanged()));
-    connect(ui->pushbutton_cmdlineSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->pushbutton_cmdlineSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->lineedit_cmdlineDefault, &QLineEdit::textEdited, this, &KCMGRUB2::slotGrubCmdlineLinuxDefaultChanged);
+    connect(ui->pushbutton_cmdlineDefaultSuggestions->menu(), &QMenu::aboutToShow, this, &KCMGRUB2::slotUpdateSuggestions);
+    connect(ui->pushbutton_cmdlineDefaultSuggestions->menu(), &QMenu::triggered, this, &KCMGRUB2::slotTriggeredSuggestion);
+    connect(ui->lineedit_cmdline, &QLineEdit::textEdited, this, &KCMGRUB2::slotGrubCmdlineLinuxChanged);
+    connect(ui->pushbutton_cmdlineSuggestions->menu(), &QMenu::aboutToShow, this, &KCMGRUB2::slotUpdateSuggestions);
+    connect(ui->pushbutton_cmdlineSuggestions->menu(), &QMenu::triggered, this, &KCMGRUB2::slotTriggeredSuggestion);
 
-    connect(ui->lineedit_terminal, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalChanged()));
-    connect(ui->pushbutton_terminalSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->pushbutton_terminalSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui->lineedit_terminalInput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalInputChanged()));
-    connect(ui->pushbutton_terminalInputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->pushbutton_terminalInputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
-    connect(ui->lineedit_terminalOutput, SIGNAL(textEdited(QString)), this, SLOT(slotGrubTerminalOutputChanged()));
-    connect(ui->pushbutton_terminalOutputSuggestions->menu(), SIGNAL(aboutToShow()), this, SLOT(slotUpdateSuggestions()));
-    connect(ui->pushbutton_terminalOutputSuggestions->menu(), SIGNAL(triggered(QAction*)), this, SLOT(slotTriggeredSuggestion(QAction*)));
+    connect(ui->lineedit_terminal, &QLineEdit::textEdited, this, &KCMGRUB2::slotGrubTerminalChanged);
+    connect(ui->pushbutton_terminalSuggestions->menu(), &QMenu::aboutToShow, this, &KCMGRUB2::slotUpdateSuggestions);
+    connect(ui->pushbutton_terminalSuggestions->menu(), &QMenu::triggered, this, &KCMGRUB2::slotTriggeredSuggestion);
+    connect(ui->lineedit_terminalInput, &QLineEdit::textEdited, this, &KCMGRUB2::slotGrubTerminalInputChanged);
+    connect(ui->pushbutton_terminalInputSuggestions->menu(), &QMenu::aboutToShow, this, &KCMGRUB2::slotUpdateSuggestions);
+    connect(ui->pushbutton_terminalInputSuggestions->menu(), &QMenu::triggered, this, &KCMGRUB2::slotTriggeredSuggestion);
+    connect(ui->lineedit_terminalOutput, &QLineEdit::textEdited, this, &KCMGRUB2::slotGrubTerminalOutputChanged);
+    connect(ui->pushbutton_terminalOutputSuggestions->menu(), &QMenu::aboutToShow, this, &KCMGRUB2::slotUpdateSuggestions);
+    connect(ui->pushbutton_terminalOutputSuggestions->menu(), &QMenu::triggered, this, &KCMGRUB2::slotTriggeredSuggestion);
 
-    connect(ui->lineedit_distributor, SIGNAL(textEdited(QString)), this, SLOT(slotGrubDistributorChanged()));
-    connect(ui->lineedit_serial, SIGNAL(textEdited(QString)), this, SLOT(slotGrubSerialCommandChanged()));
-    connect(ui->lineedit_initTune, SIGNAL(textEdited(QString)), this, SLOT(slotGrubInitTuneChanged()));
-    connect(ui->checkBox_uuid, SIGNAL(clicked(bool)), this, SLOT(slotGrubDisableLinuxUuidChanged()));
+    connect(ui->lineedit_distributor, &QLineEdit::textEdited, this, &KCMGRUB2::slotGrubDistributorChanged);
+    connect(ui->lineedit_serial, &QLineEdit::textEdited, this, &KCMGRUB2::slotGrubSerialCommandChanged);
+    connect(ui->lineedit_initTune, &QLineEdit::textEdited, this, &KCMGRUB2::slotGrubInitTuneChanged);
+    connect(ui->checkBox_uuid, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubDisableLinuxUuidChanged);
 
-    connect(ui->pushbutton_install, SIGNAL(clicked(bool)), this, SLOT(slotInstallBootloader()));
+    connect(ui->pushbutton_install, &QAbstractButton::clicked, this, &KCMGRUB2::slotInstallBootloader);
 }
 
 bool KCMGRUB2::readFile(const QString &fileName, QByteArray &fileContents)

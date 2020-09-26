@@ -110,11 +110,11 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent) : QDial
         ui->treeWidget->expandAll();
         ui->treeWidget->resizeColumnToContents(0);
         ui->treeWidget->setMinimumWidth(ui->treeWidget->columnWidth(0) + ui->treeWidget->sizeHintForRow(0));
-        connect(ui->treeWidget, SIGNAL(itemChanged(QTreeWidgetItem*,int)), this, SLOT(slotItemChanged()));
+        connect(ui->treeWidget, &QTreeWidget::itemChanged, this, &RemoveDialog::slotItemChanged);
         m_okButton->setEnabled(true);
     } else {
         KMessageBox::sorry(this, i18nc("@info", "No removable entries were found."));
-        QTimer::singleShot(0, this, SLOT(reject()));
+        QTimer::singleShot(0, this, &QDialog::reject);
     }
 }
 RemoveDialog::~RemoveDialog()
@@ -135,8 +135,8 @@ void RemoveDialog::slotAccepted()
         }
     }
     if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval()) == KMessageBox::Yes) {
-        connect(m_backend, SIGNAL(progress(QString,int)), this, SLOT(slotProgress(QString,int)));
-        connect(m_backend, SIGNAL(finished(bool)), this, SLOT(slotFinished(bool)));
+        connect(m_backend, &QPkBackend::progress, this, &RemoveDialog::slotProgress);
+        connect(m_backend, &QPkBackend::finished, this, &RemoveDialog::slotFinished);
         m_backend->removePackages();
     } else {
         m_backend->undoChanges();

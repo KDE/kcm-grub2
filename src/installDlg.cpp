@@ -128,7 +128,7 @@ void InstallDialog::slotAccepted()
     progressDlg.setMaximum(0);
     progressDlg.show();
     installJob = installAction.execute();
-    connect(installJob, SIGNAL(finished(KJob*)), &progressDlg, SLOT(hide()));
+    connect(installJob, &KJob::finished, &progressDlg, &QWidget::hide);
 
     if (installJob->exec()) {
         QDialog *dialog = new QDialog(this);
