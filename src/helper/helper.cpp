@@ -97,7 +97,7 @@ bool Helper::setLang(const QString &lang)
         qCritical() << "Error description:" << file.errorString();
         return false;
     }
-    fileContents.replace(QRegExp(QLatin1String("(\\n\\s*set\\s+lang=)\\S*\\n")), QLatin1String("\\1%1\n").arg(lang));
+    fileContents.replace(QRegExp(QStringLiteral("(\\n\\s*set\\s+lang=)\\S*\\n")), QStringLiteral("\\1%1\n").arg(lang));
     if (file.write(fileContents.toUtf8()) == -1) {
         qCritical() << "Failed to write data to file:" << grubMenuPath();
         qCritical() << "Error code:" << file.error();
