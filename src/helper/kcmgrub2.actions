@@ -2,7 +2,7 @@
 Name=GRUB2 Bootloader Control Module
 Name[ast]=Módulu de control pal cargador d'arrinque GRUB2
 Name[bs]=Kontrolni modul GRUB2 pokretača sistema
-Name[ca]=Mòdul de control per al gestor d'arrencada Grub2
+Name[ca]=Mòdul de control del gestor d'arrencada Grub2
 Name[ca@valencia]=Mòdul de control per al gestor d'arrencada Grub2
 Name[cs]=Ovládací modul pro zavaděč GRUB2
 Name[da]=Kontrolmodul til GRUB2-bootloaderen
