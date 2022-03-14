@@ -802,6 +802,18 @@ void KCMGRUB2::slotTriggeredSuggestion(QAction *action)
     (this->*updateFunction)();
 }
 
+void KCMGRUB2::setupColors(std::initializer_list<ColorInfo> colorInfos) {
+    for (const auto& ci : colorInfos) {
+        QPixmap colorPixmap(16, 16);
+        colorPixmap.fill(ci.color);
+        const QIcon color(colorPixmap);
+        ui->combobox_normalForeground->addItem(color, ci.text, ci.grubColor);
+        ui->combobox_highlightForeground->addItem(color, ci.text, ci.grubColor);
+        ui->combobox_normalBackground->addItem(color, ci.text, ci.grubColor);
+        ui->combobox_highlightBackground->addItem(color, ci.text, ci.grubColor);
+    }
+}
+
 void KCMGRUB2::setupObjects()
 {
     setButtons(Default | Apply);
@@ -830,33 +842,24 @@ void KCMGRUB2::setupObjects()
     ui->combobox_highlightForeground->addItem(QIcon(black), i18nc("@item:inlistbox Refers to color.", "Black"), QLatin1String("black"));
     ui->combobox_normalBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox Refers to color.", "Transparent"), QLatin1String("black"));
     ui->combobox_highlightBackground->addItem(QIcon(transparent), i18nc("@item:inlistbox Refers to color.", "Transparent"), QLatin1String("black"));
-    const QHash<QString, QString> colors = {
-        {QStringLiteral("blue"), i18nc("@item:inlistbox Refers to color.", "Blue")},
-        {QStringLiteral("cyan"), i18nc("@item:inlistbox Refers to color.", "Cyan")},
-        {QStringLiteral("dark-gray"), i18nc("@item:inlistbox Refers to color.", "Dark Gray")},
-        {QStringLiteral("green"), i18nc("@item:inlistbox Refers to color.", "Green")},
-        {QStringLiteral("light-cyan"), i18nc("@item:inlistbox Refers to color.", "Light Cyan")},
-        {QStringLiteral("light-blue"), i18nc("@item:inlistbox Refers to color.", "Light Blue")},
-        {QStringLiteral("light-green"), i18nc("@item:inlistbox Refers to color.", "Light Green")},
-        {QStringLiteral("light-gray"), i18nc("@item:inlistbox Refers to color.", "Light Gray")},
-        {QStringLiteral("light-magenta"), i18nc("@item:inlistbox Refers to color.", "Light Magenta")},
-        {QStringLiteral("light-red"), i18nc("@item:inlistbox Refers to color.", "Light Red")},
-        {QStringLiteral("magenta"), i18nc("@item:inlistbox Refers to color.", "Magenta")},
-        {QStringLiteral("red"), i18nc("@item:inlistbox Refers to color.", "Red")},
-        {QStringLiteral("white"), i18nc("@item:inlistbox Refers to color.", "White")},
-        {QStringLiteral("yellow"), i18nc("@item:inlistbox Refers to color.", "Yellow")}
-    };
-    QHash<QString, QString>::const_iterator it = colors.constBegin();
-    QHash<QString, QString>::const_iterator end = colors.constEnd();
-    for (; it != end; it++) {
-        QPixmap colorPixmap(16, 16);
-        colorPixmap.fill(QColor(it.value()));
-        const QIcon color(colorPixmap);
-        ui->combobox_normalForeground->addItem(color, it.value(), it.key());
-        ui->combobox_highlightForeground->addItem(color, it.value(), it.key());
-        ui->combobox_normalBackground->addItem(color, it.value(), it.key());
-        ui->combobox_highlightBackground->addItem(color, it.value(), it.key());
-    }
+
+    setupColors({
+        {QStringLiteral("blue"), i18nc("@item:inlistbox Refers to color.", "Blue"), QColorConstants::Svg::blue},
+        {QStringLiteral("cyan"), i18nc("@item:inlistbox Refers to color.", "Cyan"), QColorConstants::Svg::cyan},
+        {QStringLiteral("dark-gray"), i18nc("@item:inlistbox Refers to color.", "Dark Gray"), QColorConstants::Svg::darkgray},
+        {QStringLiteral("green"), i18nc("@item:inlistbox Refers to color.", "Green"), QColorConstants::Svg::green},
+        {QStringLiteral("light-cyan"), i18nc("@item:inlistbox Refers to color.", "Light Cyan"), QColorConstants::Svg::lightcyan},
+        {QStringLiteral("light-blue"), i18nc("@item:inlistbox Refers to color.", "Light Blue"), QColorConstants::Svg::lightblue},
+        {QStringLiteral("light-green"), i18nc("@item:inlistbox Refers to color.", "Light Green"), QColorConstants::Svg::lightgreen},
+        {QStringLiteral("light-gray"), i18nc("@item:inlistbox Refers to color.", "Light Gray"), QColorConstants::Svg::lightgray},
+        {QStringLiteral("light-magenta"), i18nc("@item:inlistbox Refers to color.", "Light Magenta"), QColorConstants::Svg::magenta},
+        {QStringLiteral("light-red"), i18nc("@item:inlistbox Refers to color.", "Light Red"), QColorConstants::Svg::orangered},
+        {QStringLiteral("magenta"), i18nc("@item:inlistbox Refers to color.", "Magenta"), QColorConstants::Svg::darkmagenta},
+        {QStringLiteral("red"), i18nc("@item:inlistbox Refers to color.", "Red"), QColorConstants::Svg::red},
+        {QStringLiteral("white"), i18nc("@item:inlistbox Refers to color.", "White"), QColorConstants::Svg::white},
+        {QStringLiteral("yellow"), i18nc("@item:inlistbox Refers to color.", "Yellow"), QColorConstants::Svg::yellow}
+    });
+
     ui->combobox_normalForeground->setCurrentIndex(ui->combobox_normalForeground->findData(QLatin1String("light-gray")));
     ui->combobox_normalBackground->setCurrentIndex(ui->combobox_normalBackground->findData(QLatin1String("black")));
     ui->combobox_highlightForeground->setCurrentIndex(ui->combobox_highlightForeground->findData(QLatin1String("black")));

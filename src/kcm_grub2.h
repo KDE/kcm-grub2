@@ -83,6 +83,12 @@ private Q_SLOTS:
     void slotUpdateSuggestions();
     void slotTriggeredSuggestion(QAction *action);
 private:
+    struct ColorInfo {
+        QString grubColor;
+        QString text;
+        QColor  color;
+    };
+    void setupColors(std::initializer_list<ColorInfo> colors);
     void setupObjects();
     void setupConnections();
 
