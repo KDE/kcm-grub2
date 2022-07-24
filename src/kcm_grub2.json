@@ -1,5 +1,4 @@
 {
-    "Categories": "Qt;KDE;X-KDE-settings-system;",
     "KPlugin": {
         "Description": "Customize the GRUB2 bootloader",
         "Description[ast]": "Personaliza'l cargador d'arrinque GRUB2",
@@ -87,10 +86,7 @@
         "Name[uk]": "Завантажувач GRUB2",
         "Name[x-test]": "xxGRUB2 Bootloaderxx",
         "Name[zh_CN]": "GRUB2 启动引导程序",
-        "Name[zh_TW]": "GRUB2 開機載入器",
-        "ServiceTypes": [
-            "KCModule"
-        ]
+        "Name[zh_TW]": "GRUB2 開機載入器"
     },
     "X-KDE-Keywords": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader",
     "X-KDE-Keywords[ast]": "grub,arrinque,arrincar,menú,entrada,entraes,contraseña,color,aspeutu,imaxe,xestor d'arrinque",
