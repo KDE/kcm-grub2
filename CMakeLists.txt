@@ -80,7 +80,6 @@ configure_file(config.h.cmake ${CMAKE_CURRENT_BINARY_DIR}/src/config.h)
 
 feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAGES)
 
-add_subdirectory(other)
 add_subdirectory(src)
 
 find_package(KF5I18n CONFIG REQUIRED)

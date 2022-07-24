@@ -55,7 +55,7 @@
 //Ui
 #include "ui_kcm_grub2.h"
 
-K_PLUGIN_FACTORY(GRUB2Factory, registerPlugin<KCMGRUB2>();)
+K_PLUGIN_CLASS_WITH_JSON(KCMGRUB2, "kcm_grub2.json")
 
 KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list) : KCModule(parent, list)
 {
