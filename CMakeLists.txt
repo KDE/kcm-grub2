@@ -2,8 +2,9 @@ project(kcm-grub2)
 
 cmake_minimum_required(VERSION 2.8.12 FATAL_ERROR)
 set(PROJECT_VERSION "0.6.4")
-set(QT_MIN_VERSION "5.14.0")
-find_package(ECM 1.0.0 REQUIRED NO_MODULE)
+set(QT_MIN_VERSION "5.15.0")
+set(KF5_MIN_VERSION "5.97")
+find_package(ECM ${KF5_MIN_VERSION}  REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 include(ECMInstallIcons)
 include(KDEInstallDirs)
@@ -19,7 +20,7 @@ include(GRUBPaths)
 
 find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core Gui Widgets)
 
-find_package(KF5 REQUIRED COMPONENTS
+find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Auth
     I18n
     KCMUtils
