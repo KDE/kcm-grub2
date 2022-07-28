@@ -135,8 +135,13 @@ void RemoveDialog::slotAccepted()
         }
     }
     if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval()) == KMessageBox::Yes) {
+#if HAVE_QAPT
+        connect(m_backend, &QAptBackend::progress, this, &RemoveDialog::slotProgress);
+        connect(m_backend, &QAptBackend::finished, this, &RemoveDialog::slotFinished);
+#elif HAVE_QPACKAGEKIT
         connect(m_backend, &QPkBackend::progress, this, &RemoveDialog::slotProgress);
         connect(m_backend, &QPkBackend::finished, this, &RemoveDialog::slotFinished);
+#endif
         m_backend->removePackages();
     } else {
         m_backend->undoChanges();
