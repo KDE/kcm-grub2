@@ -89,7 +89,7 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent) : QDial
         found = true;
         const QString packageName = package.takeFirst();
         const QString packageVersion = package.takeFirst();
-        QTreeWidgetItem *item = 0;
+        QTreeWidgetItem *item = nullptr;
         for (int j = 0; j < ui->treeWidget->topLevelItemCount(); j++) {
             if (ui->treeWidget->topLevelItem(j)->data(0, Qt::UserRole).toString() == packageName && ui->treeWidget->topLevelItem(j)->data(0, Qt::UserRole + 1).toString() == packageVersion) {
                 item = ui->treeWidget->topLevelItem(j);

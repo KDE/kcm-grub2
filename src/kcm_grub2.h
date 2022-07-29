@@ -42,7 +42,7 @@ class KCMGRUB2 : public KCModule
 {
     Q_OBJECT
 public:
-    explicit KCMGRUB2(QWidget *parent = 0, const QVariantList &list = QVariantList());
+    explicit KCMGRUB2(QWidget *parent = nullptr, const QVariantList &list = QVariantList());
     virtual ~KCMGRUB2();
 
     void defaults() override;

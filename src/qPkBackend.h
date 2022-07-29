@@ -28,7 +28,7 @@ class QPkBackend : public QObject
 {
     Q_OBJECT
 public:
-    explicit QPkBackend(QObject *parent = 0);
+    explicit QPkBackend(QObject *parent = nullptr);
     virtual ~QPkBackend();
 
     QStringList ownerPackage(const QString &fileName);

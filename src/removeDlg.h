@@ -44,7 +44,7 @@ class RemoveDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit RemoveDialog(const QList<Entry> &entries, QWidget *parent = 0);
+    explicit RemoveDialog(const QList<Entry> &entries, QWidget *parent = nullptr);
     virtual ~RemoveDialog();
 private Q_SLOTS:
     void slotAccepted();

@@ -773,7 +773,7 @@ void KCMGRUB2::slotUpdateSuggestions()
 void KCMGRUB2::slotTriggeredSuggestion(QAction *action)
 {
     QLineEdit *lineEdit = nullptr;
-    void (KCMGRUB2::*updateFunction)() = 0;
+    void (KCMGRUB2::*updateFunction)() = nullptr;
     if (ui->pushbutton_cmdlineDefaultSuggestions->isDown()) {
         lineEdit = ui->lineedit_cmdlineDefault;
         updateFunction = &KCMGRUB2::slotGrubCmdlineLinuxDefaultChanged;

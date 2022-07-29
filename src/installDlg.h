@@ -31,7 +31,7 @@ class InstallDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit InstallDialog(QWidget *parent = 0);
+    explicit InstallDialog(QWidget *parent = nullptr);
     virtual ~InstallDialog();
 private Q_SLOTS:
     void slotAccepted();

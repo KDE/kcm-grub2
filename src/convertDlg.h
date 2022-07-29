@@ -31,7 +31,7 @@ class ConvertDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit ConvertDialog(QWidget *parent = 0);
+    explicit ConvertDialog(QWidget *parent = nullptr);
     virtual ~ConvertDialog();
 
     void setResolution(int width, int height);
