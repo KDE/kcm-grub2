@@ -1,8 +1,8 @@
+cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 project(kcm-grub2)
 
-cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 set(PROJECT_VERSION "0.6.4")
-set(QT_MIN_VERSION "5.15.0")
+set(QT_MIN_VERSION "5.15.2")
 set(KF5_MIN_VERSION "5.97")
 find_package(ECM ${KF5_MIN_VERSION}  REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
