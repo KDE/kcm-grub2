@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2022 Alexander Lohnau <alexander.lohnau@gmx.de>
+# SPDX-License-Identifier: CC0-1.0
+
+Dependencies:
+- 'on': ['Linux', 'FreeBSD']
+  'require':
+    'frameworks/extra-cmake-modules': '@stable'
+    'frameworks/kauth' : '@stable'
+    'frameworks/ki18n' : '@stable'
+    'frameworks/kcmutils' : '@stable'
+    'frameworks/kio' : '@stable'
+    'frameworks/solid' : '@stable'
+
+Options:
+  test-before-installing: True
+  require-passing-tests-on: [ 'Linux', 'FreeBSD' ]
+  cmake-options: '-DGRUB_INSTALL_EXE=/usr/sbin/grub-install -DGRUB_MKCONFIG_EXE=/usr/sbin/grub-mkconfig -DGRUB_PROBE_EXE=/usr/sbin/grub-probe -DGRUB_SET_DEFAULT_EXE=/usr/sbin/grub-set-default -DGRUB_MENU=/boot/grub/grub.cfg -DGRUB_CONFIG=/etc/default/grub -DGRUB_ENV=/boot/grub/grubenv -DGRUB_MEMTEST=/etc/grub.d/20_memtest86+ -DGRUB_LOCALE=/boot/grub/locale'
