@@ -1,8 +1,22 @@
 {
     "KPlugin": {
         "Description": "Customize the GRUB2 bootloader",
+        "Description[ca@valencia]": "Personalitza el gestor d'arrancada Grub2",
+        "Description[ca]": "Personalitza el gestor d'arrencada Grub2",
+        "Description[eu]": "Egokitu GRUB2 abio-zamatzailea zure eran",
+        "Description[nl]": "De GRUB2-bootloader aanpassen",
+        "Description[tr]": "GRUB2 önyükleyiciyi özelleştir",
+        "Description[uk]": "Налаштування завантажувача GRUB2",
+        "Description[x-test]": "xxCustomize the GRUB2 bootloaderxx",
         "Icon": "system-reboot",
-        "Name": "GRUB2 Bootloader"
+        "Name": "GRUB2 Bootloader",
+        "Name[ca@valencia]": "Gestor d'arrancada Grub2",
+        "Name[ca]": "Gestor d'arrencada Grub2",
+        "Name[eu]": "GRUB2 abio-zamatzailea",
+        "Name[nl]": "GRUB2 bootloader",
+        "Name[tr]": "GRUB2 Önyükleyici",
+        "Name[uk]": "Завантажувач GRUB2",
+        "Name[x-test]": "xxGRUB2 Bootloaderxx"
     },
     "X-KDE-Keywords": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader",
     "X-KDE-Keywords[ast]": "grub,arrinque,arrincar,menú,entrada,entraes,contraseña,color,aspeutu,imaxe,xestor d'arrinque",
