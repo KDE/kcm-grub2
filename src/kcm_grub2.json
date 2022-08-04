@@ -10,6 +10,7 @@
         "Description[pt]": "Personalizar o gestor de arranque GRUB2",
         "Description[sk]": "Prispôsobiť bootloader GRUB2",
         "Description[sl]": "Prilagodi inicialni nalagalnik GRUB2",
+        "Description[sv]": "Anpassa GRUB2 startprogram",
         "Description[tr]": "GRUB2 önyükleyiciyi özelleştir",
         "Description[uk]": "Налаштування завантажувача GRUB2",
         "Description[x-test]": "xxCustomize the GRUB2 bootloaderxx",
@@ -24,6 +25,7 @@
         "Name[pt]": "Gestor de Arranque GRUB2",
         "Name[sk]": "Bootloader GRUB2",
         "Name[sl]": "Inicialni nalagalnik GRUB2",
+        "Name[sv]": "GRUB2 startprogram",
         "Name[tr]": "GRUB2 Önyükleyici",
         "Name[uk]": "Завантажувач GRUB2",
         "Name[x-test]": "xxGRUB2 Bootloaderxx"
