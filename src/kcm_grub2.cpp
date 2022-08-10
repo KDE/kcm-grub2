@@ -36,8 +36,8 @@
 #include <KAboutData>
 #include <KMessageBox>
 #include <KPluginFactory>
-#include <KAuthAction>
-#include <KAuthExecuteJob>
+#include <KAuth/Action>
+#include <KAuth/ExecuteJob>
 
 //Project
 #include "common.h"

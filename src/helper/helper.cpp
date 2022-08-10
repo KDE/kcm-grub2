@@ -28,7 +28,7 @@
 //KDE
 #include <KLocalizedString>
 #include <KProcess>
-#include <KAuthHelperSupport>
+#include <KAuth/HelperSupport>
 
 //Project
 #include "../common.h"

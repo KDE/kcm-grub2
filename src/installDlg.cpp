@@ -29,8 +29,8 @@
 #include <KFormat>
 #include <KLocalizedString>
 #include <KMessageBox>
-#include <KAuthAction>
-#include <KAuthExecuteJob>
+#include <KAuth/Action>
+#include <KAuth/ExecuteJob>
 using namespace KAuth;
 #include <Solid/Device>
 #include <Solid/StorageAccess>
