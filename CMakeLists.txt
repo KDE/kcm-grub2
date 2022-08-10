@@ -6,10 +6,12 @@ set(QT_MIN_VERSION "5.15.2")
 set(KF5_MIN_VERSION "5.97")
 find_package(ECM ${KF5_MIN_VERSION}  REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${ECM_KDE_MODULE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-include(ECMInstallIcons)
+
 include(KDEInstallDirs)
 include(KDECMakeSettings)
-include(KDECompilerSettings)
+include(KDECompilerSettings NO_POLICY_SCOPE)
+
+include(ECMInstallIcons)
 include(FeatureSummary)
 
 set(KCM_GRUB2_VERSION ${PROJECT_VERSION})
