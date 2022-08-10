@@ -146,7 +146,7 @@ static QString statusToString(PackageKit::Transaction::Status status)
 
 QPkBackend::QPkBackend(QObject *parent) : QObject(parent)
 {
-    m_t = 0;
+    m_t = nullptr;
 }
 QPkBackend::~QPkBackend()
 {

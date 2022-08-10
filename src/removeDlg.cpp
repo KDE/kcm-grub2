@@ -60,7 +60,7 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent) : QDial
     setWindowTitle(i18nc("@title:window", "Remove Old Entries"));
     setWindowIcon(QIcon::fromTheme(QStringLiteral("list-remove")));
 
-    m_progressDlg = 0;
+    m_progressDlg = nullptr;
 
 #if HAVE_QAPT
     m_backend = new QAptBackend;
