@@ -110,7 +110,7 @@ void InstallDialog::slotAccepted()
         }
     }
     if (installAction.arguments().value(QStringLiteral("partition")).toString().isEmpty()) {
-        KMessageBox::sorry(this, i18nc("@info", "Sorry, you have to select a partition with a proper name!"));
+        KMessageBox::error(this, i18nc("@info", "Sorry, you have to select a partition with a proper name!"));
         return;
     }
     installAction.setParentWidget(this);

@@ -113,7 +113,7 @@ RemoveDialog::RemoveDialog(const QList<Entry> &entries, QWidget *parent) : QDial
         connect(ui->treeWidget, &QTreeWidget::itemChanged, this, &RemoveDialog::slotItemChanged);
         m_okButton->setEnabled(true);
     } else {
-        KMessageBox::sorry(this, i18nc("@info", "No removable entries were found."));
+        KMessageBox::information(this, i18nc("@info", "No removable entries were found."));
         QTimer::singleShot(0, this, &QDialog::reject);
     }
 }
