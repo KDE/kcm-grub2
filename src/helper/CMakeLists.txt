@@ -14,7 +14,7 @@ endif(HAVE_HD)
 # Build & Link
 include_directories(${kcmgrub2helper_INCLUDE_DIRS})
 add_executable(kcmgrub2helper ${kcmgrub2helper_SRCS})
-target_link_libraries(kcmgrub2helper ${kcmgrub2helper_LINK_LIBS} KF5::Auth KF5::I18n)
+target_link_libraries(kcmgrub2helper ${kcmgrub2helper_LINK_LIBS} KF5::AuthCore KF5::I18n)
 
 # Install
 install(TARGETS kcmgrub2helper DESTINATION ${KAUTH_HELPER_INSTALL_DIR})
