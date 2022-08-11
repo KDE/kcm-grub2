@@ -20,7 +20,7 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
 include(GRUBPaths)
 
-find_package(Qt5 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core Gui Widgets)
 
 find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
     Auth
@@ -68,8 +68,8 @@ else()
     set(HAVE_QAPT 0)
 endif()
 
-find_package(PackageKitQt5)
-set_package_properties(PackageKitQt5 PROPERTIES
+find_package(PackageKitQt${QT_MAJOR_VERSION})
+set_package_properties(PackageKitQt${QT_MAJOR_VERSION} PROPERTIES
                        DESCRIPTION "Remove unneeded old entries (qpackagekit backend)"
                        URL "http://www.packagekit.org/"
                        TYPE OPTIONAL)
