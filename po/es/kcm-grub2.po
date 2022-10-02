@@ -1,0 +1,1252 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Kira J. Fernandez <kirajfdez@gmail.com>, 2012.
+# Eloy Cuadra <ecuadra@eloihr.net>, 2012, 2013, 2019, 2020.
+# Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-07-30 00:49+0000\n"
+"PO-Revision-Date: 2020-10-22 11:54+0200\n"
+"Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
+"Language-Team: Spanish <kde-l10n-es@kde.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 20.08.2\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "Rocío Gallego,Kira J. Fernández"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "traducciones@rociogallego.com,kirajfdez@gmail.com"
+
+#: src/convertDlg.cpp:58
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "ImageMagick supported image formats"
+msgstr "Formatos de imagen aceptados por ImageMagick"
+
+#: src/convertDlg.cpp:90
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Please fill in both <interface>Image</interface> and <interface>Convert To</"
+"interface> fields."
+msgstr ""
+"Por favor, rellene los campos <interface>Imagen</interface> y "
+"<interface>Convertir a</interface>."
+
+#: src/convertDlg.cpp:93
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Please fill in both <interface>Width</interface> and <interface>Height</"
+"interface> fields."
+msgstr ""
+"Por favor, rellene los campos <interface>Anchura</interface> y "
+"<interface>Altura</interface>."
+
+#: src/convertDlg.cpp:96
+#, kde-format
+msgctxt "@info"
+msgid ""
+"You do not have write permissions in this directory, please select another "
+"destination."
+msgstr ""
+"No tiene permisos de escritura en este directorio, seleccione otro destino."
+
+#: src/helper/helper.cpp:66
+#, kde-format
+msgctxt "@info"
+msgid "The process could not be started."
+msgstr "No se puede iniciar el proceso."
+
+#: src/helper/helper.cpp:69
+#, kde-format
+msgctxt "@info"
+msgid "The process crashed."
+msgstr "El proceso ha fallado."
+
+#: src/helper/helper.cpp:75
+#, kde-format
+msgctxt "@info"
+msgid "Command: <command>%1</command><nl/>"
+msgstr "Orden: <command>%1</command><nl/>"
+
+#: src/helper/helper.cpp:121
+#, kde-format
+msgid "Original configuration file <filename>%1</filename> does not exist."
+msgstr ""
+"El archivo de configuración original <filename>%1</filename> no existe."
+
+#: src/helper/helper.cpp:127
+#, kde-format
+msgid "Cannot remove current configuration file <filename>%1</filename>."
+msgstr ""
+"No se puede eliminar el archivo de configuración actual <filename>%1</"
+"filename>."
+
+#: src/helper/helper.cpp:133
+#, kde-format
+msgid ""
+"Cannot copy original configuration file <filename>%1</filename> to <filename>"
+"%2</filename>."
+msgstr ""
+"No se puede copiar el archivo de configuración original <filename>%1</"
+"filename> en <filename>%2</filename>."
+
+#: src/helper/helper.cpp:150
+#, kde-format
+msgid "Failed to create temporary mount point."
+msgstr "No se ha podido crear un punto de montaje temporal."
+
+#: src/helper/helper.cpp:288
+#, kde-format
+msgctxt "@info"
+msgid "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>"
+msgstr ""
+"Código de error: <numid>%1</numid><nl/>Mensaje de error: <message>%2</"
+"message>"
+
+#: src/installDlg.cpp:60
+#, kde-format
+msgctxt "@title:window"
+msgid "Install/Recover Bootloader"
+msgstr "Instalar/recuperar el cargador de arranque"
+
+#: src/installDlg.cpp:113
+#, kde-format
+msgctxt "@info"
+msgid "Sorry, you have to select a partition with a proper name!"
+msgstr "Lo siento, tiene que seleccionar una partición con un nombre adecuado."
+
+#: src/installDlg.cpp:124
+#, kde-format
+msgctxt "@title:window"
+msgid "Installing"
+msgstr "Instalando"
+
+#: src/installDlg.cpp:125
+#, kde-format
+msgctxt "@info:progress"
+msgid "Installing GRUB..."
+msgstr "Instalando GRUB..."
+
+#: src/installDlg.cpp:136 src/kcm_grub2.cpp:507
+#, kde-format
+msgctxt "@title:window"
+msgid "Information"
+msgstr "Información"
+
+#: src/installDlg.cpp:150
+#, kde-format
+msgctxt "@info"
+msgid "Successfully installed GRUB."
+msgstr "GRUB instalado con éxito"
+
+#: src/installDlg.cpp:154
+#, kde-format
+msgctxt "@info"
+msgid "Failed to install GRUB."
+msgstr "No se ha podido instalar GRUB."
+
+#: src/kcm_grub2.cpp:62
+#, kde-format
+msgctxt "@title"
+msgid "KDE GRUB2 Bootloader Control Module"
+msgstr "Módulo de control del cargador de arranque de GRUB2 para KDE"
+
+#: src/kcm_grub2.cpp:63
+#, kde-format
+msgctxt "@title"
+msgid "A KDE Control Module for configuring the GRUB2 bootloader."
+msgstr ""
+"Módulo de control de KDE para configurar el cargador de arranque de GRUB2"
+
+#: src/kcm_grub2.cpp:64
+#, kde-format
+msgctxt "@info:credit"
+msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
+msgstr "Copyright © 2008-2013 Konstantinos Smanis"
+
+#: src/kcm_grub2.cpp:66
+#, kde-format
+msgctxt "@info:credit"
+msgid "Κonstantinos Smanis"
+msgstr "Κonstantinos Smanis"
+
+#: src/kcm_grub2.cpp:66
+#, kde-format
+msgctxt "@info:credit"
+msgid "Main Developer"
+msgstr "Desarrollador principal"
+
+#: src/kcm_grub2.cpp:90
+#, kde-format
+msgctxt "@info"
+msgid "Successfully restored the default values."
+msgstr "Los valores por defecto se han restaurado con éxito."
+
+#: src/kcm_grub2.cpp:92
+#, kde-format
+msgctxt "@info"
+msgid "Failed to restore the default values."
+msgstr "No se han podido restaurar los valores por defecto."
+
+#: src/kcm_grub2.cpp:496
+#, kde-format
+msgctxt "@title:window Verb (gerund). Refers to current status."
+msgid "Saving"
+msgstr "Guardando"
+
+#: src/kcm_grub2.cpp:497
+#, kde-format
+msgctxt "@info:progress"
+msgid "Saving GRUB settings..."
+msgstr "Guardando la configuración de GRUB..."
+
+#: src/kcm_grub2.cpp:521
+#, kde-format
+msgctxt "@info"
+msgid "Successfully saved GRUB settings."
+msgstr "La configuración de GRUB se ha guardado con éxito."
+
+#: src/kcm_grub2.cpp:526
+#, kde-format
+msgctxt "@info"
+msgid "Failed to save GRUB settings."
+msgstr "No se ha podido guardar la configuración de GRUB."
+
+#: src/kcm_grub2.cpp:596 src/kcm_grub2.cpp:618
+#, kde-format
+msgctxt "@title:window"
+msgid "Enter screen resolution"
+msgstr "Introduzca la resolución de pantalla"
+
+#: src/kcm_grub2.cpp:596
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Please enter a GRUB resolution:"
+msgstr "Por favor, introduzca una resolución para GRUB:"
+
+#: src/kcm_grub2.cpp:618
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Please enter a Linux boot resolution:"
+msgstr "Por favor, introduzca una resolución para el arranque de Linux:"
+
+#: src/kcm_grub2.cpp:669
+#, kde-format
+msgctxt "@info"
+msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
+msgstr ""
+"Presione <shortcut>Escape</shortcut> para salir del modo de pantalla "
+"completa."
+
+#: src/kcm_grub2.cpp:841 src/kcm_grub2.cpp:842
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Black"
+msgstr "Negro"
+
+#: src/kcm_grub2.cpp:843 src/kcm_grub2.cpp:844
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Transparent"
+msgstr "Transparente"
+
+#: src/kcm_grub2.cpp:847
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Blue"
+msgstr "Azul"
+
+#: src/kcm_grub2.cpp:848
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Cyan"
+msgstr "Cian"
+
+#: src/kcm_grub2.cpp:849
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Dark Gray"
+msgstr "Gris oscuro"
+
+#: src/kcm_grub2.cpp:850
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Green"
+msgstr "Verde"
+
+#: src/kcm_grub2.cpp:851
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Cyan"
+msgstr "Cian claro"
+
+#: src/kcm_grub2.cpp:852
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Blue"
+msgstr "Azul claro"
+
+#: src/kcm_grub2.cpp:853
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Green"
+msgstr "Verde claro"
+
+#: src/kcm_grub2.cpp:854
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Gray"
+msgstr "Gris claro"
+
+#: src/kcm_grub2.cpp:855
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Magenta"
+msgstr "Magenta claro"
+
+#: src/kcm_grub2.cpp:856
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Red"
+msgstr "Rojo claro"
+
+#: src/kcm_grub2.cpp:857
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Magenta"
+msgstr "Magenta"
+
+#: src/kcm_grub2.cpp:858
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Red"
+msgstr "Rojo"
+
+#: src/kcm_grub2.cpp:859
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "White"
+msgstr "Blanco"
+
+#: src/kcm_grub2.cpp:860
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Yellow"
+msgstr "Amarillo"
+
+#: src/kcm_grub2.cpp:874 src/kcm_grub2.cpp:883
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Quiet Boot"
+msgstr "Arranque silencioso"
+
+#: src/kcm_grub2.cpp:875 src/kcm_grub2.cpp:884
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Show Splash Screen"
+msgstr "Mostrar pantalla de bienvenida"
+
+#: src/kcm_grub2.cpp:876 src/kcm_grub2.cpp:885
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Disable Plymouth"
+msgstr "Desactivar Plymouth"
+
+#: src/kcm_grub2.cpp:877 src/kcm_grub2.cpp:886
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Turn Off ACPI"
+msgstr "Apagar ACPI"
+
+#: src/kcm_grub2.cpp:878 src/kcm_grub2.cpp:887
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Turn Off APIC"
+msgstr "Apagar APIC"
+
+#: src/kcm_grub2.cpp:879 src/kcm_grub2.cpp:888
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Turn Off Local APIC"
+msgstr "Apagar APIC local"
+
+#: src/kcm_grub2.cpp:880 src/kcm_grub2.cpp:889
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Single User Mode"
+msgstr "Modo monousuario"
+
+#: src/kcm_grub2.cpp:892 src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:904
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "PC BIOS && EFI Console"
+msgstr "BIOS del PC && Consola EFI"
+
+#: src/kcm_grub2.cpp:893 src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:905
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Serial Terminal"
+msgstr "Terminal serie"
+
+#: src/kcm_grub2.cpp:894 src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:906
+#, kde-format
+msgctxt ""
+"@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
+"former IEEE standard."
+msgid "Open Firmware Console"
+msgstr "Abrir la consola de firmware"
+
+#: src/kcm_grub2.cpp:900
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "PC AT Keyboard (Coreboot)"
+msgstr "Teclado para PC AT (arranque del núcleo)"
+
+#: src/kcm_grub2.cpp:901
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "USB Keyboard (HID Boot Protocol)"
+msgstr "Teclado USB (protocolo de arranque HID)"
+
+#: src/kcm_grub2.cpp:907
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Graphics Mode Output"
+msgstr "Salida en modo gráfico"
+
+#: src/kcm_grub2.cpp:908
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "VGA Text Output (Coreboot)"
+msgstr "Salida en modo texto VGA (arranque del núcleo)"
+
+#: src/kcm_grub2.cpp:1087
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "No translation"
+msgstr "Sin traducción"
+
+#: src/kcm_grub2.cpp:1126 src/kcm_grub2.cpp:1130
+#, kde-format
+msgctxt "@item:inlistbox Refers to screen resolution."
+msgid "Custom..."
+msgstr "Personalizada..."
+
+#: src/kcm_grub2.cpp:1127 src/kcm_grub2.cpp:1131
+#, kde-format
+msgctxt "@item:inlistbox Refers to screen resolution."
+msgid "Auto"
+msgstr "Automática"
+
+#: src/kcm_grub2.cpp:1132
+#, kde-format
+msgctxt "@item:inlistbox Refers to screen resolution."
+msgid "Unspecified"
+msgstr "Sin especificar"
+
+#: src/kcm_grub2.cpp:1133
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Boot in Text Mode"
+msgstr "Arranque en modo texto"
+
+#: src/kcm_grub2.cpp:1134
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Keep GRUB's Resolution"
+msgstr "Mantener la resolución de GRUB"
+
+#: src/qPkBackend.cpp:36
+#, kde-format
+msgctxt "transaction state, the daemon is in the process of starting"
+msgid "Waiting for service to start"
+msgstr "Esperando a que se inicie el servicio"
+
+#: src/qPkBackend.cpp:39
+#, kde-format
+msgctxt "transaction state, the transaction is waiting for another to complete"
+msgid "Waiting for other tasks"
+msgstr "Esperando otras tareas"
+
+#: src/qPkBackend.cpp:42
+#, kde-format
+msgctxt "transaction state, just started"
+msgid "Running task"
+msgstr "Ejecutando tarea"
+
+#: src/qPkBackend.cpp:45
+#, kde-format
+msgctxt "transaction state, is querying data"
+msgid "Querying"
+msgstr "Solicitando"
+
+#: src/qPkBackend.cpp:48
+#, kde-format
+msgctxt "transaction state, getting data from a server"
+msgid "Getting information"
+msgstr "Obteniendo información"
+
+#: src/qPkBackend.cpp:51
+#, kde-format
+msgctxt "transaction state, removing packages"
+msgid "Removing packages"
+msgstr "Eliminando paquetes"
+
+#: src/qPkBackend.cpp:54
+#, kde-format
+msgctxt "transaction state, downloading package files"
+msgid "Downloading packages"
+msgstr "Descargando paquetes"
+
+#: src/qPkBackend.cpp:57
+#, kde-format
+msgctxt "transaction state, installing packages"
+msgid "Installing packages"
+msgstr "Instalando paquetes"
+
+#: src/qPkBackend.cpp:60
+#, kde-format
+msgctxt "transaction state, refreshing internal lists"
+msgid "Refreshing software list"
+msgstr "Refrescando la lista de software"
+
+#: src/qPkBackend.cpp:63
+#, kde-format
+msgctxt "transaction state, installing updates"
+msgid "Updating packages"
+msgstr "Actualizando paquetes"
+
+#: src/qPkBackend.cpp:66
+#, kde-format
+msgctxt "transaction state, removing old packages, and cleaning config files"
+msgid "Cleaning up packages"
+msgstr "Limpiando paquetes"
+
+#: src/qPkBackend.cpp:69
+#, kde-format
+msgctxt "transaction state, obsoleting old packages"
+msgid "Obsoleting packages"
+msgstr "Marcando paquetes como anticuados"
+
+#: src/qPkBackend.cpp:72
+#, kde-format
+msgctxt "transaction state, checking the transaction before we do it"
+msgid "Resolving dependencies"
+msgstr "Resolviendo dependencias"
+
+#: src/qPkBackend.cpp:75
+#, kde-format
+msgctxt ""
+"transaction state, checking if we have all the security keys for the "
+"operation"
+msgid "Checking signatures"
+msgstr "Comprobando las firmas"
+
+#: src/qPkBackend.cpp:78
+#, kde-format
+msgctxt "transaction state, when we're doing a test transaction"
+msgid "Testing changes"
+msgstr "Probando los cambios"
+
+#: src/qPkBackend.cpp:81
+#, kde-format
+msgctxt "transaction state, when we're writing to the system package database"
+msgid "Committing changes"
+msgstr "Enviando cambios"
+
+#: src/qPkBackend.cpp:84
+#, kde-format
+msgctxt "transaction state, requesting data from a server"
+msgid "Requesting data"
+msgstr "Solicitando datos"
+
+#: src/qPkBackend.cpp:87
+#, kde-format
+msgctxt "transaction state, all done!"
+msgid "Finished"
+msgstr "Terminado"
+
+#: src/qPkBackend.cpp:90
+#, kde-format
+msgctxt "transaction state, in the process of cancelling"
+msgid "Cancelling"
+msgstr "Cancelando"
+
+#: src/qPkBackend.cpp:93
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading repository information"
+msgstr "Descargando la información del repositorio"
+
+#: src/qPkBackend.cpp:96
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading list of packages"
+msgstr "Descargando la lista de paquetes"
+
+#: src/qPkBackend.cpp:99
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading file lists"
+msgstr "Descargando listas de archivos"
+
+#: src/qPkBackend.cpp:102
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading lists of changes"
+msgstr "Descargando listas de cambios"
+
+#: src/qPkBackend.cpp:105
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading groups"
+msgstr "Descargando grupos"
+
+#: src/qPkBackend.cpp:108
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading update information"
+msgstr "Descargando información de actualizaciones"
+
+#: src/qPkBackend.cpp:111
+#, kde-format
+msgctxt "transaction state, repackaging delta files"
+msgid "Repackaging files"
+msgstr "Reempaquetando archivos"
+
+#: src/qPkBackend.cpp:114
+#, kde-format
+msgctxt "transaction state, loading databases"
+msgid "Loading cache"
+msgstr "Cargando caché"
+
+#: src/qPkBackend.cpp:117
+#, kde-format
+msgctxt "transaction state, scanning for running processes"
+msgid "Scanning installed applications"
+msgstr "Escaneando las aplicaciones intaladas"
+
+#: src/qPkBackend.cpp:120
+#, kde-format
+msgctxt ""
+"transaction state, generating a list of packages installed on the system"
+msgid "Generating package lists"
+msgstr "Generando lista de paquetes"
+
+#: src/qPkBackend.cpp:123
+#, kde-format
+msgctxt "transaction state, when we're waiting for the native tools to exit"
+msgid "Waiting for package manager lock"
+msgstr "Esperando a que se bloquee el gestor de paquetes"
+
+#: src/qPkBackend.cpp:126
+#, kde-format
+msgctxt "waiting for user to type in a password"
+msgid "Waiting for authentication"
+msgstr "Esperando autenticación"
+
+#: src/qPkBackend.cpp:129
+#, kde-format
+msgctxt "we are updating the list of processes"
+msgid "Updating the list of running applications"
+msgstr "Actualizando la lista de aplicaciones en ejecución"
+
+#: src/qPkBackend.cpp:132
+#, kde-format
+msgctxt "we are checking executable files in use"
+msgid "Checking for applications currently in use"
+msgstr "Comprobando aplicaciones actualmente en uso"
+
+#: src/qPkBackend.cpp:135
+#, kde-format
+msgctxt "we are checking for libraries in use"
+msgid "Checking for libraries currently in use"
+msgstr "Comprobando bibliotecas actualmente en uso"
+
+#: src/qPkBackend.cpp:138
+#, kde-format
+msgctxt "we are copying package files to prepare to install"
+msgid "Copying files"
+msgstr "Copiando archivos"
+
+#: src/qPkBackend.cpp:140
+#, kde-format
+msgctxt "we are running the install hooks"
+msgid "Running install hooks"
+msgstr "Ejecutando enlaces de instalación"
+
+#: src/qPkBackend.cpp:142
+#, kde-format
+msgctxt "we received an unknown status"
+msgid "Unknown status"
+msgstr "Estado desconocido"
+
+#: src/removeDlg.cpp:60
+#, kde-format
+msgctxt "@title:window"
+msgid "Remove Old Entries"
+msgstr "Eliminando entradas antiguas"
+
+#: src/removeDlg.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Finding Old Entries"
+msgstr "Encontrando entradas antiguas"
+
+#: src/removeDlg.cpp:74
+#, kde-format
+msgctxt "@info:progress"
+msgid "Finding Old Entries..."
+msgstr "Encontrando entradas antiguas..."
+
+#: src/removeDlg.cpp:100
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Kernel %1"
+msgstr "Kernel %1"
+
+#: src/removeDlg.cpp:116
+#, kde-format
+msgctxt "@info"
+msgid "No removable entries were found."
+msgstr "No se han encontrado entradas eliminables"
+
+#: src/removeDlg.cpp:137
+#, kde-format
+msgctxt "@info"
+msgid "Are you sure you want to remove the following packages?"
+msgstr "¿Seguro que desea eliminar los siguientes paquetes?"
+
+#: src/removeDlg.cpp:166
+#, kde-format
+msgctxt "@title:window"
+msgid "Removing Old Entries"
+msgstr "Eliminando entradas antiguas"
+
+#: src/removeDlg.cpp:179
+#, kde-format
+msgctxt "@info"
+msgid "Package removal failed."
+msgstr "La eliminación del paquete ha fallado."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/convertDlg.ui:19
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Image:"
+msgstr "Imagen:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/convertDlg.ui:29
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Convert To:"
+msgstr "Convertir a:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: ui/convertDlg.ui:41
+#, kde-format
+msgctxt "@title:group"
+msgid "Conversion Options"
+msgstr "Opciones de conversión"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/convertDlg.ui:47
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Width:"
+msgstr "Anchura:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/convertDlg.ui:61
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Height:"
+msgstr "Altura:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/convertDlg.ui:75
+#, kde-format
+msgctxt "@option:check"
+msgid "Force resolution:"
+msgstr "Forzar resolución:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: ui/convertDlg.ui:85
+#, kde-format
+msgctxt "@option:check"
+msgid "Set As GRUB Wallpaper:"
+msgstr "Establecer como fondo de GRUB:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/installDlg.ui:17
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Select partition to install/recover GRUB:"
+msgstr "Seleccionar la partición donde instalar/recuperar GRUB:"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:48
+#, kde-format
+msgctxt "@title:column"
+msgid "Partition"
+msgstr "Partición"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:53
+#, kde-format
+msgctxt "@title:column"
+msgid "Mountpoint"
+msgstr "Punto de montaje"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:58
+#, kde-format
+msgctxt "@title:column"
+msgid "Label"
+msgstr "Etiqueta"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:63
+#, kde-format
+msgctxt "@title:column"
+msgid "File System"
+msgstr "Sistema de archivos"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Size"
+msgstr "Tamaño"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_partition)
+#: ui/installDlg.ui:76
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Install the bootloader on the boot sector of the selected partition instead "
+"of the MBR(=Master Boot Sector). Not recommended."
+msgstr ""
+"Instalar el cargador de arranque en el sector de arranque de la partición "
+"seleccionada en lugar de en el MBR (Master Boot Sector). No se recomienda."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
+#: ui/installDlg.ui:79
+#, kde-format
+msgctxt "@option:check"
+msgid "Install on partition instead of MBR (Advanced)"
+msgstr "Instalar en la partición en lugar de en el MBR (Avanzado)"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: ui/kcm_grub2.ui:21
+#, kde-format
+msgctxt "@title:tab Refers to settings."
+msgid "General"
+msgstr "General"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_default)
+#: ui/kcm_grub2.ui:27
+#, kde-format
+msgctxt "@title:group"
+msgid "Default Entry"
+msgstr "Entrada por defecto"
+
+#. i18n: ectx: property (text), widget (QLabel, label_default)
+#: ui/kcm_grub2.ui:33
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Default Entry:"
+msgstr "Entrada por defecto:"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
+#: ui/kcm_grub2.ui:49
+#, kde-format
+msgctxt "@action:button"
+msgid "Remove Old Entries"
+msgstr "Eliminar entradas antiguas"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_savedefault)
+#: ui/kcm_grub2.ui:58
+#, kde-format
+msgctxt "@option:check"
+msgid "The next booted entry will become default"
+msgstr "La próxima entrada que se arranque se convertirá en la predeterminada"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
+#: ui/kcm_grub2.ui:68
+#, kde-format
+msgctxt "@title:group"
+msgid "Timeout"
+msgstr "Tiempo de espera"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_hiddenTimeout)
+#: ui/kcm_grub2.ui:76
+#, kde-format
+msgctxt "@option:check"
+msgid "Hide the menu for:"
+msgstr "Ocultar el menú para:"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_hiddenTimeout)
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_timeout)
+#: ui/kcm_grub2.ui:86 ui/kcm_grub2.ui:182
+#, kde-format
+msgctxt "@label:spinbox seconds (suffix)"
+msgid "s"
+msgstr "s"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_hiddenTimeoutShowTimer)
+#: ui/kcm_grub2.ui:114
+#, kde-format
+msgctxt "@option:check"
+msgid "Show countdown timer"
+msgstr "Mostrar temporizador de cuenta atrás"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_timeout)
+#: ui/kcm_grub2.ui:121
+#, kde-format
+msgctxt "@option:check"
+msgid "Automatically boot the default entry after showing the menu"
+msgstr "Arrancar automáticamente la entrada por defecto tras mostrar el menú"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
+#: ui/kcm_grub2.ui:144
+#, kde-format
+msgctxt "@option:radio"
+msgid "Immediately"
+msgstr "Inmediatamente"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout)
+#: ui/kcm_grub2.ui:169
+#, kde-format
+msgctxt "@option:radio"
+msgid "After:"
+msgstr "Después de:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_entries)
+#: ui/kcm_grub2.ui:197
+#, kde-format
+msgctxt "@title:group"
+msgid "Generated Entries"
+msgstr "Entradas generadas"
+
+#. i18n: ectx: property (text), widget (QLabel, label_language)
+#: ui/kcm_grub2.ui:203
+#, kde-format
+msgid "Language:"
+msgstr "Idioma:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_recovery)
+#: ui/kcm_grub2.ui:217
+#, kde-format
+msgctxt "@option:check"
+msgid "Generate recovery entries"
+msgstr "Generar entradas de recuperación"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_memtest)
+#: ui/kcm_grub2.ui:224
+#, kde-format
+msgctxt "@option:check"
+msgid "Generate memtest entries"
+msgstr "Generar entradas de test de memoria"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_osProber)
+#: ui/kcm_grub2.ui:231
+#, kde-format
+msgctxt "@option:check"
+msgid "Probe for operating systems"
+msgstr "Examinando sistemas operativos"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: ui/kcm_grub2.ui:255
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "Apariencia"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_resolutions)
+#: ui/kcm_grub2.ui:261
+#, kde-format
+msgctxt "@title:group"
+msgid "Resolutions"
+msgstr "Resoluciones"
+
+#. i18n: ectx: property (text), widget (QLabel, label_gfxmode)
+#: ui/kcm_grub2.ui:267
+#, kde-format
+msgctxt "@label:listbox"
+msgid "GRUB:"
+msgstr "GRUB:"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxmode)
+#. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxpayload)
+#: ui/kcm_grub2.ui:283 ui/kcm_grub2.ui:311
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Probe for supported VBE resolutions."
+msgstr "Prueba para las resoluciones de VBE permitidas."
+
+#. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
+#: ui/kcm_grub2.ui:295
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Linux Kernel:"
+msgstr "Kernel de Linux:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_colors)
+#: ui/kcm_grub2.ui:326
+#, kde-format
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "Colores"
+
+#. i18n: ectx: property (text), widget (QLabel, label_normalForeground)
+#: ui/kcm_grub2.ui:334
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Normal Foreground (Text):"
+msgstr "Primer plano normal (texto):"
+
+#. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
+#: ui/kcm_grub2.ui:344
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Highlight Foreground (Text):"
+msgstr "Primer plano resaltado (texto):"
+
+#. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
+#: ui/kcm_grub2.ui:358
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Normal Background:"
+msgstr "Fondo normal:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_highlightBackground)
+#: ui/kcm_grub2.ui:368
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Highlight Background:"
+msgstr "Fondo resaltado:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_background)
+#: ui/kcm_grub2.ui:383
+#, kde-format
+msgctxt "@title:group Refers to the image shown behind the boot menu."
+msgid "Background"
+msgstr "Fondo"
+
+#. i18n: ectx: property (text), widget (QLabel, label_background)
+#: ui/kcm_grub2.ui:389
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Wallpaper:"
+msgstr "Fondo de pantalla:"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_preview)
+#: ui/kcm_grub2.ui:401
+#, kde-format
+msgctxt "@action:button"
+msgid "Preview"
+msgstr "Vista previa"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_create)
+#: ui/kcm_grub2.ui:408
+#, kde-format
+msgctxt "@action:button"
+msgid "Create"
+msgstr "Crear"
+
+#. i18n: ectx: property (text), widget (QLabel, label_theme)
+#: ui/kcm_grub2.ui:417
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Theme:"
+msgstr "Tema:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: ui/kcm_grub2.ui:444
+#, kde-format
+msgctxt "@title:tab Refers to settings."
+msgid "Advanced"
+msgstr "Avanzado"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_linux)
+#: ui/kcm_grub2.ui:450
+#, kde-format
+msgctxt "@title:group"
+msgid "Linux Kernel Arguments"
+msgstr "Argumentos del kernel de Linux"
+
+#. i18n: ectx: property (text), widget (QLabel, label_cmdlineDefault)
+#: ui/kcm_grub2.ui:456
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Normal Entries:"
+msgstr "Entradas normales:"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineDefaultSuggestions)
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineSuggestions)
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_terminalSuggestions)
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_terminalInputSuggestions)
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_terminalOutputSuggestions)
+#: ui/kcm_grub2.ui:468 ui/kcm_grub2.ui:489 ui/kcm_grub2.ui:519
+#: ui/kcm_grub2.ui:540 ui/kcm_grub2.ui:561
+#, kde-format
+msgctxt "@action:button"
+msgid "Suggestions"
+msgstr "Sugerencias"
+
+#. i18n: ectx: property (text), widget (QLabel, label_cmdline)
+#: ui/kcm_grub2.ui:477
+#, kde-format
+msgctxt "@label:textbox"
+msgid "All Entries:"
+msgstr "Todas las entradas:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_terminal)
+#: ui/kcm_grub2.ui:501
+#, kde-format
+msgctxt "@title:group Noun."
+msgid "Terminal"
+msgstr "Terminal"
+
+#. i18n: ectx: property (text), widget (QLabel, label_terminal)
+#: ui/kcm_grub2.ui:507
+#, kde-format
+msgctxt "@label:textbox Noun."
+msgid "Terminal:"
+msgstr "Terminal:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_terminalInput)
+#: ui/kcm_grub2.ui:528
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Input Terminal:"
+msgstr "Terminal de entrada:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_terminalOutput)
+#: ui/kcm_grub2.ui:549
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Output Terminal:"
+msgstr "Terminal de salida:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_other)
+#: ui/kcm_grub2.ui:573
+#, kde-format
+msgctxt "@title:group Refers to settings."
+msgid "Other"
+msgstr "Otra"
+
+#. i18n: ectx: property (text), widget (QLabel, label_distributor)
+#: ui/kcm_grub2.ui:579
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Distributor:"
+msgstr "Distribuidor:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_serial)
+#: ui/kcm_grub2.ui:589
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Serial Command:"
+msgstr "Orden en serie:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_initTune)
+#: ui/kcm_grub2.ui:599
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Init Tune:"
+msgstr "Melodía de inicio:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_uuid)
+#: ui/kcm_grub2.ui:609
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable UUIDs:"
+msgstr "Activar UUIDs:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_tools)
+#: ui/kcm_grub2.ui:635
+#, kde-format
+msgctxt "@title:group"
+msgid "Tools"
+msgstr "Herramientas"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_install)
+#: ui/kcm_grub2.ui:647
+#, kde-format
+msgctxt "@action:button"
+msgid "Install/Recover Bootloader"
+msgstr "Instalar/recuperar el cargador de arranque"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/removeDlg.ui:17
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Select entries to remove:"
+msgstr "Seleccionar las entradas para eliminar:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_headers)
+#: ui/removeDlg.ui:34
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Remove associated kernel header files."
+msgstr "Eliminar archivos de encabezamiento del kernel asociados."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_headers)
+#: ui/removeDlg.ui:37
+#, kde-format
+msgctxt "@option:check"
+msgid "Also remove associated old packages"
+msgstr "Eliminar también los paquetes antiguos asociados"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/"
+#~ ">Error message:<nl/><message>%3</message>"
+#~ msgstr ""
+#~ "Orden: <command>%1</command><nl/>Código de error: <numid>%2</numid><nl/"
+#~ ">Mensaje de error:<nl/><message>%3</message>"
+
+#~ msgctxt "transaction state, when we return to a previous system state"
+#~ msgid "Rolling back"
+#~ msgstr "Reanudando"
+
+#~ msgctxt "@title:window"
+#~ msgid "Probing devices"
+#~ msgstr "Examinando dispositivos"
+
+#~ msgctxt "@info:progress"
+#~ msgid "Probing devices for their GRUB names..."
+#~ msgstr "Examinando los nombres de los dispositivos en GRUB..."
+
+#~ msgctxt "@info"
+#~ msgid "Failed to get GRUB device names."
+#~ msgstr "No se han podido obtener los nombres de dispositivos en GRUB"
+
+#~ msgctxt "@info"
+#~ msgid "Helper returned malformed device list."
+#~ msgstr "El asistente ha devuelto una lista de dispositivos defectuosa."
+
+#~ msgctxt "@info"
+#~ msgid "No valid GRUB2/BURG installation could be detected!"
+#~ msgstr "¡No se ha detectado una instalación de GRUB2/BURG válida!"
+
+#~ msgctxt "@action:button"
+#~ msgid "Reload Configuration"
+#~ msgstr "Recargar la configuración"

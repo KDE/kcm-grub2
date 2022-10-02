@@ -1,0 +1,1217 @@
+# Copyright (C) YEAR This_file_is_part_of_KDE
+# This file is distributed under the same license as the PACKAGE package.
+# Shinjo Park <kde@peremen.name>, 2015, 2019, 2020, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://bugs.kde.org\n"
+"POT-Creation-Date: 2022-07-30 00:49+0000\n"
+"PO-Revision-Date: 2021-05-16 20:19+0200\n"
+"Last-Translator: Shinjo Park <kde@peremen.name>\n"
+"Language-Team: Korean <kde-kr@kde.org>\n"
+"Language: ko\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Lokalize 20.12.3\n"
+
+#, kde-format
+msgctxt "NAME OF TRANSLATORS"
+msgid "Your names"
+msgstr "박신조"
+
+#, kde-format
+msgctxt "EMAIL OF TRANSLATORS"
+msgid "Your emails"
+msgstr "kde@peremen.name"
+
+#: src/convertDlg.cpp:58
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "ImageMagick supported image formats"
+msgstr "ImageMagick에서 지원하는 그림 형식"
+
+#: src/convertDlg.cpp:90
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Please fill in both <interface>Image</interface> and <interface>Convert To</"
+"interface> fields."
+msgstr ""
+"<interface>그림</interface> 및 <interface>다음으로 변환</interface> 필드를 모"
+"두 입력하십시오."
+
+#: src/convertDlg.cpp:93
+#, kde-format
+msgctxt "@info"
+msgid ""
+"Please fill in both <interface>Width</interface> and <interface>Height</"
+"interface> fields."
+msgstr ""
+"<interface>너비</interface> 및 <interface>높이</interface> 필드를 모두 입력하"
+"십시오."
+
+#: src/convertDlg.cpp:96
+#, kde-format
+msgctxt "@info"
+msgid ""
+"You do not have write permissions in this directory, please select another "
+"destination."
+msgstr "디렉터리에 쓰기 권한이 없습니다. 다른 장소를 선택하십시오."
+
+#: src/helper/helper.cpp:66
+#, kde-format
+msgctxt "@info"
+msgid "The process could not be started."
+msgstr "프로세스를 시작할 수 없습니다."
+
+#: src/helper/helper.cpp:69
+#, kde-format
+msgctxt "@info"
+msgid "The process crashed."
+msgstr "프로세스가 충돌했습니다."
+
+#: src/helper/helper.cpp:75
+#, kde-format
+msgctxt "@info"
+msgid "Command: <command>%1</command><nl/>"
+msgstr "명령: <command>%1</command><nl/>"
+
+#: src/helper/helper.cpp:121
+#, kde-format
+msgid "Original configuration file <filename>%1</filename> does not exist."
+msgstr "원본 설정 파일 <filename>%1</filename>이(가) 없습니다."
+
+#: src/helper/helper.cpp:127
+#, kde-format
+msgid "Cannot remove current configuration file <filename>%1</filename>."
+msgstr "현재 설정 파일 <filename>%1</filename>을(를) 삭제할 수 없습니다."
+
+#: src/helper/helper.cpp:133
+#, kde-format
+msgid ""
+"Cannot copy original configuration file <filename>%1</filename> to <filename>"
+"%2</filename>."
+msgstr ""
+"원본 설정 파일 <filename>%1</filename>을(를) <filename>%2</filename>(으)로 복"
+"사할 수 없습니다."
+
+#: src/helper/helper.cpp:150
+#, kde-format
+msgid "Failed to create temporary mount point."
+msgstr "임시 마운트 지점을 만들 수 없습니다."
+
+#: src/helper/helper.cpp:288
+#, kde-format
+msgctxt "@info"
+msgid "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>"
+msgstr "오류 코드: <numid>%1</numid><nl/>오류 메시지: <message>%2</message>"
+
+#: src/installDlg.cpp:60
+#, kde-format
+msgctxt "@title:window"
+msgid "Install/Recover Bootloader"
+msgstr "부트로더 설치/복구"
+
+#: src/installDlg.cpp:113
+#, kde-format
+msgctxt "@info"
+msgid "Sorry, you have to select a partition with a proper name!"
+msgstr "죄송합니다. 올바른 이름이 있는 파티션을 선택하십시오!"
+
+#: src/installDlg.cpp:124
+#, kde-format
+msgctxt "@title:window"
+msgid "Installing"
+msgstr "설치 중"
+
+#: src/installDlg.cpp:125
+#, kde-format
+msgctxt "@info:progress"
+msgid "Installing GRUB..."
+msgstr "GRUB 설치 중..."
+
+#: src/installDlg.cpp:136 src/kcm_grub2.cpp:507
+#, kde-format
+msgctxt "@title:window"
+msgid "Information"
+msgstr "정보"
+
+#: src/installDlg.cpp:150
+#, kde-format
+msgctxt "@info"
+msgid "Successfully installed GRUB."
+msgstr "GRUB을 성공적으로 설치했습니다."
+
+#: src/installDlg.cpp:154
+#, kde-format
+msgctxt "@info"
+msgid "Failed to install GRUB."
+msgstr "GRUB을 설치할 수 없습니다."
+
+#: src/kcm_grub2.cpp:62
+#, kde-format
+msgctxt "@title"
+msgid "KDE GRUB2 Bootloader Control Module"
+msgstr "KDE GRUB2 부트로더 제어 모듈"
+
+#: src/kcm_grub2.cpp:63
+#, kde-format
+msgctxt "@title"
+msgid "A KDE Control Module for configuring the GRUB2 bootloader."
+msgstr "GRUB2 부트로더를 설정하는 KDE 제어 모듈입니다."
+
+#: src/kcm_grub2.cpp:64
+#, kde-format
+msgctxt "@info:credit"
+msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
+msgstr "Copyright (C) 2008-2013 Konstantinos Smanis"
+
+#: src/kcm_grub2.cpp:66
+#, kde-format
+msgctxt "@info:credit"
+msgid "Κonstantinos Smanis"
+msgstr "Κonstantinos Smanis"
+
+#: src/kcm_grub2.cpp:66
+#, kde-format
+msgctxt "@info:credit"
+msgid "Main Developer"
+msgstr "주 개발자"
+
+#: src/kcm_grub2.cpp:90
+#, kde-format
+msgctxt "@info"
+msgid "Successfully restored the default values."
+msgstr "기본값을 복원했습니다."
+
+#: src/kcm_grub2.cpp:92
+#, kde-format
+msgctxt "@info"
+msgid "Failed to restore the default values."
+msgstr "기본값을 복원할 수 없습니다."
+
+#: src/kcm_grub2.cpp:496
+#, kde-format
+msgctxt "@title:window Verb (gerund). Refers to current status."
+msgid "Saving"
+msgstr "저장 중"
+
+#: src/kcm_grub2.cpp:497
+#, kde-format
+msgctxt "@info:progress"
+msgid "Saving GRUB settings..."
+msgstr "GRUB 설정 저장 중..."
+
+#: src/kcm_grub2.cpp:521
+#, kde-format
+msgctxt "@info"
+msgid "Successfully saved GRUB settings."
+msgstr "GRUB 설정을 저장했습니다."
+
+#: src/kcm_grub2.cpp:526
+#, kde-format
+msgctxt "@info"
+msgid "Failed to save GRUB settings."
+msgstr "GRUB 설정을 저장할 수 없습니다."
+
+#: src/kcm_grub2.cpp:596 src/kcm_grub2.cpp:618
+#, kde-format
+msgctxt "@title:window"
+msgid "Enter screen resolution"
+msgstr "화면 해상도 입력"
+
+#: src/kcm_grub2.cpp:596
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Please enter a GRUB resolution:"
+msgstr "GRUB 해상도를 입력하십시오:"
+
+#: src/kcm_grub2.cpp:618
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Please enter a Linux boot resolution:"
+msgstr "리눅스 부트 해상도를 입력하십시오:"
+
+#: src/kcm_grub2.cpp:669
+#, kde-format
+msgctxt "@info"
+msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
+msgstr "전체 화면 모드를 종료하려면 <shortcut>Esc</shortcut> 키를 누르십시오."
+
+#: src/kcm_grub2.cpp:841 src/kcm_grub2.cpp:842
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Black"
+msgstr "검은색"
+
+#: src/kcm_grub2.cpp:843 src/kcm_grub2.cpp:844
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Transparent"
+msgstr "투명"
+
+#: src/kcm_grub2.cpp:847
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Blue"
+msgstr "파란색"
+
+#: src/kcm_grub2.cpp:848
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Cyan"
+msgstr "청록색"
+
+#: src/kcm_grub2.cpp:849
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Dark Gray"
+msgstr "어두운 회색"
+
+#: src/kcm_grub2.cpp:850
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Green"
+msgstr "녹색"
+
+#: src/kcm_grub2.cpp:851
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Cyan"
+msgstr "밝은 청록색"
+
+#: src/kcm_grub2.cpp:852
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Blue"
+msgstr "밝은 파란색"
+
+#: src/kcm_grub2.cpp:853
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Green"
+msgstr "밝은 녹색"
+
+#: src/kcm_grub2.cpp:854
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Gray"
+msgstr "연한 회색"
+
+#: src/kcm_grub2.cpp:855
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Magenta"
+msgstr "밝은 자홍색"
+
+#: src/kcm_grub2.cpp:856
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Light Red"
+msgstr "밝은 빨간색"
+
+#: src/kcm_grub2.cpp:857
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Magenta"
+msgstr "자홍색"
+
+#: src/kcm_grub2.cpp:858
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Red"
+msgstr "빨간색"
+
+#: src/kcm_grub2.cpp:859
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "White"
+msgstr "흰색"
+
+#: src/kcm_grub2.cpp:860
+#, kde-format
+msgctxt "@item:inlistbox Refers to color."
+msgid "Yellow"
+msgstr "노란색"
+
+#: src/kcm_grub2.cpp:874 src/kcm_grub2.cpp:883
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Quiet Boot"
+msgstr "조용한 부팅"
+
+#: src/kcm_grub2.cpp:875 src/kcm_grub2.cpp:884
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Show Splash Screen"
+msgstr "시작 화면 보기"
+
+#: src/kcm_grub2.cpp:876 src/kcm_grub2.cpp:885
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Disable Plymouth"
+msgstr "Plymouth 비활성화"
+
+#: src/kcm_grub2.cpp:877 src/kcm_grub2.cpp:886
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Turn Off ACPI"
+msgstr "ACPI 끄기"
+
+#: src/kcm_grub2.cpp:878 src/kcm_grub2.cpp:887
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Turn Off APIC"
+msgstr "APIC 끄기"
+
+#: src/kcm_grub2.cpp:879 src/kcm_grub2.cpp:888
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Turn Off Local APIC"
+msgstr "로컬 APIC 끄기"
+
+#: src/kcm_grub2.cpp:880 src/kcm_grub2.cpp:889
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Single User Mode"
+msgstr "단일 사용자 모드"
+
+#: src/kcm_grub2.cpp:892 src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:904
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "PC BIOS && EFI Console"
+msgstr "PC BIOS 및 EFI 콘솔"
+
+#: src/kcm_grub2.cpp:893 src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:905
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Serial Terminal"
+msgstr "직렬 터미널"
+
+#: src/kcm_grub2.cpp:894 src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:906
+#, kde-format
+msgctxt ""
+"@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
+"former IEEE standard."
+msgid "Open Firmware Console"
+msgstr "펌웨어 콘솔 열기"
+
+#: src/kcm_grub2.cpp:900
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "PC AT Keyboard (Coreboot)"
+msgstr "PC AT 키보드(Coreboot)"
+
+#: src/kcm_grub2.cpp:901
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "USB Keyboard (HID Boot Protocol)"
+msgstr "USB 키보드(HID 부트 프로토콜)"
+
+#: src/kcm_grub2.cpp:907
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "Graphics Mode Output"
+msgstr "그래픽 모드 출력"
+
+#: src/kcm_grub2.cpp:908
+#, kde-format
+msgctxt "@action:inmenu"
+msgid "VGA Text Output (Coreboot)"
+msgstr "VGA 텍스트 출력(Coreboot)"
+
+#: src/kcm_grub2.cpp:1087
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "No translation"
+msgstr "번역 없음"
+
+#: src/kcm_grub2.cpp:1126 src/kcm_grub2.cpp:1130
+#, kde-format
+msgctxt "@item:inlistbox Refers to screen resolution."
+msgid "Custom..."
+msgstr "사용자 정의..."
+
+#: src/kcm_grub2.cpp:1127 src/kcm_grub2.cpp:1131
+#, kde-format
+msgctxt "@item:inlistbox Refers to screen resolution."
+msgid "Auto"
+msgstr "자동"
+
+#: src/kcm_grub2.cpp:1132
+#, kde-format
+msgctxt "@item:inlistbox Refers to screen resolution."
+msgid "Unspecified"
+msgstr "지정되지 않음"
+
+#: src/kcm_grub2.cpp:1133
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Boot in Text Mode"
+msgstr "텍스트 모드로 부팅"
+
+#: src/kcm_grub2.cpp:1134
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Keep GRUB's Resolution"
+msgstr "GRUB 해상도 유지"
+
+#: src/qPkBackend.cpp:36
+#, kde-format
+msgctxt "transaction state, the daemon is in the process of starting"
+msgid "Waiting for service to start"
+msgstr "서비스 시작 대기 중"
+
+#: src/qPkBackend.cpp:39
+#, kde-format
+msgctxt "transaction state, the transaction is waiting for another to complete"
+msgid "Waiting for other tasks"
+msgstr "다른 작업 대기 중"
+
+#: src/qPkBackend.cpp:42
+#, kde-format
+msgctxt "transaction state, just started"
+msgid "Running task"
+msgstr "작업 실행 중"
+
+#: src/qPkBackend.cpp:45
+#, kde-format
+msgctxt "transaction state, is querying data"
+msgid "Querying"
+msgstr "질의 중"
+
+#: src/qPkBackend.cpp:48
+#, kde-format
+msgctxt "transaction state, getting data from a server"
+msgid "Getting information"
+msgstr "정보 가져오는 중"
+
+#: src/qPkBackend.cpp:51
+#, kde-format
+msgctxt "transaction state, removing packages"
+msgid "Removing packages"
+msgstr "패키지 삭제 중"
+
+#: src/qPkBackend.cpp:54
+#, kde-format
+msgctxt "transaction state, downloading package files"
+msgid "Downloading packages"
+msgstr "패키지 다운로드 중"
+
+#: src/qPkBackend.cpp:57
+#, kde-format
+msgctxt "transaction state, installing packages"
+msgid "Installing packages"
+msgstr "패키지 설치 중"
+
+#: src/qPkBackend.cpp:60
+#, kde-format
+msgctxt "transaction state, refreshing internal lists"
+msgid "Refreshing software list"
+msgstr "프로그램 목록 새로 고치는 중"
+
+#: src/qPkBackend.cpp:63
+#, kde-format
+msgctxt "transaction state, installing updates"
+msgid "Updating packages"
+msgstr "패키지 업데이트 중"
+
+#: src/qPkBackend.cpp:66
+#, kde-format
+msgctxt "transaction state, removing old packages, and cleaning config files"
+msgid "Cleaning up packages"
+msgstr "패키지 청소 중"
+
+#: src/qPkBackend.cpp:69
+#, kde-format
+msgctxt "transaction state, obsoleting old packages"
+msgid "Obsoleting packages"
+msgstr "패키지 무효화 중"
+
+#: src/qPkBackend.cpp:72
+#, kde-format
+msgctxt "transaction state, checking the transaction before we do it"
+msgid "Resolving dependencies"
+msgstr "의존성 확인 중"
+
+#: src/qPkBackend.cpp:75
+#, kde-format
+msgctxt ""
+"transaction state, checking if we have all the security keys for the "
+"operation"
+msgid "Checking signatures"
+msgstr "서명 확인 중"
+
+#: src/qPkBackend.cpp:78
+#, kde-format
+msgctxt "transaction state, when we're doing a test transaction"
+msgid "Testing changes"
+msgstr "변경 사항 시험 중"
+
+#: src/qPkBackend.cpp:81
+#, kde-format
+msgctxt "transaction state, when we're writing to the system package database"
+msgid "Committing changes"
+msgstr "변경 사항 적용 중"
+
+#: src/qPkBackend.cpp:84
+#, kde-format
+msgctxt "transaction state, requesting data from a server"
+msgid "Requesting data"
+msgstr "데이터 요청 중"
+
+#: src/qPkBackend.cpp:87
+#, kde-format
+msgctxt "transaction state, all done!"
+msgid "Finished"
+msgstr "완료됨"
+
+#: src/qPkBackend.cpp:90
+#, kde-format
+msgctxt "transaction state, in the process of cancelling"
+msgid "Cancelling"
+msgstr "취소 중"
+
+#: src/qPkBackend.cpp:93
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading repository information"
+msgstr "저장소 정보 다운로드 중"
+
+#: src/qPkBackend.cpp:96
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading list of packages"
+msgstr "패키지 목록 다운로드 중"
+
+#: src/qPkBackend.cpp:99
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading file lists"
+msgstr "파일 목록 다운로드 중"
+
+#: src/qPkBackend.cpp:102
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading lists of changes"
+msgstr "변경 목록 다운로드 중"
+
+#: src/qPkBackend.cpp:105
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading groups"
+msgstr "그룹 다운로드 중"
+
+#: src/qPkBackend.cpp:108
+#, kde-format
+msgctxt "transaction state, downloading metadata"
+msgid "Downloading update information"
+msgstr "업데이트 정보 다운로드 중"
+
+#: src/qPkBackend.cpp:111
+#, kde-format
+msgctxt "transaction state, repackaging delta files"
+msgid "Repackaging files"
+msgstr "파일을 패키지로 다시 생성하는 중"
+
+#: src/qPkBackend.cpp:114
+#, kde-format
+msgctxt "transaction state, loading databases"
+msgid "Loading cache"
+msgstr "캐시 불러오는 중"
+
+#: src/qPkBackend.cpp:117
+#, kde-format
+msgctxt "transaction state, scanning for running processes"
+msgid "Scanning installed applications"
+msgstr "설치된 프로그램 조사 중"
+
+#: src/qPkBackend.cpp:120
+#, kde-format
+msgctxt ""
+"transaction state, generating a list of packages installed on the system"
+msgid "Generating package lists"
+msgstr "패키지 목록 생성 중"
+
+#: src/qPkBackend.cpp:123
+#, kde-format
+msgctxt "transaction state, when we're waiting for the native tools to exit"
+msgid "Waiting for package manager lock"
+msgstr "패키지 관리자 잠금 해제 대기 중"
+
+#: src/qPkBackend.cpp:126
+#, kde-format
+msgctxt "waiting for user to type in a password"
+msgid "Waiting for authentication"
+msgstr "인증 대기 중"
+
+#: src/qPkBackend.cpp:129
+#, kde-format
+msgctxt "we are updating the list of processes"
+msgid "Updating the list of running applications"
+msgstr "실행 중인 프로그램 목록 업데이트 중"
+
+#: src/qPkBackend.cpp:132
+#, kde-format
+msgctxt "we are checking executable files in use"
+msgid "Checking for applications currently in use"
+msgstr "사용 중인 프로그램 점검 중"
+
+#: src/qPkBackend.cpp:135
+#, kde-format
+msgctxt "we are checking for libraries in use"
+msgid "Checking for libraries currently in use"
+msgstr "사용 중인 라이브러리 점검 중"
+
+#: src/qPkBackend.cpp:138
+#, kde-format
+msgctxt "we are copying package files to prepare to install"
+msgid "Copying files"
+msgstr "파일 복사 중"
+
+#: src/qPkBackend.cpp:140
+#, kde-format
+msgctxt "we are running the install hooks"
+msgid "Running install hooks"
+msgstr "설치 훅 실행 중"
+
+#: src/qPkBackend.cpp:142
+#, kde-format
+msgctxt "we received an unknown status"
+msgid "Unknown status"
+msgstr "알 수 없는 상태"
+
+#: src/removeDlg.cpp:60
+#, kde-format
+msgctxt "@title:window"
+msgid "Remove Old Entries"
+msgstr "오래된 항목 삭제 중"
+
+#: src/removeDlg.cpp:73
+#, kde-format
+msgctxt "@title:window"
+msgid "Finding Old Entries"
+msgstr "오래된 항목 찾는 중"
+
+#: src/removeDlg.cpp:74
+#, kde-format
+msgctxt "@info:progress"
+msgid "Finding Old Entries..."
+msgstr "오래된 항목 찾는 중..."
+
+#: src/removeDlg.cpp:100
+#, kde-format
+msgctxt "@item:inlistbox"
+msgid "Kernel %1"
+msgstr "커널 %1"
+
+#: src/removeDlg.cpp:116
+#, kde-format
+msgctxt "@info"
+msgid "No removable entries were found."
+msgstr "삭제 가능한 항목이 없습니다."
+
+#: src/removeDlg.cpp:137
+#, kde-format
+msgctxt "@info"
+msgid "Are you sure you want to remove the following packages?"
+msgstr "다음 패키지를 삭제하시겠습니까?"
+
+#: src/removeDlg.cpp:166
+#, kde-format
+msgctxt "@title:window"
+msgid "Removing Old Entries"
+msgstr "오래된 항목 삭제 중"
+
+#: src/removeDlg.cpp:179
+#, kde-format
+msgctxt "@info"
+msgid "Package removal failed."
+msgstr "패키지 삭제가 실패했습니다."
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/convertDlg.ui:19
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Image:"
+msgstr "그림:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_2)
+#: ui/convertDlg.ui:29
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Convert To:"
+msgstr "다음으로 변환:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox)
+#: ui/convertDlg.ui:41
+#, kde-format
+msgctxt "@title:group"
+msgid "Conversion Options"
+msgstr "변환 옵션"
+
+#. i18n: ectx: property (text), widget (QLabel, label_3)
+#: ui/convertDlg.ui:47
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Width:"
+msgstr "너비:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_4)
+#: ui/convertDlg.ui:61
+#, kde-format
+msgctxt "@label:spinbox"
+msgid "Height:"
+msgstr "높이:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_5)
+#: ui/convertDlg.ui:75
+#, kde-format
+msgctxt "@option:check"
+msgid "Force resolution:"
+msgstr "해상도 강제:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_6)
+#: ui/convertDlg.ui:85
+#, kde-format
+msgctxt "@option:check"
+msgid "Set As GRUB Wallpaper:"
+msgstr "GRUB 배경 그림으로 설정합니다:"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/installDlg.ui:17
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Select partition to install/recover GRUB:"
+msgstr "GRUB을 설치/복구할 파티션:"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:48
+#, kde-format
+msgctxt "@title:column"
+msgid "Partition"
+msgstr "파티션"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:53
+#, kde-format
+msgctxt "@title:column"
+msgid "Mountpoint"
+msgstr "마운트 지점"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:58
+#, kde-format
+msgctxt "@title:column"
+msgid "Label"
+msgstr "레이블"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:63
+#, kde-format
+msgctxt "@title:column"
+msgid "File System"
+msgstr "파일 시스템"
+
+#. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
+#: ui/installDlg.ui:68
+#, kde-format
+msgctxt "@title:column"
+msgid "Size"
+msgstr "크기"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_partition)
+#: ui/installDlg.ui:76
+#, kde-format
+msgctxt "@info:tooltip"
+msgid ""
+"Install the bootloader on the boot sector of the selected partition instead "
+"of the MBR(=Master Boot Sector). Not recommended."
+msgstr ""
+"MBR(마스터 부트 레코드) 대신 지정한 파티션의 부트 섹터에 부트로더를 설치합니"
+"다. 추천하지 않습니다."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
+#: ui/installDlg.ui:79
+#, kde-format
+msgctxt "@option:check"
+msgid "Install on partition instead of MBR (Advanced)"
+msgstr "MBR이 아닌 파티션에 설치(고급)"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab)
+#: ui/kcm_grub2.ui:21
+#, kde-format
+msgctxt "@title:tab Refers to settings."
+msgid "General"
+msgstr "일반"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_default)
+#: ui/kcm_grub2.ui:27
+#, kde-format
+msgctxt "@title:group"
+msgid "Default Entry"
+msgstr "기본 항목"
+
+#. i18n: ectx: property (text), widget (QLabel, label_default)
+#: ui/kcm_grub2.ui:33
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Default Entry:"
+msgstr "기본 항목:"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
+#: ui/kcm_grub2.ui:49
+#, kde-format
+msgctxt "@action:button"
+msgid "Remove Old Entries"
+msgstr "오래된 항목 삭제"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_savedefault)
+#: ui/kcm_grub2.ui:58
+#, kde-format
+msgctxt "@option:check"
+msgid "The next booted entry will become default"
+msgstr "다음 번에 부팅한 항목을 기본 항목으로 사용합니다"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
+#: ui/kcm_grub2.ui:68
+#, kde-format
+msgctxt "@title:group"
+msgid "Timeout"
+msgstr "시간 제한"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_hiddenTimeout)
+#: ui/kcm_grub2.ui:76
+#, kde-format
+msgctxt "@option:check"
+msgid "Hide the menu for:"
+msgstr "메뉴를 숨길 시간:"
+
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_hiddenTimeout)
+#. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_timeout)
+#: ui/kcm_grub2.ui:86 ui/kcm_grub2.ui:182
+#, kde-format
+msgctxt "@label:spinbox seconds (suffix)"
+msgid "s"
+msgstr "초"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_hiddenTimeoutShowTimer)
+#: ui/kcm_grub2.ui:114
+#, kde-format
+msgctxt "@option:check"
+msgid "Show countdown timer"
+msgstr "카운트다운 시간 표시"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_timeout)
+#: ui/kcm_grub2.ui:121
+#, kde-format
+msgctxt "@option:check"
+msgid "Automatically boot the default entry after showing the menu"
+msgstr "메뉴를 표시한 후 자동으로 기본 항목으로 부팅하기"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
+#: ui/kcm_grub2.ui:144
+#, kde-format
+msgctxt "@option:radio"
+msgid "Immediately"
+msgstr "즉시"
+
+#. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout)
+#: ui/kcm_grub2.ui:169
+#, kde-format
+msgctxt "@option:radio"
+msgid "After:"
+msgstr "이후:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_entries)
+#: ui/kcm_grub2.ui:197
+#, kde-format
+msgctxt "@title:group"
+msgid "Generated Entries"
+msgstr "생성된 항목"
+
+#. i18n: ectx: property (text), widget (QLabel, label_language)
+#: ui/kcm_grub2.ui:203
+#, kde-format
+msgid "Language:"
+msgstr "언어:"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_recovery)
+#: ui/kcm_grub2.ui:217
+#, kde-format
+msgctxt "@option:check"
+msgid "Generate recovery entries"
+msgstr "복구 항목 생성"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_memtest)
+#: ui/kcm_grub2.ui:224
+#, kde-format
+msgctxt "@option:check"
+msgid "Generate memtest entries"
+msgstr "메모리 검사 항목 생성"
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_osProber)
+#: ui/kcm_grub2.ui:231
+#, kde-format
+msgctxt "@option:check"
+msgid "Probe for operating systems"
+msgstr "운영 체제 찾기"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_3)
+#: ui/kcm_grub2.ui:255
+#, kde-format
+msgctxt "@title:tab"
+msgid "Appearance"
+msgstr "모양"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_resolutions)
+#: ui/kcm_grub2.ui:261
+#, kde-format
+msgctxt "@title:group"
+msgid "Resolutions"
+msgstr "해상도"
+
+#. i18n: ectx: property (text), widget (QLabel, label_gfxmode)
+#: ui/kcm_grub2.ui:267
+#, kde-format
+msgctxt "@label:listbox"
+msgid "GRUB:"
+msgstr "GRUB:"
+
+#. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxmode)
+#. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxpayload)
+#: ui/kcm_grub2.ui:283 ui/kcm_grub2.ui:311
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Probe for supported VBE resolutions."
+msgstr "지원하는 VBE 해상도를 찾습니다."
+
+#. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
+#: ui/kcm_grub2.ui:295
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Linux Kernel:"
+msgstr "리눅스 커널:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_colors)
+#: ui/kcm_grub2.ui:326
+#, kde-format
+msgctxt "@title:group"
+msgid "Colors"
+msgstr "색상"
+
+#. i18n: ectx: property (text), widget (QLabel, label_normalForeground)
+#: ui/kcm_grub2.ui:334
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Normal Foreground (Text):"
+msgstr "일반 전경(텍스트):"
+
+#. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
+#: ui/kcm_grub2.ui:344
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Highlight Foreground (Text):"
+msgstr "강조된 전경(텍스트):"
+
+#. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
+#: ui/kcm_grub2.ui:358
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Normal Background:"
+msgstr "일반 배경:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_highlightBackground)
+#: ui/kcm_grub2.ui:368
+#, kde-format
+msgctxt "@label:chooser"
+msgid "Highlight Background:"
+msgstr "강조된 배경:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_background)
+#: ui/kcm_grub2.ui:383
+#, kde-format
+msgctxt "@title:group Refers to the image shown behind the boot menu."
+msgid "Background"
+msgstr "배경"
+
+#. i18n: ectx: property (text), widget (QLabel, label_background)
+#: ui/kcm_grub2.ui:389
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Wallpaper:"
+msgstr "배경 그림:"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_preview)
+#: ui/kcm_grub2.ui:401
+#, kde-format
+msgctxt "@action:button"
+msgid "Preview"
+msgstr "미리 보기"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_create)
+#: ui/kcm_grub2.ui:408
+#, kde-format
+msgctxt "@action:button"
+msgid "Create"
+msgstr "만들기"
+
+#. i18n: ectx: property (text), widget (QLabel, label_theme)
+#: ui/kcm_grub2.ui:417
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Theme:"
+msgstr "테마:"
+
+#. i18n: ectx: attribute (title), widget (QWidget, tab_2)
+#: ui/kcm_grub2.ui:444
+#, kde-format
+msgctxt "@title:tab Refers to settings."
+msgid "Advanced"
+msgstr "고급"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_linux)
+#: ui/kcm_grub2.ui:450
+#, kde-format
+msgctxt "@title:group"
+msgid "Linux Kernel Arguments"
+msgstr "리눅스 커널 인자"
+
+#. i18n: ectx: property (text), widget (QLabel, label_cmdlineDefault)
+#: ui/kcm_grub2.ui:456
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Normal Entries:"
+msgstr "일반 항목:"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineDefaultSuggestions)
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineSuggestions)
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_terminalSuggestions)
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_terminalInputSuggestions)
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_terminalOutputSuggestions)
+#: ui/kcm_grub2.ui:468 ui/kcm_grub2.ui:489 ui/kcm_grub2.ui:519
+#: ui/kcm_grub2.ui:540 ui/kcm_grub2.ui:561
+#, kde-format
+msgctxt "@action:button"
+msgid "Suggestions"
+msgstr "제안"
+
+#. i18n: ectx: property (text), widget (QLabel, label_cmdline)
+#: ui/kcm_grub2.ui:477
+#, kde-format
+msgctxt "@label:textbox"
+msgid "All Entries:"
+msgstr "모든 항목:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_terminal)
+#: ui/kcm_grub2.ui:501
+#, kde-format
+msgctxt "@title:group Noun."
+msgid "Terminal"
+msgstr "터미널"
+
+#. i18n: ectx: property (text), widget (QLabel, label_terminal)
+#: ui/kcm_grub2.ui:507
+#, kde-format
+msgctxt "@label:textbox Noun."
+msgid "Terminal:"
+msgstr "터미널:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_terminalInput)
+#: ui/kcm_grub2.ui:528
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Input Terminal:"
+msgstr "입력 터미널:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_terminalOutput)
+#: ui/kcm_grub2.ui:549
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Output Terminal:"
+msgstr "출력 터미널:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_other)
+#: ui/kcm_grub2.ui:573
+#, kde-format
+msgctxt "@title:group Refers to settings."
+msgid "Other"
+msgstr "기타"
+
+#. i18n: ectx: property (text), widget (QLabel, label_distributor)
+#: ui/kcm_grub2.ui:579
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Distributor:"
+msgstr "배포자:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_serial)
+#: ui/kcm_grub2.ui:589
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Serial Command:"
+msgstr "직렬 명령:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_initTune)
+#: ui/kcm_grub2.ui:599
+#, kde-format
+msgctxt "@label:textbox"
+msgid "Init Tune:"
+msgstr "부팅 소리:"
+
+#. i18n: ectx: property (text), widget (QLabel, label_uuid)
+#: ui/kcm_grub2.ui:609
+#, kde-format
+msgctxt "@option:check"
+msgid "Enable UUIDs:"
+msgstr "UUID 활성화:"
+
+#. i18n: ectx: property (title), widget (QGroupBox, groupBox_tools)
+#: ui/kcm_grub2.ui:635
+#, kde-format
+msgctxt "@title:group"
+msgid "Tools"
+msgstr "도구"
+
+#. i18n: ectx: property (text), widget (QPushButton, pushbutton_install)
+#: ui/kcm_grub2.ui:647
+#, kde-format
+msgctxt "@action:button"
+msgid "Install/Recover Bootloader"
+msgstr "부트로더 설치/복구"
+
+#. i18n: ectx: property (text), widget (QLabel, label)
+#: ui/removeDlg.ui:17
+#, kde-format
+msgctxt "@label:listbox"
+msgid "Select entries to remove:"
+msgstr "삭제할 항목 선택:"
+
+#. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_headers)
+#: ui/removeDlg.ui:34
+#, kde-format
+msgctxt "@info:tooltip"
+msgid "Remove associated kernel header files."
+msgstr "연결된 커널 헤더 파일을 삭제합니다."
+
+#. i18n: ectx: property (text), widget (QCheckBox, checkBox_headers)
+#: ui/removeDlg.ui:37
+#, kde-format
+msgctxt "@option:check"
+msgid "Also remove associated old packages"
+msgstr "연결된 오래된 패키지도 삭제합니다"
+
+#~ msgctxt "@info"
+#~ msgid ""
+#~ "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/"
+#~ ">Error message:<nl/><message>%3</message>"
+#~ msgstr ""
+#~ "명령: <command>%1</command><nl/>오류 코드: <numid>%2</numid><nl/>오류 메시"
+#~ "지:<nl/><message>%3</message>"
+
+#~ msgctxt "transaction state, when we return to a previous system state"
+#~ msgid "Rolling back"
+#~ msgstr "되돌리는 중"
