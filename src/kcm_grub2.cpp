@@ -165,11 +165,11 @@ void KCMGRUB2::load()
     ui->pushbutton_remove->setEnabled(!m_entries.isEmpty());
     ui->checkBox_savedefault->setChecked(unquoteWord(m_settings.value(QStringLiteral("GRUB_SAVEDEFAULT"))).compare(QLatin1String("true")) == 0);
 
-    bool ok;
     QString grubHiddenTimeoutRaw = unquoteWord(m_settings.value(QStringLiteral("GRUB_HIDDEN_TIMEOUT")));
     if (grubHiddenTimeoutRaw.isEmpty()) {
         ui->checkBox_hiddenTimeout->setChecked(false);
     } else {
+        bool ok;
         int grubHiddenTimeout = grubHiddenTimeoutRaw.toInt(&ok);
         if (ok && grubHiddenTimeout >= 0) {
             ui->checkBox_hiddenTimeout->setChecked(true);
@@ -179,6 +179,7 @@ void KCMGRUB2::load()
             qWarning() << "Invalid GRUB_HIDDEN_TIMEOUT value";
         }
     }
+    bool ok = true;
     int grubTimeout = (m_settings.value(QStringLiteral("GRUB_TIMEOUT")).isEmpty() ? 5 : unquoteWord(m_settings.value(QStringLiteral("GRUB_TIMEOUT"))).toInt(&ok));
     if (ok && grubTimeout >= -1) {
         ui->checkBox_timeout->setChecked(grubTimeout > -1);
@@ -911,13 +912,13 @@ void KCMGRUB2::setupObjects()
 }
 void KCMGRUB2::setupConnections()
 {
-    connect(ui->combobox_default, SIGNAL(activated(int)), this, SLOT(changed()));
+    connect(ui->combobox_default, qOverload<int>(&QComboBox::activated), this, &KCMGRUB2::markAsChanged);
     connect(ui->pushbutton_remove, &QAbstractButton::clicked, this, &KCMGRUB2::slotRemoveOldEntries);
     connect(ui->checkBox_savedefault, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubSavedefaultChanged);
 
     connect(ui->checkBox_hiddenTimeout, &QAbstractButton::toggled, this, &KCMGRUB2::slotGrubHiddenTimeoutToggled);
     connect(ui->checkBox_hiddenTimeout, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubHiddenTimeoutChanged);
-    connect(ui->spinBox_hiddenTimeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubHiddenTimeoutChanged()));
+    connect(ui->spinBox_hiddenTimeout, qOverload<int>(&QSpinBox::valueChanged), this, &KCMGRUB2::slotGrubHiddenTimeoutChanged);
     connect(ui->checkBox_hiddenTimeoutShowTimer, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubHiddenTimeoutQuietChanged);
 
     connect(ui->checkBox_timeout, &QAbstractButton::toggled, this, &KCMGRUB2::slotGrubTimeoutToggled);
@@ -925,22 +926,22 @@ void KCMGRUB2::setupConnections()
     connect(ui->radioButton_timeout0, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubTimeoutChanged);
     connect(ui->radioButton_timeout, &QAbstractButton::toggled, ui->spinBox_timeout, &QWidget::setEnabled);
     connect(ui->radioButton_timeout, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubTimeoutChanged);
-    connect(ui->spinBox_timeout, SIGNAL(valueChanged(int)), this, SLOT(slotGrubTimeoutChanged()));
+    connect(ui->spinBox_timeout, qOverload<int>(&QSpinBox::valueChanged), this, &KCMGRUB2::slotGrubTimeoutChanged);
 
-    connect(ui->combobox_language, SIGNAL(activated(int)), this, SLOT(slotGrubLanguageChanged()));
+    connect(ui->combobox_language, qOverload<int>(&QComboBox::activated), this, &KCMGRUB2::slotGrubLanguageChanged);
     connect(ui->checkBox_recovery, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubDisableRecoveryChanged);
     connect(ui->checkBox_memtest, &QAbstractButton::clicked, this, &KCMGRUB2::slotMemtestChanged);
     connect(ui->checkBox_osProber, &QAbstractButton::clicked, this, &KCMGRUB2::slotGrubDisableOsProberChanged);
 
-    connect(ui->combobox_gfxmode, SIGNAL(activated(int)), this, SLOT(slotGrubGfxmodeChanged()));
+    connect(ui->combobox_gfxmode, qOverload<int>(&QComboBox::activated), this, &KCMGRUB2::slotGrubGfxmodeChanged);
     connect(ui->toolButton_refreshGfxmode, &QAbstractButton::clicked, this, &KCMGRUB2::slotResolutionsRefresh);
-    connect(ui->combobox_gfxpayload, SIGNAL(activated(int)), this, SLOT(slotGrubGfxpayloadLinuxChanged()));
+    connect(ui->combobox_gfxpayload, qOverload<int>(&QComboBox::activated), this, &KCMGRUB2::slotGrubGfxpayloadLinuxChanged);
     connect(ui->toolButton_refreshGfxpayload, &QAbstractButton::clicked, this, &KCMGRUB2::slotResolutionsRefresh);
 
-    connect(ui->combobox_normalForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
-    connect(ui->combobox_normalBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorNormalChanged()));
-    connect(ui->combobox_highlightForeground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
-    connect(ui->combobox_highlightBackground, SIGNAL(activated(int)), this, SLOT(slotGrubColorHighlightChanged()));
+    connect(ui->combobox_normalForeground, qOverload<int>(&QComboBox::activated), this, &KCMGRUB2::slotGrubColorNormalChanged);
+    connect(ui->combobox_normalBackground, qOverload<int>(&QComboBox::activated), this, &KCMGRUB2::slotGrubColorNormalChanged);
+    connect(ui->combobox_highlightForeground, qOverload<int>(&QComboBox::activated), this, &KCMGRUB2::slotGrubColorHighlightChanged);
+    connect(ui->combobox_highlightBackground,  qOverload<int>(&QComboBox::activated), this, &KCMGRUB2::slotGrubColorHighlightChanged);
 
     connect(ui->kurlrequester_background, &KUrlRequester::textChanged, this, &KCMGRUB2::slowGrubBackgroundChanged);
     connect(ui->pushbutton_preview, &QAbstractButton::clicked, this, &KCMGRUB2::slotPreviewGrubBackground);

@@ -44,7 +44,7 @@ TextInputDialog::TextInputDialog(QWidget *parent)
     auto *layout = new QVBoxLayout;
     layout->addWidget(m_label);
     layout->addWidget(m_lineEdit);
-    layout->addSpacing(style()->pixelMetric(QStyle::PM_DefaultLayoutSpacing));
+    layout->addSpacing(style()->pixelMetric(QStyle::PM_LayoutVerticalSpacing));
     layout->addWidget(buttonBox);
     setLayout(layout);
 }
