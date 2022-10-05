@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-07-30 00:49+0000\n"
+"POT-Creation-Date: 2022-10-05 00:49+0000\n"
 "PO-Revision-Date: 2021-02-10 19:00+0200\n"
 "Last-Translator: Tommi Nieminen <translator@legisign.org>\n"
 "Language-Team: Finnish <kde-i18n-doc@kde.org>\n"
@@ -139,7 +139,7 @@ msgctxt "@info:progress"
 msgid "Installing GRUB..."
 msgstr "Asennetaan GRUB…"
 
-#: src/installDlg.cpp:136 src/kcm_grub2.cpp:507
+#: src/installDlg.cpp:136 src/kcm_grub2.cpp:508
 #, kde-format
 msgctxt "@title:window"
 msgid "Information"
@@ -199,205 +199,205 @@ msgctxt "@info"
 msgid "Failed to restore the default values."
 msgstr "Oletusarvojen palautus epäonnistui."
 
-#: src/kcm_grub2.cpp:496
+#: src/kcm_grub2.cpp:497
 #, kde-format
 msgctxt "@title:window Verb (gerund). Refers to current status."
 msgid "Saving"
 msgstr "Tallennetaan"
 
-#: src/kcm_grub2.cpp:497
+#: src/kcm_grub2.cpp:498
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
 msgstr "Tallennetaan GRUB-asetuksia…"
 
-#: src/kcm_grub2.cpp:521
+#: src/kcm_grub2.cpp:522
 #, kde-format
 msgctxt "@info"
 msgid "Successfully saved GRUB settings."
 msgstr "GRUB-asetusten tallennus onnistui."
 
-#: src/kcm_grub2.cpp:526
+#: src/kcm_grub2.cpp:527
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
 msgstr "GRUB-asetusten tallennus epäonnistui."
 
-#: src/kcm_grub2.cpp:596 src/kcm_grub2.cpp:618
+#: src/kcm_grub2.cpp:597 src/kcm_grub2.cpp:619
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
 msgstr "Näytön tarkkuus"
 
-#: src/kcm_grub2.cpp:596
+#: src/kcm_grub2.cpp:597
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
 msgstr "Anna GRUBin kuvan tarkkuus:"
 
-#: src/kcm_grub2.cpp:618
+#: src/kcm_grub2.cpp:619
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
 msgstr "Anna Linux-käynnistyksen kuvan tarkkuus:"
 
-#: src/kcm_grub2.cpp:669
+#: src/kcm_grub2.cpp:670
 #, kde-format
 msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
 msgstr "Poistu koko näytön tilasta painamalla <shortcut>Esc</shortcut>."
 
-#: src/kcm_grub2.cpp:841 src/kcm_grub2.cpp:842
+#: src/kcm_grub2.cpp:842 src/kcm_grub2.cpp:843
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Black"
 msgstr "Musta"
 
-#: src/kcm_grub2.cpp:843 src/kcm_grub2.cpp:844
+#: src/kcm_grub2.cpp:844 src/kcm_grub2.cpp:845
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Transparent"
 msgstr "Läpinäkyvä"
 
-#: src/kcm_grub2.cpp:847
+#: src/kcm_grub2.cpp:848
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Blue"
 msgstr "Sininen"
 
-#: src/kcm_grub2.cpp:848
+#: src/kcm_grub2.cpp:849
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Cyan"
 msgstr "Syaani"
 
-#: src/kcm_grub2.cpp:849
+#: src/kcm_grub2.cpp:850
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Dark Gray"
 msgstr "Tummanharmaa"
 
-#: src/kcm_grub2.cpp:850
+#: src/kcm_grub2.cpp:851
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Green"
 msgstr "Vihreä"
 
-#: src/kcm_grub2.cpp:851
+#: src/kcm_grub2.cpp:852
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Cyan"
 msgstr "Vaalea syaani"
 
-#: src/kcm_grub2.cpp:852
+#: src/kcm_grub2.cpp:853
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Blue"
 msgstr "Vaaleansininen"
 
-#: src/kcm_grub2.cpp:853
+#: src/kcm_grub2.cpp:854
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Green"
 msgstr "Vaaleanvihreä"
 
-#: src/kcm_grub2.cpp:854
+#: src/kcm_grub2.cpp:855
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Gray"
 msgstr "Vaaleanharmaa"
 
-#: src/kcm_grub2.cpp:855
+#: src/kcm_grub2.cpp:856
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Magenta"
 msgstr "Vaalea purppuranpunainen"
 
-#: src/kcm_grub2.cpp:856
+#: src/kcm_grub2.cpp:857
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Red"
 msgstr "Vaalea punainen"
 
-#: src/kcm_grub2.cpp:857
+#: src/kcm_grub2.cpp:858
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Magenta"
 msgstr "Purppuranpunainen"
 
-#: src/kcm_grub2.cpp:858
+#: src/kcm_grub2.cpp:859
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Red"
 msgstr "Punainen"
 
-#: src/kcm_grub2.cpp:859
+#: src/kcm_grub2.cpp:860
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "White"
 msgstr "Valkoinen"
 
-#: src/kcm_grub2.cpp:860
+#: src/kcm_grub2.cpp:861
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Yellow"
 msgstr "Keltainen"
 
-#: src/kcm_grub2.cpp:874 src/kcm_grub2.cpp:883
+#: src/kcm_grub2.cpp:875 src/kcm_grub2.cpp:884
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
 msgstr "Hiljainen käynnistys"
 
-#: src/kcm_grub2.cpp:875 src/kcm_grub2.cpp:884
+#: src/kcm_grub2.cpp:876 src/kcm_grub2.cpp:885
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
 msgstr "Näytä tervetuloikkuna"
 
-#: src/kcm_grub2.cpp:876 src/kcm_grub2.cpp:885
+#: src/kcm_grub2.cpp:877 src/kcm_grub2.cpp:886
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
 msgstr "Poista Plymouth käytöstä"
 
-#: src/kcm_grub2.cpp:877 src/kcm_grub2.cpp:886
+#: src/kcm_grub2.cpp:878 src/kcm_grub2.cpp:887
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
 msgstr "Poista ACPI käytöstä"
 
-#: src/kcm_grub2.cpp:878 src/kcm_grub2.cpp:887
+#: src/kcm_grub2.cpp:879 src/kcm_grub2.cpp:888
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
 msgstr "Poista APIC käytöstä"
 
-#: src/kcm_grub2.cpp:879 src/kcm_grub2.cpp:888
+#: src/kcm_grub2.cpp:880 src/kcm_grub2.cpp:889
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
 msgstr "Poista paikallinen APIC käytöstä"
 
-#: src/kcm_grub2.cpp:880 src/kcm_grub2.cpp:889
+#: src/kcm_grub2.cpp:881 src/kcm_grub2.cpp:890
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
 msgstr "Yksittäiskäyttäjän tila"
 
-#: src/kcm_grub2.cpp:892 src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:904
+#: src/kcm_grub2.cpp:893 src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:905
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
 msgstr "PC:n BIOS- ja EFI-konsoli"
 
-#: src/kcm_grub2.cpp:893 src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:905
+#: src/kcm_grub2.cpp:894 src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Serial Terminal"
 msgstr "Sarjapääte"
 
-#: src/kcm_grub2.cpp:894 src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:906
+#: src/kcm_grub2.cpp:895 src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:907
 #, kde-format
 msgctxt ""
 "@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
@@ -405,61 +405,61 @@ msgctxt ""
 msgid "Open Firmware Console"
 msgstr "Open Firmware -konsoli"
 
-#: src/kcm_grub2.cpp:900
+#: src/kcm_grub2.cpp:901
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC AT Keyboard (Coreboot)"
 msgstr "PC AT -näppäimistö (coreboot)"
 
-#: src/kcm_grub2.cpp:901
+#: src/kcm_grub2.cpp:902
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
 msgstr "USB-näppäimistö (HID-käynnistysyhteyskäytäntö)"
 
-#: src/kcm_grub2.cpp:907
+#: src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
 msgstr "Grafiikkatilan tuloste"
 
-#: src/kcm_grub2.cpp:908
+#: src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
 msgstr "VGA-tekstituloste (coreboot)"
 
-#: src/kcm_grub2.cpp:1087
+#: src/kcm_grub2.cpp:1088
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
 msgstr "Ei käännöstä"
 
-#: src/kcm_grub2.cpp:1126 src/kcm_grub2.cpp:1130
+#: src/kcm_grub2.cpp:1127 src/kcm_grub2.cpp:1131
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
 msgstr "Mukautettu…"
 
-#: src/kcm_grub2.cpp:1127 src/kcm_grub2.cpp:1131
+#: src/kcm_grub2.cpp:1128 src/kcm_grub2.cpp:1132
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Auto"
 msgstr "Automaattinen"
 
-#: src/kcm_grub2.cpp:1132
+#: src/kcm_grub2.cpp:1133
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Unspecified"
 msgstr "Ei määritetty"
 
-#: src/kcm_grub2.cpp:1133
+#: src/kcm_grub2.cpp:1134
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
 msgstr "Käynnistä tekstitilassa"
 
-#: src/kcm_grub2.cpp:1134
+#: src/kcm_grub2.cpp:1135
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"
