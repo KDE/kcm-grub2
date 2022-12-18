@@ -885,7 +885,7 @@ msgstr "Elimina les entrades antigues"
 #, kde-format
 msgctxt "@option:check"
 msgid "The next booted entry will become default"
-msgstr "La propera entrada d'arrancada serà la per defecte"
+msgstr "La propera entrada d'arrancada serà la predeterminada"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
 #: ui/kcm_grub2.ui:68
