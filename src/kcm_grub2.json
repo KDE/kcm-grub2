@@ -25,6 +25,7 @@
         "Description[uk]": "Налаштування завантажувача GRUB2",
         "Description[x-test]": "xxCustomize the GRUB2 bootloaderxx",
         "Description[zh_CN]": "自定义 GRUB2 启动引导程序",
+        "Description[zh_TW]": "自訂 GRUB2 開機載入器",
         "Icon": "system-reboot",
         "Name": "GRUB2 Bootloader",
         "Name[ca@valencia]": "Gestor d'arrancada Grub2",
@@ -50,7 +51,8 @@
         "Name[tr]": "GRUB2 Önyükleyici",
         "Name[uk]": "Завантажувач GRUB2",
         "Name[x-test]": "xxGRUB2 Bootloaderxx",
-        "Name[zh_CN]": "GRUB2 启动引导程序"
+        "Name[zh_CN]": "GRUB2 启动引导程序",
+        "Name[zh_TW]": "GRUB2 開機載入器"
     },
     "X-KDE-Keywords": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader",
     "X-KDE-Keywords[ast]": "grub,arrinque,arrincar,menú,entrada,entraes,contraseña,color,aspeutu,imaxe,xestor d'arrinque",
