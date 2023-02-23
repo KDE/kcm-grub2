@@ -2,21 +2,21 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Vít Pelčák <vit@pelcak.org>, 2011, 2012, 2013, 2014, 2017, 2019.
 # Tomáš Chvátal <tomas.chvatal@gmail.com>, 2012.
-# Vit Pelcak <vit@pelcak.org>, 2021.
+# Vit Pelcak <vit@pelcak.org>, 2021, 2023.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:49+0000\n"
-"PO-Revision-Date: 2021-03-23 10:00+0100\n"
-"Last-Translator: Vit Pelcak <vpelcak@suse.cz>\n"
+"PO-Revision-Date: 2023-02-22 16:44+0100\n"
+"Last-Translator: Vit Pelcak <vit@pelcak.org>\n"
 "Language-Team: Czech <kde-i18n-doc@kde.org>\n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Lokalize 20.12.3\n"
+"X-Generator: Lokalize 22.12.2\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
 #, kde-format
@@ -172,7 +172,7 @@ msgstr "Ovládací modul KDE pro nastavení zavaděče GRUB2."
 #, kde-format
 msgctxt "@info:credit"
 msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
-msgstr "Copyright (C) 2008-2013 Konstantinos Smanis"
+msgstr "Autorská práva (C) 2008-2013 Konstantinos Smanis"
 
 #: src/kcm_grub2.cpp:66
 #, kde-format
