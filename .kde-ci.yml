@@ -10,6 +10,7 @@ Dependencies:
     'frameworks/kcmutils' : '@stable'
     'frameworks/kio' : '@stable'
     'frameworks/solid' : '@stable'
+    'third-party/packagekit-qt': '@latest'
 
 Options:
   test-before-installing: True
