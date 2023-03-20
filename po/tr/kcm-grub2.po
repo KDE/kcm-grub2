@@ -86,12 +86,12 @@ msgstr "Komut: <command>%1</command><nl/>"
 #: src/helper/helper.cpp:121
 #, kde-format
 msgid "Original configuration file <filename>%1</filename> does not exist."
-msgstr "Özgün dosya yapılandırması <filename>%1</ filename> mevcut değil."
+msgstr "Özgün dosya yapılandırması <filename>%1</filename> yok."
 
 #: src/helper/helper.cpp:127
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
-msgstr "Mevcut dosya yapılandırması kaldırılamıyor <filename>%1</filename>."
+msgstr "Geçerli dosya yapılandırması kaldırılamıyor <filename>%1</filename>."
 
 #: src/helper/helper.cpp:133
 #, kde-format
