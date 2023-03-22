@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: extragear-sysadmin-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2022-10-05 00:49+0000\n"
-"PO-Revision-Date: 2023-02-01 00:11+0300\n"
+"PO-Revision-Date: 2023-03-21 13:29+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 22.12.1\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #, kde-format
 msgctxt "NAME OF TRANSLATORS"
@@ -123,7 +123,7 @@ msgstr "Önyükleyiciyi Kur/Kurtar"
 #, kde-format
 msgctxt "@info"
 msgid "Sorry, you have to select a partition with a proper name!"
-msgstr "Üzgünüz, geçerli bir ada sahip bir bölüm seçmelisiniz!"
+msgstr "Üzgünüz, geçerli bir ada sahip bir bölüntü seçmelisiniz!"
 
 #: src/installDlg.cpp:124
 #, kde-format
@@ -791,14 +791,14 @@ msgstr "GRUB Arka Planı Olarak Belirle:"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select partition to install/recover GRUB:"
-msgstr "GRUB'u kurmak/kurtarmak için bölüm seçin:"
+msgstr "GRUB'u kurmak/kurtarmak için bölüntü seçin:"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:48
 #, kde-format
 msgctxt "@title:column"
 msgid "Partition"
-msgstr "Disk bölümü"
+msgstr "Bölüntü"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:53
@@ -836,15 +836,15 @@ msgid ""
 "Install the bootloader on the boot sector of the selected partition instead "
 "of the MBR(=Master Boot Sector). Not recommended."
 msgstr ""
-"Önyükleyiciyi MBR (=Master Boot Sector) yerine seçilen bölümün boot "
-"sektörüne kur. Önerilmez."
+"Önyükleyiciyi MBR (=Master Boot Sector) yerine seçilen bölüntünün önyükleme "
+"dilimine kur. Önerilmez."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
 #: ui/installDlg.ui:79
 #, kde-format
 msgctxt "@option:check"
 msgid "Install on partition instead of MBR (Advanced)"
-msgstr "MBR yerine bölüme kur (Gelişmiş)"
+msgstr "MBR yerine bölüntüye kur (Gelişmiş)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: ui/kcm_grub2.ui:21
