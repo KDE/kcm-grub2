@@ -32,12 +32,13 @@
 #include <QTreeView>
 
 // KDE
-#include <KAboutData>
 #include <KAuth/Action>
 #include <KAuth/ExecuteJob>
 #include <KLocalizedString>
 #include <KMessageBox>
 #include <KPluginFactory>
+
+using namespace KAuth;
 
 // Project
 #include "common.h"
@@ -60,19 +61,8 @@ K_PLUGIN_CLASS_WITH_JSON(KCMGRUB2, "kcm_grub2.json")
 KCMGRUB2::KCMGRUB2(QObject *parent, const KPluginMetaData &data, const QVariantList &list)
     : KCModule(parent, data, list)
 {
-    KAboutData *about = new KAboutData(QStringLiteral("kcmgrub2"),
-                                       i18nc("@title", "KDE GRUB2 Bootloader Control Module"),
-                                       QStringLiteral(KCM_GRUB2_VERSION),
-                                       i18nc("@title", "A KDE Control Module for configuring the GRUB2 bootloader."),
-                                       KAboutLicense::GPL_V3,
-                                       i18nc("@info:credit", "Copyright (C) 2008-2013 Konstantinos Smanis"),
-                                       QString(),
-                                       QStringLiteral("http://ksmanis.wordpress.com/projects/grub2-editor/"));
-    about->addAuthor(i18nc("@info:credit", "Κonstantinos Smanis"),
-                     i18nc("@info:credit", "Main Developer"),
-                     QStringLiteral("konstantinos.smanis@gmail.com"),
-                     QStringLiteral("http://ksmanis.wordpress.com/"));
-    setAboutData(about);
+    // Make this setAuthActionName in KF6
+    setAuthAction(Action(QStringLiteral("org.kde.kcontrol.kcmgrub2.save")));
 
     ui = new Ui::KCMGRUB2;
     ui->setupUi(widget());
@@ -849,7 +839,6 @@ void KCMGRUB2::setupColors(std::initializer_list<ColorInfo> colorInfos)
 void KCMGRUB2::setupObjects()
 {
     setButtons(Default | Apply);
-    setNeedsAuthorization(true);
 
     m_dirtyBits.resize(lastDirtyBit);
     m_resolutionsEmpty = true;

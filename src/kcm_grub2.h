@@ -18,16 +18,8 @@
 #ifndef KCMGRUB2_H
 #define KCMGRUB2_H
 
-// Qt
-#include <QBitArray>
-
-// KDE
 #include <KCModule>
-namespace KAuth
-{
-class ActionReply;
-}
-using namespace KAuth;
+#include <QBitArray>
 
 // Project
 class Entry;
