@@ -57,8 +57,8 @@
 
 K_PLUGIN_CLASS_WITH_JSON(KCMGRUB2, "kcm_grub2.json")
 
-KCMGRUB2::KCMGRUB2(QWidget *parent, const QVariantList &list)
-    : KCModule(parent, list)
+KCMGRUB2::KCMGRUB2(QObject *parent, const KPluginMetaData &data, const QVariantList &list)
+    : KCModule(parent, data, list)
 {
     KAboutData *about = new KAboutData(QStringLiteral("kcmgrub2"),
                                        i18nc("@title", "KDE GRUB2 Bootloader Control Module"),

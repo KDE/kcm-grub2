@@ -18,31 +18,31 @@
 #ifndef KCMGRUB2_H
 #define KCMGRUB2_H
 
-//Qt
+// Qt
 #include <QBitArray>
 
-//KDE
+// KDE
 #include <KCModule>
 namespace KAuth
 {
-    class ActionReply;
+class ActionReply;
 }
 using namespace KAuth;
 
-//Project
+// Project
 class Entry;
 
-//Ui
+// Ui
 namespace Ui
 {
-    class KCMGRUB2;
+class KCMGRUB2;
 }
 
 class KCMGRUB2 : public KCModule
 {
     Q_OBJECT
 public:
-    explicit KCMGRUB2(QWidget *parent = nullptr, const QVariantList &list = QVariantList());
+    explicit KCMGRUB2(QObject *parent, const KPluginMetaData &data, const QVariantList &list);
     virtual ~KCMGRUB2();
 
     void defaults() override;
@@ -82,11 +82,12 @@ private Q_SLOTS:
 
     void slotUpdateSuggestions();
     void slotTriggeredSuggestion(QAction *action);
+
 private:
     struct ColorInfo {
         QString grubColor;
         QString text;
-        QColor  color;
+        QColor color;
     };
     void setupColors(std::initializer_list<ColorInfo> colors);
     void setupObjects();
