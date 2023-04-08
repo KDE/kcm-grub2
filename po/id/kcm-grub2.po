@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2022-10-05 00:49+0000\n"
+"POT-Creation-Date: 2023-04-08 00:49+0000\n"
 "PO-Revision-Date: 2023-02-16 23:34+0700\n"
 "Last-Translator: Wantoyèk <wantoyek@gmail.com>\n"
 "Language-Team: Indonesian <kde-i18n-doc@kde.org>\n"
@@ -16,16 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 22.12.2\n"
-
-#, kde-format
-msgctxt "NAME OF TRANSLATORS"
-msgid "Your names"
-msgstr "Wantoyèk"
-
-#, kde-format
-msgctxt "EMAIL OF TRANSLATORS"
-msgid "Your emails"
-msgstr "wantoyek@gmail.com"
 
 #: src/convertDlg.cpp:58
 #, kde-format
@@ -136,7 +126,7 @@ msgctxt "@info:progress"
 msgid "Installing GRUB..."
 msgstr "Memasang GRUB..."
 
-#: src/installDlg.cpp:136 src/kcm_grub2.cpp:508
+#: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
 #, kde-format
 msgctxt "@title:window"
 msgid "Information"
@@ -154,247 +144,217 @@ msgctxt "@info"
 msgid "Failed to install GRUB."
 msgstr "Gagal memasang GRUB."
 
-#: src/kcm_grub2.cpp:62
-#, kde-format
-msgctxt "@title"
-msgid "KDE GRUB2 Bootloader Control Module"
-msgstr "Modul Kontrol Bootloader KDE GRUB2"
-
-#: src/kcm_grub2.cpp:63
-#, kde-format
-msgctxt "@title"
-msgid "A KDE Control Module for configuring the GRUB2 bootloader."
-msgstr "Sebuah Modul Kontrol KDE untuk mengonfigurasi bootloader GRUB2."
-
-#: src/kcm_grub2.cpp:64
-#, kde-format
-msgctxt "@info:credit"
-msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
-msgstr "Hak Cipta, Konstantinos Smanis (C) 2008-2013"
-
-#: src/kcm_grub2.cpp:66
-#, kde-format
-msgctxt "@info:credit"
-msgid "Κonstantinos Smanis"
-msgstr "Κonstantinos Smanis"
-
-#: src/kcm_grub2.cpp:66
-#, kde-format
-msgctxt "@info:credit"
-msgid "Main Developer"
-msgstr "Pengembang Utama"
-
-#: src/kcm_grub2.cpp:90
+#: src/kcm_grub2.cpp:87
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
 msgstr "Nilai default berhasil dikembalikan."
 
-#: src/kcm_grub2.cpp:92
+#: src/kcm_grub2.cpp:89
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
 msgstr "Gagal mengembalikan nilai default."
 
-#: src/kcm_grub2.cpp:497
+#: src/kcm_grub2.cpp:499
 #, kde-format
 msgctxt "@title:window Verb (gerund). Refers to current status."
 msgid "Saving"
 msgstr "Menyimpan"
 
-#: src/kcm_grub2.cpp:498
+#: src/kcm_grub2.cpp:500
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
 msgstr "Menyimpan pengaturan GRUB..."
 
-#: src/kcm_grub2.cpp:522
+#: src/kcm_grub2.cpp:527
 #, kde-format
 msgctxt "@info"
 msgid "Successfully saved GRUB settings."
 msgstr "Pengaturan GRUB berhasil disimpan."
 
-#: src/kcm_grub2.cpp:527
+#: src/kcm_grub2.cpp:535
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
 msgstr "Gagal menyimpan pengaturan GRUB."
 
-#: src/kcm_grub2.cpp:597 src/kcm_grub2.cpp:619
+#: src/kcm_grub2.cpp:606 src/kcm_grub2.cpp:633
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
 msgstr "Masukkan resolusi layar"
 
-#: src/kcm_grub2.cpp:597
+#: src/kcm_grub2.cpp:607
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
 msgstr "Silakan masukkan resolusi GRUB:"
 
-#: src/kcm_grub2.cpp:619
+#: src/kcm_grub2.cpp:634
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
 msgstr "Silakan masukkan resolusi boot Linux:"
 
-#: src/kcm_grub2.cpp:670
+#: src/kcm_grub2.cpp:689
 #, kde-format
 msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
 msgstr "Tekan <shortcut>Escape</shortcut> untuk mengeluarkan mode layar penuh."
 
-#: src/kcm_grub2.cpp:842 src/kcm_grub2.cpp:843
+#: src/kcm_grub2.cpp:862 src/kcm_grub2.cpp:863
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Black"
 msgstr "Hitam"
 
-#: src/kcm_grub2.cpp:844 src/kcm_grub2.cpp:845
+#: src/kcm_grub2.cpp:864 src/kcm_grub2.cpp:865
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Transparent"
 msgstr "Transparan"
 
-#: src/kcm_grub2.cpp:848
+#: src/kcm_grub2.cpp:868
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Blue"
 msgstr "Biru"
 
-#: src/kcm_grub2.cpp:849
+#: src/kcm_grub2.cpp:869
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Cyan"
 msgstr "Sian"
 
-#: src/kcm_grub2.cpp:850
+#: src/kcm_grub2.cpp:870
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Dark Gray"
 msgstr "Abu Gelap"
 
-#: src/kcm_grub2.cpp:851
+#: src/kcm_grub2.cpp:871
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Green"
 msgstr "Hijau"
 
-#: src/kcm_grub2.cpp:852
+#: src/kcm_grub2.cpp:872
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Cyan"
 msgstr "Sian Muda"
 
-#: src/kcm_grub2.cpp:853
+#: src/kcm_grub2.cpp:873
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Blue"
 msgstr "Biru Terang"
 
-#: src/kcm_grub2.cpp:854
+#: src/kcm_grub2.cpp:874
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Green"
 msgstr "Hijau Muda"
 
-#: src/kcm_grub2.cpp:855
+#: src/kcm_grub2.cpp:875
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Gray"
 msgstr "Abu Terang"
 
-#: src/kcm_grub2.cpp:856
+#: src/kcm_grub2.cpp:876
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Magenta"
 msgstr "Magenta Muda"
 
-#: src/kcm_grub2.cpp:857
+#: src/kcm_grub2.cpp:877
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Red"
 msgstr "Merah Muda"
 
-#: src/kcm_grub2.cpp:858
+#: src/kcm_grub2.cpp:878
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Magenta"
 msgstr "Magenta"
 
-#: src/kcm_grub2.cpp:859
+#: src/kcm_grub2.cpp:879
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Red"
 msgstr "Merah"
 
-#: src/kcm_grub2.cpp:860
+#: src/kcm_grub2.cpp:880
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "White"
 msgstr "Putih"
 
-#: src/kcm_grub2.cpp:861
+#: src/kcm_grub2.cpp:881
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Yellow"
 msgstr "Kuning"
 
-#: src/kcm_grub2.cpp:875 src/kcm_grub2.cpp:884
+#: src/kcm_grub2.cpp:895 src/kcm_grub2.cpp:904
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
 msgstr "Boot Tenang"
 
-#: src/kcm_grub2.cpp:876 src/kcm_grub2.cpp:885
+#: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
 msgstr "Tampilkan Layar Splash"
 
-#: src/kcm_grub2.cpp:877 src/kcm_grub2.cpp:886
+#: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
 msgstr "Nonfungsikan Playmouth"
 
-#: src/kcm_grub2.cpp:878 src/kcm_grub2.cpp:887
+#: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
 msgstr "Padamkan ACPI"
 
-#: src/kcm_grub2.cpp:879 src/kcm_grub2.cpp:888
+#: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
 msgstr "Padamkan APIC"
 
-#: src/kcm_grub2.cpp:880 src/kcm_grub2.cpp:889
+#: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
 msgstr "Padamkan APIC Lokal"
 
-#: src/kcm_grub2.cpp:881 src/kcm_grub2.cpp:890
+#: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
 msgstr "Mode Pengguna Tunggal"
 
-#: src/kcm_grub2.cpp:893 src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:905
+#: src/kcm_grub2.cpp:913 src/kcm_grub2.cpp:920 src/kcm_grub2.cpp:931
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
 msgstr "BIOS PC && Konsol EFI"
 
-#: src/kcm_grub2.cpp:894 src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:906
+#: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Serial Terminal"
 msgstr "Terminal Serial"
 
-#: src/kcm_grub2.cpp:895 src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:907
+#: src/kcm_grub2.cpp:916 src/kcm_grub2.cpp:923 src/kcm_grub2.cpp:934
 #, kde-format
 msgctxt ""
 "@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
@@ -402,61 +362,61 @@ msgctxt ""
 msgid "Open Firmware Console"
 msgstr "Konsol Open Firmware"
 
-#: src/kcm_grub2.cpp:901
+#: src/kcm_grub2.cpp:925
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC AT Keyboard (Coreboot)"
 msgstr "Keyboard AT PC (Coreboot)"
 
-#: src/kcm_grub2.cpp:902
+#: src/kcm_grub2.cpp:927
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
 msgstr "Keyboard USB (Protokol Boot HID)"
 
-#: src/kcm_grub2.cpp:908
+#: src/kcm_grub2.cpp:936
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
 msgstr "Output Mode Grafik"
 
-#: src/kcm_grub2.cpp:909
+#: src/kcm_grub2.cpp:937
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
 msgstr "Output Teks VGA (Coreboot)"
 
-#: src/kcm_grub2.cpp:1088
+#: src/kcm_grub2.cpp:1118
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
 msgstr "Tanpa terjemahan"
 
-#: src/kcm_grub2.cpp:1127 src/kcm_grub2.cpp:1131
+#: src/kcm_grub2.cpp:1161 src/kcm_grub2.cpp:1165
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
 msgstr "Kustom..."
 
-#: src/kcm_grub2.cpp:1128 src/kcm_grub2.cpp:1132
+#: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Auto"
 msgstr "Auto"
 
-#: src/kcm_grub2.cpp:1133
+#: src/kcm_grub2.cpp:1167
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Unspecified"
 msgstr "Tidak Terspesifikasi"
 
-#: src/kcm_grub2.cpp:1134
+#: src/kcm_grub2.cpp:1168
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
 msgstr "Boot dalam Mode Teks"
 
-#: src/kcm_grub2.cpp:1135
+#: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"
@@ -1206,3 +1166,31 @@ msgstr "Hapus file tajuk kernel yang berhubungan."
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
 msgstr "Hapus juga paket-paket lawas yang berhubungan"
+
+#~ msgctxt "NAME OF TRANSLATORS"
+#~ msgid "Your names"
+#~ msgstr "Wantoyèk"
+
+#~ msgctxt "EMAIL OF TRANSLATORS"
+#~ msgid "Your emails"
+#~ msgstr "wantoyek@gmail.com"
+
+#~ msgctxt "@title"
+#~ msgid "KDE GRUB2 Bootloader Control Module"
+#~ msgstr "Modul Kontrol Bootloader KDE GRUB2"
+
+#~ msgctxt "@title"
+#~ msgid "A KDE Control Module for configuring the GRUB2 bootloader."
+#~ msgstr "Sebuah Modul Kontrol KDE untuk mengonfigurasi bootloader GRUB2."
+
+#~ msgctxt "@info:credit"
+#~ msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
+#~ msgstr "Hak Cipta, Konstantinos Smanis (C) 2008-2013"
+
+#~ msgctxt "@info:credit"
+#~ msgid "Κonstantinos Smanis"
+#~ msgstr "Κonstantinos Smanis"
+
+#~ msgctxt "@info:credit"
+#~ msgid "Main Developer"
+#~ msgstr "Pengembang Utama"
