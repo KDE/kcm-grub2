@@ -1169,31 +1169,3 @@ msgstr "Odstranit spojené hlavičkové soubory jádra."
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
 msgstr "Také odstranit spojené staré balíčky"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Vít Pelčák, Tomáš Chvátal"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "vit@pelcak.org, tomas.chvatal@gmail.com"
-
-#~ msgctxt "@title"
-#~ msgid "KDE GRUB2 Bootloader Control Module"
-#~ msgstr "Ovládací modul KDE pro zavaděč GRUB2"
-
-#~ msgctxt "@title"
-#~ msgid "A KDE Control Module for configuring the GRUB2 bootloader."
-#~ msgstr "Ovládací modul KDE pro nastavení zavaděče GRUB2."
-
-#~ msgctxt "@info:credit"
-#~ msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
-#~ msgstr "Autorská práva (C) 2008-2013 Konstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Κonstantinos Smanis"
-#~ msgstr "Κonstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Main Developer"
-#~ msgstr "Hlavní autor"
