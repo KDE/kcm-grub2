@@ -4,21 +4,21 @@
 # KDE euskaratzeko proiektuko arduraduna <xalba@euskalnet.net>.
 #
 # Translators:
-# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2019, 2020.
+# Iñigo Salvador Azurmendi <xalba@euskalnet.net>, 2019, 2020, 2023.
 msgid ""
 msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-08 00:49+0000\n"
-"PO-Revision-Date: 2020-11-10 20:11+0100\n"
+"PO-Revision-Date: 2023-04-22 19:07+0200\n"
 "Last-Translator: Iñigo Salvador Azurmendi <xalba@ni.eus>\n"
-"Language-Team: Basque\n"
+"Language-Team: Basque <kde-i18n-eu@kde.org>\n"
 "Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 20.08.2\n"
+"X-Generator: Lokalize 23.04.0\n"
 
 #: src/convertDlg.cpp:58
 #, kde-format
@@ -311,7 +311,7 @@ msgstr "Abio isila"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
-msgstr "Erakutsi plast pantaila"
+msgstr "Erakutsi plasta pantaila"
 
 #: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
