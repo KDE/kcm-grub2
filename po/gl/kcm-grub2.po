@@ -1,16 +1,16 @@
 # Copyright (C) YEAR This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
-#
 # Xabier Villar <xabier.villar@gmail.com>, 2012, 2013.
 # Marce Villarino <mvillarino@kde-espana.org>, 2013.
 # Adrián Chaves Fernández (Gallaecio) <adriyetichaves@gmail.com>, 2017.
-# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019.
+# Adrián Chaves (Gallaecio) <adrian@chaves.io>, 2017, 2018, 2019, 2023.
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-08 00:49+0000\n"
-"PO-Revision-Date: 2019-10-19 22:35+0200\n"
+"PO-Revision-Date: 2023-04-24 07:48+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 19.11.70\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: src/convertDlg.cpp:58
 #, kde-format
@@ -640,17 +640,13 @@ msgid "Copying files"
 msgstr "Copiando os ficheiros"
 
 #: src/qPkBackend.cpp:140
-#, fuzzy, kde-format
-#| msgctxt "transaction state, just started"
-#| msgid "Running task"
+#, kde-format
 msgctxt "we are running the install hooks"
 msgid "Running install hooks"
-msgstr "Executando a tarefa"
+msgstr "Executando os ganchos de instalación"
 
 #: src/qPkBackend.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "This is when the transaction status is not known"
-#| msgid "Unknown state"
+#, kde-format
 msgctxt "we received an unknown status"
 msgid "Unknown status"
 msgstr "Estado descoñecido"
