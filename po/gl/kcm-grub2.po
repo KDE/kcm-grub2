@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-04-08 00:49+0000\n"
-"PO-Revision-Date: 2023-04-24 07:48+0200\n"
+"PO-Revision-Date: 2023-06-05 14:08+0200\n"
 "Last-Translator: Adrián Chaves (Gallaecio) <adrian@chaves.io>\n"
 "Language-Team: Galician <proxecto@trasno.gal>\n"
 "Language: gl\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Lokalize 22.12.3\n"
+"X-Generator: Lokalize 23.04.1\n"
 
 #: src/convertDlg.cpp:58
 #, kde-format
@@ -631,7 +631,7 @@ msgstr "Comprobando a lista actual de aplicacións en uso"
 #, kde-format
 msgctxt "we are checking for libraries in use"
 msgid "Checking for libraries currently in use"
-msgstr "Comprobando as bibliotecas que se usan actualmente"
+msgstr "Comprobando as bibliotecas que se usan"
 
 #: src/qPkBackend.cpp:138
 #, kde-format
@@ -1135,7 +1135,7 @@ msgstr "Axuste de inicialización:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable UUIDs:"
-msgstr "Activar UUIDs:"
+msgstr "Activar os UUID:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_tools)
 #: ui/kcm_grub2.ui:635
