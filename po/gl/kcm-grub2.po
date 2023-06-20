@@ -314,7 +314,7 @@ msgstr "Arranque silencioso"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
-msgstr "Mostrar a pantalla de benvida"
+msgstr "Amosar a pantalla de benvida"
 
 #: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
@@ -870,7 +870,7 @@ msgstr "s"
 #, kde-format
 msgctxt "@option:check"
 msgid "Show countdown timer"
-msgstr "Mostrar a conta atrás"
+msgstr "Amosar a conta atrás"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_timeout)
 #: ui/kcm_grub2.ui:121
@@ -878,7 +878,7 @@ msgstr "Mostrar a conta atrás"
 msgctxt "@option:check"
 msgid "Automatically boot the default entry after showing the menu"
 msgstr ""
-"Arrancar automaticamente a entrada predeterminada despois de mostrar o menú"
+"Arrancar automaticamente a entrada predeterminada despois de amosar o menú"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
 #: ui/kcm_grub2.ui:144
