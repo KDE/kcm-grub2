@@ -587,7 +587,7 @@ msgstr "캐시 불러오는 중"
 #, kde-format
 msgctxt "transaction state, scanning for running processes"
 msgid "Scanning installed applications"
-msgstr "설치된 프로그램 조사 중"
+msgstr "설치된 앱 조사 중"
 
 #: src/qPkBackend.cpp:120
 #, kde-format
@@ -612,13 +612,13 @@ msgstr "인증 대기 중"
 #, kde-format
 msgctxt "we are updating the list of processes"
 msgid "Updating the list of running applications"
-msgstr "실행 중인 프로그램 목록 업데이트 중"
+msgstr "실행 중인 앱 목록 업데이트 중"
 
 #: src/qPkBackend.cpp:132
 #, kde-format
 msgctxt "we are checking executable files in use"
 msgid "Checking for applications currently in use"
-msgstr "사용 중인 프로그램 점검 중"
+msgstr "사용 중인 앱 점검 중"
 
 #: src/qPkBackend.cpp:135
 #, kde-format
