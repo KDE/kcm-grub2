@@ -1174,32 +1174,3 @@ msgstr "Elimina els fitxers de capçalera associats amb el nucli."
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
 msgstr "Elimina també els paquets antics associats"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Antoni Bella"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "antonibella5@yahoo.com"
-
-#~ msgctxt "@title"
-#~ msgid "KDE GRUB2 Bootloader Control Module"
-#~ msgstr "Mòdul de control de KDE del gestor d'arrancada Grub2"
-
-#~ msgctxt "@title"
-#~ msgid "A KDE Control Module for configuring the GRUB2 bootloader."
-#~ msgstr ""
-#~ "Un mòdul de control de KDE per a configurar el gestor d'arrancada Grub2."
-
-#~ msgctxt "@info:credit"
-#~ msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
-#~ msgstr "Copyright (C) 2008-2013 Konstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Κonstantinos Smanis"
-#~ msgstr "Κonstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Main Developer"
-#~ msgstr "Desenvolupador principal"
