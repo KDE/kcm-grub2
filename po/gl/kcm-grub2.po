@@ -58,7 +58,7 @@ msgstr "Non ten permiso para escribir neste directorio; escolla outro destino."
 #, kde-format
 msgctxt "@info"
 msgid "The process could not be started."
-msgstr "Non se puido comezar o proceso."
+msgstr "Non foi posíbel comezar o proceso."
 
 #: src/helper/helper.cpp:69
 #, kde-format
@@ -82,7 +82,7 @@ msgstr ""
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
 msgstr ""
-"Non se pode retirar o ficheiro de configuración actual <filename>%1</"
+"Non é posíbel retirar o ficheiro de configuración actual <filename>%1</"
 "filename>."
 
 #: src/helper/helper.cpp:133
@@ -91,13 +91,13 @@ msgid ""
 "Cannot copy original configuration file <filename>%1</filename> to <filename>"
 "%2</filename>."
 msgstr ""
-"Non se pode copiar o ficheiro de configuración orixinal <filename>%1</"
+"Non é posíbel copiar o ficheiro de configuración orixinal <filename>%1</"
 "filename> en <filename>%2</filename>."
 
 #: src/helper/helper.cpp:150
 #, kde-format
 msgid "Failed to create temporary mount point."
-msgstr "Non se puido crear un punto de montaxe temporal."
+msgstr "Non foi posíbel crear un punto de montaxe temporal."
 
 #: src/helper/helper.cpp:288
 #, kde-format
@@ -146,7 +146,7 @@ msgstr "GRUB instalouse."
 #, kde-format
 msgctxt "@info"
 msgid "Failed to install GRUB."
-msgstr "Non se puido instalar GRUB."
+msgstr "Non foi posíbel instalar GRUB."
 
 #: src/kcm_grub2.cpp:87
 #, kde-format
@@ -158,7 +158,7 @@ msgstr "Restauráronse correctamente os valores predeterminados."
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
-msgstr "Non se puideron restaurar os valores predeterminados."
+msgstr "Non foi posíbel restaurar os valores predeterminados."
 
 #: src/kcm_grub2.cpp:499
 #, kde-format
@@ -182,7 +182,7 @@ msgstr "Gardáronse correctamente as configuracións de GRUB."
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
-msgstr "Non se puideron gardar as configuracións de GRUB."
+msgstr "Non foi posíbel gardar as configuracións de GRUB."
 
 #: src/kcm_grub2.cpp:606 src/kcm_grub2.cpp:633
 #, kde-format
