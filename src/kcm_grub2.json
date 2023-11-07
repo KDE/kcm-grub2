@@ -29,6 +29,7 @@
         "Description[sv]": "Anpassa GRUB2 startprogram",
         "Description[tr]": "GRUB2 önyükleyiciyi özelleştir",
         "Description[uk]": "Налаштування завантажувача GRUB2",
+        "Description[x-test]": "xxCustomize the GRUB2 bootloaderxx",
         "Description[zh_CN]": "自定义 GRUB2 启动引导程序",
         "Description[zh_TW]": "自訂 GRUB2 開機載入器",
         "Icon": "system-reboot",
@@ -61,6 +62,7 @@
         "Name[sv]": "GRUB2 startprogram",
         "Name[tr]": "GRUB2 Önyükleyici",
         "Name[uk]": "Завантажувач GRUB2",
+        "Name[x-test]": "xxGRUB2 Bootloaderxx",
         "Name[zh_CN]": "GRUB2 启动引导程序",
         "Name[zh_TW]": "GRUB2 開機載入器"
     },
