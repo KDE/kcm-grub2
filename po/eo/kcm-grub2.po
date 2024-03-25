@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2023-11-05 12:39+0000\n"
-"PO-Revision-Date: 2024-02-26 21:30+0100\n"
+"PO-Revision-Date: 2024-03-24 10:34+0100\n"
 "Last-Translator: Oliver Kellogg <okellogg@users.sourceforge.net>\n"
 "Language-Team: Esperanto <kde-i18n-eo.org>\n"
 "Language: eo\n"
@@ -22,7 +22,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "ImageMagick supported image formats"
-msgstr ""
+msgstr "ImageMagick apogis bildformatojn"
 
 #: src/convertDlg.cpp:90
 #, kde-format
@@ -52,29 +52,29 @@ msgstr ""
 #, kde-format
 msgctxt "@info"
 msgid "The process could not be started."
-msgstr ""
+msgstr "La procezo ne povus esti komencita."
 
 #: src/helper/helper.cpp:69
 #, kde-format
 msgctxt "@info"
 msgid "The process crashed."
-msgstr ""
+msgstr "La procezo paneis."
 
 #: src/helper/helper.cpp:75
 #, kde-format
 msgctxt "@info"
 msgid "Command: <command>%1</command><nl/>"
-msgstr ""
+msgstr "Ordono: <command>%1</command><nl/>"
 
 #: src/helper/helper.cpp:121
 #, kde-format
 msgid "Original configuration file <filename>%1</filename> does not exist."
-msgstr ""
+msgstr "Origina agorda dosiero <filename>%1</filename> ne ekzistas."
 
 #: src/helper/helper.cpp:127
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
-msgstr ""
+msgstr "Ne povas forigi la nunan agordan dosieron <filename>%1</filename>."
 
 #: src/helper/helper.cpp:133
 #, kde-format
@@ -86,25 +86,25 @@ msgstr ""
 #: src/helper/helper.cpp:150
 #, kde-format
 msgid "Failed to create temporary mount point."
-msgstr ""
+msgstr "Malsukcesis krei provizoran muntan punkton."
 
 #: src/helper/helper.cpp:288
 #, kde-format
 msgctxt "@info"
 msgid "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>"
-msgstr ""
+msgstr "Erarkodo: <numid>%1</numid><nl/>Erara mesaĝo: <message>%2</message>"
 
 #: src/installDlg.cpp:60
 #, kde-format
 msgctxt "@title:window"
 msgid "Install/Recover Bootloader"
-msgstr ""
+msgstr "Instali/Reakiri Bootloader"
 
 #: src/installDlg.cpp:113
 #, kde-format
 msgctxt "@info"
 msgid "Sorry, you have to select a partition with a proper name!"
-msgstr ""
+msgstr "Pardonu, vi devas elekti sekcion kun propra nomo!"
 
 #: src/installDlg.cpp:124
 #, kde-format
@@ -116,7 +116,7 @@ msgstr "Instalante"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Installing GRUB..."
-msgstr ""
+msgstr "Instalante GRUB..."
 
 #: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
 #, kde-format
@@ -128,25 +128,25 @@ msgstr "Informoj"
 #, kde-format
 msgctxt "@info"
 msgid "Successfully installed GRUB."
-msgstr ""
+msgstr "Sukcese instalis GRUB."
 
 #: src/installDlg.cpp:154
 #, kde-format
 msgctxt "@info"
 msgid "Failed to install GRUB."
-msgstr ""
+msgstr "Malsukcesis instali GRUB."
 
 #: src/kcm_grub2.cpp:87
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
-msgstr ""
+msgstr "Sukcese restarigis la defaŭltajn valorojn."
 
 #: src/kcm_grub2.cpp:89
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
-msgstr ""
+msgstr "Malsukcesis restarigi la defaŭltajn valorojn."
 
 #: src/kcm_grub2.cpp:499
 #, kde-format
@@ -158,43 +158,43 @@ msgstr "Konservante"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
-msgstr ""
+msgstr "Konservante GRUB-agordojn..."
 
 #: src/kcm_grub2.cpp:527
 #, kde-format
 msgctxt "@info"
 msgid "Successfully saved GRUB settings."
-msgstr ""
+msgstr "Sukcese konservitaj GRUB-agordoj."
 
 #: src/kcm_grub2.cpp:535
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
-msgstr ""
+msgstr "Malsukcesis konservi GRUB-agordojn."
 
 #: src/kcm_grub2.cpp:606 src/kcm_grub2.cpp:633
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
-msgstr ""
+msgstr "Enigi ekranan rezolucion"
 
 #: src/kcm_grub2.cpp:607
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
-msgstr ""
+msgstr "Bonvolu enigi GRUB-rezolucion:"
 
 #: src/kcm_grub2.cpp:634
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
-msgstr ""
+msgstr "Bonvolu enigi Linuksan lanĉan rezolucion:"
 
 #: src/kcm_grub2.cpp:689
 #, kde-format
 msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
-msgstr ""
+msgstr "Premu <shortcut>Eskapo</shortcut> por eliri plenekranan reĝimon."
 
 #: src/kcm_grub2.cpp:862 src/kcm_grub2.cpp:863
 #, kde-format
@@ -296,55 +296,55 @@ msgstr "Flava"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
-msgstr ""
+msgstr "Trankvila Boto"
 
 #: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
-msgstr ""
+msgstr "Montri Splash Screen"
 
 #: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
-msgstr ""
+msgstr "Malebligi Plymouth"
 
 #: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
-msgstr ""
+msgstr "Malŝalti ACPI"
 
 #: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
-msgstr ""
+msgstr "Malŝalti APIC"
 
 #: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
-msgstr ""
+msgstr "Malŝalti Lokan APIC"
 
 #: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
-msgstr ""
+msgstr "Ununura Uzanta Reĝimo"
 
 #: src/kcm_grub2.cpp:913 src/kcm_grub2.cpp:920 src/kcm_grub2.cpp:931
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
-msgstr ""
+msgstr "PC BIOS && EFI-Konzolo"
 
 #: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Serial Terminal"
-msgstr ""
+msgstr "Seria Terminalo"
 
 #: src/kcm_grub2.cpp:916 src/kcm_grub2.cpp:923 src/kcm_grub2.cpp:934
 #, kde-format
@@ -358,31 +358,31 @@ msgstr ""
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC AT Keyboard (Coreboot)"
-msgstr ""
+msgstr "Klavaro ĉe PC (Koreboot)"
 
 #: src/kcm_grub2.cpp:927
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
-msgstr ""
+msgstr "USB-Klavaro (HID Boot Protocol)"
 
 #: src/kcm_grub2.cpp:936
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
-msgstr ""
+msgstr "Grafika Reĝimo Eligo"
 
 #: src/kcm_grub2.cpp:937
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
-msgstr ""
+msgstr "VGA-Teksto-Eligo (Koreboot)"
 
 #: src/kcm_grub2.cpp:1118
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
-msgstr ""
+msgstr "Neniu traduko"
 
 #: src/kcm_grub2.cpp:1161 src/kcm_grub2.cpp:1165
 #, kde-format
@@ -406,13 +406,13 @@ msgstr "Nespecifita"
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
-msgstr ""
+msgstr "Lanĉi en Teksta Reĝimo"
 
 #: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"
-msgstr ""
+msgstr "Konservi la Rezolucion de GRUB"
 
 #: src/qPkBackend.cpp:36
 #, kde-format
@@ -631,61 +631,61 @@ msgstr "Kopiante dosierojn"
 #, kde-format
 msgctxt "we are running the install hooks"
 msgid "Running install hooks"
-msgstr ""
+msgstr "Kurante instalajn hokojn"
 
 #: src/qPkBackend.cpp:142
 #, kde-format
 msgctxt "we received an unknown status"
 msgid "Unknown status"
-msgstr ""
+msgstr "Nekonata statuso"
 
 #: src/removeDlg.cpp:60
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Old Entries"
-msgstr ""
+msgstr "Forigi Malnovajn Enskribojn"
 
 #: src/removeDlg.cpp:73
 #, kde-format
 msgctxt "@title:window"
 msgid "Finding Old Entries"
-msgstr ""
+msgstr "Trovi Malnovajn Enskribojn"
 
 #: src/removeDlg.cpp:74
 #, kde-format
 msgctxt "@info:progress"
 msgid "Finding Old Entries..."
-msgstr ""
+msgstr "Trovante malnovajn enskribojn..."
 
 #: src/removeDlg.cpp:100
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Kernel %1"
-msgstr ""
+msgstr "Kerno %1"
 
 #: src/removeDlg.cpp:116
 #, kde-format
 msgctxt "@info"
 msgid "No removable entries were found."
-msgstr ""
+msgstr "Neniuj forpreneblaj enskriboj estis trovitaj."
 
 #: src/removeDlg.cpp:137
 #, kde-format
 msgctxt "@info"
 msgid "Are you sure you want to remove the following packages?"
-msgstr ""
+msgstr "Ĉu vi certas, ke vi volas forigi la jenajn pakaĵojn?"
 
 #: src/removeDlg.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Removing Old Entries"
-msgstr ""
+msgstr "Forigante Malnovajn Enskribojn"
 
 #: src/removeDlg.cpp:179
 #, kde-format
 msgctxt "@info"
 msgid "Package removal failed."
-msgstr ""
+msgstr "Forigo de pakaĵo malsukcesis."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/convertDlg.ui:19
@@ -699,14 +699,14 @@ msgstr "Bildo:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Convert To:"
-msgstr ""
+msgstr "Konverti al:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ui/convertDlg.ui:41
 #, kde-format
 msgctxt "@title:group"
 msgid "Conversion Options"
-msgstr ""
+msgstr "Konvertaj Opcioj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/convertDlg.ui:47
@@ -727,21 +727,21 @@ msgstr "Alto:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Force resolution:"
-msgstr ""
+msgstr "Forto-rezolucio:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: ui/convertDlg.ui:85
 #, kde-format
 msgctxt "@option:check"
 msgid "Set As GRUB Wallpaper:"
-msgstr ""
+msgstr "Agordi Kiel GRUB-Fapton:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/installDlg.ui:17
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select partition to install/recover GRUB:"
-msgstr ""
+msgstr "Elekti sekcion por instali/reakiri GRUB:"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:48
@@ -792,7 +792,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Install on partition instead of MBR (Advanced)"
-msgstr ""
+msgstr "Instali sur sekcio anstataŭ MBR (Altnivela)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: ui/kcm_grub2.ui:21
@@ -806,28 +806,28 @@ msgstr "Ĝenerala"
 #, kde-format
 msgctxt "@title:group"
 msgid "Default Entry"
-msgstr ""
+msgstr "Defaŭlta Eniro"
 
 #. i18n: ectx: property (text), widget (QLabel, label_default)
 #: ui/kcm_grub2.ui:33
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Default Entry:"
-msgstr ""
+msgstr "Defaŭlta eniro:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
 #: ui/kcm_grub2.ui:49
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove Old Entries"
-msgstr ""
+msgstr "Forigi Malnovajn Enskribojn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_savedefault)
 #: ui/kcm_grub2.ui:58
 #, kde-format
 msgctxt "@option:check"
 msgid "The next booted entry will become default"
-msgstr ""
+msgstr "La sekva startita eniro fariĝos defaŭlta"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
 #: ui/kcm_grub2.ui:68
@@ -841,7 +841,7 @@ msgstr "Timeout"
 #, kde-format
 msgctxt "@option:check"
 msgid "Hide the menu for:"
-msgstr ""
+msgstr "Kaŝi la menuon por:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_hiddenTimeout)
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_timeout)
@@ -856,14 +856,14 @@ msgstr "s"
 #, kde-format
 msgctxt "@option:check"
 msgid "Show countdown timer"
-msgstr ""
+msgstr "Montri retronombradon"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_timeout)
 #: ui/kcm_grub2.ui:121
 #, kde-format
 msgctxt "@option:check"
 msgid "Automatically boot the default entry after showing the menu"
-msgstr ""
+msgstr "Aŭtomate lanĉi la defaŭltan eniron post montri la menuon"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
 #: ui/kcm_grub2.ui:144
@@ -884,7 +884,7 @@ msgstr "Post:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Generated Entries"
-msgstr ""
+msgstr "Produktitaj Eniroj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_language)
 #: ui/kcm_grub2.ui:203
@@ -897,21 +897,21 @@ msgstr "Lingvo:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Generate recovery entries"
-msgstr ""
+msgstr "Generi reakirajn enskribojn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_memtest)
 #: ui/kcm_grub2.ui:224
 #, kde-format
 msgctxt "@option:check"
 msgid "Generate memtest entries"
-msgstr ""
+msgstr "Generi memtest-enskribojn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_osProber)
 #: ui/kcm_grub2.ui:231
 #, kde-format
 msgctxt "@option:check"
 msgid "Probe for operating systems"
-msgstr ""
+msgstr "Sondilo por operaciumoj"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: ui/kcm_grub2.ui:255
@@ -925,14 +925,14 @@ msgstr "Aspekto"
 #, kde-format
 msgctxt "@title:group"
 msgid "Resolutions"
-msgstr ""
+msgstr "Rezolucioj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxmode)
 #: ui/kcm_grub2.ui:267
 #, kde-format
 msgctxt "@label:listbox"
 msgid "GRUB:"
-msgstr ""
+msgstr "GRUB:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxmode)
 #. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxpayload)
@@ -940,14 +940,14 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Probe for supported VBE resolutions."
-msgstr ""
+msgstr "Sondi pri subtenataj VBE-rezolucioj."
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
 #: ui/kcm_grub2.ui:295
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Linux Kernel:"
-msgstr ""
+msgstr "Linukso Kerno:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_colors)
 #: ui/kcm_grub2.ui:326
@@ -961,28 +961,28 @@ msgstr "Koloroj"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Foreground (Text):"
-msgstr ""
+msgstr "Normala Malfono (Teksto):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
 #: ui/kcm_grub2.ui:344
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Foreground (Text):"
-msgstr ""
+msgstr "Marki Malfonon (Teksto):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
 #: ui/kcm_grub2.ui:358
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Background:"
-msgstr ""
+msgstr "Normala Fono:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightBackground)
 #: ui/kcm_grub2.ui:368
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Background:"
-msgstr ""
+msgstr "Emfazi Fonon:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_background)
 #: ui/kcm_grub2.ui:383
@@ -996,7 +996,7 @@ msgstr "Fono"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Wallpaper:"
-msgstr ""
+msgstr "Tapeto:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_preview)
 #: ui/kcm_grub2.ui:401
@@ -1031,14 +1031,14 @@ msgstr "Altnivela"
 #, kde-format
 msgctxt "@title:group"
 msgid "Linux Kernel Arguments"
-msgstr ""
+msgstr "Linukso Kerno-Argumentoj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_cmdlineDefault)
 #: ui/kcm_grub2.ui:456
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Normal Entries:"
-msgstr ""
+msgstr "Normalaj Enskriboj:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineDefaultSuggestions)
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineSuggestions)
@@ -1050,14 +1050,14 @@ msgstr ""
 #, kde-format
 msgctxt "@action:button"
 msgid "Suggestions"
-msgstr ""
+msgstr "Sugestoj"
 
 #. i18n: ectx: property (text), widget (QLabel, label_cmdline)
 #: ui/kcm_grub2.ui:477
 #, kde-format
 msgctxt "@label:textbox"
 msgid "All Entries:"
-msgstr ""
+msgstr "Ĉiuj Enskriboj:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_terminal)
 #: ui/kcm_grub2.ui:501
@@ -1071,21 +1071,21 @@ msgstr "Terminalo"
 #, kde-format
 msgctxt "@label:textbox Noun."
 msgid "Terminal:"
-msgstr ""
+msgstr "Terminalo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminalInput)
 #: ui/kcm_grub2.ui:528
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Input Terminal:"
-msgstr ""
+msgstr "Eniga Terminalo:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminalOutput)
 #: ui/kcm_grub2.ui:549
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Output Terminal:"
-msgstr ""
+msgstr "Eliga Terminalo:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_other)
 #: ui/kcm_grub2.ui:573
@@ -1099,28 +1099,28 @@ msgstr "Alia"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Distributor:"
-msgstr ""
+msgstr "Distribuisto:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_serial)
 #: ui/kcm_grub2.ui:589
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Serial Command:"
-msgstr ""
+msgstr "Seria Komando:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_initTune)
 #: ui/kcm_grub2.ui:599
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Init Tune:"
-msgstr ""
+msgstr "Init Tune:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_uuid)
 #: ui/kcm_grub2.ui:609
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable UUIDs:"
-msgstr ""
+msgstr "Ebligi UUID-ojn:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_tools)
 #: ui/kcm_grub2.ui:635
@@ -1134,25 +1134,25 @@ msgstr "Iloj"
 #, kde-format
 msgctxt "@action:button"
 msgid "Install/Recover Bootloader"
-msgstr ""
+msgstr "Instali/Reakiri Bootloader"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/removeDlg.ui:17
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select entries to remove:"
-msgstr ""
+msgstr "Elekti enskribojn por forigi:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:34
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove associated kernel header files."
-msgstr ""
+msgstr "Forigi rilatajn kernajn kapdosierojn."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:37
 #, kde-format
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
-msgstr ""
+msgstr "Ankaŭ forigi rilatajn malnovajn pakaĵojn"
