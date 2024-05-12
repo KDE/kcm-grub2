@@ -130,7 +130,7 @@ msgstr "S'està instal·lant"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Installing GRUB..."
-msgstr "S'està instal·lant grub..."
+msgstr "S'està instal·lant grub…"
 
 #: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
 #, kde-format
@@ -172,7 +172,7 @@ msgstr "S'està guardant"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
-msgstr "S'està guardant la configuració de Grub..."
+msgstr "S'està guardant la configuració de Grub…"
 
 #: src/kcm_grub2.cpp:527
 #, kde-format
@@ -403,7 +403,7 @@ msgstr "Sense traducció"
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
-msgstr "Personalitzada..."
+msgstr "Personalitzada…"
 
 #: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
 #, kde-format
@@ -670,7 +670,7 @@ msgstr "Busca de les entrades antigues"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Finding Old Entries..."
-msgstr "S'estan buscant les entrades antigues..."
+msgstr "S'estan buscant les entrades antigues…"
 
 #: src/removeDlg.cpp:100
 #, kde-format
