@@ -69,6 +69,7 @@
     "X-KDE-Keywords": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader",
     "X-KDE-Keywords[ca@valencia]": "grub,arrancada,menú,entrades,predeterminat,temps d'espera,contrasenya,color,pantalla de presentació,imatge,carregador d'arrancada",
     "X-KDE-Keywords[ca]": "grub,arrencada,menú,entrades,predeterminat,temps d'espera,contrasenya,color,pantalla de presentació,imatge,carregador d'arrencada",
+    "X-KDE-Keywords[cs]": "grub,boot,nabídka,položky,výchozí,limit,heslo,barva,start,obrázek,bootloader",
     "X-KDE-Keywords[de]": "Grub,Start,Menü,Einträge,Standard,Zeitablauf,Passwort,Farbe,Bildschirm,Bild",
     "X-KDE-Keywords[en_GB]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader",
     "X-KDE-Keywords[es]": "grub,arranque,inicio,menú,entradas,predeterminado,tiempo de espera,contraseña,color,bienvenida,imagen,cargador de arranque",
