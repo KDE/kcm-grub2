@@ -85,6 +85,7 @@
     "X-KDE-Keywords[tr]": "grub,önyükleme,boot,menü,girdiler,girişler,öntanımlı,varsayılan,zaman aşımı,timeout,parola,şifre,renk,açılış,görsel,görüntü,önyükleyici",
     "X-KDE-Keywords[uk]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,груб,завантаження,меню,пункти,типовий,час,очікування,пароль,колір,зображення,завантаження",
     "X-KDE-Keywords[x-test]": "xxgrubxx,xxbootxx,xxmenuxx,xxentriesxx,xxdefaultxx,xxtimeoutxx,xxpasswordxx,xxcolorxx,xxsplashxx,xximagexx,xxbootloaderxx",
+    "X-KDE-Keywords[zh_TW]": "開機,選單,項目,條目,預設值,逾時,等待,開機等待,密碼,色彩,顏色,圖片,影像,開機載入器",
     "X-KDE-ParentApp": "kcontrol",
     "X-KDE-System-Settings-Parent-Category": "session"
 }
