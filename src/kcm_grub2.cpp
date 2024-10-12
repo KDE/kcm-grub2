@@ -23,11 +23,12 @@
 
 // Qt
 #include <QDebug>
-#include <QDesktopWidget>
 #include <QIcon>
 #include <QMenu>
+#include <QPointer>
 #include <QProgressDialog>
 #include <QPushButton>
+#include <QScreen>
 #include <QStandardItemModel>
 #include <QTreeView>
 
@@ -134,7 +135,7 @@ void KCMGRUB2::load()
         ui->combobox_default->setModel(model);
         ui->combobox_default->setMinimumContentsLength(maxLen + maxLvl * 3);
 
-        bool numericDefault = QRegExp(QLatin1String("((\\d)+>)*(\\d)+")).exactMatch(grubDefault);
+        bool numericDefault = QRegularExpression(QRegularExpression::anchoredPattern(QLatin1String("((\\d)+>)*(\\d)+"))).match(grubDefault).hasMatch();
         int entryIndex = -1;
         for (int i = 0; i < m_entries.size(); i++) {
             if ((numericDefault && m_entries.at(i).fullNumTitle() == grubDefault) || (!numericDefault && m_entries.at(i).fullTitle() == grubDefault)) {
@@ -601,7 +602,7 @@ void KCMGRUB2::slotGrubGfxmodeChanged()
 {
     if (ui->combobox_gfxmode->currentIndex() == 0) {
         bool ok;
-        QRegExpValidator regExp(QRegExp(QLatin1String("\\d{3,4}x\\d{3,4}(x\\d{1,2})?")), this);
+        QRegularExpressionValidator regExp(QRegularExpression(QLatin1String("\\d{3,4}x\\d{3,4}(x\\d{1,2})?")), this);
         QString resolution = TextInputDialog::getText(widget(),
                                                       i18nc("@title:window", "Enter screen resolution"),
                                                       i18nc("@label:textbox", "Please enter a GRUB resolution:"),
@@ -628,7 +629,7 @@ void KCMGRUB2::slotGrubGfxpayloadLinuxChanged()
 {
     if (ui->combobox_gfxpayload->currentIndex() == 0) {
         bool ok;
-        QRegExpValidator regExp(QRegExp(QLatin1String("\\d{3,4}x\\d{3,4}(x\\d{1,2})?")), this);
+        QRegularExpressionValidator regExp(QRegularExpression(QLatin1String("\\d{3,4}x\\d{3,4}(x\\d{1,2})?")), this);
         QString resolution = TextInputDialog::getText(widget(),
                                                       i18nc("@title:window", "Enter screen resolution"),
                                                       i18nc("@label:textbox", "Please enter a Linux boot resolution:"),
@@ -682,7 +683,7 @@ void KCMGRUB2::slotPreviewGrubBackground()
     // TODO: Need something more elegant.
     QDialog *dialog = new QDialog(widget());
     QLabel *label = new QLabel(dialog);
-    label->setPixmap(QPixmap::fromImage(QImage::fromData(file.readAll())).scaled(QDesktopWidget().screenGeometry(widget()).size()));
+    label->setPixmap(QPixmap::fromImage(QImage::fromData(file.readAll())).scaled(QGuiApplication::screenAt(widget()->geometry().topLeft())->geometry().size()));
     dialog->setAttribute(Qt::WA_DeleteOnClose);
     dialog->showFullScreen();
     KMessageBox::information(dialog,
@@ -788,7 +789,7 @@ void KCMGRUB2::slotUpdateSuggestions()
         if (!action->isCheckable()) {
             action->setCheckable(true);
         }
-        action->setChecked(lineEdit->text().contains(QRegExp(QString(QLatin1String("\\b%1\\b")).arg(action->data().toString()))));
+        action->setChecked(lineEdit->text().contains(QRegularExpression(QString(QLatin1String("\\b%1\\b")).arg(action->data().toString()))));
     }
 }
 void KCMGRUB2::slotTriggeredSuggestion(QAction *action)
@@ -816,7 +817,7 @@ void KCMGRUB2::slotTriggeredSuggestion(QAction *action)
 
     QString lineEditText = lineEdit->text();
     if (!action->isChecked()) {
-        lineEdit->setText(lineEditText.remove(QRegExp(QString(QLatin1String("\\b%1\\b")).arg(action->data().toString()))).simplified());
+        lineEdit->setText(lineEditText.remove(QRegularExpression(QString(QLatin1String("\\b%1\\b")).arg(action->data().toString()))).simplified());
     } else {
         lineEdit->setText(lineEditText.isEmpty() ? action->data().toString() : lineEditText + QLatin1Char(' ') + action->data().toString());
     }
@@ -1048,7 +1049,7 @@ void KCMGRUB2::readAll()
     if (QFileInfo(grubLocalePath()).isReadable()) {
         m_locales = QDir(grubLocalePath())
                         .entryList(QStringList() << QStringLiteral("*.mo"), QDir::Files)
-                        .replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString());
+                        .replaceInStrings(QRegularExpression(QLatin1String("\\.mo$")), QString());
     } else {
         operations |= Locales;
     }
@@ -1131,10 +1132,10 @@ void KCMGRUB2::showLocales()
 void KCMGRUB2::sortResolutions()
 {
     for (int i = 0; i < m_resolutions.size(); i++) {
-        if (m_resolutions.at(i).contains(QRegExp(QLatin1String("^\\d{3,4}x\\d{3,4}$")))) {
+        if (m_resolutions.at(i).contains(QRegularExpression(QLatin1String("^\\d{3,4}x\\d{3,4}$")))) {
             m_resolutions[i] = QStringLiteral("%1x%2x0").arg(m_resolutions.at(i).section(QLatin1Char('x'), 0, 0).rightJustified(4, QLatin1Char('0')),
                                                              m_resolutions.at(i).section(QLatin1Char('x'), 1).rightJustified(4, QLatin1Char('0')));
-        } else if (m_resolutions.at(i).contains(QRegExp(QLatin1String("^\\d{3,4}x\\d{3,4}x\\d{1,2}$")))) {
+        } else if (m_resolutions.at(i).contains(QRegularExpression(QLatin1String("^\\d{3,4}x\\d{3,4}x\\d{1,2}$")))) {
             m_resolutions[i] = QStringLiteral("%1x%2x%3")
                                    .arg(m_resolutions.at(i).section(QLatin1Char('x'), 0, 0).rightJustified(4, QLatin1Char('0')),
                                         m_resolutions.at(i).section(QLatin1Char('x'), 1, 1).rightJustified(4, QLatin1Char('0')),
@@ -1143,7 +1144,7 @@ void KCMGRUB2::sortResolutions()
     }
     m_resolutions.sort();
     for (int i = 0; i < m_resolutions.size(); i++) {
-        if (!m_resolutions.at(i).contains(QRegExp(QLatin1String("^\\d{3,4}x\\d{3,4}x\\d{1,2}$")))) {
+        if (!m_resolutions.at(i).contains(QRegularExpression(QLatin1String("^\\d{3,4}x\\d{3,4}x\\d{1,2}$")))) {
             continue;
         }
         if (m_resolutions.at(i).startsWith(QLatin1Char('0'))) {
@@ -1295,7 +1296,7 @@ void KCMGRUB2::parseSettings(const QString &config)
     m_settings.clear();
     while (!stream.atEnd()) {
         line = stream.readLine().trimmed();
-        if (line.contains(QRegExp(QLatin1String("^(GRUB_|LANGUAGE=)")))) {
+        if (line.contains(QRegularExpression(QLatin1String("^(GRUB_|LANGUAGE=)")))) {
             m_settings[line.section(QLatin1Char('='), 0, 0)] = line.section(QLatin1Char('='), 1);
         }
     }

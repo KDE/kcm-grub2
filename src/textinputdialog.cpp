@@ -20,7 +20,6 @@
 #include <QVBoxLayout>
 #include <QLabel>
 #include <QLineEdit>
-#include <QRegExpValidator>
 #include <QDialogButtonBox>
 #include <QPushButton>
 #include <QStyle>

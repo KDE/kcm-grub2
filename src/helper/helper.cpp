@@ -24,6 +24,7 @@
 //Qt
 #include <QDebug>
 #include <QDir>
+#include <QRegularExpression>
 
 //KDE
 #include <KLocalizedString>
@@ -97,7 +98,7 @@ bool Helper::setLang(const QString &lang)
         qCritical() << "Error description:" << file.errorString();
         return false;
     }
-    fileContents.replace(QRegExp(QStringLiteral("(\\n\\s*set\\s+lang=)\\S*\\n")), QStringLiteral("\\1%1\n").arg(lang));
+    fileContents.replace(QRegularExpression(QStringLiteral("(\\n\\s*set\\s+lang=)\\S*\\n")), QStringLiteral("\\1%1\n").arg(lang));
     if (file.write(fileContents.toUtf8()) == -1) {
         qCritical() << "Failed to write data to file:" << grubMenuPath();
         qCritical() << "Error code:" << file.error();
@@ -159,7 +160,7 @@ ActionReply Helper::install(QVariantMap args)
     QStringList grub_installCommand;
     grub_installCommand << grubInstallExePath() << QStringLiteral("--root-directory") << mountPoint;
     if (mbrInstall) {
-        grub_installCommand << partition.remove(QRegExp(QLatin1String("\\d+")));
+        grub_installCommand << partition.remove(QRegularExpression(QLatin1String("\\d+")));
     } else {
         grub_installCommand << QStringLiteral("--force") << partition;
     }
@@ -227,7 +228,7 @@ ActionReply Helper::load(QVariantMap args)
     }
 #endif
     if (operations.testFlag(Locales)) {
-        reply.addData(QStringLiteral("locales"), QDir(grubLocalePath()).entryList(QStringList() << QStringLiteral("*.mo"), QDir::Files).replaceInStrings(QRegExp(QLatin1String("\\.mo$")), QString()));
+        reply.addData(QStringLiteral("locales"), QDir(grubLocalePath()).entryList(QStringList() << QStringLiteral("*.mo"), QDir::Files).replaceInStrings(QRegularExpression(QLatin1String("\\.mo$")), QString()));
     }
     return reply;
 }
