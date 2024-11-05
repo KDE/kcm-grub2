@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:39+0000\n"
+"POT-Creation-Date: 2024-11-05 01:50+0000\n"
 "PO-Revision-Date: 2023-02-03 16:54+0100\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <kde-i18n-doc@kde.org>\n"
@@ -53,36 +53,36 @@ msgid ""
 msgstr ""
 "მითითებულ საქაღალდეში ჩაწერის უფლებები არ გაგაჩნიათ. აირჩიეთ სხვა სამიზნე."
 
-#: src/helper/helper.cpp:66
+#: src/helper/helper.cpp:67
 #, kde-format
 msgctxt "@info"
 msgid "The process could not be started."
 msgstr "პროცესის გაშვება შეუძლებელია."
 
-#: src/helper/helper.cpp:69
+#: src/helper/helper.cpp:70
 #, kde-format
 msgctxt "@info"
 msgid "The process crashed."
 msgstr "პროცესი ავარიულად დასრულდა."
 
-#: src/helper/helper.cpp:75
+#: src/helper/helper.cpp:76
 #, kde-format
 msgctxt "@info"
 msgid "Command: <command>%1</command><nl/>"
 msgstr "ბრძანება: <command>%1</command><nl/>"
 
-#: src/helper/helper.cpp:121
+#: src/helper/helper.cpp:122
 #, kde-format
 msgid "Original configuration file <filename>%1</filename> does not exist."
 msgstr "საწყისი კონფიგურაცია <filename>%1</filename> არ არსებობს."
 
-#: src/helper/helper.cpp:127
+#: src/helper/helper.cpp:128
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
 msgstr ""
 "კონფიგურაციის მიმდინარე ფაილის წაშლა შეუძლებელია <filename>%1</filename>."
 
-#: src/helper/helper.cpp:133
+#: src/helper/helper.cpp:134
 #, kde-format
 msgid ""
 "Cannot copy original configuration file <filename>%1</filename> to <filename>"
@@ -91,12 +91,12 @@ msgstr ""
 "კონფიგურაციის საწყისი ფაილის <filename>%1</filename>-დან <filename>%2</"
 "filename>-ში კოპირება შეუძლებელია."
 
-#: src/helper/helper.cpp:150
+#: src/helper/helper.cpp:151
 #, kde-format
 msgid "Failed to create temporary mount point."
 msgstr "მიმაგრების დროებით წერტილის შექმნის შეცდომა."
 
-#: src/helper/helper.cpp:288
+#: src/helper/helper.cpp:289
 #, kde-format
 msgctxt "@info"
 msgid "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>"
@@ -126,7 +126,7 @@ msgctxt "@info:progress"
 msgid "Installing GRUB..."
 msgstr "გრუბის დაყენება..."
 
-#: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
+#: src/installDlg.cpp:136 src/kcm_grub2.cpp:511
 #, kde-format
 msgctxt "@title:window"
 msgid "Information"
@@ -144,217 +144,217 @@ msgctxt "@info"
 msgid "Failed to install GRUB."
 msgstr "GRUB-ის დაყენების შეცდომა."
 
-#: src/kcm_grub2.cpp:87
+#: src/kcm_grub2.cpp:88
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
 msgstr "ნაგულისხმები მნიშვნელობების დაბრუნება წარმატებულია."
 
-#: src/kcm_grub2.cpp:89
+#: src/kcm_grub2.cpp:90
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
 msgstr "ნაგულისხმები მნიშვნელობების დაბრუნების შეცდომა."
 
-#: src/kcm_grub2.cpp:499
+#: src/kcm_grub2.cpp:500
 #, kde-format
 msgctxt "@title:window Verb (gerund). Refers to current status."
 msgid "Saving"
 msgstr "Შენახვა"
 
-#: src/kcm_grub2.cpp:500
+#: src/kcm_grub2.cpp:501
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
 msgstr "GRUB-ის პარამეტრების შენახვა..."
 
-#: src/kcm_grub2.cpp:527
+#: src/kcm_grub2.cpp:528
 #, kde-format
 msgctxt "@info"
 msgid "Successfully saved GRUB settings."
 msgstr "GRUB-ის პარამეტრები წარმატებით ჩაიწერა."
 
-#: src/kcm_grub2.cpp:535
+#: src/kcm_grub2.cpp:536
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
 msgstr "GRUB-ის პარამეტრების შენახვის შეცდომა."
 
-#: src/kcm_grub2.cpp:606 src/kcm_grub2.cpp:633
+#: src/kcm_grub2.cpp:607 src/kcm_grub2.cpp:634
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
 msgstr "შეიყვანეთ ეკრანის გაფართოება"
 
-#: src/kcm_grub2.cpp:607
+#: src/kcm_grub2.cpp:608
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
 msgstr "შეიყვანეთ GRUB-ის გაფართოება:"
 
-#: src/kcm_grub2.cpp:634
+#: src/kcm_grub2.cpp:635
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
 msgstr "შეიყვანეთ Linux-ის ჩატვირთვის გაფართოება:"
 
-#: src/kcm_grub2.cpp:689
+#: src/kcm_grub2.cpp:690
 #, kde-format
 msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
 msgstr "მთელი ეკრანიდან გამოსვლისთვის დააწექით <shortcut>Escape</shortcut> ."
 
-#: src/kcm_grub2.cpp:862 src/kcm_grub2.cpp:863
+#: src/kcm_grub2.cpp:863 src/kcm_grub2.cpp:864
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Black"
 msgstr "შავი"
 
-#: src/kcm_grub2.cpp:864 src/kcm_grub2.cpp:865
+#: src/kcm_grub2.cpp:865 src/kcm_grub2.cpp:866
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Transparent"
 msgstr "გამჭვირვალე"
 
-#: src/kcm_grub2.cpp:868
+#: src/kcm_grub2.cpp:869
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Blue"
 msgstr "ლურჯი"
 
-#: src/kcm_grub2.cpp:869
+#: src/kcm_grub2.cpp:870
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Cyan"
 msgstr "ცისფერი"
 
-#: src/kcm_grub2.cpp:870
+#: src/kcm_grub2.cpp:871
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Dark Gray"
 msgstr "მუქი ნაცრისფერი"
 
-#: src/kcm_grub2.cpp:871
+#: src/kcm_grub2.cpp:872
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Green"
 msgstr "მწვანე"
 
-#: src/kcm_grub2.cpp:872
+#: src/kcm_grub2.cpp:873
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Cyan"
 msgstr "ღია ცისფერი"
 
-#: src/kcm_grub2.cpp:873
+#: src/kcm_grub2.cpp:874
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Blue"
 msgstr "ღია ლურჯი"
 
-#: src/kcm_grub2.cpp:874
+#: src/kcm_grub2.cpp:875
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Green"
 msgstr "ღია მწვანე"
 
-#: src/kcm_grub2.cpp:875
+#: src/kcm_grub2.cpp:876
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Gray"
 msgstr "ღია ნაცრისფერი"
 
-#: src/kcm_grub2.cpp:876
+#: src/kcm_grub2.cpp:877
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Magenta"
 msgstr "ღია ალისფერი"
 
-#: src/kcm_grub2.cpp:877
+#: src/kcm_grub2.cpp:878
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Red"
 msgstr "ღია წითელი"
 
-#: src/kcm_grub2.cpp:878
+#: src/kcm_grub2.cpp:879
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Magenta"
 msgstr "ალისფერი"
 
-#: src/kcm_grub2.cpp:879
+#: src/kcm_grub2.cpp:880
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Red"
 msgstr "წითელი"
 
-#: src/kcm_grub2.cpp:880
+#: src/kcm_grub2.cpp:881
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "White"
 msgstr "თეთრი"
 
-#: src/kcm_grub2.cpp:881
+#: src/kcm_grub2.cpp:882
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Yellow"
 msgstr "ყვითელი"
 
-#: src/kcm_grub2.cpp:895 src/kcm_grub2.cpp:904
+#: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
 msgstr "ჩუმი ჩატვირთვა"
 
-#: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
+#: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
 msgstr "მისასალმებელი ეკრანის ჩვენება"
 
-#: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
+#: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
 msgstr "Plymouth-ის გამორთვა"
 
-#: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
+#: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
 msgstr "ACPI-ის გამორთვა"
 
-#: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
+#: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
 msgstr "APIC-ის გამორთვა"
 
-#: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
+#: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
 msgstr "ლოკალური APIC-ის გამორთვა"
 
-#: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
+#: src/kcm_grub2.cpp:902 src/kcm_grub2.cpp:911
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
 msgstr "ერთმომხმარებლიანი რეჟიმში"
 
-#: src/kcm_grub2.cpp:913 src/kcm_grub2.cpp:920 src/kcm_grub2.cpp:931
+#: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
 msgstr "PC BIOS && EFI კონსოლი"
 
-#: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
+#: src/kcm_grub2.cpp:915 src/kcm_grub2.cpp:922 src/kcm_grub2.cpp:933
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Serial Terminal"
 msgstr "სერიული ტერმინალი"
 
-#: src/kcm_grub2.cpp:916 src/kcm_grub2.cpp:923 src/kcm_grub2.cpp:934
+#: src/kcm_grub2.cpp:917 src/kcm_grub2.cpp:924 src/kcm_grub2.cpp:935
 #, kde-format
 msgctxt ""
 "@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
@@ -362,61 +362,61 @@ msgctxt ""
 msgid "Open Firmware Console"
 msgstr "მიკროკოდის კონსოლის გახსნა"
 
-#: src/kcm_grub2.cpp:925
+#: src/kcm_grub2.cpp:926
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC AT Keyboard (Coreboot)"
 msgstr "PC AT კლავიატურა (Coreboot)"
 
-#: src/kcm_grub2.cpp:927
+#: src/kcm_grub2.cpp:928
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
 msgstr "USB კლავიატურა (HID ჩატვირთვის პროტოკოლი)"
 
-#: src/kcm_grub2.cpp:936
+#: src/kcm_grub2.cpp:937
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
 msgstr "გრაფიკული რეჟიმი"
 
-#: src/kcm_grub2.cpp:937
+#: src/kcm_grub2.cpp:938
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
 msgstr "VGA ტექსტური გამოტანა (Coreboot)"
 
-#: src/kcm_grub2.cpp:1118
+#: src/kcm_grub2.cpp:1119
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
 msgstr "თარგმანის გარეშე"
 
-#: src/kcm_grub2.cpp:1161 src/kcm_grub2.cpp:1165
+#: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
 msgstr "ხელით..."
 
-#: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
+#: src/kcm_grub2.cpp:1163 src/kcm_grub2.cpp:1167
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Auto"
 msgstr "ავტო"
 
-#: src/kcm_grub2.cpp:1167
+#: src/kcm_grub2.cpp:1168
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Unspecified"
 msgstr "მიუთითებელი"
 
-#: src/kcm_grub2.cpp:1168
+#: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
 msgstr "ტექსტურ რეჟიმში ჩატვირთვა"
 
-#: src/kcm_grub2.cpp:1169
+#: src/kcm_grub2.cpp:1170
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"

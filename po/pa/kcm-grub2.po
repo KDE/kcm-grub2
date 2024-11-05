@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:39+0000\n"
+"POT-Creation-Date: 2024-11-05 01:50+0000\n"
 "PO-Revision-Date: 2013-04-22 07:23+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi/Panjabi <punjabi-users@lists.sf.net>\n"
@@ -47,49 +47,49 @@ msgid ""
 "destination."
 msgstr ""
 
-#: src/helper/helper.cpp:66
+#: src/helper/helper.cpp:67
 #, kde-format
 msgctxt "@info"
 msgid "The process could not be started."
 msgstr ""
 
-#: src/helper/helper.cpp:69
+#: src/helper/helper.cpp:70
 #, kde-format
 msgctxt "@info"
 msgid "The process crashed."
 msgstr ""
 
-#: src/helper/helper.cpp:75
+#: src/helper/helper.cpp:76
 #, kde-format
 msgctxt "@info"
 msgid "Command: <command>%1</command><nl/>"
 msgstr ""
 
-#: src/helper/helper.cpp:121
+#: src/helper/helper.cpp:122
 #, kde-format
 msgid "Original configuration file <filename>%1</filename> does not exist."
 msgstr ""
 
-#: src/helper/helper.cpp:127
+#: src/helper/helper.cpp:128
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
 msgstr ""
 
-#: src/helper/helper.cpp:133
+#: src/helper/helper.cpp:134
 #, kde-format
 msgid ""
 "Cannot copy original configuration file <filename>%1</filename> to <filename>"
 "%2</filename>."
 msgstr ""
 
-#: src/helper/helper.cpp:150
+#: src/helper/helper.cpp:151
 #, fuzzy, kde-format
 #| msgctxt "@info"
 #| msgid "Failed to create temporary mount point."
 msgid "Failed to create temporary mount point."
 msgstr "ਆਰਜ਼ੀ ਮਾਊਂਟ ਪੁਆਇੰਟ ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
 
-#: src/helper/helper.cpp:288
+#: src/helper/helper.cpp:289
 #, kde-format
 msgctxt "@info"
 msgid "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>"
@@ -119,7 +119,7 @@ msgctxt "@info:progress"
 msgid "Installing GRUB..."
 msgstr "GRUB ਇੰਸਟਾਲ ਕੀਤਾ ਜਾ ਰਿਹਾ ਹੈ..."
 
-#: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
+#: src/installDlg.cpp:136 src/kcm_grub2.cpp:511
 #, kde-format
 msgctxt "@title:window"
 msgid "Information"
@@ -137,217 +137,217 @@ msgctxt "@info"
 msgid "Failed to install GRUB."
 msgstr "ਗਰਬ ਇੰਸਟਾਲ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
 
-#: src/kcm_grub2.cpp:87
+#: src/kcm_grub2.cpp:88
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
 msgstr "ਡਿਫਾਲਟ ਮੁੱਲ ਠੀਕ ਤਰ੍ਹਾਂ ਮੁੜ-ਸਟੋਰ ਕੀਤੇ ਗਏ।"
 
-#: src/kcm_grub2.cpp:89
+#: src/kcm_grub2.cpp:90
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
 msgstr "ਡਿਫਾਲਟ ਮੁੱਲ ਰੀਸਟੋਰ ਕਰਨ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
 
-#: src/kcm_grub2.cpp:499
+#: src/kcm_grub2.cpp:500
 #, kde-format
 msgctxt "@title:window Verb (gerund). Refers to current status."
 msgid "Saving"
 msgstr "ਸੰਭਾਲਿਆ ਜਾ ਰਿਹਾ ਹੈ"
 
-#: src/kcm_grub2.cpp:500
+#: src/kcm_grub2.cpp:501
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
 msgstr "ਗਰਬ ਸੈਟਿੰਗ ਸੰਭਾਲੀ ਜਾ ਰਹੀ ਹੈ..."
 
-#: src/kcm_grub2.cpp:527
+#: src/kcm_grub2.cpp:528
 #, kde-format
 msgctxt "@info"
 msgid "Successfully saved GRUB settings."
 msgstr ""
 
-#: src/kcm_grub2.cpp:535
+#: src/kcm_grub2.cpp:536
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
 msgstr "ਗਰਬ ਸੈਟਿੰਗ ਸੰਭਾਲਣ ਲਈ ਫੇਲ੍ਹ ਹੈ।"
 
-#: src/kcm_grub2.cpp:606 src/kcm_grub2.cpp:633
+#: src/kcm_grub2.cpp:607 src/kcm_grub2.cpp:634
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
 msgstr "ਸਕਰੀਨ ਰੈਜ਼ੋਲੂਸ਼ਨ ਦਿਓ"
 
-#: src/kcm_grub2.cpp:607
+#: src/kcm_grub2.cpp:608
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
 msgstr ""
 
-#: src/kcm_grub2.cpp:634
+#: src/kcm_grub2.cpp:635
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
 msgstr "ਲੀਨਕਸ ਬੂਟ ਰੈਜ਼ੋਲੂਸ਼ਨ ਦਿਉ ਜੀ:"
 
-#: src/kcm_grub2.cpp:689
+#: src/kcm_grub2.cpp:690
 #, kde-format
 msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
 msgstr ""
 
-#: src/kcm_grub2.cpp:862 src/kcm_grub2.cpp:863
+#: src/kcm_grub2.cpp:863 src/kcm_grub2.cpp:864
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Black"
 msgstr "ਕਾਲਾ"
 
-#: src/kcm_grub2.cpp:864 src/kcm_grub2.cpp:865
+#: src/kcm_grub2.cpp:865 src/kcm_grub2.cpp:866
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Transparent"
 msgstr "ਪਾਰਦਰਸ਼ੀ"
 
-#: src/kcm_grub2.cpp:868
+#: src/kcm_grub2.cpp:869
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Blue"
 msgstr "ਨੀਲਾ"
 
-#: src/kcm_grub2.cpp:869
+#: src/kcm_grub2.cpp:870
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Cyan"
 msgstr "ਕਿਰਮਚੀ"
 
-#: src/kcm_grub2.cpp:870
+#: src/kcm_grub2.cpp:871
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Dark Gray"
 msgstr "ਬਹੁਤ ਗੂੜਾ ਸਲੇਟੀ"
 
-#: src/kcm_grub2.cpp:871
+#: src/kcm_grub2.cpp:872
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Green"
 msgstr "ਹਰਾ"
 
-#: src/kcm_grub2.cpp:872
+#: src/kcm_grub2.cpp:873
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Cyan"
 msgstr "ਹਲਕਾ ਹਰਾ-ਨੀਲਾ"
 
-#: src/kcm_grub2.cpp:873
+#: src/kcm_grub2.cpp:874
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Blue"
 msgstr "ਹਲਕਾ ਨੀਲਾ"
 
-#: src/kcm_grub2.cpp:874
+#: src/kcm_grub2.cpp:875
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Green"
 msgstr "ਹਲਕਾ ਹਰਾ"
 
-#: src/kcm_grub2.cpp:875
+#: src/kcm_grub2.cpp:876
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Gray"
 msgstr "ਫਿੱਕਾ ਸਲੇਟੀ"
 
-#: src/kcm_grub2.cpp:876
+#: src/kcm_grub2.cpp:877
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Magenta"
 msgstr "ਹਲਕਾ ਕਿਰਮਚੀ"
 
-#: src/kcm_grub2.cpp:877
+#: src/kcm_grub2.cpp:878
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Red"
 msgstr "ਹਲਕਾ ਲਾਲ"
 
-#: src/kcm_grub2.cpp:878
+#: src/kcm_grub2.cpp:879
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Magenta"
 msgstr "ਕਿਰਮਚੀ"
 
-#: src/kcm_grub2.cpp:879
+#: src/kcm_grub2.cpp:880
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Red"
 msgstr "ਲਾਲ"
 
-#: src/kcm_grub2.cpp:880
+#: src/kcm_grub2.cpp:881
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "White"
 msgstr "ਚਿੱਟਾ"
 
-#: src/kcm_grub2.cpp:881
+#: src/kcm_grub2.cpp:882
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Yellow"
 msgstr "ਪੀਲਾ"
 
-#: src/kcm_grub2.cpp:895 src/kcm_grub2.cpp:904
+#: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
 msgstr ""
 
-#: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
+#: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
 msgstr "ਸਪਲੈਸ਼ ਸਕਰੀਨ ਵੇਖੋ"
 
-#: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
+#: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
 msgstr "ਪਲੇਮਾਊਥ ਬੰਦ ਕਰੋ"
 
-#: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
+#: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
 msgstr "ACPI ਬੰਦ ਕਰੋ"
 
-#: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
+#: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
 msgstr "APIC ਬੰਦ ਕਰੋ"
 
-#: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
+#: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
 msgstr ""
 
-#: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
+#: src/kcm_grub2.cpp:902 src/kcm_grub2.cpp:911
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
 msgstr "ਸਿੰਗਲ ਯੂਜ਼ਰ ਮੋਡ"
 
-#: src/kcm_grub2.cpp:913 src/kcm_grub2.cpp:920 src/kcm_grub2.cpp:931
+#: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
 msgstr "PC BIOS && EFI ਕਨਸੋਲ"
 
-#: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
+#: src/kcm_grub2.cpp:915 src/kcm_grub2.cpp:922 src/kcm_grub2.cpp:933
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Serial Terminal"
 msgstr "ਸੀਰੀਅਲ ਟਰਮੀਨਲ"
 
-#: src/kcm_grub2.cpp:916 src/kcm_grub2.cpp:923 src/kcm_grub2.cpp:934
+#: src/kcm_grub2.cpp:917 src/kcm_grub2.cpp:924 src/kcm_grub2.cpp:935
 #, kde-format
 msgctxt ""
 "@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
@@ -355,49 +355,49 @@ msgctxt ""
 msgid "Open Firmware Console"
 msgstr "ਫਿਰਮਵੇਅਰ ਕਨਸੋਲ ਖੋਲ੍ਹੋ"
 
-#: src/kcm_grub2.cpp:925
+#: src/kcm_grub2.cpp:926
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC AT Keyboard (Coreboot)"
 msgstr ""
 
-#: src/kcm_grub2.cpp:927
+#: src/kcm_grub2.cpp:928
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
 msgstr ""
 
-#: src/kcm_grub2.cpp:936
+#: src/kcm_grub2.cpp:937
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
 msgstr "ਗਰਾਫਿਕਸ ਮੋਡ ਆਉਟਪੁੱਟ"
 
-#: src/kcm_grub2.cpp:937
+#: src/kcm_grub2.cpp:938
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
 msgstr "VGA  ਟੈਕਸਟ ਆਉਟਪੁੱਟ (Coreboot)"
 
-#: src/kcm_grub2.cpp:1118
+#: src/kcm_grub2.cpp:1119
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
 msgstr ""
 
-#: src/kcm_grub2.cpp:1161 src/kcm_grub2.cpp:1165
+#: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
 msgstr "ਪਸੰਦੀਦਾ..."
 
-#: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
+#: src/kcm_grub2.cpp:1163 src/kcm_grub2.cpp:1167
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Auto"
 msgstr ""
 
-#: src/kcm_grub2.cpp:1167
+#: src/kcm_grub2.cpp:1168
 #, fuzzy, kde-format
 #| msgctxt "@item:inlistbox"
 #| msgid "Unspecified"
@@ -405,13 +405,13 @@ msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Unspecified"
 msgstr "ਦਿੱਤਾ ਨਹੀਂ"
 
-#: src/kcm_grub2.cpp:1168
+#: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
 msgstr "ਟੈਕਸਟ ਮੋਡ ਵਿੱਚ ਬੂਟ"
 
-#: src/kcm_grub2.cpp:1169
+#: src/kcm_grub2.cpp:1170
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"

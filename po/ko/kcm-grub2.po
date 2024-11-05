@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
-"POT-Creation-Date: 2023-11-05 12:39+0000\n"
+"POT-Creation-Date: 2024-11-05 01:50+0000\n"
 "PO-Revision-Date: 2021-05-16 20:19+0200\n"
 "Last-Translator: Shinjo Park <kde@peremen.name>\n"
 "Language-Team: Korean <kde-kr@kde.org>\n"
@@ -51,35 +51,35 @@ msgid ""
 "destination."
 msgstr "디렉터리에 쓰기 권한이 없습니다. 다른 장소를 선택하십시오."
 
-#: src/helper/helper.cpp:66
+#: src/helper/helper.cpp:67
 #, kde-format
 msgctxt "@info"
 msgid "The process could not be started."
 msgstr "프로세스를 시작할 수 없습니다."
 
-#: src/helper/helper.cpp:69
+#: src/helper/helper.cpp:70
 #, kde-format
 msgctxt "@info"
 msgid "The process crashed."
 msgstr "프로세스가 충돌했습니다."
 
-#: src/helper/helper.cpp:75
+#: src/helper/helper.cpp:76
 #, kde-format
 msgctxt "@info"
 msgid "Command: <command>%1</command><nl/>"
 msgstr "명령: <command>%1</command><nl/>"
 
-#: src/helper/helper.cpp:121
+#: src/helper/helper.cpp:122
 #, kde-format
 msgid "Original configuration file <filename>%1</filename> does not exist."
 msgstr "원본 설정 파일 <filename>%1</filename>이(가) 없습니다."
 
-#: src/helper/helper.cpp:127
+#: src/helper/helper.cpp:128
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
 msgstr "현재 설정 파일 <filename>%1</filename>을(를) 삭제할 수 없습니다."
 
-#: src/helper/helper.cpp:133
+#: src/helper/helper.cpp:134
 #, kde-format
 msgid ""
 "Cannot copy original configuration file <filename>%1</filename> to <filename>"
@@ -88,12 +88,12 @@ msgstr ""
 "원본 설정 파일 <filename>%1</filename>을(를) <filename>%2</filename>(으)로 복"
 "사할 수 없습니다."
 
-#: src/helper/helper.cpp:150
+#: src/helper/helper.cpp:151
 #, kde-format
 msgid "Failed to create temporary mount point."
 msgstr "임시 마운트 지점을 만들 수 없습니다."
 
-#: src/helper/helper.cpp:288
+#: src/helper/helper.cpp:289
 #, kde-format
 msgctxt "@info"
 msgid "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>"
@@ -123,7 +123,7 @@ msgctxt "@info:progress"
 msgid "Installing GRUB..."
 msgstr "GRUB 설치 중..."
 
-#: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
+#: src/installDlg.cpp:136 src/kcm_grub2.cpp:511
 #, kde-format
 msgctxt "@title:window"
 msgid "Information"
@@ -141,217 +141,217 @@ msgctxt "@info"
 msgid "Failed to install GRUB."
 msgstr "GRUB을 설치할 수 없습니다."
 
-#: src/kcm_grub2.cpp:87
+#: src/kcm_grub2.cpp:88
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
 msgstr "기본값을 복원했습니다."
 
-#: src/kcm_grub2.cpp:89
+#: src/kcm_grub2.cpp:90
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
 msgstr "기본값을 복원할 수 없습니다."
 
-#: src/kcm_grub2.cpp:499
+#: src/kcm_grub2.cpp:500
 #, kde-format
 msgctxt "@title:window Verb (gerund). Refers to current status."
 msgid "Saving"
 msgstr "저장 중"
 
-#: src/kcm_grub2.cpp:500
+#: src/kcm_grub2.cpp:501
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
 msgstr "GRUB 설정 저장 중..."
 
-#: src/kcm_grub2.cpp:527
+#: src/kcm_grub2.cpp:528
 #, kde-format
 msgctxt "@info"
 msgid "Successfully saved GRUB settings."
 msgstr "GRUB 설정을 저장했습니다."
 
-#: src/kcm_grub2.cpp:535
+#: src/kcm_grub2.cpp:536
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
 msgstr "GRUB 설정을 저장할 수 없습니다."
 
-#: src/kcm_grub2.cpp:606 src/kcm_grub2.cpp:633
+#: src/kcm_grub2.cpp:607 src/kcm_grub2.cpp:634
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
 msgstr "화면 해상도 입력"
 
-#: src/kcm_grub2.cpp:607
+#: src/kcm_grub2.cpp:608
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
 msgstr "GRUB 해상도를 입력하십시오:"
 
-#: src/kcm_grub2.cpp:634
+#: src/kcm_grub2.cpp:635
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
 msgstr "리눅스 부트 해상도를 입력하십시오:"
 
-#: src/kcm_grub2.cpp:689
+#: src/kcm_grub2.cpp:690
 #, kde-format
 msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
 msgstr "전체 화면 모드를 종료하려면 <shortcut>Esc</shortcut> 키를 누르십시오."
 
-#: src/kcm_grub2.cpp:862 src/kcm_grub2.cpp:863
+#: src/kcm_grub2.cpp:863 src/kcm_grub2.cpp:864
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Black"
 msgstr "검은색"
 
-#: src/kcm_grub2.cpp:864 src/kcm_grub2.cpp:865
+#: src/kcm_grub2.cpp:865 src/kcm_grub2.cpp:866
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Transparent"
 msgstr "투명"
 
-#: src/kcm_grub2.cpp:868
+#: src/kcm_grub2.cpp:869
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Blue"
 msgstr "파란색"
 
-#: src/kcm_grub2.cpp:869
+#: src/kcm_grub2.cpp:870
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Cyan"
 msgstr "청록색"
 
-#: src/kcm_grub2.cpp:870
+#: src/kcm_grub2.cpp:871
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Dark Gray"
 msgstr "어두운 회색"
 
-#: src/kcm_grub2.cpp:871
+#: src/kcm_grub2.cpp:872
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Green"
 msgstr "녹색"
 
-#: src/kcm_grub2.cpp:872
+#: src/kcm_grub2.cpp:873
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Cyan"
 msgstr "밝은 청록색"
 
-#: src/kcm_grub2.cpp:873
+#: src/kcm_grub2.cpp:874
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Blue"
 msgstr "밝은 파란색"
 
-#: src/kcm_grub2.cpp:874
+#: src/kcm_grub2.cpp:875
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Green"
 msgstr "밝은 녹색"
 
-#: src/kcm_grub2.cpp:875
+#: src/kcm_grub2.cpp:876
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Gray"
 msgstr "연한 회색"
 
-#: src/kcm_grub2.cpp:876
+#: src/kcm_grub2.cpp:877
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Magenta"
 msgstr "밝은 자홍색"
 
-#: src/kcm_grub2.cpp:877
+#: src/kcm_grub2.cpp:878
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Red"
 msgstr "밝은 빨간색"
 
-#: src/kcm_grub2.cpp:878
+#: src/kcm_grub2.cpp:879
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Magenta"
 msgstr "자홍색"
 
-#: src/kcm_grub2.cpp:879
+#: src/kcm_grub2.cpp:880
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Red"
 msgstr "빨간색"
 
-#: src/kcm_grub2.cpp:880
+#: src/kcm_grub2.cpp:881
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "White"
 msgstr "흰색"
 
-#: src/kcm_grub2.cpp:881
+#: src/kcm_grub2.cpp:882
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Yellow"
 msgstr "노란색"
 
-#: src/kcm_grub2.cpp:895 src/kcm_grub2.cpp:904
+#: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
 msgstr "조용한 부팅"
 
-#: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
+#: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
 msgstr "시작 화면 보기"
 
-#: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
+#: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
 msgstr "Plymouth 비활성화"
 
-#: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
+#: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
 msgstr "ACPI 끄기"
 
-#: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
+#: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
 msgstr "APIC 끄기"
 
-#: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
+#: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
 msgstr "로컬 APIC 끄기"
 
-#: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
+#: src/kcm_grub2.cpp:902 src/kcm_grub2.cpp:911
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
 msgstr "단일 사용자 모드"
 
-#: src/kcm_grub2.cpp:913 src/kcm_grub2.cpp:920 src/kcm_grub2.cpp:931
+#: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
 msgstr "PC BIOS 및 EFI 콘솔"
 
-#: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
+#: src/kcm_grub2.cpp:915 src/kcm_grub2.cpp:922 src/kcm_grub2.cpp:933
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Serial Terminal"
 msgstr "직렬 터미널"
 
-#: src/kcm_grub2.cpp:916 src/kcm_grub2.cpp:923 src/kcm_grub2.cpp:934
+#: src/kcm_grub2.cpp:917 src/kcm_grub2.cpp:924 src/kcm_grub2.cpp:935
 #, kde-format
 msgctxt ""
 "@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
@@ -359,61 +359,61 @@ msgctxt ""
 msgid "Open Firmware Console"
 msgstr "펌웨어 콘솔 열기"
 
-#: src/kcm_grub2.cpp:925
+#: src/kcm_grub2.cpp:926
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC AT Keyboard (Coreboot)"
 msgstr "PC AT 키보드(Coreboot)"
 
-#: src/kcm_grub2.cpp:927
+#: src/kcm_grub2.cpp:928
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
 msgstr "USB 키보드(HID 부트 프로토콜)"
 
-#: src/kcm_grub2.cpp:936
+#: src/kcm_grub2.cpp:937
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
 msgstr "그래픽 모드 출력"
 
-#: src/kcm_grub2.cpp:937
+#: src/kcm_grub2.cpp:938
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
 msgstr "VGA 텍스트 출력(Coreboot)"
 
-#: src/kcm_grub2.cpp:1118
+#: src/kcm_grub2.cpp:1119
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
 msgstr "번역 없음"
 
-#: src/kcm_grub2.cpp:1161 src/kcm_grub2.cpp:1165
+#: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
 msgstr "사용자 정의..."
 
-#: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
+#: src/kcm_grub2.cpp:1163 src/kcm_grub2.cpp:1167
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Auto"
 msgstr "자동"
 
-#: src/kcm_grub2.cpp:1167
+#: src/kcm_grub2.cpp:1168
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Unspecified"
 msgstr "지정되지 않음"
 
-#: src/kcm_grub2.cpp:1168
+#: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
 msgstr "텍스트 모드로 부팅"
 
-#: src/kcm_grub2.cpp:1169
+#: src/kcm_grub2.cpp:1170
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"
