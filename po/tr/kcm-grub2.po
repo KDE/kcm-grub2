@@ -25,7 +25,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "ImageMagick supported image formats"
-msgstr "ImageMagick tarafından desteklenen görüntü biçimleri"
+msgstr "ImageMagick tarafından desteklenen görsel biçimleri"
 
 #: src/convertDlg.cpp:90
 #, kde-format
@@ -34,7 +34,7 @@ msgid ""
 "Please fill in both <interface>Image</interface> and <interface>Convert To</"
 "interface> fields."
 msgstr ""
-"Her iki <interface>Resim</interface> ve <interface>Dönüştür</interface> "
+"Her iki <interface>Görsel</interface> ve <interface>Dönüştür</interface> "
 "alanlarını doldurun."
 
 #: src/convertDlg.cpp:93
@@ -89,8 +89,8 @@ msgid ""
 "Cannot copy original configuration file <filename>%1</filename> to <filename>"
 "%2</filename>."
 msgstr ""
-"Özgün yapılandırma dosyası kopyalayamıyor <filename>%1</filename> to "
-"<filename>%2</filename>."
+"Özgün yapılandırma dosyası <filename>%1</filename>, <filename>%2</filename> "
+"üzerine kopyalanamıyor."
 
 #: src/helper/helper.cpp:151
 #, kde-format
@@ -125,7 +125,7 @@ msgstr "Kuruluyor"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Installing GRUB..."
-msgstr "GRUB kuruluyor..."
+msgstr "GRUB kuruluyor…"
 
 #: src/installDlg.cpp:136 src/kcm_grub2.cpp:511
 #, kde-format
@@ -167,7 +167,7 @@ msgstr "Kaydediliyor"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
-msgstr "GRUB ayarları kaydediliyor..."
+msgstr "GRUB ayarları kaydediliyor…"
 
 #: src/kcm_grub2.cpp:528
 #, kde-format
@@ -318,25 +318,25 @@ msgstr "Açılış Ekranını Göster"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
-msgstr "Plymouth'u Kapat"
+msgstr "Plymouth’u Kapat"
 
 #: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
-msgstr "ACPI'yi kapat"
+msgstr "ACPI’yi Kapat"
 
 #: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
-msgstr "APIC'i kapat"
+msgstr "APIC’i Kapat"
 
 #: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
-msgstr "Yerel APIC'i kapat"
+msgstr "Yerel APIC’i Kapat"
 
 #: src/kcm_grub2.cpp:902 src/kcm_grub2.cpp:911
 #, kde-format
@@ -386,7 +386,7 @@ msgstr "Grafik Kip Çıktısı"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
-msgstr "VGA Metin Çıktısı (Çekirdek önyükleme)"
+msgstr "VGA Metin Çıktısı (Coreboot)"
 
 #: src/kcm_grub2.cpp:1119
 #, kde-format
@@ -398,13 +398,13 @@ msgstr "Çeviri yok"
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
-msgstr "Özel..."
+msgstr "Özel…"
 
 #: src/kcm_grub2.cpp:1163 src/kcm_grub2.cpp:1167
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Auto"
-msgstr "Otomatik"
+msgstr "Kendiliğinden"
 
 #: src/kcm_grub2.cpp:1168
 #, kde-format
@@ -514,13 +514,13 @@ msgstr "İmzalar denetleniyor"
 #, kde-format
 msgctxt "transaction state, when we're doing a test transaction"
 msgid "Testing changes"
-msgstr "Değişiklikler deneniyor"
+msgstr "Değişiklikler sınanıyor"
 
 #: src/qPkBackend.cpp:81
 #, kde-format
 msgctxt "transaction state, when we're writing to the system package database"
 msgid "Committing changes"
-msgstr "Değişiklikler gönderiliyor"
+msgstr "Değişiklikler işleniyor"
 
 #: src/qPkBackend.cpp:84
 #, kde-format
@@ -653,19 +653,19 @@ msgstr "Bilinmeyen durum"
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Old Entries"
-msgstr "Eski Girişleri Kaldır"
+msgstr "Eski Girdileri Kaldır"
 
 #: src/removeDlg.cpp:73
 #, kde-format
 msgctxt "@title:window"
 msgid "Finding Old Entries"
-msgstr "Eski Girişler Bulunuyor"
+msgstr "Eski Girdiler Bulunuyor"
 
 #: src/removeDlg.cpp:74
 #, kde-format
 msgctxt "@info:progress"
 msgid "Finding Old Entries..."
-msgstr "Eski Girişler Bulunuyor..."
+msgstr "Eski girdiler bulunuyor…"
 
 #: src/removeDlg.cpp:100
 #, kde-format
@@ -677,7 +677,7 @@ msgstr "Çekirdek %1"
 #, kde-format
 msgctxt "@info"
 msgid "No removable entries were found."
-msgstr "Kaldırılabilir giriş bulunamadı."
+msgstr "Kaldırılabilir girdi bulunamadı."
 
 #: src/removeDlg.cpp:137
 #, kde-format
@@ -702,7 +702,7 @@ msgstr "Paket kaldırma başarısız."
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image:"
-msgstr "Resim:"
+msgstr "Görsel:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/convertDlg.ui:29
@@ -751,7 +751,7 @@ msgstr "GRUB Arka Planı Olarak Belirle:"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select partition to install/recover GRUB:"
-msgstr "GRUB'u kurmak/kurtarmak için bölüntü seçin:"
+msgstr "GRUB’u kurmak/kurtarmak için bölüntü seçin:"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:48
@@ -825,21 +825,21 @@ msgstr "Öntanımlı Giriş"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Default Entry:"
-msgstr "Öntanımlı Giriş:"
+msgstr "Öntanımlı girdi:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
 #: ui/kcm_grub2.ui:49
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove Old Entries"
-msgstr "Eski Girişleri Kaldır"
+msgstr "Eski Girdileri Kaldır"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_savedefault)
 #: ui/kcm_grub2.ui:58
 #, kde-format
 msgctxt "@option:check"
 msgid "The next booted entry will become default"
-msgstr "En son yüklenen giriş öntanımlı olacaktır"
+msgstr "En son yüklenen girdi öntanımlı olur"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
 #: ui/kcm_grub2.ui:68
@@ -861,7 +861,7 @@ msgstr "Menüyü gizle:"
 #, kde-format
 msgctxt "@label:spinbox seconds (suffix)"
 msgid "s"
-msgstr "sn"
+msgstr " sn"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_hiddenTimeoutShowTimer)
 #: ui/kcm_grub2.ui:114
@@ -875,7 +875,7 @@ msgstr "Geri sayım sayacını göster"
 #, kde-format
 msgctxt "@option:check"
 msgid "Automatically boot the default entry after showing the menu"
-msgstr "Menüyü gösterdikten sonra öntanımlı girişi kendiliğinden yükle"
+msgstr "Menüyü gösterdikten sonra öntanımlı girdiyi kendiliğinden yükle"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
 #: ui/kcm_grub2.ui:144
@@ -896,7 +896,7 @@ msgstr "Şundan sonra:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Generated Entries"
-msgstr "Oluşturulmuş Girişler"
+msgstr "Üretilmiş Girdiler"
 
 #. i18n: ectx: property (text), widget (QLabel, label_language)
 #: ui/kcm_grub2.ui:203
@@ -909,21 +909,21 @@ msgstr "Dil:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Generate recovery entries"
-msgstr "Kurtarma girişleri oluştur"
+msgstr "Kurtarma girdileri üret"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_memtest)
 #: ui/kcm_grub2.ui:224
 #, kde-format
 msgctxt "@option:check"
 msgid "Generate memtest entries"
-msgstr "Memtest girişleri oluştur"
+msgstr "memtest girdileri üret"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_osProber)
 #: ui/kcm_grub2.ui:231
 #, kde-format
 msgctxt "@option:check"
 msgid "Probe for operating systems"
-msgstr "İşletim sistemleri araştırılıyor"
+msgstr "İşletim sistemlerine bak"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: ui/kcm_grub2.ui:255
@@ -952,14 +952,14 @@ msgstr "GRUB:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Probe for supported VBE resolutions."
-msgstr "Desteklenen VBE çözünürlükleri için deneme."
+msgstr "Desteklenen VBE çözünürlükleri için tarama."
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
 #: ui/kcm_grub2.ui:295
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Linux Kernel:"
-msgstr "Linux Çekirdeği:"
+msgstr "Linux çekirdeği:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_colors)
 #: ui/kcm_grub2.ui:326
@@ -973,28 +973,28 @@ msgstr "Renkler"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Foreground (Text):"
-msgstr "Normal Ön Plan (Metin) "
+msgstr "Normal ön plan (metin):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
 #: ui/kcm_grub2.ui:344
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Foreground (Text):"
-msgstr "Vurgulanan Ön Plan (Metin):"
+msgstr "Vurgulu ön plan (metin):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
 #: ui/kcm_grub2.ui:358
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Background:"
-msgstr "Normal Arka Plan:"
+msgstr "Normal arka plan:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightBackground)
 #: ui/kcm_grub2.ui:368
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Background:"
-msgstr "Vurgulanan Arka Plan:"
+msgstr "Vurgulu arka plan:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_background)
 #: ui/kcm_grub2.ui:383
@@ -1008,14 +1008,14 @@ msgstr "Arka Plan"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Wallpaper:"
-msgstr "Duvar Kağıdı:"
+msgstr "Duvar kağıdı:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_preview)
 #: ui/kcm_grub2.ui:401
 #, kde-format
 msgctxt "@action:button"
 msgid "Preview"
-msgstr "Önizleme"
+msgstr "Önizle"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_create)
 #: ui/kcm_grub2.ui:408
@@ -1043,14 +1043,14 @@ msgstr "Gelişmiş"
 #, kde-format
 msgctxt "@title:group"
 msgid "Linux Kernel Arguments"
-msgstr "Linux Çekirdek Argümanları"
+msgstr "Linux Çekirdeği Argümanları"
 
 #. i18n: ectx: property (text), widget (QLabel, label_cmdlineDefault)
 #: ui/kcm_grub2.ui:456
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Normal Entries:"
-msgstr "Normal Girişler:"
+msgstr "Normal girdiler:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineDefaultSuggestions)
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineSuggestions)
@@ -1069,7 +1069,7 @@ msgstr "Öneriler"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "All Entries:"
-msgstr "Bütün Girişler:"
+msgstr "Tüm girdiler:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_terminal)
 #: ui/kcm_grub2.ui:501
@@ -1090,14 +1090,14 @@ msgstr "Uçbirim:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Input Terminal:"
-msgstr "Girdi Uçbirimi:"
+msgstr "Girdi uçbirimi:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminalOutput)
 #: ui/kcm_grub2.ui:549
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Output Terminal:"
-msgstr "Çıktı Uçbirimi:"
+msgstr "Çıktı uçbirimi:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_other)
 #: ui/kcm_grub2.ui:573
@@ -1118,21 +1118,21 @@ msgstr "Dağıtımcı:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Serial Command:"
-msgstr "Seri Komut:"
+msgstr "Seri komut:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_initTune)
 #: ui/kcm_grub2.ui:599
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Init Tune:"
-msgstr "Ayarlamayı Başlat:"
+msgstr "Ayarlamayı başlat:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_uuid)
 #: ui/kcm_grub2.ui:609
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable UUIDs:"
-msgstr "UUID'leri etkinleştir:"
+msgstr "UUID’leri etkinleştir:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_tools)
 #: ui/kcm_grub2.ui:635
@@ -1153,7 +1153,7 @@ msgstr "Önyükleyiciyi Kur/Kurtar"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select entries to remove:"
-msgstr "Kaldırılacak girişleri seçin:"
+msgstr "Kaldırılacak girdileri seç:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:34
@@ -1168,31 +1168,3 @@ msgstr "İlişkili çekirdek başlık dosyalarını kaldır."
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
 msgstr "İlişkili eski paketleri de kaldır"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Ali Cengiz Kurt"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "alicengizkurt@gmail.com"
-
-#~ msgctxt "@title"
-#~ msgid "KDE GRUB2 Bootloader Control Module"
-#~ msgstr "KDE GRUB2 Önyükleyicisi Denetim Modülü"
-
-#~ msgctxt "@title"
-#~ msgid "A KDE Control Module for configuring the GRUB2 bootloader."
-#~ msgstr "GRUP2 Önyükleyiciyi yapılandırmak için bir KDE kontrol birimi."
-
-#~ msgctxt "@info:credit"
-#~ msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
-#~ msgstr "Telif Hakkı (C) 2008-2013 Konstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Κonstantinos Smanis"
-#~ msgstr "Κonstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Main Developer"
-#~ msgstr "Ana Geliştirici"
