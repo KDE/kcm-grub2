@@ -66,10 +66,10 @@ ConvertDialog::ConvertDialog(QWidget *parent) : QDialog(parent)
 
     ui->kurlrequester_image->setMode(KFile::File | KFile::ExistingOnly | KFile::LocalOnly);
     ui->kurlrequester_image->setAcceptMode(QFileDialog::AcceptOpen);
-    ui->kurlrequester_image->setFilter(readFilter);
+    ui->kurlrequester_image->setNameFilter(readFilter);
     ui->kurlrequester_converted->setMode(KFile::File | KFile::LocalOnly);
     ui->kurlrequester_converted->setAcceptMode(QFileDialog::AcceptSave);
-    ui->kurlrequester_converted->setFilter(writeFilter);
+    ui->kurlrequester_converted->setNameFilter(writeFilter);
 }
 ConvertDialog::~ConvertDialog()
 {

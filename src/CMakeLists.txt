@@ -31,7 +31,7 @@ endif(HAVE_IMAGEMAGICK)
 if(HAVE_QAPT)
     set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} QApt::Main)
 elseif(HAVE_QPACKAGEKIT)
-    set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} ${PackageKitQt5_LIBRARIES})
+    set(kcm_grub2_LINK_LIBS ${kcm_grub2_LINK_LIBS} PK::packagekitqt6)
 endif(HAVE_QAPT)
 
 # Definitions
@@ -43,7 +43,7 @@ endif(HAVE_IMAGEMAGICK)
 include_directories(${kcm_grub2_INCLUDE_DIRS})
 add_library(kcm_grub2 MODULE ${kcm_grub2_SRCS})
 kcmutils_generate_desktop_file(kcm_grub2)
-target_link_libraries(kcm_grub2 ${kcm_grub2_LINK_LIBS} Qt::Core Qt::Widgets KF5::AuthCore KF5::I18n KF5::KCMUtils KF5::KIOCore KF5::KIOWidgets KF5::Solid)
+target_link_libraries(kcm_grub2 ${kcm_grub2_LINK_LIBS} Qt::Core Qt::Widgets KF6::AuthCore KF6::I18n KF6::KCMUtils KF6::KIOCore KF6::KIOWidgets KF6::Solid)
 
 # Install
 install(TARGETS kcm_grub2 DESTINATION ${KDE_INSTALL_PLUGINDIR}/plasma/kcms/systemsettings_qwidgets)

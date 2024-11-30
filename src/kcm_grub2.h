@@ -34,7 +34,7 @@ class KCMGRUB2 : public KCModule
 {
     Q_OBJECT
 public:
-    explicit KCMGRUB2(QObject *parent, const KPluginMetaData &data, const QVariantList &list);
+    explicit KCMGRUB2(QObject *parent, const KPluginMetaData &data);
     virtual ~KCMGRUB2();
 
     void defaults() override;

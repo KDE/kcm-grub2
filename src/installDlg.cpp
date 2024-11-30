@@ -113,7 +113,7 @@ void InstallDialog::slotAccepted()
         KMessageBox::error(this, i18nc("@info", "Sorry, you have to select a partition with a proper name!"));
         return;
     }
-    installAction.setParentWidget(this);
+    installAction.setParentWindow(windowHandle());
 
     KAuth::ExecuteJob *installJob = installAction.execute(KAuth::Action::AuthorizeOnlyMode);
     if (!installJob->exec()) {
