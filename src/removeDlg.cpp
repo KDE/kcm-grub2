@@ -134,7 +134,7 @@ void RemoveDialog::slotAccepted()
             }
         }
     }
-    if (KMessageBox::questionYesNoList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval()) == KMessageBox::Yes) {
+    if (KMessageBox::questionTwoActionsList(this, i18nc("@info", "Are you sure you want to remove the following packages?"), m_backend->markedForRemoval(), QString(), KStandardGuiItem::remove(), KStandardGuiItem::cancel()) == KMessageBox::PrimaryAction) {
 #if HAVE_QAPT
         connect(m_backend, &QAptBackend::progress, this, &RemoveDialog::slotProgress);
         connect(m_backend, &QAptBackend::finished, this, &RemoveDialog::slotFinished);
@@ -187,7 +187,7 @@ void RemoveDialog::detectCurrentKernelImage()
         return;
     }
 
-    const QStringList args = QTextStream(&file).readAll().split(QRegExp(QLatin1String("\\s+")));
+    const QStringList args = QTextStream(&file).readAll().split(QRegularExpression(QLatin1String("\\s+")));
     for (const QString &argument : args) {
         if (argument.startsWith(QLatin1String("BOOT_IMAGE"))) {
             m_currentKernelImage = argument.section(QLatin1Char('='), 1);

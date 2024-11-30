@@ -4,12 +4,12 @@
 Dependencies:
 - 'on': ['Linux', 'FreeBSD']
   'require':
-    'frameworks/extra-cmake-modules': '@stable'
-    'frameworks/kauth' : '@stable'
-    'frameworks/ki18n' : '@stable'
-    'frameworks/kcmutils' : '@stable'
-    'frameworks/kio' : '@stable'
-    'frameworks/solid' : '@stable'
+    'frameworks/extra-cmake-modules': '@latest-kf6'
+    'frameworks/kauth' : '@latest-kf6'
+    'frameworks/ki18n' : '@latest-kf6'
+    'frameworks/kcmutils' : '@latest-kf6'
+    'frameworks/kio' : '@latest-kf6'
+    'frameworks/solid' : '@latest-kf6'
     'third-party/packagekit-qt': '@latest'
 
 Options:

@@ -2,9 +2,9 @@ cmake_minimum_required(VERSION 3.16 FATAL_ERROR)
 project(kcm-grub2)
 
 set(PROJECT_VERSION "0.6.4")
-set(QT_MIN_VERSION "5.15.2")
-set(KF5_MIN_VERSION "5.105")
-find_package(ECM ${KF5_MIN_VERSION}  REQUIRED NO_MODULE)
+set(QT_MIN_VERSION "6.7.0")
+set(KF_MIN_VERSION "6.0")
+find_package(ECM ${KF_MIN_VERSION}  REQUIRED NO_MODULE)
 set(CMAKE_MODULE_PATH ${ECM_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
 
 include(KDEInstallDirs)
@@ -20,9 +20,9 @@ set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake/modules ${CMAKE_MODULE_PATH})
 
 include(GRUBPaths)
 
-find_package(Qt${QT_MAJOR_VERSION} ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core Gui Widgets)
+find_package(Qt6 ${QT_MIN_VERSION} CONFIG REQUIRED COMPONENTS Core Gui Widgets)
 
-find_package(KF5 ${KF5_MIN_VERSION} REQUIRED COMPONENTS
+find_package(KF6 ${KF_MIN_VERSION} REQUIRED COMPONENTS
     Auth
     I18n
     KCMUtils
@@ -68,12 +68,12 @@ else()
     set(HAVE_QAPT 0)
 endif()
 
-find_package(PackageKitQt${QT_MAJOR_VERSION})
-set_package_properties(PackageKitQt${QT_MAJOR_VERSION} PROPERTIES
+find_package(PackageKitQt6)
+set_package_properties(PackageKitQt6 PROPERTIES
                        DESCRIPTION "Remove unneeded old entries (qpackagekit backend)"
                        URL "http://www.packagekit.org/"
                        TYPE OPTIONAL)
-if(PackageKitQt5_FOUND)
+if(PackageKitQt6_FOUND)
     set(HAVE_QPACKAGEKIT 1)
 else()
     set(HAVE_QPACKAGEKIT 0)
@@ -85,5 +85,5 @@ feature_summary(WHAT ALL INCLUDE_QUIET_PACKAGES FATAL_ON_MISSING_REQUIRED_PACKAG
 
 add_subdirectory(src)
 
-find_package(KF5I18n CONFIG REQUIRED)
+find_package(KF6I18n CONFIG REQUIRED)
 ki18n_install(po)

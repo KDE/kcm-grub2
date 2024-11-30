@@ -59,11 +59,10 @@ using namespace KAuth;
 
 K_PLUGIN_CLASS_WITH_JSON(KCMGRUB2, "kcm_grub2.json")
 
-KCMGRUB2::KCMGRUB2(QObject *parent, const KPluginMetaData &data, const QVariantList &list)
-    : KCModule(parent, data, list)
+KCMGRUB2::KCMGRUB2(QObject *parent, const KPluginMetaData &data)
+    : KCModule(parent, data)
 {
-    // Make this setAuthActionName in KF6
-    setAuthAction(Action(QStringLiteral("org.kde.kcontrol.kcmgrub2.save")));
+    setAuthActionName(QStringLiteral("org.kde.kcontrol.kcmgrub2.save"));
 
     ui = new Ui::KCMGRUB2;
     ui->setupUi(widget());
@@ -79,7 +78,7 @@ void KCMGRUB2::defaults()
 {
     Action defaultsAction(QStringLiteral("org.kde.kcontrol.kcmgrub2.defaults"));
     defaultsAction.setHelperId(QStringLiteral("org.kde.kcontrol.kcmgrub2"));
-    defaultsAction.setParentWidget(widget());
+    defaultsAction.setParentWindow(widget()->window()->windowHandle());
 
     KAuth::ExecuteJob *defaultsJob = defaultsAction.execute();
     if (defaultsJob->exec()) {
@@ -487,7 +486,7 @@ void KCMGRUB2::save()
     if (m_dirtyBits.testBit(memtestDirty)) {
         saveAction.addArgument(QStringLiteral("memtest"), ui->checkBox_memtest->isChecked());
     }
-    saveAction.setParentWidget(widget());
+    saveAction.setParentWindow(widget()->window()->windowHandle());
     saveAction.setTimeout(60000);
 
     KAuth::ExecuteJob *saveJob = saveAction.execute(KAuth::Action::AuthorizeOnlyMode);
@@ -1059,7 +1058,7 @@ void KCMGRUB2::readAll()
         Action loadAction(QStringLiteral("org.kde.kcontrol.kcmgrub2.load"));
         loadAction.setHelperId(QStringLiteral("org.kde.kcontrol.kcmgrub2"));
         loadAction.addArgument(QStringLiteral("operations"), (int)(operations));
-        loadAction.setParentWidget(this);
+        loadAction.setParentWindow(widget()->window()->windowHandle());
 
         KAuth::ExecuteJob *loadJob = loadAction.execute();
         if (!loadJob->exec()) {
