@@ -74,6 +74,7 @@
     "X-KDE-Keywords[en_GB]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader",
     "X-KDE-Keywords[es]": "grub,arranque,inicio,menú,entradas,predeterminado,tiempo de espera,contraseña,color,bienvenida,imagen,cargador de arranque",
     "X-KDE-Keywords[eu]": "grub,abioa,menua,sarrerak,lehenespena,denbora-muga,pasahitza,kolorea,plasta,irudia,abio-zamatzailea",
+    "X-KDE-Keywords[fi]": "grub,käynnistys,buutti,bootti,boot,tietue,tietueet,oletus,aikakatkaisu,salasana,väri,splash,käynnistyskuva,kuva,bootloader,käynnistyslatain",
     "X-KDE-Keywords[fr]": "grub, démarrage, menu, entrées, par défaut, délai d'attente,mot de passe, couleur, démarrage, image, chargeur d'amorçage",
     "X-KDE-Keywords[gl]": "grub,arranque,menú,entradas,de maneira predeterminada,tempo de espera,contrasinal,cor,pantalla,imaxe,cargador de arranque",
     "X-KDE-Keywords[it]": "grub,avvio,menu,voci,predefinito,timeout,password,colore,splash,immagine,bootloader",
