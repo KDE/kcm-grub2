@@ -82,6 +82,7 @@
     "X-KDE-Keywords[nl]": "grub,boot,menu,items,standaard,timeout,wachtwoord,kleur,splash,afbeelding,bootloader",
     "X-KDE-Keywords[nn]": "grub,boot,oppstart,meny,oppføringar,standard,tidsavbrot,passord,fargar,velkomstbilete,oppstartsbilete,oppstartslastar",
     "X-KDE-Keywords[pl]": "grub,uruchamianie,menu,wpisy,domyślne,czas oczekiwania,hasło,kolor,ekran powitalny,obraz,bootloader",
+    "X-KDE-Keywords[ru]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,загрузчик,пункты,тайм-аут,пароль,заставка,загрузчик,картинка,изображение",
     "X-KDE-Keywords[sl]": "grub,zagon,meni,vnosi,privzeto,časovna omejitev,geslo,barva,pljusk,slika,zagonski nalagalnik",
     "X-KDE-Keywords[sv]": "grub,start,meny,alternativ,förval,tidsgräns,lösenord,färg,startskärm,bild,laddprogram",
     "X-KDE-Keywords[tr]": "grub,önyükleme,boot,menü,girdiler,girişler,öntanımlı,varsayılan,zaman aşımı,timeout,parola,şifre,renk,açılış,görsel,görüntü,önyükleyici",
