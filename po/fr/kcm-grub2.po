@@ -6,14 +6,14 @@
 # Joëlle Cornavin <jcorn@free.fr>, 2012, 2013.
 # Vincent PINON <vincent.pinon@st.com>, 2013.
 # Simon Depiets <sdepiets@gmail.com>, 2019.
-# SPDX-FileCopyrightText: 2020, 2021, 2024 Xavier Besnard <xavier.besnard@kde.org>
+# SPDX-FileCopyrightText: 2020, 2021, 2024, 2025 Xavier Besnard <xavier.besnard@kde.org>
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2024-11-05 01:50+0000\n"
-"PO-Revision-Date: 2024-04-29 14:05+0200\n"
+"PO-Revision-Date: 2025-04-02 20:44+0200\n"
 "Last-Translator: Xavier Besnard <xavier.besnard@kde.org>\n"
 "Language-Team: French <French <kde-francophone@kde.org>>\n"
 "Language: fr\n"
@@ -21,7 +21,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Lokalize 23.08.5\n"
+"X-Generator: Lokalize 24.12.3\n"
 "X-Environment: kde\n"
 "X-Accelerator-Marker: &\n"
 "X-Text-Markup: kde4\n"
@@ -810,7 +810,7 @@ msgid ""
 "of the MBR(=Master Boot Sector). Not recommended."
 msgstr ""
 "Installe le chargeur d'amorçage sur le secteur d'amorçage de la partition "
-"sélectionnée au lieu du MBR (=Master Boot Sector). Non recommandé."
+"sélectionnée au lieu du MBR (Master Boot Sector). Non recommandé."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
 #: ui/installDlg.ui:79
