@@ -81,7 +81,7 @@ msgstr "Özgün dosya yapılandırması <filename>%1</filename> yok."
 #: src/helper/helper.cpp:128
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
-msgstr "Geçerli dosya yapılandırması kaldırılamıyor <filename>%1</filename>."
+msgstr "Geçerli dosya yapılandırması <filename>%1</filename> kaldırılamıyor."
 
 #: src/helper/helper.cpp:134
 #, kde-format
@@ -107,7 +107,7 @@ msgstr "Hata kodu: <numid>%1</numid><nl/>Hata iletisi: <message>%2</message>"
 #, kde-format
 msgctxt "@title:window"
 msgid "Install/Recover Bootloader"
-msgstr "Önyükleyiciyi Kur/Kurtar"
+msgstr "Önyükleyici Kur/Kurtar"
 
 #: src/installDlg.cpp:113
 #, kde-format
@@ -119,7 +119,7 @@ msgstr "Üzgünüz, geçerli bir ada sahip bir bölüntü seçmelisiniz!"
 #, kde-format
 msgctxt "@title:window"
 msgid "Installing"
-msgstr "Kuruluyor"
+msgstr "Kurulum"
 
 #: src/installDlg.cpp:125
 #, kde-format
@@ -161,7 +161,7 @@ msgstr "Öntanımlı değerlere dönülemedi."
 #, kde-format
 msgctxt "@title:window Verb (gerund). Refers to current status."
 msgid "Saving"
-msgstr "Kaydediliyor"
+msgstr "Kayıt"
 
 #: src/kcm_grub2.cpp:500
 #, kde-format
@@ -185,7 +185,7 @@ msgstr "GRUB ayarları kaydı başarısız."
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
-msgstr "Ekran çözünürlüğünü girin"
+msgstr "Ekran Çözünürlüğünü Gir"
 
 #: src/kcm_grub2.cpp:607
 #, kde-format
@@ -197,7 +197,7 @@ msgstr "GRUB çözünürlüğünü girin:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
-msgstr "Linux yükleme çözünürlüğü girin:"
+msgstr "Linux önyükleme çözünürlüğü girin:"
 
 #: src/kcm_grub2.cpp:689
 #, kde-format
@@ -228,13 +228,13 @@ msgstr "Mavi"
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Cyan"
-msgstr "Turkuaz"
+msgstr "Camgöbeği"
 
 #: src/kcm_grub2.cpp:870
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Dark Gray"
-msgstr "Koyu Gri"
+msgstr "Koyu gri"
 
 #: src/kcm_grub2.cpp:871
 #, kde-format
@@ -246,43 +246,43 @@ msgstr "Yeşil"
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Cyan"
-msgstr "Açık Turkuaz"
+msgstr "Açık camgöbeği"
 
 #: src/kcm_grub2.cpp:873
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Blue"
-msgstr "Açık Mavi"
+msgstr "Açık mavi"
 
 #: src/kcm_grub2.cpp:874
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Green"
-msgstr "Açık Yeşil"
+msgstr "Açık yeşil"
 
 #: src/kcm_grub2.cpp:875
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Gray"
-msgstr "Açık Gri"
+msgstr "Açık gri"
 
 #: src/kcm_grub2.cpp:876
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Magenta"
-msgstr "Açık Mor"
+msgstr "Açık eflatun"
 
 #: src/kcm_grub2.cpp:877
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Red"
-msgstr "Açık Kırmızı"
+msgstr "Açık kırmızı"
 
 #: src/kcm_grub2.cpp:878
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Magenta"
-msgstr "Mor"
+msgstr "Eflatun"
 
 #: src/kcm_grub2.cpp:879
 #, kde-format
@@ -306,7 +306,7 @@ msgstr "Sarı"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
-msgstr "Sessiz Önyükleme"
+msgstr "Sessiz Önyükle"
 
 #: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
 #, kde-format
@@ -348,7 +348,7 @@ msgstr "Tek Kullanıcı Kipi"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
-msgstr "PC BIOS ve EFI Uçbirimi"
+msgstr "PC BIOS ve EFI Konsolu"
 
 #: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
 #, kde-format
@@ -374,7 +374,7 @@ msgstr "PC AT Klavye (Coreboot)"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
-msgstr "USB Klavye (HID Yükleme Protokolü)"
+msgstr "USB Klavye (HID Önyükleme Protokolü)"
 
 #: src/kcm_grub2.cpp:936
 #, kde-format
@@ -416,13 +416,13 @@ msgstr "Belirtilmemiş"
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
-msgstr "Metin Kipinde Yükle"
+msgstr "Metin kipinde önyükle"
 
 #: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"
-msgstr "GRUB Çözünürlüğünü Koru"
+msgstr "GRUB çözünürlüğünü tut"
 
 #: src/qPkBackend.cpp:36
 #, kde-format
@@ -440,7 +440,7 @@ msgstr "Diğer görevler için bekleniyor"
 #, kde-format
 msgctxt "transaction state, just started"
 msgid "Running task"
-msgstr "Çalışan görev"
+msgstr "Görev çalışıyor"
 
 #: src/qPkBackend.cpp:45
 #, kde-format
@@ -659,7 +659,7 @@ msgstr "Eski Girdileri Kaldır"
 #, kde-format
 msgctxt "@title:window"
 msgid "Finding Old Entries"
-msgstr "Eski Girdiler Bulunuyor"
+msgstr "Eski Girdileri Bul"
 
 #: src/removeDlg.cpp:74
 #, kde-format
@@ -689,7 +689,7 @@ msgstr "Aşağıdaki paketlerin kaldırılmasını istediğinizden emin misiniz?
 #, kde-format
 msgctxt "@title:window"
 msgid "Removing Old Entries"
-msgstr "Eski Girişler Kaldırılıyor"
+msgstr "Eski Girdileri Kaldır"
 
 #: src/removeDlg.cpp:179
 #, kde-format
@@ -744,7 +744,7 @@ msgstr "Çözünürlüğe zorla:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Set As GRUB Wallpaper:"
-msgstr "GRUB Arka Planı Olarak Belirle:"
+msgstr "GRUB arka planı olarak ayarla:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/installDlg.ui:17
@@ -765,7 +765,7 @@ msgstr "Bölüntü"
 #, kde-format
 msgctxt "@title:column"
 msgid "Mountpoint"
-msgstr "Bağlama noktası"
+msgstr "Bağlama Noktası"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:58
@@ -797,14 +797,14 @@ msgid ""
 "of the MBR(=Master Boot Sector). Not recommended."
 msgstr ""
 "Önyükleyiciyi MBR (=Master Boot Sector) yerine seçilen bölüntünün önyükleme "
-"dilimine kur. Önerilmez."
+"dilimine kurun. Önerilmez."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
 #: ui/installDlg.ui:79
 #, kde-format
 msgctxt "@option:check"
 msgid "Install on partition instead of MBR (Advanced)"
-msgstr "MBR yerine bölüntüye kur (Gelişmiş)"
+msgstr "MBR yerine bölüntüye kur (gelişmiş)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: ui/kcm_grub2.ui:21
@@ -818,7 +818,7 @@ msgstr "Genel"
 #, kde-format
 msgctxt "@title:group"
 msgid "Default Entry"
-msgstr "Öntanımlı Giriş"
+msgstr "Öntanımlı Girdi"
 
 #. i18n: ectx: property (text), widget (QLabel, label_default)
 #: ui/kcm_grub2.ui:33
@@ -846,14 +846,14 @@ msgstr "En son yüklenen girdi öntanımlı olur"
 #, kde-format
 msgctxt "@title:group"
 msgid "Timeout"
-msgstr "Zaman aşımı"
+msgstr "Zaman Aşımı"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_hiddenTimeout)
 #: ui/kcm_grub2.ui:76
 #, kde-format
 msgctxt "@option:check"
 msgid "Hide the menu for:"
-msgstr "Menüyü gizle:"
+msgstr "Menüyü şu süre için gizle:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_hiddenTimeout)
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_timeout)
@@ -952,7 +952,7 @@ msgstr "GRUB:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Probe for supported VBE resolutions."
-msgstr "Desteklenen VBE çözünürlükleri için tarama."
+msgstr "Desteklenen VBE çözünürlükleri için sonda"
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
 #: ui/kcm_grub2.ui:295
@@ -1008,7 +1008,7 @@ msgstr "Arka Plan"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Wallpaper:"
-msgstr "Duvar kağıdı:"
+msgstr "Duvar kâğıdı:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_preview)
 #: ui/kcm_grub2.ui:401
@@ -1146,7 +1146,7 @@ msgstr "Araçlar"
 #, kde-format
 msgctxt "@action:button"
 msgid "Install/Recover Bootloader"
-msgstr "Önyükleyiciyi Kur/Kurtar"
+msgstr "Önyükleyici Kur/Kurtar"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/removeDlg.ui:17
@@ -1160,7 +1160,7 @@ msgstr "Kaldırılacak girdileri seç:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove associated kernel header files."
-msgstr "İlişkili çekirdek başlık dosyalarını kaldır."
+msgstr "İlişkili çekirdek başlık dosyalarını kaldırın."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:37

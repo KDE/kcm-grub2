@@ -1,15 +1,16 @@
-# Copyright (C) YEAR This_file_is_part_of_KDE
-# This file is distributed under the same license as the PACKAGE package.
+# Spanish translations for kcm-grub2.po package.
+# Copyright (C) 2012-2025 This file is copyright:
+# This file is distributed under the same license as the kcm-grub2 package.
 #
-# Kira J. Fernandez <kirajfdez@gmail.com>, 2012.
-# Eloy Cuadra <ecuadra@eloihr.net>, 2012, 2013, 2019, 2020.
-# Rocio Gallego <traducciones@rociogallego.com>, 2013, 2014.
+# SPDX-FileCopyrightText: 2012 Kira J. Fernandez <kirajfdez@gmail.com>
+# SPDX-FileCopyrightText: 2012, 2013, 2019, 2020, 2025 Eloy Cuadra <ecuadra@eloihr.net>
+# SPDX-FileCopyrightText: 2013, 2014 Rocio Gallego <traducciones@rociogallego.com>
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
+"Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:45+0000\n"
-"PO-Revision-Date: 2020-10-22 11:54+0200\n"
+"PO-Revision-Date: 2025-06-17 17:40+0100\n"
 "Last-Translator: Eloy Cuadra <ecuadra@eloihr.net>\n"
 "Language-Team: Spanish <kde-l10n-es@kde.org>\n"
 "Language: es\n"
@@ -129,7 +130,7 @@ msgstr "Instalando"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Installing GRUB..."
-msgstr "Instalando GRUB..."
+msgstr "Instalando GRUB…"
 
 #: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
 #, kde-format
@@ -171,7 +172,7 @@ msgstr "Guardando"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
-msgstr "Guardando la configuración de GRUB..."
+msgstr "Guardando la configuración de GRUB…"
 
 #: src/kcm_grub2.cpp:527
 #, kde-format
@@ -403,7 +404,7 @@ msgstr "Sin traducción"
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
-msgstr "Personalizada..."
+msgstr "Personalizada…"
 
 #: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
 #, kde-format
@@ -670,7 +671,7 @@ msgstr "Encontrando entradas antiguas"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Finding Old Entries..."
-msgstr "Encontrando entradas antiguas..."
+msgstr "Encontrando entradas antiguas…"
 
 #: src/removeDlg.cpp:100
 #, kde-format
@@ -1173,68 +1174,3 @@ msgstr "Eliminar archivos de encabezamiento del kernel asociados."
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
 msgstr "Eliminar también los paquetes antiguos asociados"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Rocío Gallego,Kira J. Fernández"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "traducciones@rociogallego.com,kirajfdez@gmail.com"
-
-#~ msgctxt "@title"
-#~ msgid "KDE GRUB2 Bootloader Control Module"
-#~ msgstr "Módulo de control del cargador de arranque de GRUB2 para KDE"
-
-#~ msgctxt "@title"
-#~ msgid "A KDE Control Module for configuring the GRUB2 bootloader."
-#~ msgstr ""
-#~ "Módulo de control de KDE para configurar el cargador de arranque de GRUB2"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
-#~ msgstr "Copyright © 2008-2013 Konstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Κonstantinos Smanis"
-#~ msgstr "Κonstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Main Developer"
-#~ msgstr "Desarrollador principal"
-
-#~ msgctxt "@info"
-#~ msgid ""
-#~ "Command: <command>%1</command><nl/>Error code: <numid>%2</numid><nl/"
-#~ ">Error message:<nl/><message>%3</message>"
-#~ msgstr ""
-#~ "Orden: <command>%1</command><nl/>Código de error: <numid>%2</numid><nl/"
-#~ ">Mensaje de error:<nl/><message>%3</message>"
-
-#~ msgctxt "transaction state, when we return to a previous system state"
-#~ msgid "Rolling back"
-#~ msgstr "Reanudando"
-
-#~ msgctxt "@title:window"
-#~ msgid "Probing devices"
-#~ msgstr "Examinando dispositivos"
-
-#~ msgctxt "@info:progress"
-#~ msgid "Probing devices for their GRUB names..."
-#~ msgstr "Examinando los nombres de los dispositivos en GRUB..."
-
-#~ msgctxt "@info"
-#~ msgid "Failed to get GRUB device names."
-#~ msgstr "No se han podido obtener los nombres de dispositivos en GRUB"
-
-#~ msgctxt "@info"
-#~ msgid "Helper returned malformed device list."
-#~ msgstr "El asistente ha devuelto una lista de dispositivos defectuosa."
-
-#~ msgctxt "@info"
-#~ msgid "No valid GRUB2/BURG installation could be detected!"
-#~ msgstr "¡No se ha detectado una instalación de GRUB2/BURG válida!"
-
-#~ msgctxt "@action:button"
-#~ msgid "Reload Configuration"
-#~ msgstr "Recargar la configuración"
