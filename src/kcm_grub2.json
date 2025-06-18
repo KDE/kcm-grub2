@@ -28,7 +28,7 @@
         "Description[sk]": "Prispôsobiť bootloader GRUB2",
         "Description[sl]": "Prilagodi inicialni nalagalnik GRUB2",
         "Description[sv]": "Anpassa GRUB2 startprogram",
-        "Description[tr]": "GRUB2 önyükleyicisini özelleştir",
+        "Description[tr]": "GRUB2 önyükleyicisini özelleştirin",
         "Description[uk]": "Налаштування завантажувача GRUB2",
         "Description[x-test]": "xxCustomize the GRUB2 bootloaderxx",
         "Description[zh_CN]": "自定义 GRUB2 启动引导程序",
