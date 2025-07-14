@@ -148,13 +148,13 @@ msgstr "GRUB-ის დაყენების შეცდომა."
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
-msgstr "ნაგულისხმები მნიშვნელობების დაბრუნება წარმატებულია."
+msgstr "ნაგულისხმევი მნიშვნელობების დაბრუნება წარმატებულია."
 
 #: src/kcm_grub2.cpp:89
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
-msgstr "ნაგულისხმები მნიშვნელობების დაბრუნების შეცდომა."
+msgstr "ნაგულისხმევი მნიშვნელობების დაბრუნების შეცდომა."
 
 #: src/kcm_grub2.cpp:499
 #, kde-format
@@ -815,14 +815,14 @@ msgstr "მთავარი"
 #, kde-format
 msgctxt "@title:group"
 msgid "Default Entry"
-msgstr "ნაგულისხმები ჩანაწერი"
+msgstr "ნაგულისხმევი ჩანაწერი"
 
 #. i18n: ectx: property (text), widget (QLabel, label_default)
 #: ui/kcm_grub2.ui:33
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Default Entry:"
-msgstr "ნაგულისხმები ჩანაწერი:"
+msgstr "ნაგულისხმევი ჩანაწერი:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
 #: ui/kcm_grub2.ui:49
@@ -836,7 +836,7 @@ msgstr "ძველი ჩანაწერების წაშლა"
 #, kde-format
 msgctxt "@option:check"
 msgid "The next booted entry will become default"
-msgstr "შემდეგი ჩატვირთული ჩანაწერი ნაგულისხმები გახდება"
+msgstr "შემდეგი ჩატვირთული ჩანაწერი ნაგულისხმევი გახდება"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
 #: ui/kcm_grub2.ui:68
@@ -872,7 +872,7 @@ msgstr "ათვლის ტაიმერის ჩვენება"
 #, kde-format
 msgctxt "@option:check"
 msgid "Automatically boot the default entry after showing the menu"
-msgstr "მენიუს ჩვენების შემდეგ ნაგულისხმები ჩანაწერის ავტომატური ჩატვირთვა"
+msgstr "მენიუს ჩვენების შემდეგ ნაგულისხმევი ჩანაწერის ავტომატური ჩატვირთვა"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
 #: ui/kcm_grub2.ui:144
