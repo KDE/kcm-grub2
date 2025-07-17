@@ -4,19 +4,20 @@
 #
 # Sveinn í Felli <sveinki@nett.is>, 2011, 2015.
 # Sveinn í Felli <sv1@fellsnet.is>, 2016.
+# SPDX-FileCopyrightText: 2025 Gummi <gudmundure@gmail.com>
 msgid ""
 msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:45+0000\n"
-"PO-Revision-Date: 2016-01-16 20:50+0000\n"
-"Last-Translator: Sveinn í Felli <sv1@fellsnet.is>\n"
-"Language-Team: icelandic <translation-team-is@lists.sourceforge.net>\n"
+"PO-Revision-Date: 2025-07-15 10:40+0000\n"
+"Last-Translator: Gummi <gudmundure@gmail.com>\n"
+"Language-Team: Icelandic <kde-i18n-doc@kde.org>\n"
 "Language: is\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.4\n"
+"X-Generator: Lokalize 24.12.3\n"
 "Plural-Forms: Plural-Forms: nplurals=2; plural=n != 1;\n"
 "\n"
 "\n"
@@ -25,7 +26,7 @@ msgstr ""
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "ImageMagick supported image formats"
-msgstr ""
+msgstr "Myndskrásnið sem ImageMagick styður"
 
 #: src/convertDlg.cpp:90
 #, kde-format
@@ -34,6 +35,8 @@ msgid ""
 "Please fill in both <interface>Image</interface> and <interface>Convert To</"
 "interface> fields."
 msgstr ""
+"Fylltu inn báða reitina <interface>Mynd</interface> og <interface>Umbreyta "
+"í</interface>."
 
 #: src/convertDlg.cpp:93
 #, kde-format
@@ -42,6 +45,8 @@ msgid ""
 "Please fill in both <interface>Width</interface> and <interface>Height</"
 "interface> fields."
 msgstr ""
+"Fylltu inn báða reitina <interface>Breidd</interface> og <interface>Hæð</"
+"interface>."
 
 #: src/convertDlg.cpp:96
 #, kde-format
@@ -50,34 +55,36 @@ msgid ""
 "You do not have write permissions in this directory, please select another "
 "destination."
 msgstr ""
+"Þú ert ekki með skrifheimildir í þessari möppu, veldu annan viðtökustað."
 
 #: src/helper/helper.cpp:67
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info"
 msgid "The process could not be started."
-msgstr "Tókst ekki að ræsa ferlið."
+msgstr "Tókst ekki að ræsa vinnsluna."
 
 #: src/helper/helper.cpp:70
 #, kde-format
 msgctxt "@info"
 msgid "The process crashed."
-msgstr ""
+msgstr "Vinnslan hrundi."
 
 #: src/helper/helper.cpp:76
 #, kde-format
 msgctxt "@info"
 msgid "Command: <command>%1</command><nl/>"
-msgstr ""
+msgstr "Skipun: <command>%1</command><nl/>"
 
 #: src/helper/helper.cpp:122
 #, kde-format
 msgid "Original configuration file <filename>%1</filename> does not exist."
-msgstr ""
+msgstr "Upprunaleg grunnstillingaskrá <filename>%1</filename> er ekki til."
 
 #: src/helper/helper.cpp:128
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
 msgstr ""
+"Get ekki fjarlægt núverandi grunnstillingaskrá <filename>%1</filename>."
 
 #: src/helper/helper.cpp:134
 #, kde-format
@@ -85,44 +92,46 @@ msgid ""
 "Cannot copy original configuration file <filename>%1</filename> to <filename>"
 "%2</filename>."
 msgstr ""
+"Get ekki afritað upprunalega grunnstillingaskrá <filename>%1</filename> í "
+"<filename>%2</filename>."
 
 #: src/helper/helper.cpp:151
 #, kde-format
 msgid "Failed to create temporary mount point."
-msgstr ""
+msgstr "Mistókst að búa til tengipunkt til bráðabirgða."
 
 #: src/helper/helper.cpp:289
 #, kde-format
 msgctxt "@info"
 msgid "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>"
-msgstr ""
+msgstr "Villukóði: <numid>%1</numid><nl/>Villuboð: <message>%2</message>"
 
 #: src/installDlg.cpp:60
 #, kde-format
 msgctxt "@title:window"
 msgid "Install/Recover Bootloader"
-msgstr ""
+msgstr "Setja upp/endurheimta ræsihleðsluforrit"
 
 #: src/installDlg.cpp:113
 #, kde-format
 msgctxt "@info"
 msgid "Sorry, you have to select a partition with a proper name!"
-msgstr ""
+msgstr "Afsakaðu, en þú þarft að velja disksneið með almennilegu heiti!"
 
 #: src/installDlg.cpp:124
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Installing"
-msgstr "Set upp pakka"
+msgstr "Set upp"
 
 #: src/installDlg.cpp:125
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@info:progress"
 msgid "Installing GRUB..."
-msgstr "Set upp pakka"
+msgstr "Set upp GRUB..."
 
 #: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:window"
 msgid "Information"
 msgstr "Upplýsingar"
@@ -131,30 +140,28 @@ msgstr "Upplýsingar"
 #, kde-format
 msgctxt "@info"
 msgid "Successfully installed GRUB."
-msgstr ""
+msgstr "Tókst að setja upp GRUB."
 
 #: src/installDlg.cpp:154
 #, kde-format
 msgctxt "@info"
 msgid "Failed to install GRUB."
-msgstr ""
+msgstr "Mistókst að setja upp GRUB."
 
 #: src/kcm_grub2.cpp:87
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
-msgstr ""
+msgstr "Tókst að endurheimta sjálfgefnu gildin."
 
 #: src/kcm_grub2.cpp:89
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
-msgstr ""
+msgstr "Mistókst að endurheimta sjálfgefnu gildin."
 
 #: src/kcm_grub2.cpp:499
-#, fuzzy, kde-format
-#| msgctxt "@title:window"
-#| msgid "Saving"
+#, kde-format
 msgctxt "@title:window Verb (gerund). Refers to current status."
 msgid "Saving"
 msgstr "Vista"
@@ -163,192 +170,190 @@ msgstr "Vista"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
-msgstr ""
+msgstr "Vista stillingar GRUB..."
 
 #: src/kcm_grub2.cpp:527
 #, kde-format
 msgctxt "@info"
 msgid "Successfully saved GRUB settings."
-msgstr ""
+msgstr "Tókst að vista stillingar GRUB."
 
 #: src/kcm_grub2.cpp:535
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
-msgstr ""
+msgstr "Mistókst að vista stillingar GRUB."
 
 #: src/kcm_grub2.cpp:606 src/kcm_grub2.cpp:633
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
-msgstr ""
+msgstr "Færa inn skjáupplausn"
 
 #: src/kcm_grub2.cpp:607
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
-msgstr ""
+msgstr "Sláðu inn upplausn fyrir GRUB:"
 
 #: src/kcm_grub2.cpp:634
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
-msgstr ""
+msgstr "Sláðu inn upplausn fyrir Linux ræsingu:"
 
 #: src/kcm_grub2.cpp:689
 #, kde-format
 msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
-msgstr ""
+msgstr "Ýttu á <shortcut>Escape</shortcut> til að hætta að fylla skjá."
 
 #: src/kcm_grub2.cpp:862 src/kcm_grub2.cpp:863
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Black"
 msgstr "Svart"
 
 #: src/kcm_grub2.cpp:864 src/kcm_grub2.cpp:865
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox"
-#| msgid "Transparent"
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Transparent"
-msgstr "Gegnsætt"
+msgstr "Gagnsætt"
 
 #: src/kcm_grub2.cpp:868
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Blue"
-msgstr "Blár"
+msgstr "Blátt"
 
 #: src/kcm_grub2.cpp:869
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Cyan"
-msgstr "Blágrænn"
+msgstr "Blágrænt"
 
 #: src/kcm_grub2.cpp:870
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Dark Gray"
 msgstr "Dökkgrátt"
 
 #: src/kcm_grub2.cpp:871
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Green"
-msgstr "Grænn"
+msgstr "Grænt"
 
 #: src/kcm_grub2.cpp:872
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Cyan"
-msgstr "Ljósblágrænn"
+msgstr "Ljósblágrænt"
 
 #: src/kcm_grub2.cpp:873
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Blue"
 msgstr "Ljósblátt"
 
 #: src/kcm_grub2.cpp:874
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Green"
 msgstr "Ljósgrænt"
 
 #: src/kcm_grub2.cpp:875
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Gray"
-msgstr "Ljósgrá"
+msgstr "Ljósgrátt"
 
 #: src/kcm_grub2.cpp:876
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Magenta"
-msgstr "Ljósfjólublár"
+msgstr "Ljósrauðblátt"
 
 #: src/kcm_grub2.cpp:877
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Red"
-msgstr "Ljósrauður"
+msgstr "Ljósrautt"
 
 #: src/kcm_grub2.cpp:878
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Magenta"
-msgstr "Fjólublár"
+msgstr "Rauðblátt"
 
 #: src/kcm_grub2.cpp:879
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Red"
-msgstr "Rauður"
+msgstr "Rautt"
 
 #: src/kcm_grub2.cpp:880
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "White"
-msgstr "Hvítur"
+msgstr "Hvítt"
 
 #: src/kcm_grub2.cpp:881
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Yellow"
-msgstr "Gulur"
+msgstr "Gult"
 
 #: src/kcm_grub2.cpp:895 src/kcm_grub2.cpp:904
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
-msgstr ""
+msgstr "Þögul ræsing"
 
 #: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
-msgstr ""
+msgstr "Sýna upphafsskjá"
 
 #: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
-msgstr ""
+msgstr "Afvirkja Plymouth"
 
 #: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
-msgstr ""
+msgstr "Slökkva á ACPI"
 
 #: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
-msgstr ""
+msgstr "Slökkva á APIC"
 
 #: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
-msgstr ""
+msgstr "Slökkva á staðbundnu APIC"
 
 #: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
-msgstr ""
+msgstr "Snið fyrir stakan notanda"
 
 #: src/kcm_grub2.cpp:913 src/kcm_grub2.cpp:920 src/kcm_grub2.cpp:931
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
-msgstr ""
+msgstr "PC BIOS && EFI stjórnborð"
 
 #: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:inmenu"
 msgid "Serial Terminal"
 msgstr "Raðtengdur skjáhermir"
@@ -359,52 +364,52 @@ msgctxt ""
 "@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
 "former IEEE standard."
 msgid "Open Firmware Console"
-msgstr ""
+msgstr "Opna stjórnborð fastbúnaðar"
 
 #: src/kcm_grub2.cpp:925
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC AT Keyboard (Coreboot)"
-msgstr ""
+msgstr "PC AT-lyklaborð (Coreboot)"
 
 #: src/kcm_grub2.cpp:927
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
-msgstr ""
+msgstr "USB-lyklaborð (HID Boot Protocol)"
 
 #: src/kcm_grub2.cpp:936
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
-msgstr ""
+msgstr "Úttak myndvinnslusniðs"
 
 #: src/kcm_grub2.cpp:937
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
-msgstr ""
+msgstr "VGA-textaúttak (Coreboot)"
 
 #: src/kcm_grub2.cpp:1118
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
-msgstr ""
+msgstr "Engin þýðing"
 
 #: src/kcm_grub2.cpp:1161 src/kcm_grub2.cpp:1165
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
 msgstr "Sérsniðið..."
 
 #: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Auto"
 msgstr "Sjálfvirkt"
 
 #: src/kcm_grub2.cpp:1167
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Unspecified"
 msgstr "Óskilgreint"
@@ -413,16 +418,16 @@ msgstr "Óskilgreint"
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
-msgstr ""
+msgstr "Ræsa í textasniði"
 
 #: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"
-msgstr ""
+msgstr "Halda upplausn GRUB"
 
 #: src/qPkBackend.cpp:36
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, the daemon is in the process of starting"
 msgid "Waiting for service to start"
 msgstr "Bíð eftir að þjónusta ræsist"
@@ -431,96 +436,96 @@ msgstr "Bíð eftir að þjónusta ræsist"
 #, kde-format
 msgctxt "transaction state, the transaction is waiting for another to complete"
 msgid "Waiting for other tasks"
-msgstr ""
+msgstr "Bíð eftir öðrum verkum"
 
 #: src/qPkBackend.cpp:42
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, just started"
 msgid "Running task"
 msgstr "Keyri verk"
 
 #: src/qPkBackend.cpp:45
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, is querying data"
 msgid "Querying"
-msgstr "Spyrst fyrir"
+msgstr "Sendi fyrirspurn"
 
 #: src/qPkBackend.cpp:48
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, getting data from a server"
 msgid "Getting information"
 msgstr "Sæki upplýsingar"
 
 #: src/qPkBackend.cpp:51
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, removing packages"
 msgid "Removing packages"
 msgstr "Fjarlægi pakka"
 
 #: src/qPkBackend.cpp:54
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, downloading package files"
 msgid "Downloading packages"
-msgstr "Næ í pakka"
+msgstr "Sæki pakka"
 
 #: src/qPkBackend.cpp:57
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, installing packages"
 msgid "Installing packages"
 msgstr "Set upp pakka"
 
 #: src/qPkBackend.cpp:60
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, refreshing internal lists"
 msgid "Refreshing software list"
-msgstr "Endurhleð inn hugbúnaðarlista"
+msgstr "Endurhleð hugbúnaðarlista"
 
 #: src/qPkBackend.cpp:63
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, installing updates"
 msgid "Updating packages"
 msgstr "Uppfæri pakka"
 
 #: src/qPkBackend.cpp:66
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, removing old packages, and cleaning config files"
 msgid "Cleaning up packages"
-msgstr "Hreinsa pakka"
+msgstr "Hreinsa upp pakka"
 
 #: src/qPkBackend.cpp:69
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, obsoleting old packages"
 msgid "Obsoleting packages"
 msgstr "Úreldi pakka"
 
 #: src/qPkBackend.cpp:72
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, checking the transaction before we do it"
 msgid "Resolving dependencies"
-msgstr "Leysi kerfiskröfur"
+msgstr "Leysi kerfisákvæði"
 
 #: src/qPkBackend.cpp:75
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "transaction state, checking if we have all the security keys for the "
 "operation"
 msgid "Checking signatures"
-msgstr "Athuga undirritanir"
+msgstr "Kanna undirritanir"
 
 #: src/qPkBackend.cpp:78
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, when we're doing a test transaction"
 msgid "Testing changes"
 msgstr "Prófa breytingar"
 
 #: src/qPkBackend.cpp:81
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, when we're writing to the system package database"
 msgid "Committing changes"
 msgstr "Virkja breytingar"
 
 #: src/qPkBackend.cpp:84
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, requesting data from a server"
 msgid "Requesting data"
 msgstr "Bið um gögn"
@@ -532,116 +537,116 @@ msgid "Finished"
 msgstr "Lokið"
 
 #: src/qPkBackend.cpp:90
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, in the process of cancelling"
 msgid "Cancelling"
 msgstr "Hætti við"
 
 #: src/qPkBackend.cpp:93
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, downloading metadata"
 msgid "Downloading repository information"
-msgstr "Sæki upplýsingar um hugbúnaðarsöfn"
+msgstr "Sæki upplýsingar um hugbúnaðarsafn"
 
 #: src/qPkBackend.cpp:96
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, downloading metadata"
 msgid "Downloading list of packages"
 msgstr "Sæki lista yfir pakka"
 
 #: src/qPkBackend.cpp:99
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, downloading metadata"
 msgid "Downloading file lists"
-msgstr "Sæki lista yfir skrár"
+msgstr "Sæki skráalista"
 
 #: src/qPkBackend.cpp:102
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, downloading metadata"
 msgid "Downloading lists of changes"
 msgstr "Sæki lista yfir breytingar"
 
 #: src/qPkBackend.cpp:105
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, downloading metadata"
 msgid "Downloading groups"
 msgstr "Sæki hópa"
 
 #: src/qPkBackend.cpp:108
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, downloading metadata"
 msgid "Downloading update information"
 msgstr "Sæki uppfærsluupplýsingar"
 
 #: src/qPkBackend.cpp:111
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, repackaging delta files"
 msgid "Repackaging files"
 msgstr "Endurpakka skrám"
 
 #: src/qPkBackend.cpp:114
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, loading databases"
 msgid "Loading cache"
 msgstr "Hleð inn skyndiminni"
 
 #: src/qPkBackend.cpp:117
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, scanning for running processes"
 msgid "Scanning installed applications"
-msgstr "Skoða uppsett forrit"
+msgstr "Skanna uppsett forrit"
 
 #: src/qPkBackend.cpp:120
-#, fuzzy, kde-format
+#, kde-format
 msgctxt ""
 "transaction state, generating a list of packages installed on the system"
 msgid "Generating package lists"
 msgstr "Útbý pakkalista"
 
 #: src/qPkBackend.cpp:123
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "transaction state, when we're waiting for the native tools to exit"
 msgid "Waiting for package manager lock"
 msgstr "Bíð eftir læsingu pakkastjóra"
 
 #: src/qPkBackend.cpp:126
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "waiting for user to type in a password"
 msgid "Waiting for authentication"
 msgstr "Bíð eftir heimild"
 
 #: src/qPkBackend.cpp:129
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "we are updating the list of processes"
 msgid "Updating the list of running applications"
-msgstr "Uppfæri lista yfir keyrandi forrit"
+msgstr "Uppfæri lista yfir forrit í keyrslu"
 
 #: src/qPkBackend.cpp:132
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "we are checking executable files in use"
 msgid "Checking for applications currently in use"
-msgstr "Athuga með forrit sem eru í notkun"
+msgstr "Athuga forrit sem eru í notkun"
 
 #: src/qPkBackend.cpp:135
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "we are checking for libraries in use"
 msgid "Checking for libraries currently in use"
-msgstr "Athuga með aðgerðasöfn sem eru í notkun"
+msgstr "Athuga aðgerðasöfn sem eru í notkun"
 
 #: src/qPkBackend.cpp:138
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "we are copying package files to prepare to install"
 msgid "Copying files"
 msgstr "Afrita skrár"
 
 #: src/qPkBackend.cpp:140
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "we are running the install hooks"
 msgid "Running install hooks"
-msgstr "Keyri verk"
+msgstr "Keyri uppsetta króka"
 
 #: src/qPkBackend.cpp:142
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "we received an unknown status"
 msgid "Unknown status"
 msgstr "Óþekkt staða"
@@ -650,53 +655,53 @@ msgstr "Óþekkt staða"
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Old Entries"
-msgstr ""
+msgstr "Fjarlægi gamlar færslur"
 
 #: src/removeDlg.cpp:73
 #, kde-format
 msgctxt "@title:window"
 msgid "Finding Old Entries"
-msgstr ""
+msgstr "Finn gamlar færslur"
 
 #: src/removeDlg.cpp:74
 #, kde-format
 msgctxt "@info:progress"
 msgid "Finding Old Entries..."
-msgstr ""
+msgstr "Finn gamlar færslur..."
 
 #: src/removeDlg.cpp:100
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Kernel %1"
-msgstr ""
+msgstr "Kjarni %1"
 
 #: src/removeDlg.cpp:116
 #, kde-format
 msgctxt "@info"
 msgid "No removable entries were found."
-msgstr ""
+msgstr "Engar fjarlægjanlegar færslur fundust."
 
 #: src/removeDlg.cpp:137
 #, kde-format
 msgctxt "@info"
 msgid "Are you sure you want to remove the following packages?"
-msgstr ""
+msgstr "Viltu örugglega fjarlægja eftirfarandi pakka?"
 
 #: src/removeDlg.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Removing Old Entries"
-msgstr ""
+msgstr "Fjarlægi gamlar færslur"
 
 #: src/removeDlg.cpp:179
 #, kde-format
 msgctxt "@info"
 msgid "Package removal failed."
-msgstr ""
+msgstr "Mistókst að fjarlægja pakka."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/convertDlg.ui:19
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Image:"
 msgstr "Mynd:"
@@ -706,14 +711,14 @@ msgstr "Mynd:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Convert To:"
-msgstr ""
+msgstr "Umbreyta í:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox)
 #: ui/convertDlg.ui:41
 #, kde-format
 msgctxt "@title:group"
 msgid "Conversion Options"
-msgstr ""
+msgstr "Valkostir umbreytingar"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/convertDlg.ui:47
@@ -731,56 +736,56 @@ msgstr "Hæð:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_5)
 #: ui/convertDlg.ui:75
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "Force resolution:"
-msgstr "Upplausnir"
+msgstr "Þvinga upplausn:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: ui/convertDlg.ui:85
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:check"
 msgid "Set As GRUB Wallpaper:"
-msgstr "Veggfóður"
+msgstr "Velja sem veggfóður fyrir GRUB:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/installDlg.ui:17
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select partition to install/recover GRUB:"
-msgstr ""
+msgstr "Veldu disksneið til að setja upp/endurheimta GRUB:"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:48
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:column"
 msgid "Partition"
 msgstr "Disksneið"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:53
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:column"
 msgid "Mountpoint"
 msgstr "Tengipunktur"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:58
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:column"
 msgid "Label"
-msgstr "Merki"
+msgstr "Merking"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:63
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:column"
 msgid "File System"
 msgstr "Skráakerfi"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:68
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:column"
 msgid "Size"
 msgstr "Stærð"
@@ -793,17 +798,19 @@ msgid ""
 "Install the bootloader on the boot sector of the selected partition instead "
 "of the MBR(=Master Boot Sector). Not recommended."
 msgstr ""
+"Setja upp ræsihleðsluforritið á ræsigeirann á völdu disksneiðinni í staðinn "
+"fyrir stofnræsigeirann (MBR, Master Boot Sector). Ekki er mælt með þessu."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
 #: ui/installDlg.ui:79
 #, kde-format
 msgctxt "@option:check"
 msgid "Install on partition instead of MBR (Advanced)"
-msgstr ""
+msgstr "Setja upp á disksneið í stað MBR (ítarlegt)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: ui/kcm_grub2.ui:21
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:tab Refers to settings."
 msgid "General"
 msgstr "Almennt"
@@ -813,32 +820,32 @@ msgstr "Almennt"
 #, kde-format
 msgctxt "@title:group"
 msgid "Default Entry"
-msgstr ""
+msgstr "Sjálfgefin færsla"
 
 #. i18n: ectx: property (text), widget (QLabel, label_default)
 #: ui/kcm_grub2.ui:33
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Default Entry:"
-msgstr ""
+msgstr "Sjálfgefin færsla:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
 #: ui/kcm_grub2.ui:49
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove Old Entries"
-msgstr ""
+msgstr "Fjarlæga gamlar færslur"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_savedefault)
 #: ui/kcm_grub2.ui:58
 #, kde-format
 msgctxt "@option:check"
 msgid "The next booted entry will become default"
-msgstr ""
+msgstr "Næsta ræsifærsla verður sjálfgefin"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
 #: ui/kcm_grub2.ui:68
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group"
 msgid "Timeout"
 msgstr "Tímamörk"
@@ -848,7 +855,7 @@ msgstr "Tímamörk"
 #, kde-format
 msgctxt "@option:check"
 msgid "Hide the menu for:"
-msgstr ""
+msgstr "Fela valmyndina fyrir:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_hiddenTimeout)
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_timeout)
@@ -863,25 +870,25 @@ msgstr "s"
 #, kde-format
 msgctxt "@option:check"
 msgid "Show countdown timer"
-msgstr ""
+msgstr "Sýna niðurtalningu"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_timeout)
 #: ui/kcm_grub2.ui:121
 #, kde-format
 msgctxt "@option:check"
 msgid "Automatically boot the default entry after showing the menu"
-msgstr ""
+msgstr "Ræsa sjálfkrafa sjálfgefnu færsluna þegar valmyndin hefur birst"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
 #: ui/kcm_grub2.ui:144
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:radio"
 msgid "Immediately"
 msgstr "Strax"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout)
 #: ui/kcm_grub2.ui:169
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@option:radio"
 msgid "After:"
 msgstr "Eftir:"
@@ -891,11 +898,11 @@ msgstr "Eftir:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Generated Entries"
-msgstr ""
+msgstr "Útbúnar færslur"
 
 #. i18n: ectx: property (text), widget (QLabel, label_language)
 #: ui/kcm_grub2.ui:203
-#, fuzzy, kde-format
+#, kde-format
 msgid "Language:"
 msgstr "Tungumál:"
 
@@ -904,32 +911,32 @@ msgstr "Tungumál:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Generate recovery entries"
-msgstr ""
+msgstr "Búa til endurheimtarfærslur"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_memtest)
 #: ui/kcm_grub2.ui:224
 #, kde-format
 msgctxt "@option:check"
 msgid "Generate memtest entries"
-msgstr ""
+msgstr "Búa til memtest-færslur"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_osProber)
 #: ui/kcm_grub2.ui:231
 #, kde-format
 msgctxt "@option:check"
 msgid "Probe for operating systems"
-msgstr ""
+msgstr "Leita eftir stýrikerfum"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: ui/kcm_grub2.ui:255
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:tab"
 msgid "Appearance"
 msgstr "Útlit"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_resolutions)
 #: ui/kcm_grub2.ui:261
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group"
 msgid "Resolutions"
 msgstr "Upplausnir"
@@ -939,7 +946,7 @@ msgstr "Upplausnir"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "GRUB:"
-msgstr ""
+msgstr "GRUB:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxmode)
 #. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxpayload)
@@ -947,105 +954,105 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Probe for supported VBE resolutions."
-msgstr ""
+msgstr "Leita eftir studdum VBE-upplausnum."
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
 #: ui/kcm_grub2.ui:295
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Linux Kernel:"
-msgstr ""
+msgstr "Linux-kjarni:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_colors)
 #: ui/kcm_grub2.ui:326
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group"
 msgid "Colors"
 msgstr "Litir"
 
 #. i18n: ectx: property (text), widget (QLabel, label_normalForeground)
 #: ui/kcm_grub2.ui:334
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Foreground (Text):"
-msgstr "Bakgrunnur"
+msgstr "Venjulegur forgrunnur (texti):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
 #: ui/kcm_grub2.ui:344
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Foreground (Text):"
-msgstr "Bakgrunnur"
+msgstr "Áherslulitaður forgrunnur (texti):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
 #: ui/kcm_grub2.ui:358
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Background:"
-msgstr "Bakgrunnur"
+msgstr "Venjulegur bakgrunnur:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightBackground)
 #: ui/kcm_grub2.ui:368
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Background:"
-msgstr "Bakgrunnur"
+msgstr "Áherslulitaður bakgrunnur:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_background)
 #: ui/kcm_grub2.ui:383
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group Refers to the image shown behind the boot menu."
 msgid "Background"
 msgstr "Bakgrunnur"
 
 #. i18n: ectx: property (text), widget (QLabel, label_background)
 #: ui/kcm_grub2.ui:389
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Wallpaper:"
-msgstr "Veggfóður"
+msgstr "Veggfóður:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_preview)
 #: ui/kcm_grub2.ui:401
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Preview"
-msgstr "Forsýn"
+msgstr "Forskoðun"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_create)
 #: ui/kcm_grub2.ui:408
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Create"
 msgstr "Búa til"
 
 #. i18n: ectx: property (text), widget (QLabel, label_theme)
 #: ui/kcm_grub2.ui:417
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Theme:"
 msgstr "Þema:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: ui/kcm_grub2.ui:444
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:tab Refers to settings."
 msgid "Advanced"
-msgstr "Nánar"
+msgstr "Ítarlegt"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_linux)
 #: ui/kcm_grub2.ui:450
 #, kde-format
 msgctxt "@title:group"
 msgid "Linux Kernel Arguments"
-msgstr ""
+msgstr "Breytur fyrir Linux-kjarna"
 
 #. i18n: ectx: property (text), widget (QLabel, label_cmdlineDefault)
 #: ui/kcm_grub2.ui:456
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Normal Entries:"
-msgstr ""
+msgstr "Venjulegar færslur:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineDefaultSuggestions)
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineSuggestions)
@@ -1054,7 +1061,7 @@ msgstr ""
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_terminalOutputSuggestions)
 #: ui/kcm_grub2.ui:468 ui/kcm_grub2.ui:489 ui/kcm_grub2.ui:519
 #: ui/kcm_grub2.ui:540 ui/kcm_grub2.ui:561
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@action:button"
 msgid "Suggestions"
 msgstr "Uppástungur"
@@ -1064,39 +1071,39 @@ msgstr "Uppástungur"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "All Entries:"
-msgstr ""
+msgstr "Allar færslur:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_terminal)
 #: ui/kcm_grub2.ui:501
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group Noun."
 msgid "Terminal"
 msgstr "Skjáhermir"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminal)
 #: ui/kcm_grub2.ui:507
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox Noun."
 msgid "Terminal:"
-msgstr "Skjáhermir"
+msgstr "Skjáhermir:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminalInput)
 #: ui/kcm_grub2.ui:528
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Input Terminal:"
-msgstr "Skjáhermir"
+msgstr "Inntaksskjáhermir:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminalOutput)
 #: ui/kcm_grub2.ui:549
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@label:textbox"
 msgid "Output Terminal:"
-msgstr "Skjáhermir"
+msgstr "Úttaksskjáhermir:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_other)
 #: ui/kcm_grub2.ui:573
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group Refers to settings."
 msgid "Other"
 msgstr "Annað"
@@ -1106,32 +1113,32 @@ msgstr "Annað"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Distributor:"
-msgstr ""
+msgstr "Dreifingaraðili:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_serial)
 #: ui/kcm_grub2.ui:589
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Serial Command:"
-msgstr ""
+msgstr "Raðskipun:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_initTune)
 #: ui/kcm_grub2.ui:599
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Init Tune:"
-msgstr ""
+msgstr "Upphafsstef:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_uuid)
 #: ui/kcm_grub2.ui:609
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable UUIDs:"
-msgstr ""
+msgstr "Virkja UUID:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_tools)
 #: ui/kcm_grub2.ui:635
-#, fuzzy, kde-format
+#, kde-format
 msgctxt "@title:group"
 msgid "Tools"
 msgstr "Verkfæri"
@@ -1141,28 +1148,28 @@ msgstr "Verkfæri"
 #, kde-format
 msgctxt "@action:button"
 msgid "Install/Recover Bootloader"
-msgstr ""
+msgstr "Setja upp/endurheimta ræsihleðsluforrit"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/removeDlg.ui:17
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select entries to remove:"
-msgstr ""
+msgstr "Velja færslur til að fjarlægja:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:34
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove associated kernel header files."
-msgstr ""
+msgstr "Fjarlægja tengdar höfuðskrár kjarna."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:37
 #, kde-format
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
-msgstr ""
+msgstr "Fjarlægja líka tengda gamla pakka"
 
 #, fuzzy
 #~ msgctxt "NAME OF TRANSLATORS"
