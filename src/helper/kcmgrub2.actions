@@ -1,5 +1,6 @@
 [Domain]
 Name=GRUB2 Bootloader Control Module
+Name[ar]=وحدة التحكم لمحمّل الإقلاع GRUB2
 Name[bs]=Kontrolni modul GRUB2 pokretača sistema
 Name[ca]=Mòdul de control del gestor d'arrencada Grub2
 Name[ca@valencia]=Mòdul de control del gestor d'arrancada Grub2
@@ -47,6 +48,7 @@ Icon=system-reboot
 
 [org.kde.kcontrol.kcmgrub2.defaults]
 Name=Restore the default GRUB2 Bootloader settings
+Name[ar]=استعد إعدادات محمّل الإقلاع GRUB2 المبدئية
 Name[bs]=Obnovi uobičajene postavke GRUB2 pokretača sistema
 Name[ca]=Restaura l'arranjament per omissió del gestor d'arrencada Grub2
 Name[ca@valencia]=Restaura la configuració predeterminada del gestor d'arrancada Grub2
@@ -91,6 +93,7 @@ Name[x-test]=xxRestore the default GRUB2 Bootloader settingsxx
 Name[zh_CN]=恢复默认的 GRUB2 启动引导程序设置
 Name[zh_TW]=回覆預設的 GRUB2 開機載入器設定
 Description=Administrator authorization is required to restore the default GRUB2 Bootloader settings
+Description[ar]=مطلوب صلاحية المدير لاستعادة إعدادات محمّل الإقلاع GRUB2 الافتراضية
 Description[bs]=Potrebna je administratorska potvrda za obnovu podrazumijevanihpostavki GRUB2 pokretača sistema
 Description[ca]=Es requereix autorització de l'administrador per a restaurar la configuració del gestor d'arrencada Grub2
 Description[ca@valencia]=Es requerix autorització de l'administrador per a restaurar la configuració del gestor d'arrancada Grub2
@@ -138,6 +141,7 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.install]
 Name=Install the GRUB2 Bootloader
+Name[ar]=تثبيت محمّل الإقلاع GRUB2
 Name[bs]=Instaliraj GRUB2 pokretač sistema
 Name[ca]=Instal·la el gestor d'arrencada Grub2
 Name[ca@valencia]=Instal·la el gestor d'arrancada Grub2
@@ -183,6 +187,7 @@ Name[x-test]=xxInstall the GRUB2 Bootloaderxx
 Name[zh_CN]=安装 GRUB2 启动引导程序
 Name[zh_TW]=安裝 GRUB2 開機載入器
 Description=Administrator authorization is required to install the GRUB2 Bootloader
+Description[ar]=مطلوب صلاحية المدير لتثبيت محمّل الإقلاع GRUB2
 Description[bs]=Administratorska potvrda je potrebna za instaliranje GRUB2 pokretača sistema
 Description[ca]=Es requereix autorització de l'administrador per a instal·lar el gestor d'arrencada Grub2
 Description[ca@valencia]=Es requerix autorització de l'administrador per a instal·lar el gestor d'arrancada Grub2
@@ -231,6 +236,7 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.load]
 Name=Load the GRUB2 Bootloader settings
+Name[ar]=حمّل إعدادات محمّل الإقلاع GRUB2
 Name[bs]=Učitaj postavke GRUB2 pokretača sistema
 Name[ca]=Carrega la configuració del gestor d'arrencada Grub2
 Name[ca@valencia]=Carrega la configuració del gestor d'arrancada Grub2
@@ -276,6 +282,7 @@ Name[x-test]=xxLoad the GRUB2 Bootloader settingsxx
 Name[zh_CN]=加载 GRUB2 启动引导程序设置
 Name[zh_TW]=載入 GRUB2 開機載入器設定
 Description=Administrator authorization is required to load the GRUB2 Bootloader settings
+Description[ar]=مطلوب صلاحية المدير لتحميل إعدادات محمّل الإقلاع GRUB2
 Description[bs]=Administratorska potvrda je potrebna za čitanje postavki GRUB2 pokretača sistema
 Description[ca]=Es requereix autorització de l'administrador per a carregar la configuració del gestor d'arrencada Grub2
 Description[ca@valencia]=Es requerix autorització de l'administrador per a carregar la configuració del gestor d'arrancada Grub2
@@ -324,6 +331,7 @@ Persistence=session
 
 [org.kde.kcontrol.kcmgrub2.save]
 Name=Save the GRUB2 Bootloader settings
+Name[ar]=احفظ إعدادات محمّل الإقلاع GRUB2
 Name[bs]=Snimie postavke GRUB2 pokretača sistema
 Name[ca]=Desa la configuració del gestor d'arrencada Grub2
 Name[ca@valencia]=Guarda la configuració del gestor d'arrancada Grub2
@@ -368,6 +376,7 @@ Name[x-test]=xxSave the GRUB2 Bootloader settingsxx
 Name[zh_CN]=保存 GRUB2 启动引导程序设置
 Name[zh_TW]=儲存 GRUB2 開機載入器設定
 Description=Administrator authorization is required to save the GRUB2 Bootloader settings
+Description[ar]=مطلوب صلاحية المدير لحفظ إعدادات محمّل الإقلاع GRUB2
 Description[bs]=Administratorska potvrda je potrebna za snimanje postavki GRUB2 pokretača sistema
 Description[ca]=Es requereix autorització de l'administrador per a desar la configuració del gestor d'arrencada Grub2
 Description[ca@valencia]=Es requerix autorització de l'administrador per a guardar la configuració del gestor d'arrancada Grub2
