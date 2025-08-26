@@ -1,27 +1,28 @@
-# Copyright (C) YEAR This file is copyright:
+# Copyright (C) 2025 This file is copyright:
 # This file is distributed under the same license as the kcm-grub2 package.
+# SPDX-FileCopyrightText: 2022, 2025 Zayed Al-Saidi <zayed.alsaidi@gmail.com>
 #
-# Zayed Al-Saidi <zayed.alsaidi@gmail.com>, 2022.
 msgid ""
 msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:45+0000\n"
-"PO-Revision-Date: 2022-08-23 19:58+0400\n"
+"PO-Revision-Date: 2025-08-25 19:36+0400\n"
 "Last-Translator: Zayed Al-Saidi <zayed.alsaidi@gmail.com>\n"
-"Language-Team: Arabic <kde-l10n-ar@kde.org>\n"
+"Language-Team: ar\n"
 "Language: ar\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
+"X-Generator: Lokalize 23.08.5\n"
 
 #: src/convertDlg.cpp:58
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "ImageMagick supported image formats"
-msgstr ""
+msgstr "صيغ الصور المتاحة من ImageMagick"
 
 #: src/convertDlg.cpp:90
 #, kde-format
@@ -30,6 +31,8 @@ msgid ""
 "Please fill in both <interface>Image</interface> and <interface>Convert To</"
 "interface> fields."
 msgstr ""
+"يُرجى ملء كل من حقلي <interface>الصورة</interface> و<interface>تحويل إلى</"
+"interface>."
 
 #: src/convertDlg.cpp:93
 #, kde-format
@@ -38,6 +41,8 @@ msgid ""
 "Please fill in both <interface>Width</interface> and <interface>Height</"
 "interface> fields."
 msgstr ""
+"يُرجى ملء كل من حقلي <interface>العرض</interface> و<interface>الارتفاع</"
+"interface>."
 
 #: src/convertDlg.cpp:96
 #, kde-format
@@ -45,13 +50,13 @@ msgctxt "@info"
 msgid ""
 "You do not have write permissions in this directory, please select another "
 "destination."
-msgstr ""
+msgstr "ليس لديك أذونات الكتابة في هذا الدليل، يُرجى تحديد وجهة أخرى."
 
 #: src/helper/helper.cpp:67
 #, kde-format
 msgctxt "@info"
 msgid "The process could not be started."
-msgstr ""
+msgstr "تعذّر بدء العملية."
 
 #: src/helper/helper.cpp:70
 #, kde-format
@@ -68,12 +73,12 @@ msgstr "الأمر: <command>%1</command><nl/>"
 #: src/helper/helper.cpp:122
 #, kde-format
 msgid "Original configuration file <filename>%1</filename> does not exist."
-msgstr ""
+msgstr "ملف التهيئة الأصلي <filename>%1</filename> غير موجود."
 
 #: src/helper/helper.cpp:128
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
-msgstr ""
+msgstr "تعذّرت إزالة ملف التهيئة الحالي <filename>%1</filename>."
 
 #: src/helper/helper.cpp:134
 #, kde-format
@@ -81,29 +86,31 @@ msgid ""
 "Cannot copy original configuration file <filename>%1</filename> to <filename>"
 "%2</filename>."
 msgstr ""
+"تعذّر نسخ ملف التهيئة الأصلي <filename>%1</filename> إلى <filename>%2</"
+"filename>."
 
 #: src/helper/helper.cpp:151
 #, kde-format
 msgid "Failed to create temporary mount point."
-msgstr ""
+msgstr "فشل إنشاء نقطة الوصل المؤقتة."
 
 #: src/helper/helper.cpp:289
 #, kde-format
 msgctxt "@info"
 msgid "Error code: <numid>%1</numid><nl/>Error message: <message>%2</message>"
-msgstr ""
+msgstr "رمز الخطأ: <numid>%1</numid><nl/>رسالة الخطأ: <message>%2</message>"
 
 #: src/installDlg.cpp:60
 #, kde-format
 msgctxt "@title:window"
 msgid "Install/Recover Bootloader"
-msgstr ""
+msgstr "تثبيت/استعادة محمّل الإقلاع"
 
 #: src/installDlg.cpp:113
 #, kde-format
 msgctxt "@info"
 msgid "Sorry, you have to select a partition with a proper name!"
-msgstr ""
+msgstr "عذرًا، يجب عليك تحديد قسم باسم صحيح!"
 
 #: src/installDlg.cpp:124
 #, kde-format
@@ -115,7 +122,7 @@ msgstr "يثبّت"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Installing GRUB..."
-msgstr ""
+msgstr "جاري تثبيت GRUB..."
 
 #: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
 #, kde-format
@@ -127,25 +134,25 @@ msgstr "معلومات"
 #, kde-format
 msgctxt "@info"
 msgid "Successfully installed GRUB."
-msgstr ""
+msgstr "تم تثبيت GRUB بنجاح."
 
 #: src/installDlg.cpp:154
 #, kde-format
 msgctxt "@info"
 msgid "Failed to install GRUB."
-msgstr ""
+msgstr "فشل تثبيت GRUB."
 
 #: src/kcm_grub2.cpp:87
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
-msgstr ""
+msgstr "تمت استعادة القيم المبدئية بنجاح."
 
 #: src/kcm_grub2.cpp:89
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
-msgstr ""
+msgstr "فشلت استعادة القيم المبدئية."
 
 #: src/kcm_grub2.cpp:499
 #, kde-format
@@ -157,43 +164,43 @@ msgstr "يحفظ"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Saving GRUB settings..."
-msgstr ""
+msgstr "جاري حفظ إعدادات GRUB..."
 
 #: src/kcm_grub2.cpp:527
 #, kde-format
 msgctxt "@info"
 msgid "Successfully saved GRUB settings."
-msgstr ""
+msgstr "تم حفظ إعدادات GRUB بنجاح."
 
 #: src/kcm_grub2.cpp:535
 #, kde-format
 msgctxt "@info"
 msgid "Failed to save GRUB settings."
-msgstr ""
+msgstr "فشل حفظ إعدادات GRUB."
 
 #: src/kcm_grub2.cpp:606 src/kcm_grub2.cpp:633
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
-msgstr ""
+msgstr "أدخل دقة الشاشة"
 
 #: src/kcm_grub2.cpp:607
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
-msgstr ""
+msgstr "يُرجى إدخال دقة GRUB:"
 
 #: src/kcm_grub2.cpp:634
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
-msgstr ""
+msgstr "يُرجى إدخال دقة إقلاع لينكس:"
 
 #: src/kcm_grub2.cpp:689
 #, kde-format
 msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
-msgstr ""
+msgstr "اضغط على <shortcut>Escape</shortcut> للخروج من وضع ملء الشاشة."
 
 #: src/kcm_grub2.cpp:862 src/kcm_grub2.cpp:863
 #, kde-format
@@ -295,7 +302,7 @@ msgstr "أصفر"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Quiet Boot"
-msgstr ""
+msgstr "الإقلاع الصامت"
 
 #: src/kcm_grub2.cpp:896 src/kcm_grub2.cpp:905
 #, kde-format
@@ -307,43 +314,43 @@ msgstr "أعرض شاشة البداية"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Disable Plymouth"
-msgstr ""
+msgstr "تعطيل Plymouth"
 
 #: src/kcm_grub2.cpp:898 src/kcm_grub2.cpp:907
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off ACPI"
-msgstr ""
+msgstr "إيقاف ACPI"
 
 #: src/kcm_grub2.cpp:899 src/kcm_grub2.cpp:908
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off APIC"
-msgstr ""
+msgstr "إيقاف APIC"
 
 #: src/kcm_grub2.cpp:900 src/kcm_grub2.cpp:909
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Turn Off Local APIC"
-msgstr ""
+msgstr "إيقاف Local APIC"
 
 #: src/kcm_grub2.cpp:901 src/kcm_grub2.cpp:910
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
-msgstr ""
+msgstr "وضع المستخدم الواحد"
 
 #: src/kcm_grub2.cpp:913 src/kcm_grub2.cpp:920 src/kcm_grub2.cpp:931
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
-msgstr ""
+msgstr "وحدة تحكم PC BIOS و EFI"
 
 #: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Serial Terminal"
-msgstr ""
+msgstr "المحطة التسلسلية"
 
 #: src/kcm_grub2.cpp:916 src/kcm_grub2.cpp:923 src/kcm_grub2.cpp:934
 #, kde-format
@@ -351,37 +358,37 @@ msgctxt ""
 "@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
 "former IEEE standard."
 msgid "Open Firmware Console"
-msgstr ""
+msgstr "وحدة تحكم Open Firmware"
 
 #: src/kcm_grub2.cpp:925
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC AT Keyboard (Coreboot)"
-msgstr ""
+msgstr "لوحة مفاتيح PC AT (Coreboot)"
 
 #: src/kcm_grub2.cpp:927
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "USB Keyboard (HID Boot Protocol)"
-msgstr ""
+msgstr "لوحة مفاتيح USB (ميفاق إقلاع HID)"
 
 #: src/kcm_grub2.cpp:936
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
-msgstr ""
+msgstr "إخراج وضع الرسومات"
 
 #: src/kcm_grub2.cpp:937
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
-msgstr ""
+msgstr "إخراج نص VGA (Coreboot)"
 
 #: src/kcm_grub2.cpp:1118
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
-msgstr ""
+msgstr "لا توجد ترجمة"
 
 #: src/kcm_grub2.cpp:1161 src/kcm_grub2.cpp:1165
 #, kde-format
@@ -405,13 +412,13 @@ msgstr "غير محدد"
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
-msgstr ""
+msgstr "الإقلاع في الوضع النصي"
 
 #: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"
-msgstr ""
+msgstr "الاحتفاظ بدقة GRUB"
 
 #: src/qPkBackend.cpp:36
 #, kde-format
@@ -606,7 +613,7 @@ msgstr "ينتظر الاستيثاق"
 #, kde-format
 msgctxt "we are updating the list of processes"
 msgid "Updating the list of running applications"
-msgstr ""
+msgstr "جاري تحديث قائمة التطبيقات قيد التشغيل"
 
 #: src/qPkBackend.cpp:132
 #, kde-format
@@ -630,7 +637,7 @@ msgstr "ينسخ الملفّات"
 #, kde-format
 msgctxt "we are running the install hooks"
 msgid "Running install hooks"
-msgstr ""
+msgstr "جاري تشغيل خطاطيف التثبيت"
 
 #: src/qPkBackend.cpp:142
 #, kde-format
@@ -642,19 +649,19 @@ msgstr "حالة مجهولة"
 #, kde-format
 msgctxt "@title:window"
 msgid "Remove Old Entries"
-msgstr ""
+msgstr "إزالة الإدخالات القديمة"
 
 #: src/removeDlg.cpp:73
 #, kde-format
 msgctxt "@title:window"
 msgid "Finding Old Entries"
-msgstr ""
+msgstr "البحث عن الإدخالات القديمة"
 
 #: src/removeDlg.cpp:74
 #, kde-format
 msgctxt "@info:progress"
 msgid "Finding Old Entries..."
-msgstr ""
+msgstr "جاري البحث عن الإدخالات القديمة..."
 
 #: src/removeDlg.cpp:100
 #, kde-format
@@ -666,19 +673,19 @@ msgstr "النواة %1"
 #, kde-format
 msgctxt "@info"
 msgid "No removable entries were found."
-msgstr ""
+msgstr "لم يتم العثور على إدخالات قابلة للإزالة."
 
 #: src/removeDlg.cpp:137
 #, kde-format
 msgctxt "@info"
 msgid "Are you sure you want to remove the following packages?"
-msgstr ""
+msgstr "هل أنت متأكد من رغبتك في إزالة الحزم التالية؟"
 
 #: src/removeDlg.cpp:166
 #, kde-format
 msgctxt "@title:window"
 msgid "Removing Old Entries"
-msgstr ""
+msgstr "جاري إزالة الإدخالات القديمة"
 
 #: src/removeDlg.cpp:179
 #, kde-format
@@ -705,7 +712,7 @@ msgstr "حوّل إلى:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Conversion Options"
-msgstr ""
+msgstr "خيارات التحويل"
 
 #. i18n: ectx: property (text), widget (QLabel, label_3)
 #: ui/convertDlg.ui:47
@@ -726,21 +733,21 @@ msgstr "الارتفاع:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Force resolution:"
-msgstr ""
+msgstr "فرض الدقة:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: ui/convertDlg.ui:85
 #, kde-format
 msgctxt "@option:check"
 msgid "Set As GRUB Wallpaper:"
-msgstr ""
+msgstr "تعيين كخلفية لـ GRUB:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/installDlg.ui:17
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select partition to install/recover GRUB:"
-msgstr ""
+msgstr "حدد القسم لتثبيت/استعادة GRUB:"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:48
@@ -785,13 +792,15 @@ msgid ""
 "Install the bootloader on the boot sector of the selected partition instead "
 "of the MBR(=Master Boot Sector). Not recommended."
 msgstr ""
+"ثبّت محمّل الإقلاع على قطاع الإقلاع للقسم المحدد بدلاً من MBR (=قطاع الإقلاع "
+"الرئيسي). غير موصى به."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
 #: ui/installDlg.ui:79
 #, kde-format
 msgctxt "@option:check"
 msgid "Install on partition instead of MBR (Advanced)"
-msgstr ""
+msgstr "التثبيت على القسم بدلاً من MBR (متقدم)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: ui/kcm_grub2.ui:21
@@ -805,28 +814,28 @@ msgstr "عامّ"
 #, kde-format
 msgctxt "@title:group"
 msgid "Default Entry"
-msgstr ""
+msgstr "الإدخال المبدئي"
 
 #. i18n: ectx: property (text), widget (QLabel, label_default)
 #: ui/kcm_grub2.ui:33
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Default Entry:"
-msgstr ""
+msgstr "الإدخال المبدئي:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
 #: ui/kcm_grub2.ui:49
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove Old Entries"
-msgstr ""
+msgstr "إزالة الإدخالات القديمة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_savedefault)
 #: ui/kcm_grub2.ui:58
 #, kde-format
 msgctxt "@option:check"
 msgid "The next booted entry will become default"
-msgstr ""
+msgstr "سيصبح الإدخال الذي سيُقلَع إليه التالي هو المبدئي"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
 #: ui/kcm_grub2.ui:68
@@ -840,7 +849,7 @@ msgstr "وقت مستقطع"
 #, kde-format
 msgctxt "@option:check"
 msgid "Hide the menu for:"
-msgstr ""
+msgstr "إخفاء القائمة لمدة:"
 
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_hiddenTimeout)
 #. i18n: ectx: property (suffix), widget (QSpinBox, spinBox_timeout)
@@ -855,14 +864,14 @@ msgstr "ث"
 #, kde-format
 msgctxt "@option:check"
 msgid "Show countdown timer"
-msgstr ""
+msgstr "إظهار مؤقت العد التنازلي"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_timeout)
 #: ui/kcm_grub2.ui:121
 #, kde-format
 msgctxt "@option:check"
 msgid "Automatically boot the default entry after showing the menu"
-msgstr ""
+msgstr "الإقلاع آليًا إلى الإدخال المبدئي بعد عرض القائمة"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
 #: ui/kcm_grub2.ui:144
@@ -883,7 +892,7 @@ msgstr "بعد:"
 #, kde-format
 msgctxt "@title:group"
 msgid "Generated Entries"
-msgstr ""
+msgstr "الإدخالات المُنشأة"
 
 #. i18n: ectx: property (text), widget (QLabel, label_language)
 #: ui/kcm_grub2.ui:203
@@ -896,21 +905,21 @@ msgstr "اللغة:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Generate recovery entries"
-msgstr ""
+msgstr "إنشاء إدخالات الاستعادة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_memtest)
 #: ui/kcm_grub2.ui:224
 #, kde-format
 msgctxt "@option:check"
 msgid "Generate memtest entries"
-msgstr ""
+msgstr "إنشاء إدخالات اختبار الذاكرة"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_osProber)
 #: ui/kcm_grub2.ui:231
 #, kde-format
 msgctxt "@option:check"
 msgid "Probe for operating systems"
-msgstr ""
+msgstr "البحث عن أنظمة التشغيل"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_3)
 #: ui/kcm_grub2.ui:255
@@ -924,14 +933,14 @@ msgstr "المظهر"
 #, kde-format
 msgctxt "@title:group"
 msgid "Resolutions"
-msgstr ""
+msgstr "الدقة"
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxmode)
 #: ui/kcm_grub2.ui:267
 #, kde-format
 msgctxt "@label:listbox"
 msgid "GRUB:"
-msgstr ""
+msgstr "GRUB:"
 
 #. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxmode)
 #. i18n: ectx: property (toolTip), widget (QToolButton, toolButton_refreshGfxpayload)
@@ -939,7 +948,7 @@ msgstr ""
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Probe for supported VBE resolutions."
-msgstr ""
+msgstr "البحث عن دقات VBE المتاحة."
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
 #: ui/kcm_grub2.ui:295
@@ -960,14 +969,14 @@ msgstr "الألوان"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Foreground (Text):"
-msgstr ""
+msgstr "المقدمة العادية (النص):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
 #: ui/kcm_grub2.ui:344
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Foreground (Text):"
-msgstr ""
+msgstr "المقدمة المميزة (النص):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
 #: ui/kcm_grub2.ui:358
@@ -1037,7 +1046,7 @@ msgstr "معاملات نواة لينكس"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Normal Entries:"
-msgstr ""
+msgstr "الإدخالات العادية:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineDefaultSuggestions)
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineSuggestions)
@@ -1077,14 +1086,14 @@ msgstr "الطّرفيّة:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Input Terminal:"
-msgstr ""
+msgstr "المحطة الطرفية للإدخال:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminalOutput)
 #: ui/kcm_grub2.ui:549
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Output Terminal:"
-msgstr ""
+msgstr "المحطة الطرفية للإخراج:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_other)
 #: ui/kcm_grub2.ui:573
@@ -1105,21 +1114,21 @@ msgstr "الموزع:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Serial Command:"
-msgstr ""
+msgstr "الأمر التسلسلي:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_initTune)
 #: ui/kcm_grub2.ui:599
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Init Tune:"
-msgstr ""
+msgstr "نغمة البدء:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_uuid)
 #: ui/kcm_grub2.ui:609
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable UUIDs:"
-msgstr ""
+msgstr "تمييز UUIDs:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_tools)
 #: ui/kcm_grub2.ui:635
@@ -1133,28 +1142,28 @@ msgstr "أدوات"
 #, kde-format
 msgctxt "@action:button"
 msgid "Install/Recover Bootloader"
-msgstr ""
+msgstr "تثبيت/استعادة محمّل الإقلاع"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/removeDlg.ui:17
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select entries to remove:"
-msgstr ""
+msgstr "حدد الإدخالات المراد إزالتها:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:34
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Remove associated kernel header files."
-msgstr ""
+msgstr "إزالة ملفات رأس النواة المرتبطة."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:37
 #, kde-format
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
-msgstr ""
+msgstr "إزالة الحزم القديمة المرتبطة أيضًا"
 
 #~ msgctxt "NAME OF TRANSLATORS"
 #~ msgid "Your names"
