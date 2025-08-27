@@ -1,6 +1,7 @@
 {
     "KPlugin": {
         "Description": "Customize the GRUB2 bootloader",
+        "Description[ar]": "خصص محمّل الإقلاع GRUB2",
         "Description[ca@valencia]": "Personalitza el gestor d'arrancada Grub2",
         "Description[ca]": "Personalitza el gestor d'arrencada Grub2",
         "Description[cs]": "Upravte si zavaděč GRUB2",
@@ -36,6 +37,7 @@
         "Description[zh_TW]": "自訂 GRUB2 開機載入器",
         "Icon": "system-reboot",
         "Name": "GRUB2 Bootloader",
+        "Name[ar]": "محمّل الإقلاع GRUB2",
         "Name[ca@valencia]": "Gestor d'arrancada Grub2",
         "Name[ca]": "Gestor d'arrencada Grub2",
         "Name[cs]": "Zavaděč GRUB2",
@@ -71,6 +73,7 @@
         "Name[zh_TW]": "GRUB2 開機載入器"
     },
     "X-KDE-Keywords": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader",
+    "X-KDE-Keywords[ar]": "grub,إقلاع,القائمة,الإدخالات,الافتراضي,مهلة زمنية,كلمة السر,اللون,البداية,الصورة,أداة تحميل التشغيل",
     "X-KDE-Keywords[ca@valencia]": "grub,arrancada,menú,entrades,predeterminat,temps d'espera,contrasenya,color,pantalla de presentació,imatge,carregador d'arrancada",
     "X-KDE-Keywords[ca]": "grub,arrencada,menú,entrades,predeterminat,temps d'espera,contrasenya,color,pantalla de presentació,imatge,carregador d'arrencada",
     "X-KDE-Keywords[cs]": "grub,boot,nabídka,položky,výchozí,limit,heslo,barva,start,obrázek,bootloader",
