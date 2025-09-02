@@ -54,8 +54,7 @@ msgid ""
 "You do not have write permissions in this directory, please select another "
 "destination."
 msgstr ""
-"No teniu permís d'escriptura en este directori, seleccioneu una altra "
-"destinació."
+"No teniu permís d'escriptura en este directori, trieu una altra destinació."
 
 #: src/helper/helper.cpp:67
 #, kde-format
@@ -756,7 +755,7 @@ msgstr "Establix com fons de pantalla de GRUB:"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select partition to install/recover GRUB:"
-msgstr "Selecciona la partició per a instal·lar o recuperar Grub:"
+msgstr "Tria la partició per a instal·lar o recuperar Grub:"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:48
@@ -1159,7 +1158,7 @@ msgstr "Instal·la/Recupera el gestor d'arrancada"
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select entries to remove:"
-msgstr "Selecciona les entrades que s'han d'eliminar:"
+msgstr "Tria les entrades que s'han d'eliminar:"
 
 #. i18n: ectx: property (toolTip), widget (QCheckBox, checkBox_headers)
 #: ui/removeDlg.ui:34

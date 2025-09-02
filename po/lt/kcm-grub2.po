@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: kcm-grub2\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2025-06-17 00:45+0000\n"
-"PO-Revision-Date: 2021-08-21 12:25+0300\n"
+"PO-Revision-Date: 2025-09-01 21:57+0300\n"
 "Last-Translator: Mindaugas Baranauskas <opensuse.lietuviu.kalba@gmail.com>\n"
 "Language-Team: Lithuanian <kde-i18n-lt@kde.org>\n"
 "Language: lt\n"
@@ -21,13 +21,13 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n==1 ? 0 : n%10>=2 && (n%100<10 || n"
 "%100>=20) ? 1 : n%10==0 || (n%100>10 && n%100<20) ? 2 : 3);\n"
-"X-Generator: Poedit 3.0\n"
+"X-Generator: Poedit 3.6\n"
 
 #: src/convertDlg.cpp:58
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "ImageMagick supported image formats"
-msgstr "ImageMagick palaikomi paveikslėlių formatai"
+msgstr "ImageMagick palaikomi paveikslų formatai"
 
 #: src/convertDlg.cpp:90
 #, kde-format
@@ -36,8 +36,8 @@ msgid ""
 "Please fill in both <interface>Image</interface> and <interface>Convert To</"
 "interface> fields."
 msgstr ""
-"Prašome užpildyti abu <interface>paveikslėlio</interface> ir "
-"<interface>konvertuoti į</interface> laukus."
+"Užpildykite abu <interface>Paveikslo</interface> ir <interface>Konvertuoti "
+"į</interface> laukus."
 
 #: src/convertDlg.cpp:93
 #, kde-format
@@ -46,7 +46,7 @@ msgid ""
 "Please fill in both <interface>Width</interface> and <interface>Height</"
 "interface> fields."
 msgstr ""
-"Prašome užpildyti abu <interface>pločio</interface> ir <interface>aukščio</"
+"Užpildykite abu <interface>Pločio</interface> ir <interface>Aukščio</"
 "interface> laukus."
 
 #: src/convertDlg.cpp:96
@@ -55,19 +55,20 @@ msgctxt "@info"
 msgid ""
 "You do not have write permissions in this directory, please select another "
 "destination."
-msgstr "Jūs neturite teisės rašyti šiame kataloge, pasirinkite kitą."
+msgstr ""
+"Jūs neturite teisės rašyti šiame kataloge, pasirinkite kitą paskirties vietą."
 
 #: src/helper/helper.cpp:67
 #, kde-format
 msgctxt "@info"
 msgid "The process could not be started."
-msgstr "Procesas negalėjo būti paleistas."
+msgstr "Nepavyko paleisti proceso."
 
 #: src/helper/helper.cpp:70
 #, kde-format
 msgctxt "@info"
 msgid "The process crashed."
-msgstr "Procesas nulūžo."
+msgstr "Procesas užstrigo."
 
 #: src/helper/helper.cpp:76
 #, kde-format
@@ -78,13 +79,13 @@ msgstr "Komanda: <command>%1</command><nl/>"
 #: src/helper/helper.cpp:122
 #, kde-format
 msgid "Original configuration file <filename>%1</filename> does not exist."
-msgstr "Pradinio konfigūracijos failas <filename>%1</filename> nėra."
+msgstr "Nėra pradinio konfigūracijos failo <filename>%1</filename>."
 
 #: src/helper/helper.cpp:128
 #, kde-format
 msgid "Cannot remove current configuration file <filename>%1</filename>."
 msgstr ""
-"Nepavyksta pašalinti dabartinio konfigūracijos failo <filename>%1</filename>."
+"Nepavyksta pašalinti esamo konfigūracijos failo <filename>%1</filename>."
 
 #: src/helper/helper.cpp:134
 #, kde-format
@@ -92,13 +93,13 @@ msgid ""
 "Cannot copy original configuration file <filename>%1</filename> to <filename>"
 "%2</filename>."
 msgstr ""
-"Nepavyksta nukopijuoto originalus konfigūracijos failo <filename>%1</"
-"filename> į <filename>%2</filename>."
+"Nepavyksta nukopijuoto pradinio konfigūracijos failo <filename>%1</filename> "
+"į <filename>%2</filename>."
 
 #: src/helper/helper.cpp:151
 #, kde-format
 msgid "Failed to create temporary mount point."
-msgstr "Nepavyko sukurti laikino prijungimo tašką."
+msgstr "Nepavyko sukurti laikinąjį prijungimo tašką."
 
 #: src/helper/helper.cpp:289
 #, kde-format
@@ -112,7 +113,7 @@ msgstr ""
 #, kde-format
 msgctxt "@title:window"
 msgid "Install/Recover Bootloader"
-msgstr "Įdiegti/atkurti sistemos paleidyklę"
+msgstr "Įdiegti/atkurti pradinį įkėliklį"
 
 #: src/installDlg.cpp:113
 #, kde-format
@@ -131,7 +132,7 @@ msgstr "Diegiama"
 #, kde-format
 msgctxt "@info:progress"
 msgid "Installing GRUB..."
-msgstr "Diegiama GRUB..."
+msgstr "Diegiamas GRUB..."
 
 #: src/installDlg.cpp:136 src/kcm_grub2.cpp:510
 #, kde-format
@@ -143,7 +144,7 @@ msgstr "Informacija"
 #, kde-format
 msgctxt "@info"
 msgid "Successfully installed GRUB."
-msgstr "GRUB sėkmingai įdiegta."
+msgstr "GRUB sėkmingai įdiegtas."
 
 #: src/installDlg.cpp:154
 #, kde-format
@@ -155,13 +156,13 @@ msgstr "Nepavyko įdiegti GRUB."
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
-msgstr "Sėkmingai atstatytos numatytos vertės."
+msgstr "Sėkmingai atkurtos numatytosios reikšmės."
 
 #: src/kcm_grub2.cpp:89
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
-msgstr "Nepavyko atstatyti numatytų verčių."
+msgstr "Nepavyko atkurti numatytųjų reikšmių."
 
 #: src/kcm_grub2.cpp:499
 #, kde-format
@@ -191,19 +192,19 @@ msgstr "Nepavyko įrašyti GRUB nuostatų."
 #, kde-format
 msgctxt "@title:window"
 msgid "Enter screen resolution"
-msgstr "Įveskite ekrano raišką"
+msgstr "Įveskite ekrano skiriamąją gebą"
 
 #: src/kcm_grub2.cpp:607
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a GRUB resolution:"
-msgstr "Prašom įvesti GRUB raišką:"
+msgstr "Įveskite GRUB skiriamąją gebą:"
 
 #: src/kcm_grub2.cpp:634
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Please enter a Linux boot resolution:"
-msgstr "Prašome įvesti Linux paleidimo skiriamąją gebą:"
+msgstr "Įveskite Linux paleidimo skiriamąją gebą:"
 
 #: src/kcm_grub2.cpp:689
 #, kde-format
@@ -211,43 +212,43 @@ msgctxt "@info"
 msgid "Press <shortcut>Escape</shortcut> to exit fullscreen mode."
 msgstr ""
 "Paspauskite <shortcut>Escape</shortcut>, kad išeitumėte iš viso ekrano "
-"režimo."
+"veiksenos."
 
 #: src/kcm_grub2.cpp:862 src/kcm_grub2.cpp:863
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Black"
-msgstr "Juodas"
+msgstr "Juoda"
 
 #: src/kcm_grub2.cpp:864 src/kcm_grub2.cpp:865
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Transparent"
-msgstr "Permatomas"
+msgstr "Permatoma"
 
 #: src/kcm_grub2.cpp:868
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Blue"
-msgstr "Mėlynas"
+msgstr "Mėlyna"
 
 #: src/kcm_grub2.cpp:869
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Cyan"
-msgstr "Žydras"
+msgstr "Žydra"
 
 #: src/kcm_grub2.cpp:870
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Dark Gray"
-msgstr "Tamsiai pilkas"
+msgstr "Tamsiai pilka"
 
 #: src/kcm_grub2.cpp:871
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Green"
-msgstr "Žalias"
+msgstr "Žalia"
 
 #: src/kcm_grub2.cpp:872
 #, kde-format
@@ -259,55 +260,55 @@ msgstr "Šviesiai žydra"
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Blue"
-msgstr "Žydras"
+msgstr "Šviesiai mėlyna"
 
 #: src/kcm_grub2.cpp:874
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Green"
-msgstr "Šviesiai žalias"
+msgstr "Šviesiai žalia"
 
 #: src/kcm_grub2.cpp:875
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Gray"
-msgstr "Šviesiai pilkas"
+msgstr "Šviesiai pilka"
 
 #: src/kcm_grub2.cpp:876
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Magenta"
-msgstr "Šviesiai rausvas"
+msgstr "Šviesiai rausva"
 
 #: src/kcm_grub2.cpp:877
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Light Red"
-msgstr "Šviesiai raudonas"
+msgstr "Šviesiai raudona"
 
 #: src/kcm_grub2.cpp:878
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Magenta"
-msgstr "Rausvas"
+msgstr "Rausva"
 
 #: src/kcm_grub2.cpp:879
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Red"
-msgstr "Raudonas"
+msgstr "Raudona"
 
 #: src/kcm_grub2.cpp:880
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "White"
-msgstr "Baltas"
+msgstr "Balta"
 
 #: src/kcm_grub2.cpp:881
 #, kde-format
 msgctxt "@item:inlistbox Refers to color."
 msgid "Yellow"
-msgstr "Geltonas"
+msgstr "Geltonaa"
 
 #: src/kcm_grub2.cpp:895 src/kcm_grub2.cpp:904
 #, kde-format
@@ -319,7 +320,7 @@ msgstr "Tylus paleidimas"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Show Splash Screen"
-msgstr "Rodyti pasveikinimo ekraną"
+msgstr "Rodyti prisistatymo langą"
 
 #: src/kcm_grub2.cpp:897 src/kcm_grub2.cpp:906
 #, kde-format
@@ -349,13 +350,13 @@ msgstr "Išjungti vietinį APIC"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Single User Mode"
-msgstr "Vieno naudojo režimas"
+msgstr "Vieno naudotojo veiksena"
 
 #: src/kcm_grub2.cpp:913 src/kcm_grub2.cpp:920 src/kcm_grub2.cpp:931
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "PC BIOS && EFI Console"
-msgstr "PC BIOS ir EFI konsolė"
+msgstr "PC BIOS ir EFI pultas"
 
 #: src/kcm_grub2.cpp:914 src/kcm_grub2.cpp:921 src/kcm_grub2.cpp:932
 #, kde-format
@@ -369,7 +370,7 @@ msgctxt ""
 "@action:inmenu 'Open' is an adjective here, not a verb. 'Open Firmware' is a "
 "former IEEE standard."
 msgid "Open Firmware Console"
-msgstr "Atverti mikroprogramos konsolę"
+msgstr "Atviras programinės aparatinės įrangos pultas"
 
 #: src/kcm_grub2.cpp:925
 #, kde-format
@@ -387,7 +388,7 @@ msgstr "USB klaviatūra (HID paleidimo protokolas)"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "Graphics Mode Output"
-msgstr "Grafinės veiksenos išvestis"
+msgstr "Grafikos veiksenos išvestis"
 
 #: src/kcm_grub2.cpp:937
 #, kde-format
@@ -399,13 +400,13 @@ msgstr "VGA teksto išvestis (Coreboot)"
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "No translation"
-msgstr "Neišversta"
+msgstr "Be vertimo"
 
 #: src/kcm_grub2.cpp:1161 src/kcm_grub2.cpp:1165
 #, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Custom..."
-msgstr "Pasirinktas..."
+msgstr "Tinkinta..."
 
 #: src/kcm_grub2.cpp:1162 src/kcm_grub2.cpp:1166
 #, kde-format
@@ -423,13 +424,13 @@ msgstr "Nenurodyta"
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Boot in Text Mode"
-msgstr "Krauti tekstiniame režime"
+msgstr "Paleisti tekstinėje veiksenoje"
 
 #: src/kcm_grub2.cpp:1169
 #, kde-format
 msgctxt "@item:inlistbox"
 msgid "Keep GRUB's Resolution"
-msgstr "Išlaikyti GRUB raišką"
+msgstr "Išlaikyti GRUB skiriamąją gebą"
 
 #: src/qPkBackend.cpp:36
 #, kde-format
@@ -483,7 +484,7 @@ msgstr "Diegiami paketai"
 #, kde-format
 msgctxt "transaction state, refreshing internal lists"
 msgid "Refreshing software list"
-msgstr "Atnaujinamas programų sąrašas"
+msgstr "Iš naujo įkeliamas programinės įrangos sąrašas"
 
 #: src/qPkBackend.cpp:63
 #, kde-format
@@ -495,13 +496,13 @@ msgstr "Atnaujinami paketai"
 #, kde-format
 msgctxt "transaction state, removing old packages, and cleaning config files"
 msgid "Cleaning up packages"
-msgstr "Valomi paketai"
+msgstr "Išvalomi paketai"
 
 #: src/qPkBackend.cpp:69
 #, kde-format
 msgctxt "transaction state, obsoleting old packages"
 msgid "Obsoleting packages"
-msgstr "Nebevartojami paketai"
+msgstr "Nustatomi nebenaudojami paketai"
 
 #: src/qPkBackend.cpp:72
 #, kde-format
@@ -521,7 +522,7 @@ msgstr "Tikrinami parašai"
 #, kde-format
 msgctxt "transaction state, when we're doing a test transaction"
 msgid "Testing changes"
-msgstr "Testuojami pakeitimai"
+msgstr "Išbandomi pakeitimai"
 
 #: src/qPkBackend.cpp:81
 #, kde-format
@@ -539,13 +540,13 @@ msgstr "Užklausiama duomenų"
 #, kde-format
 msgctxt "transaction state, all done!"
 msgid "Finished"
-msgstr "Baigta"
+msgstr "Užbaigta"
 
 #: src/qPkBackend.cpp:90
 #, kde-format
 msgctxt "transaction state, in the process of cancelling"
 msgid "Cancelling"
-msgstr "Atšaukiama"
+msgstr "Nutraukiama"
 
 #: src/qPkBackend.cpp:93
 #, kde-format
@@ -587,7 +588,7 @@ msgstr "Atsiunčiama informacija apie atnaujinimą"
 #, kde-format
 msgctxt "transaction state, repackaging delta files"
 msgid "Repackaging files"
-msgstr "Perpakuojami failai"
+msgstr "Iš naujo pakuojami failai"
 
 #: src/qPkBackend.cpp:114
 #, kde-format
@@ -599,7 +600,7 @@ msgstr "Įkeliamas podėlis"
 #, kde-format
 msgctxt "transaction state, scanning for running processes"
 msgid "Scanning installed applications"
-msgstr "Ieškoma įdiegtų programų"
+msgstr "Peržiūrimos įdiegtos programos"
 
 #: src/qPkBackend.cpp:120
 #, kde-format
@@ -612,13 +613,13 @@ msgstr "Kuriami paketų sąrašai"
 #, kde-format
 msgctxt "transaction state, when we're waiting for the native tools to exit"
 msgid "Waiting for package manager lock"
-msgstr "Laukiama paketų tvarkyklės užrakto"
+msgstr "Laukiama paketų tvarkytuvės užrakto"
 
 #: src/qPkBackend.cpp:126
 #, kde-format
 msgctxt "waiting for user to type in a password"
 msgid "Waiting for authentication"
-msgstr "Laukiama autentikacijos"
+msgstr "Laukiama tapatybės nustatymo"
 
 #: src/qPkBackend.cpp:129
 #, kde-format
@@ -684,7 +685,7 @@ msgstr "Branduolys %1"
 #, kde-format
 msgctxt "@info"
 msgid "No removable entries were found."
-msgstr "Nerasta pašalinamų įrašų."
+msgstr "Nerasta įrašų, kuriuos galima būtų pašalinti."
 
 #: src/removeDlg.cpp:137
 #, kde-format
@@ -696,20 +697,20 @@ msgstr "Ar tikrai norite pašalinti šiuos paketus?"
 #, kde-format
 msgctxt "@title:window"
 msgid "Removing Old Entries"
-msgstr "Pašalinti senus įrašus"
+msgstr "Šalinti senus įrašus"
 
 #: src/removeDlg.cpp:179
 #, kde-format
 msgctxt "@info"
 msgid "Package removal failed."
-msgstr "Paketo šalinimas nepavyko."
+msgstr "Nepavyko pašalinti paketo."
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/convertDlg.ui:19
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Image:"
-msgstr "Paveikslėlis:"
+msgstr "Paveikslas:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_2)
 #: ui/convertDlg.ui:29
@@ -744,28 +745,28 @@ msgstr "Aukštis:"
 #, kde-format
 msgctxt "@option:check"
 msgid "Force resolution:"
-msgstr "Priversti ekrano raišką:"
+msgstr "Priverstinai naudoti skiriamąją gebą:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_6)
 #: ui/convertDlg.ui:85
 #, kde-format
 msgctxt "@option:check"
 msgid "Set As GRUB Wallpaper:"
-msgstr "Nustatyti kaip GRUB apmušalą:"
+msgstr "Nustatyti kaip GRUB darbalaukio foną:"
 
 #. i18n: ectx: property (text), widget (QLabel, label)
 #: ui/installDlg.ui:17
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Select partition to install/recover GRUB:"
-msgstr "Pasirinkite skaidinį GRUB įdiegimui/atstatymui:"
+msgstr "Pasirinkite skaidinį GRUB įdiegimui/atkūrimui:"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:48
 #, kde-format
 msgctxt "@title:column"
 msgid "Partition"
-msgstr "Skaidinys"
+msgstr "Prijungimo taškas"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:53
@@ -779,7 +780,7 @@ msgstr "Montavimo taškas"
 #, kde-format
 msgctxt "@title:column"
 msgid "Label"
-msgstr "Žymė"
+msgstr "Etiketė"
 
 #. i18n: ectx: property (text), widget (QTreeWidget, treeWidget_recover)
 #: ui/installDlg.ui:63
@@ -803,57 +804,57 @@ msgid ""
 "Install the bootloader on the boot sector of the selected partition instead "
 "of the MBR(=Master Boot Sector). Not recommended."
 msgstr ""
-"Įdiegti pradinį įkėliklį skaidinio paleidimo paleidimo sektoriuje, ne "
-"MBR(=Master Boot Sector). Nerekomenduojama."
+"Įdiegti pradinį įkėliklį pasirinkto skaidinio paleidimo sektoriuje, o ne "
+"MBR(=Master Boot Sector) paleidimo įraše. Nerekomenduojama."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
 #: ui/installDlg.ui:79
 #, kde-format
 msgctxt "@option:check"
 msgid "Install on partition instead of MBR (Advanced)"
-msgstr "Įdiegti skaidinyje vietoje MBR (Išsamiau)"
+msgstr "Įdiegti skaidinyje vietoje MBR (Išplėstiniai)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: ui/kcm_grub2.ui:21
 #, kde-format
 msgctxt "@title:tab Refers to settings."
 msgid "General"
-msgstr "Bendri"
+msgstr "Bendra"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_default)
 #: ui/kcm_grub2.ui:27
 #, kde-format
 msgctxt "@title:group"
 msgid "Default Entry"
-msgstr "Numatytas įrašas"
+msgstr "Numatytasis įrašas"
 
 #. i18n: ectx: property (text), widget (QLabel, label_default)
 #: ui/kcm_grub2.ui:33
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Default Entry:"
-msgstr "Numatytas įrašas:"
+msgstr "Numatytasis įrašas:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
 #: ui/kcm_grub2.ui:49
 #, kde-format
 msgctxt "@action:button"
 msgid "Remove Old Entries"
-msgstr "Pašalinti senus įrašus"
+msgstr "Šalinti senus įrašus"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_savedefault)
 #: ui/kcm_grub2.ui:58
 #, kde-format
 msgctxt "@option:check"
 msgid "The next booted entry will become default"
-msgstr "Kitas pakrautas įrašas taps numatytuoju"
+msgstr "Kitas paleistas įrašas taps numatytuoju"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
 #: ui/kcm_grub2.ui:68
 #, kde-format
 msgctxt "@title:group"
 msgid "Timeout"
-msgstr "Laikas baigėsi"
+msgstr "Laiko limitas"
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_hiddenTimeout)
 #: ui/kcm_grub2.ui:76
@@ -882,14 +883,14 @@ msgstr "Rodyti atvirkštinį laikmatį"
 #, kde-format
 msgctxt "@option:check"
 msgid "Automatically boot the default entry after showing the menu"
-msgstr "Automatiškai įkelti numatytą įrašą po meniu parodymo"
+msgstr "Parodžius meniu automatiškai įkelti numatytąjį įrašą"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
 #: ui/kcm_grub2.ui:144
 #, kde-format
 msgctxt "@option:radio"
 msgid "Immediately"
-msgstr "Tuojau pat"
+msgstr "Nedelsiant"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout)
 #: ui/kcm_grub2.ui:169
@@ -944,7 +945,7 @@ msgstr "Išvaizda"
 #, kde-format
 msgctxt "@title:group"
 msgid "Resolutions"
-msgstr "Raiška"
+msgstr "Skiriamosios gebos"
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxmode)
 #: ui/kcm_grub2.ui:267
@@ -959,7 +960,7 @@ msgstr "GRUB:"
 #, kde-format
 msgctxt "@info:tooltip"
 msgid "Probe for supported VBE resolutions."
-msgstr "Bandyti palaikomas VBE skiriamąsias gebas."
+msgstr "Ištirti palaikomas VBE skiriamąsias gebas."
 
 #. i18n: ectx: property (text), widget (QLabel, label_gfxpayload)
 #: ui/kcm_grub2.ui:295
@@ -980,14 +981,14 @@ msgstr "Spalvos"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Foreground (Text):"
-msgstr "Normalus priekinis planas (Tekstas)"
+msgstr "Normalus priekinis planas (Tekstas):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
 #: ui/kcm_grub2.ui:344
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Foreground (Text):"
-msgstr "Paryškinti priekinį planą (Tekstas):"
+msgstr "Paryškintas priekinis planas (Tekstas):"
 
 #. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
 #: ui/kcm_grub2.ui:358
@@ -1015,7 +1016,7 @@ msgstr "Fonas"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Wallpaper:"
-msgstr "Apmušalas:"
+msgstr "Darbalaukio fonas:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_preview)
 #: ui/kcm_grub2.ui:401
@@ -1036,14 +1037,14 @@ msgstr "Sukurti"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Theme:"
-msgstr "Tema:"
+msgstr "Apipavidalinimas:"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab_2)
 #: ui/kcm_grub2.ui:444
 #, kde-format
 msgctxt "@title:tab Refers to settings."
 msgid "Advanced"
-msgstr "Sudėtingesni"
+msgstr "Išplėstiniai"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_linux)
 #: ui/kcm_grub2.ui:450
@@ -1057,7 +1058,7 @@ msgstr "Linux branduolio parametrai"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Normal Entries:"
-msgstr "Normalūs įrašai:"
+msgstr "Įprasti įrašai:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineDefaultSuggestions)
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_cmdlineSuggestions)
@@ -1118,7 +1119,7 @@ msgstr "Kita"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Distributor:"
-msgstr "Platinamasis paketas:"
+msgstr "Platintojas:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_serial)
 #: ui/kcm_grub2.ui:589
@@ -1132,14 +1133,14 @@ msgstr "Nuoseklioji komanda:"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Init Tune:"
-msgstr ""
+msgstr "Inicijavimo melodija:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_uuid)
 #: ui/kcm_grub2.ui:609
 #, kde-format
 msgctxt "@option:check"
 msgid "Enable UUIDs:"
-msgstr "Įgalinti UUID:"
+msgstr "Įjungti UUID:"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_tools)
 #: ui/kcm_grub2.ui:635
