@@ -33,7 +33,6 @@
         "Description[sv]": "Anpassa GRUB2 startprogram",
         "Description[tr]": "GRUB2 önyükleyicisini özelleştirin",
         "Description[uk]": "Налаштування завантажувача GRUB2",
-        "Description[x-test]": "xxCustomize the GRUB2 bootloaderxx",
         "Description[zh_CN]": "自定义 GRUB2 启动引导程序",
         "Description[zh_TW]": "自訂 GRUB2 開機載入器",
         "Icon": "system-reboot",
@@ -70,7 +69,6 @@
         "Name[sv]": "GRUB2 startprogram",
         "Name[tr]": "GRUB2 Önyükleyicisi",
         "Name[uk]": "Завантажувач GRUB2",
-        "Name[x-test]": "xxGRUB2 Bootloaderxx",
         "Name[zh_CN]": "GRUB2 启动引导程序",
         "Name[zh_TW]": "GRUB2 開機載入器"
     },
@@ -101,7 +99,6 @@
     "X-KDE-Keywords[sv]": "grub,start,meny,alternativ,förval,tidsgräns,lösenord,färg,startskärm,bild,laddprogram",
     "X-KDE-Keywords[tr]": "grub,önyükleme,boot,menü,girdiler,girişler,öntanımlı,varsayılan,zaman aşımı,timeout,parola,şifre,renk,açılış,görsel,görüntü,önyükleyici",
     "X-KDE-Keywords[uk]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,груб,завантаження,меню,пункти,типовий,час,очікування,пароль,колір,зображення,завантаження",
-    "X-KDE-Keywords[x-test]": "xxgrubxx,xxbootxx,xxmenuxx,xxentriesxx,xxdefaultxx,xxtimeoutxx,xxpasswordxx,xxcolorxx,xxsplashxx,xximagexx,xxbootloaderxx",
     "X-KDE-Keywords[zh_CN]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,qidong,yindao,caidan,moren,chaoshi,mima,qidongtu,qidongxiang,yanse,tuxiang,yindaochengxu,启动,引导,菜单,默认,超时,密码,启动图,启动项,颜色,图像,引导程序",
     "X-KDE-Keywords[zh_TW]": "開機,選單,項目,條目,預設值,逾時,等待,開機等待,密碼,色彩,顏色,圖片,影像,開機載入器",
     "X-KDE-ParentApp": "kcontrol",
