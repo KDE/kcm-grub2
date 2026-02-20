@@ -87,11 +87,9 @@ msgid ""
 msgstr ""
 
 #: src/helper/helper.cpp:151
-#, fuzzy, kde-format
-#| msgctxt "@info"
-#| msgid "Failed to create temporary mount point."
+#, kde-format
 msgid "Failed to create temporary mount point."
-msgstr "Níorbh fhéidir pointe feistithe sealadach a chruthú."
+msgstr ""
 
 #: src/helper/helper.cpp:289
 #, kde-format
@@ -403,12 +401,10 @@ msgid "Auto"
 msgstr ""
 
 #: src/kcm_grub2.cpp:1167
-#, fuzzy, kde-format
-#| msgctxt "@item:inlistbox"
-#| msgid "Unspecified"
+#, kde-format
 msgctxt "@item:inlistbox Refers to screen resolution."
 msgid "Unspecified"
-msgstr "Gan sonrú"
+msgstr ""
 
 #: src/kcm_grub2.cpp:1168
 #, kde-format
@@ -636,20 +632,16 @@ msgid "Copying files"
 msgstr "Comhaid á gcóipeáil"
 
 #: src/qPkBackend.cpp:140
-#, fuzzy, kde-format
-#| msgctxt "transaction state, just started"
-#| msgid "Running task"
+#, kde-format
 msgctxt "we are running the install hooks"
 msgid "Running install hooks"
-msgstr "Tasc á rith"
+msgstr ""
 
 #: src/qPkBackend.cpp:142
-#, fuzzy, kde-format
-#| msgctxt "This is when the transaction status is not known"
-#| msgid "Unknown state"
+#, kde-format
 msgctxt "we received an unknown status"
 msgid "Unknown status"
-msgstr "Staid anaithnid"
+msgstr ""
 
 #: src/removeDlg.cpp:60
 #, kde-format
@@ -1171,63 +1163,3 @@ msgstr "Bain na comhaid cheanntáisc a bhaineann leis an eithne."
 msgctxt "@option:check"
 msgid "Also remove associated old packages"
 msgstr "Bain seanphacáistí gaolmhara freisin"
-
-#~ msgctxt "NAME OF TRANSLATORS"
-#~ msgid "Your names"
-#~ msgstr "Kevin Scannell"
-
-#~ msgctxt "EMAIL OF TRANSLATORS"
-#~ msgid "Your emails"
-#~ msgstr "kscanne@gmail.com"
-
-#~ msgctxt "@title"
-#~ msgid "KDE GRUB2 Bootloader Control Module"
-#~ msgstr "Modúl Rialaithe Luchtóir Rialaithe GRUB2 de chuid KDE"
-
-#~ msgctxt "@title"
-#~ msgid "A KDE Control Module for configuring the GRUB2 bootloader."
-#~ msgstr ""
-#~ "Modúl Rialaithe KDE a dhéanann cumraíocht ar an luchtóir tosaithe GRUB2."
-
-#, fuzzy
-#~| msgctxt "@info:credit"
-#~| msgid "Copyright (C) 2008-2012 Konstantinos Smanis"
-#~ msgctxt "@info:credit"
-#~ msgid "Copyright (C) 2008-2013 Konstantinos Smanis"
-#~ msgstr "© 2008-2012 Konstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Κonstantinos Smanis"
-#~ msgstr "Κonstantinos Smanis"
-
-#~ msgctxt "@info:credit"
-#~ msgid "Main Developer"
-#~ msgstr "Príomhfhorbróir"
-
-#~ msgctxt "transaction state, when we return to a previous system state"
-#~ msgid "Rolling back"
-#~ msgstr "Á chealú"
-
-#~ msgctxt "@title:window"
-#~ msgid "Probing devices"
-#~ msgstr "Gléasanna á bhfiosrú"
-
-#~ msgctxt "@info:progress"
-#~ msgid "Probing devices for their GRUB names..."
-#~ msgstr "Ag lorg ainmneacha GRUB na ngléasanna..."
-
-#~ msgctxt "@info"
-#~ msgid "Failed to get GRUB device names."
-#~ msgstr "Níorbh fhéidir ainmneacha GRUB na ngléasanna a fháil."
-
-#~ msgctxt "@info"
-#~ msgid "Helper returned malformed device list."
-#~ msgstr "D'aisfhill an cúntóir liosta míchumtha gléasanna."
-
-#~ msgctxt "@info"
-#~ msgid "No valid GRUB2/BURG installation could be detected!"
-#~ msgstr "Níor aimsíodh aon leagan bailí de GRUB2/BURG!"
-
-#~ msgctxt "@action:button"
-#~ msgid "Reload Configuration"
-#~ msgstr "Athluchtaigh an Chumraíocht"
