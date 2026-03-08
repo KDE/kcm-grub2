@@ -379,7 +379,7 @@ msgstr "图形模式输出"
 #, kde-format
 msgctxt "@action:inmenu"
 msgid "VGA Text Output (Coreboot)"
-msgstr "VGA 文字输出 (Coreboot)"
+msgstr "VGA 文本输出 (Coreboot)"
 
 #: src/kcm_grub2.cpp:1118
 #, kde-format
@@ -966,14 +966,14 @@ msgstr "颜色"
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Normal Foreground (Text):"
-msgstr "正常前景色 (文字)："
+msgstr "正常前景色 (文本)："
 
 #. i18n: ectx: property (text), widget (QLabel, label_highlightForeground)
 #: ui/kcm_grub2.ui:344
 #, kde-format
 msgctxt "@label:chooser"
 msgid "Highlight Foreground (Text):"
-msgstr "高亮前景色 (文字)："
+msgstr "高亮前景色 (文本)："
 
 #. i18n: ectx: property (text), widget (QLabel, label_normalBackground)
 #: ui/kcm_grub2.ui:358
