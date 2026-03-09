@@ -1072,14 +1072,14 @@ msgstr "كلّ المدخلات:"
 #, kde-format
 msgctxt "@title:group Noun."
 msgid "Terminal"
-msgstr "الطّرفيّة"
+msgstr "الطرفية"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminal)
 #: ui/kcm_grub2.ui:507
 #, kde-format
 msgctxt "@label:textbox Noun."
 msgid "Terminal:"
-msgstr "الطّرفيّة:"
+msgstr "الطرفية:"
 
 #. i18n: ectx: property (text), widget (QLabel, label_terminalInput)
 #: ui/kcm_grub2.ui:528
