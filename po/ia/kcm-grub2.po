@@ -995,7 +995,7 @@ msgstr "Fundo"
 #, kde-format
 msgctxt "@label:textbox"
 msgid "Wallpaper:"
-msgstr "Tapete de papiro:"
+msgstr "Fundo de schermo:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_preview)
 #: ui/kcm_grub2.ui:401
