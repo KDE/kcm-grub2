@@ -792,7 +792,7 @@ msgid ""
 "Install the bootloader on the boot sector of the selected partition instead "
 "of the MBR(=Master Boot Sector). Not recommended."
 msgstr ""
-"ثبّت محمّل الإقلاع على قطاع الإقلاع للقسم المحدد بدلاً من MBR (=قطاع الإقلاع "
+"ثبّت محمّل الإقلاع على قطاع الإقلاع للقسم المحدد بدلًا من MBR (=قطاع الإقلاع "
 "الرئيسي). غير موصى به."
 
 #. i18n: ectx: property (text), widget (QCheckBox, checkBox_partition)
@@ -800,7 +800,7 @@ msgstr ""
 #, kde-format
 msgctxt "@option:check"
 msgid "Install on partition instead of MBR (Advanced)"
-msgstr "التثبيت على القسم بدلاً من MBR (متقدم)"
+msgstr "التثبيت على القسم بدلًا من MBR (متقدم)"
 
 #. i18n: ectx: attribute (title), widget (QWidget, tab)
 #: ui/kcm_grub2.ui:21
