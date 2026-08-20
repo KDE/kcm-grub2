@@ -1,5 +1,6 @@
 {
     "KPlugin": {
+        "BugReportUrl": "https://bugs.kde.org/enter_bug.cgi?product=systemsettings&component=kcm_grub2",
         "Description": "Customize the GRUB2 bootloader",
         "Description[ar]": "خصص محمّل الإقلاع GRUB2",
         "Description[ca@valencia]": "Personalitza el gestor d'arrancada Grub2",
