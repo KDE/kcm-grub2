@@ -489,7 +489,7 @@ msgstr "Installation des paquets"
 #, kde-format
 msgctxt "transaction state, refreshing internal lists"
 msgid "Refreshing software list"
-msgstr "Rafraîchissement de la liste de logiciels"
+msgstr "Rafraichissement de la liste de logiciels"
 
 #: src/qPkBackend.cpp:63
 #, kde-format
