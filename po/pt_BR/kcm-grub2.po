@@ -2,7 +2,7 @@
 # Copyright (C) 2011-2015 This_file_is_part_of_KDE
 # This file is distributed under the same license as the PACKAGE package.
 #
-# SPDX-FileCopyrightText: 2011, 2025 Marcus Gama <marcus.gama@gmail.com>
+# SPDX-FileCopyrightText: 2011, 2025 Marcus Gama <marcus.gama@kde.org>
 # André Marcelo Alvarenga <alvarenga@kde.org>, 2011, 2012, 2013, 2015.
 # Luiz Fernando Ranghetti <elchevive@opensuse.org>, 2012, 2019, 2020, 2021.
 msgid ""
@@ -11,7 +11,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-08 03:00+0000\n"
 "PO-Revision-Date: 2025-09-14 08:41-0300\n"
-"Last-Translator: Marcus Gama <marcus.gama@gmail.com>\n"
+"Last-Translator: Marcus Gama <marcus.gama@kde.org>\n"
 "Language-Team: Brazilian Portuguese <kde-i18n-pt_BR@kde.org>\n"
 "Language: pt_BR\n"
 "MIME-Version: 1.0\n"
@@ -1179,7 +1179,7 @@ msgstr "Também remover os pacotes antigos associados"
 
 #~ msgctxt "EMAIL OF TRANSLATORS"
 #~ msgid "Your emails"
-#~ msgstr "marcus.gama@gmail.com, alvarenga@kde.org"
+#~ msgstr "marcus.gama@kde.org, alvarenga@kde.org"
 
 #~ msgctxt "@title"
 #~ msgid "KDE GRUB2 Bootloader Control Module"
