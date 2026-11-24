@@ -117,7 +117,7 @@
     "X-KDE-Keywords[sr@latin]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,Grub,podizanje,meni,stavke,podrazumevano,prekovreme,lozinka,boja,uvodni ekran,slika,podizni učitavač",
     "X-KDE-Keywords[sr]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,Груб,подизање,мени,ставке,подразумевано,прековреме,лозинка,боја,уводни екран,слика,подизни учитавач",
     "X-KDE-Keywords[sv]": "grub,start,meny,alternativ,förval,tidsgräns,lösenord,färg,startskärm,bild,laddprogram",
-    "X-KDE-Keywords[tr]": "grub,önyükleme,boot,menü,girdiler,girişler,öntanımlı,varsayılan,zaman aşımı,timeout,parola,şifre,renk,açılış,görsel,görüntü,önyükleyici",
+    "X-KDE-Keywords[tr]": "grub,önyükleme,boot,menü,girdiler,girişler,varsayılan,varsayılan,zaman aşımı,timeout,parola,şifre,renk,açılış,görsel,görüntü,önyükleyici",
     "X-KDE-Keywords[ug]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,يېتەكلەش,تىزىملىك,كۆڭۈلدىكى,ئىم,ۋاقتى ئۆتتى,رەڭ,تەسۋىر,قوزغىتىش يېتەكلىگۈچ",
     "X-KDE-Keywords[uk]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,груб,завантаження,меню,пункти,типовий,час,очікування,пароль,колір,зображення,завантаження",
     "X-KDE-Keywords[zh_CN]": "grub,boot,menu,entries,default,timeout,password,color,splash,image,bootloader,qidong,yindao,caidan,moren,chaoshi,mima,qidongtu,qidongxiang,yanse,tuxiang,yindaochengxu,启动,引导,菜单,默认,超时,密码,启动图,启动项,颜色,图像,引导程序",
