@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: extragear-sysadmin-kde4\n"
 "Report-Msgid-Bugs-To: https://bugs.kde.org\n"
 "POT-Creation-Date: 2026-11-08 03:00+0000\n"
-"PO-Revision-Date: 2026-11-19 19:26+0300\n"
+"PO-Revision-Date: 2026-11-23 18:13+0300\n"
 "Last-Translator: Emir SARI <emir_sari@icloud.com>\n"
 "Language-Team: Turkish <kde-l10n-tr@kde.org>\n"
 "Language: tr\n"
@@ -149,13 +149,13 @@ msgstr "GRUB kurulamadı."
 #, kde-format
 msgctxt "@info"
 msgid "Successfully restored the default values."
-msgstr "Öntanımlı değerlere başarıyla dönüldü."
+msgstr "Varsayılan değerlere başarıyla dönüldü."
 
 #: src/kcm_grub2.cpp:89
 #, kde-format
 msgctxt "@info"
 msgid "Failed to restore the default values."
-msgstr "Öntanımlı değerlere dönülemedi."
+msgstr "Varsayılan değerlere dönülemedi."
 
 #: src/kcm_grub2.cpp:499
 #, kde-format
@@ -818,14 +818,14 @@ msgstr "Genel"
 #, kde-format
 msgctxt "@title:group"
 msgid "Default Entry"
-msgstr "Öntanımlı Girdi"
+msgstr "Varsayılan Girdi"
 
 #. i18n: ectx: property (text), widget (QLabel, label_default)
 #: ui/kcm_grub2.ui:33
 #, kde-format
 msgctxt "@label:listbox"
 msgid "Default Entry:"
-msgstr "Öntanımlı girdi:"
+msgstr "Varsayılan girdi:"
 
 #. i18n: ectx: property (text), widget (QPushButton, pushbutton_remove)
 #: ui/kcm_grub2.ui:49
@@ -839,7 +839,7 @@ msgstr "Eski Girdileri Kaldır"
 #, kde-format
 msgctxt "@option:check"
 msgid "The next booted entry will become default"
-msgstr "En son yüklenen girdi öntanımlı olur"
+msgstr "En son yüklenen girdi varsayılan olur"
 
 #. i18n: ectx: property (title), widget (QGroupBox, groupBox_timeout)
 #: ui/kcm_grub2.ui:68
@@ -875,7 +875,7 @@ msgstr "Geri sayım sayacını göster"
 #, kde-format
 msgctxt "@option:check"
 msgid "Automatically boot the default entry after showing the menu"
-msgstr "Menüyü gösterdikten sonra öntanımlı girdiyi kendiliğinden yükle"
+msgstr "Menüyü gösterdikten sonra varsayılan girdiyi kendiliğinden yükle"
 
 #. i18n: ectx: property (text), widget (QRadioButton, radioButton_timeout0)
 #: ui/kcm_grub2.ui:144
